@@ -437,6 +437,54 @@ BLOOM_NO_SYMTBL=1
 
 endif
 
+ifeq ($(BARCH),mac64)
+SHAREDEXT= dylib
+X11BASEDIR= /usr/X11R6
+MOTIFBASEDIR= /usr/X11R6
+MACHFLAGS= -DAPPLE -D_REENTRANT -D_THREAD_SAFE -I/sw/include -fpascal-strings -DXERCESNS=xercesc_2_7
+MACHCPLUSFLAGS= -Wno-non-template-friend -Wno-long-double -D_XOPEN_SOURCE=500 -D_BSD_SOURCE=1
+MACHLIB=
+X64FLAGS=
+PROFFLAG= -pg
+XERCESLIB= -I/usr/local/lib -lxerces-c
+SHARED_LD_OPTION= -dynamiclib
+OPTFLAG= -O3
+LOCAL_CC= gcc
+LOCAL_CCPLUS=g++
+SHARFLAGS= -fPIC
+ARCREATE= arcreate
+LD_SEARCH_OPTION=-L
+LD_SEARCH_NOSPACE= true
+SOCKET_LIB=
+THREADFLAGS=
+TIFFLIB= -L/sw/lib -ltiff
+QTINCL=/downloads/QtMacEval/include
+QTLIB= -lqgl -lqt -lpng
+QTLIB= -lqt -lpng
+QTLIB= /usr/lib/libqt-gl.so.2 /usr/lib/libqt-mt.so.2 -lpng
+QTLIB= -L/downloads/QtMacEval/lib -lqt-mt
+QTLIB=
+GLLIBS= /System/Library/Frameworks/OpenGL.framework/Libraries/libGL.dylib \
+	/System/Library/Frameworks/OpenGL.framework/Libraries/libGLU.dylib \
+	/System/Library/Frameworks/OpenGL.framework/Libraries/libGLSystem.dylib \
+	-framework CoreFoundation -framework CoreServices \
+	-framework Carbon -framework ApplicationServices -framework AGL
+GLLIBS= -framework OpenGL \
+	-framework CoreFoundation -framework CoreServices \
+	-framework Carbon -framework ApplicationServices -framework AGL
+GLLIBDIR=/System/Library/Framewords/OpenGL.framework/Libraries
+GLINCL=/System/Library/Frameworks/OpenGL.framework/Headers
+NO64=1
+MAKEDEP= mkdep
+MAKEDEPSEP=
+MAKEDEPCLEAN= cp dep1 dep2
+JHOME:= /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK
+JINCL= Headers
+LIBTYPE= a
+BLOOM_NO_SYMTBL=1
+
+endif
+
 
 #
 #	Setup default paths
