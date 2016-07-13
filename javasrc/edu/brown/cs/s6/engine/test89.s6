@@ -1,0 +1,22 @@
+<SEARCH FORMAT='NONE' OHLOH='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+<METHOD MODS='0'>
+<NAME>readCsv</NAME>
+<RETURN>java.lang.String[]</RETURN>
+<ARGS>java.lang.String</ARGS>
+<ARGNAMES>line</ARGNAMES>
+<TEXT>java.lang.String[] readCsv(java.lang.String line)</TEXT>
+</METHOD>
+</SIGNATURE><TESTS>
+<TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+<CALL METHOD='readCsv' OP='EQL'>
+<INPUT TYPE='STRING'>
+<VALUE><![CDATA["Lajas",PR,"00659"]]></VALUE>
+</INPUT>
+<OUTPUT TYPE='LITERAL'>
+<VALUE><![CDATA[new java.lang.String[] {"Lajas" , "PR" , "00659"}]]></VALUE>
+</OUTPUT>
+</CALL>
+</TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS><KEYWORD><![CDATA[csv]]></KEYWORD></KEYWORDS></SEARCH>
+

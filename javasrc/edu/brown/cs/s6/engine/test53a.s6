@@ -1,0 +1,49 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='8'>
+    <NAME>lineCount</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>file</ARGNAMES>
+    <EXCEPTIONS>java.io.IOException</EXCEPTIONS>
+    <TEXT>int lineCount(java.lang.String file)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='lineCount' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[/s6/testfile.data]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[74]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS />
+<CONTEXT FILE="/pro/s6/context/src/test1.s6ctx" />
+<KEYWORDS>
+<KEYWORD><![CDATA[count]]></KEYWORD>
+<KEYWORD><![CDATA[lines]]></KEYWORD>
+<KEYWORD><![CDATA[file]]></KEYWORD>
+</KEYWORDS>
+<SOURCES>
+<SOURCE USE='true'>GITHUB:/Jaus/Summer-2011-Research/blob/c1e808770b92cc50e7c7b328affea3d743128d3a/src/RandomSelection.java</SOURCE>
+</SOURCES>
+</SEARCH>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

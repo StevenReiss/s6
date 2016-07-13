@@ -1,0 +1,27 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='FALSE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='s6tgen_107007' NAME='S6TestStringUtil'>
+      <TESTEE PACKAGE='s6tgen_107007'>
+	 <CLASS NAME='StringUtil'>
+	    <METHOD NAME='lines' SIGNATURE='(Ljava/lang/String;)I' STATIC='true'
+		RETURN='int'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='size' SIGNATURE='(Ljava/awt/FontMetrics;Ljava/lang/String;)Ljava/awt/Dimension;'
+		RETURN='java.awt.Dimension' STATIC='TRUE'
+		ARGS='(java.awt.FontMetrics,java.lang.String)' />
+	    <METHOD NAME='processLabel' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='(java.lang.String)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>count</KEYWORD>
+   <KEYWORD>lines</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>org.junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/ws/volfred/s6/s6tgen/context.s6ctx' />
+</SEARCH>
+

@@ -1,0 +1,29 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_65017' NAME='S6TestMatch'>
+      <TESTEE PACKAGE='s6tgen_65017'>
+        <CLASS NAME='Match'>
+          <METHOD NAME='Match' SIGNATURE='()' />
+          <METHOD NAME='Match' SIGNATURE='(Ljava/lang/Character;DDD)' />
+          <METHOD NAME='getChr' SIGNATURE='()Ljava/lang/Character;' />
+          <METHOD NAME='setChr' SIGNATURE='(Ljava/lang/Character;)V' />
+          <METHOD NAME='getDistance' SIGNATURE='()D' />
+          <METHOD NAME='setDistance' SIGNATURE='(D)V' />
+          <METHOD NAME='getRed' SIGNATURE='()D' />
+          <METHOD NAME='setRed' SIGNATURE='(D)V' />
+          <METHOD NAME='getYellow' SIGNATURE='()D' />
+          <METHOD NAME='setYellow' SIGNATURE='(D)V' />
+          <METHOD NAME='compareTo' SIGNATURE='(Lnet/sourceforge/javaocr/matcher/Match;)I' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>yellow</KEYWORD>
+    <KEYWORD>distance</KEYWORD>
+    <KEYWORD>red</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_65017/context.s6ctx' />
+</SEARCH>

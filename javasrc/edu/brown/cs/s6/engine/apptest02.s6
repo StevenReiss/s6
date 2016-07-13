@@ -1,0 +1,57 @@
+<SEARCH WHAT='APPLICATION' LOCAL='FALSE' REMOTE='TRUE' GITZIP='TRUE' SCOPE='PACKAGE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.httpserver'>
+      <CLASS NAME='SprHttpServer'>
+	 <METHOD NAME='SprHttpServer' SIGNATURE='(I)' />
+	 <METHOD NAME='start' SIGNATURE='()V' />
+	 <METHOD NAME='register' SIGNATURE='(Ljava/lang/String;Ledu/brown/cs/spr/httpserver/SprProcessor;)V' />
+      </CLASS>
+      <CLASS NAME='SprRequest'>
+	 <METHOD NAME='getPath' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getHeader' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;' />
+	 <METHOD NAME='getBaseUrl' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getProtocol' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getQuery' SIGNATURE='()Ljava/lang/String;' />
+      </CLASS>
+      <CLASS NAME='SprResponse'>
+	 <METHOD NAME='append' SIGNATURE='(Ljava/lang/String;)V' />
+	 <METHOD NAME='redirect' SIGNATURE='(Ljava/lang/String;)V' />
+	 <METHOD NAME='setStatus' SIGNATURE='(I)V' />
+	 <METHOD NAME='setContentType' SIGNATURE='(Ljava/lang/String;)V' />
+      </CLASS>
+      <CLASS NAME='SprProcessor' INTERFACE='true'>
+	 <METHOD NAME='process' SIGNATURE='(Ledu/brown/cs/spr/httpserver/SprRequest;Ledu/brown/cs/spr/httpserver/SprResponse)V' />
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		  Thread t1 = new Thread() {
+		     public void run() {
+			SprHttpServer s1 = new SprHttpServer(23456);
+			s1.register(new SprProcessor() {
+			    public void process(SprRequest rq,SprResponse rs) {
+			      }
+			  });
+			s1.start();
+		      }
+		    }
+		  t1.start();
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>httpserver</KEYWORD>
+   <KEYWORD>server</KEYWORD>
+   <KEYWORD>request</KEYWORD>
+   <KEYWORD>response</KEYWORD>
+   <KEYWORD>router</KEYWORD>
+   <KEYWORD>serversocket</KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

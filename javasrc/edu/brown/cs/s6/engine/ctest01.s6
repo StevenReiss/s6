@@ -1,0 +1,5 @@
+<S6:CHECK xmlns:S6="http://www.cs.brown.edu/S6" xmlns="http://www.cs.brown.edu/S6"
+		WHAT="METHOD">
+   <METHOD>int sampleMethod(Unknown,String,List)</METHOD>
+</S6:CHECK>
+

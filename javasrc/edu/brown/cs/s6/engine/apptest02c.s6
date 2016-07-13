@@ -1,0 +1,68 @@
+<SEARCH WHAT='APPLICATION' LOCAL='FALSE' REMOTE='TRUE' GITZIP='TRUE' SCOPE='PACKAGE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.httpserver'>
+      <CLASS NAME='SprHttpServer'>
+	 <METHOD NAME='&lt;init&gt;' SIGNATURE='(I)' />
+	 <METHOD NAME='start' SIGNATURE='()V' />
+	 <METHOD NAME='getRouter' SIGNATURE='()Ledu/brown/cs/spr/httpserver/SprHttpRouter;' />
+	 <FIELD NAME='http_router' TYPE='edu.brown.cs.spr.httpserver.SprHttpRouter' />
+      </CLASS>
+      <CLASS NAME='SprHttpRouter'>
+	 <METHOD NAME='register' SIGNATURE='(Ljava/lang/String;Ledu/brown/cs/spr/httpserver/SprHandler;)V' />
+      </CLASS>
+      <CLASS NAME='SprRequest'>
+	 <METHOD NAME='getPath' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getHeader' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;' />
+	 <METHOD NAME='getBaseUrl' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getProtocol' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getQuery' SIGNATURE='()Ljava/lang/String;' />
+	 <FIELD NAME='url_protocol' TYPE='java.lang.String' />
+	 <FIELD NAME='url_path' TYPE='java.lang.String' />
+	 <FIELD NAME='header_map' TYPE='java.util.Map' />
+      </CLASS>
+      <CLASS NAME='SprResponse'>
+	 <METHOD NAME='append' SIGNATURE='(Ljava/lang/String;)V' />
+	 <METHOD NAME='redirect' SIGNATURE='(Ljava/lang/String;)V' />
+	 <METHOD NAME='setStatus' SIGNATURE='(I)V' />
+	 <METHOD NAME='setContentType' SIGNATURE='(Ljava/lang/String;)V' />
+	 <FIELD NAME='for_request' TYPE='edu.brown.cs.spr.httpserver.SprRequest' />
+      </CLASS>
+      <CLASS NAME='SprHandler' INTERFACE='true'>
+	 <METHOD NAME='process' SIGNATURE='(Ledu/brown/cs/spr/httpserver/SprRequest;Ledu/brown/cs/spr/httpserver/SprResponse)V' />
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		  Thread t1 = new Thread() {
+		     public void run() {
+			SprHttpServer s1 = new SprHttpServer(23456);
+			s1.getRouter().register(new SprHandler() {
+			    public void process(SprRequest rq,SprResponse rs) {
+			      }
+			  });
+			s1.start();
+		      }
+		    }
+		  t1.start();
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>httpserver</KEYWORD>
+   <KEYWORD>server</KEYWORD>
+   <KEYWORD>request</KEYWORD>
+   <KEYWORD>response</KEYWORD>
+   <KEYWORD>router</KEYWORD>
+   <KEYWORD>serversocket</KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='TRUE'>GITZIP:http://GITZIP/dkuntz2/thesis-ormthing#/src/main/java/httpserver/HttpServer.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

@@ -1,0 +1,22 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6DisjointSetCluster'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='DisjointSetCluster'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(I)'/>
+	  <METHOD NAME='inSameSet' SIGNATURE='(II)Z'/>
+	  <METHOD NAME='mergeSets' SIGNATURE='(II)V'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+     <KEYWORD>disjoint</KEYWORD>
+     <KEYWORD>set</KEYWORD>
+     <KEYWORD>integer</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

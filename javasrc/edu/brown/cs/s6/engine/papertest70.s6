@@ -1,0 +1,60 @@
+<SEARCH FORMAT='NONE' OHLOH='true' REMOTE='true' SCOPE='FILE' WHAT='UIFRAMEWORK'>
+  <SIGNATURE>
+    <UI CLASS='S6_UI_CLASS' PACKAGE='spr.sampler.uitest'>
+      <COMPONENT HEIGHT='382' ID='U_96' TYPES='java.awt.Container' WIDTH='502' X='58' Y='11'>
+	<COMPONENT BOTTOM='U_66' DATA='789-567-234' HEIGHT='11' ID='U_65' TOP='U_96' TYPES='javax.swing.JLabel' WIDTH='92' X='232' Y='12' />
+	<COMPONENT DATA='Surname:' HEIGHT='11' ID='U_49' TYPES='javax.swing.JLabel' WIDTH='65' X='133' Y='87' />
+	<COMPONENT BOTTOM='U_72' DATA='Mr.' HEIGHT='23' ID='U_73' TOP='U_70' TYPES='javax.swing.JComboBox,javax.swing.JButton,javax.swing.JMenuItem' WIDTH='58' X='218' Y='109' />
+	<COMPONENT DATA='First Name:' HEIGHT='11' ID='U_94' TYPES='javax.swing.JLabel' WIDTH='78' X='121' Y='36' />
+	<COMPONENT BOTTOM='U_63' HEIGHT='174' ID='U_53' RIGHT='U_96' TOP='U_52' TYPES='javax.swing.JTable' WIDTH='474' X='82' Y='179' />
+	<COMPONENT BOTTOM='U_70' HEIGHT='25' ID='U_68' TOP='U_66' TYPES='javax.swing.JTextField' WIDTH='162' X='218' Y='57' />
+	<COMPONENT DATA='Date first Enrolled:' HEIGHT='11' ID='U_51' TYPES='javax.swing.JLabel' WIDTH='129' X='76' Y='136' />
+	<COMPONENT BOTTOM='U_96' DATA='Drop ...' HEIGHT='27' ID='U_59' TYPES='javax.swing.JButton,javax.swing.JMenuItem' WIDTH='86' X='204' Y='367' />
+	<COMPONENT DATA='HELP' HEIGHT='33' ID='U_92' TOP='U_96' TYPES='java.awt.Container' WIDTH='61' X='484' Y='11' />
+	<COMPONENT BOTTOM='U_96' DATA='Transcript' HEIGHT='27' ID='U_61' TYPES='javax.swing.JButton,javax.swing.JMenuItem' WIDTH='86' X='346' Y='364' />
+	<COMPONENT BOTTOM='U_53' DATA='Seminars:' HEIGHT='11' ID='U_52' LEFT='U_96' TYPES='javax.swing.JLabel' WIDTH='68' X='58' Y='162' />
+	<COMPONENT BOTTOM='U_96' DATA='Add ...' HEIGHT='27' ID='U_57' TYPES='javax.swing.JButton,javax.swing.JMenuItem' WIDTH='86' X='74' Y='366' />
+	<COMPONENT DATA='June 14, 2003' HEIGHT='13' ID='U_72' TOP='U_73' TYPES='javax.swing.JLabel' WIDTH='97' X='226' Y='136' />
+	<COMPONENT BOTTOM='U_68' HEIGHT='24' ID='U_66' TOP='U_65' TYPES='javax.swing.JTextField' WIDTH='155' X='219' Y='30' />
+	<COMPONENT DATA='Student Number:' HEIGHT='11' ID='U_95' TOP='U_96' TYPES='javax.swing.JLabel' WIDTH='118' X='81' Y='11' />
+	<COMPONENT BOTTOM='U_73' HEIGHT='22' ID='U_70' TOP='U_68' TYPES='javax.swing.JTextField' WIDTH='160' X='218' Y='85' />
+	<COMPONENT DATA='Salutation:' HEIGHT='11' ID='U_50' TYPES='javax.swing.JLabel' WIDTH='73' X='127' Y='115' />
+	<COMPONENT BOTTOM='U_96' DATA='Close' HEIGHT='27' ID='U_63' RIGHT='U_96' TOP='U_53' TYPES='javax.swing.JButton,javax.swing.JMenuItem' WIDTH='86' X='474' Y='362' />
+	<COMPONENT DATA='Middle :' HEIGHT='11' ID='U_48' TYPES='javax.swing.JLabel' WIDTH='52' X='145' Y='60' />
+      </COMPONENT>
+      <CLASS NAME='S6_UI_CLASS'>
+	<METHOD NAME='S6_UI' RETURN='java.awt.Component' />
+      </CLASS>
+    </UI>
+  </SIGNATURE>
+  <REQUIRE />
+  <TESTS>
+    <TESTCASE NAME='SVIUI_1' TYPE='CALLS'>
+      <CALL METHOD='S6_UI_CLASS' NEW='true' OP='SAVE'>
+	<OUTPUT TYPE='SAVE' VALUE='x'>
+	  <CODE><![CDATA[S6_UI_CLASS x;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL METHOD='S6_UI' OP='SAVE' THIS='x'>
+	<OUTPUT TYPE='SAVE' VALUE='y'>
+	  <CODE><![CDATA[java.awt.Component y;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL OP='SCOREHIER' THIS='y'>
+	<OUTPUT TYPE='SAVE' VALUE='__score__'>
+	  <CODE><![CDATA[double __score__;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL OP='INTERACT' THIS='y'>
+	<INPUT TYPE='VARIABLE' VALUE='__score__' />
+      </CALL>
+    </TESTCASE>
+  </TESTS>
+  <KEYWORDS>
+    <KEYWORD><![CDATA[student]]></KEYWORD>
+    <KEYWORD><![CDATA[jbutton]]></KEYWORD>
+    <KEYWORD><![CDATA[jtext]]></KEYWORD>
+    <KEYWORD><![CDATA[jtable]]></KEYWORD>
+  </KEYWORDS>
+</SEARCH>
+

@@ -1,0 +1,32 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.upod.basis' NAME='BasisLoggerTest'>
+      <TESTEE PACKAGE='edu.brown.cs.upod.basis'>
+	 <CLASS NAME='BasisLogger'>
+	    <METHOD NAME='log' SIGNATURE='(Ljava/lang/String;)V;'
+		RETURN='void'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='logE' SIGNATURE='(Ljava/lang/String;Ljava/lang/throwable;)V;'
+		RETURN='void'
+		ARGS='(java.lang.String,java.lang.Throwable)' />
+	    <METHOD NAME='logW' SIGNATURE='(Ljava/lang/String;)V;'
+		RETURN='void'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='logI' SIGNATURE='(Ljava/lang/String;)V;'
+		RETURN='void'
+		ARGS='(java.lang.String)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>logging</KEYWORD>
+   <KEYWORD>throwable</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+   <KEYWORD>org.junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+</SEARCH>
+
+

@@ -1,0 +1,19 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_7701' NAME='S6TestFeaturePara'>
+      <TESTEE PACKAGE='s6tgen_7701'>
+        <CLASS NAME='FeaturePara'>
+          <METHOD NAME='combineFeatureAndValue' SIGNATURE='(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>feature</KEYWORD>
+    <KEYWORD>individual</KEYWORD>
+    <KEYWORD>others</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_7701/context.s6ctx' />
+</SEARCH>

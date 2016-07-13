@@ -1,0 +1,43 @@
+<SEARCH FORMAT='NONE' KODERS='TRUE' LOCAL='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>convertWildcardToRegex</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String convertWildcardToRegex(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='convertWildcardToRegex' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[test]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[test]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='convertWildcardToRegex' OP='NEQ'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[test*]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[test*]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_3' TYPE='CALLS'>
+    <CALL METHOD='convertWildcardToRegex' OP='SHOW'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[test.*]]></VALUE>
+      </INPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS>
+<KEYWORD><![CDATA[regex]]></KEYWORD>
+<KEYWORD><![CDATA[wild]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

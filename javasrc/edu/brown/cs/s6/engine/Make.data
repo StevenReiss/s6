@@ -1,0 +1,275 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/engine/Make.data,v 1.14 2015/12/23 15:44:48 spr Exp $
+
+#
+# S6:ENGINE -- Semantic Search of Shared Source Software System processing engine
+#
+
+
+PACKAGE=engine
+
+
+SFILES=\
+	EngineConstants.java \
+	EngineFinder.java \
+	EngineMain.java \
+	EnginePool.java \
+	EngineTester.java \
+	EngineFinderTester.java \
+	EngineFirewall.java \
+
+
+test:	all
+	java -d64 -Xmx4000m edu.brown.cs.s6.engine.EngineTester
+
+xtest:	 all
+	java -d64 -Xmx4000m junit.textui.TestRunner edu.brown.cs.s6.engine.EngineTester
+
+ftest:	 all
+	java -Xmx1500m junit.textui.TestRunner edu.brown.cs.s6.engine.EngineFinderTester
+
+ftest1:   all
+	java -Xmx1500m edu.brown.cs.s6.engine.EngineFinderTester 1091
+
+SYNCP= /pro/s6/java:/pro/ivy/java:$(ECLIPSEPATH):/pro/ivy/lib/jikesbt.jar:/pro/s6/lib/json.jar:/pro/s6/lib/asm-3.1.jar
+RES= /pro/s6/engine/src/resources
+
+ECLCP= /u/spr/Eclipse/workspace2/s6/bin:/u/spr/Eclipse/workspace2/ivy/bin:$(CLASSPATH):/pro/s6/lib/asm-3.1.jar
+
+synsat: all
+	taigabuildimpljar -cp $(SYNCP) -j /pro/s6/lib/synsat.jar \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser1.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser2.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser3.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser4.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser5.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser6.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser7.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser8.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser9.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser10.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser11.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser12.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser13.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser14.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser15.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser16.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser17.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser18.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser19.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser20.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser21.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser22.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser23.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/parser24.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/start1.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/start2.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/part1.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/part2.rsc \
+		-R $(RES):org/eclipse/jdt/internal/compiler/parser/part14.rsc \
+		-x edu.brown.cs.s6.engine.EngineFinder
+
+FIRCP= /pro/s6/java:/pro/ivy/java
+FIRWEB= conifer:/vol/s6
+FIRJAR= /pro/s6/lib/firewall.jar
+FIRFLAGS= -source 1.6 -target 1.6 -bootclasspath /pro/java/linux/jdk1.6/jre/lib/rt.jar
+
+
+firewall: all
+	javac -d /pro/s6/java $(FIRFLAGS) /pro/s6/engine/src/EngineFirewall.java
+	taigabuildimpljar -cp $(FIRCP) -j $(FIRJAR) -x edu.brown.cs.s6.engine.EngineFirewall
+	scp $(FIRJAR) $(FIRWEB)
+
+stest: all
+	java -Xmx1500m edu.brown.cs.s6.engine.EngineTester
+
+stest0: all
+	java -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 -D /pro/s6/engine/src/test00.s6
+
+stest0a: all
+	java -verbose -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 -D /pro/s6/engine/src/test00.s6
+
+stest1: all
+	java -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 -D /pro/s6/engine/src/test01.s6
+
+stest1a: all
+	java -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 -D /pro/s6/engine/src/test01a.s6
+
+stest1b: all
+	java -verbose -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 -D /pro/s6/engine/src/test01a.s6
+
+stest3: all
+	java -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 -D /pro/s6/engine/src/test03.s6
+
+stest4: all
+	java -Xmx1500m edu.brown.cs.s6.engine.EngineMain /pro/s6/engine/src/test04.s6
+
+stest5: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/test05.s6
+
+stest6: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test06.s6
+
+stest7: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test07.s6
+
+stest7a: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test07a.s6
+
+stest8: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test08.s6
+
+stest9: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test09.s6
+
+stest10: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 10 /pro/s6/engine/src/test10.s6
+
+stest11: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test11.s6
+
+stest12: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test12.s6
+
+stest13: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test13.s6
+
+stest14: all
+	djava -d64 -Xmx8000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test14.s6
+
+stest17: all
+	djava -d64 -Xmx24000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test17.s6
+
+stest18: all
+	djava -d64 -Xmx24000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test18.s6
+
+stest47: all
+	djava -d64 -Xmx24000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 /pro/s6/engine/src/test47.s6
+
+checktest: all
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest08.s6
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest04.s6
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest03.s6
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest02.s6
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest01.s6
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest00.s6
+
+ctest8:
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest08.s6
+
+ctest9:
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest09.s6
+
+ctest11:
+	djava -Xmx1500m edu.brown.cs.s6.engine.EngineMain -thread 1 /pro/s6/engine/src/ctest11.s6
+
+jive:
+	jive -Xmx1500m edu.brown.cs.s6.engine.EngineTester
+
+jive1:
+	jive -Xmx1500m edu.brown.cs.s6.engine.EngineMain /pro/s6/engine/src/test4.s6
+
+
+
+server:
+	java -Djava.io.tmpdir=/ws/volfred/tmp -server -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 10
+
+server7:
+	DISPLAY=; /pro/java/linux/jdk1.7_x64/bin/java -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 10
+
+server6:
+	DISPLAY=; /usr/bin/java -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 10
+
+server6a:
+	DISPLAY=; /pro/java/linux/jdk1.6.0_02_x64/bin/java -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 10
+
+dserver:
+	djava -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 10
+
+dyserver:
+	DISPLAY=; dyjava -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 10
+
+iserver:
+	DISPLAY=; ijava -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 10
+
+sprserver:
+	sprjava -d64 -Xmx20000m edu.brown.cs.s6.engine.EngineMain -server -t 4
+
+dbgserver:
+	sprjavad -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 4
+
+viewserver:
+	sprjava -cp $(ECLCP) -d64 -Xmx14000m edu.brown.cs.s6.engine.EngineMain -server -t 4
+
+
+S6FILES= $(wildcard $(PRO)/s6/engine/src/*.s6)
+TESTDIR = $(PRO)/s6/engine/src/tests.out
+
+alltests.old: all
+	rm -rf $(TESTDIR)
+	mkdir $(TESTDIR)
+	rm -rf /tmp/s6test/*
+	for x in $(S6FILES); do \
+	   echo work on $$x; \
+	   djava -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 $$x ; \
+	done
+
+alltests: $(notdir $(addsuffix .out,$(basename $(S6FILES))))
+
+alltestsm: $(notdir $(addsuffix .mtout,$(basename $(S6FILES))))
+
+alltestd: $(notdir $(addsuffix .debug,$(basename $(S6FILES))))
+
+%.out: %.s6
+	-time java -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -thread 1 $< > $(TESTDIR)/$@ 2>&1
+
+dymon:
+	dyjava -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -thread 2 /pro/s6/engine/src/test00.s6
+
+JPROBE=/home/spr/JProbe_8.0/bin/jplauncher
+
+jp:
+	$(JPROBE) -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -thread 2 /pro/s6/engine/src/test00.s6
+
+
+%.debug: %.s6
+	-time djava -Djava.io.tmpdir=/vol/tmp -d64 -Xmx40000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 $< > $(TESTDIR)/$@ 2>&1
+
+%.debugy: %.s6
+	-time djava -Djava.io.tmpdir=/ws/volfred/tmp -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 $< > $(TESTDIR)/$@ 2>&1
+
+%.debugx: %.s6
+	-time java -Djava.io.tmpdir=/ws/volfred/tmp -d64 -Xmx52000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 $< > $(TESTDIR)/$@ 2>&1
+
+%.debugz: %.s6
+	-time java -Djava.io.tmpdir=/ws/volfred/tmp -d64 -Xmx80000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 $< > $(TESTDIR)/$@ 2>&1
+
+%.mtout: %.s6
+	-time djava -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -thread 8 $< > $(TESTDIR)/$@ 2>&1
+
+%.mtout1: %.s6
+	-time djava -d64 -Xmx48000m edu.brown.cs.s6.engine.EngineMain -thread 8 $< > $(TESTDIR)/$@ 2>&1
+
+%.mtdbg: %.s6
+	-time djava -d64 -Xmx32000m edu.brown.cs.s6.engine.EngineMain -D -thread 8 $< > $(TESTDIR)/$@ 2>&1
+
+
+%.mtmem: %.s6
+	-time java -d64 -Xmx32000m -javaagent:/home/spr/plumbr/plumbr/plumbr.jar edu.brown.cs.s6.engine.EngineMain -thread 8 $< > $(TESTDIR)/$@ 2>&1
+
+
+PAPERFILES= test01.s6 test04.s6 test03.s6 test41.s6 test10.s6 test14.s6 test15.s6 test16.s6 \
+	test26.s6 test27.s6 test05.s6 test19.s6 test23.s6
+
+papertests: $(notdir $(addsuffix .out,$(basename $(PAPERFILES)))) $(notdir $(addsuffix .mtout,$(basename $(PAPERFILES))))
+
+UTESTS10= $(wildcard $(PRO)/s6/engine/src/utest10?.s6)
+UTESTS11= $(wildcard $(PRO)/s6/engine/src/utest11?.s6)
+UTESTS12= $(wildcard $(PRO)/s6/engine/src/utest12?.s6)
+UTESTS13= $(wildcard $(PRO)/s6/engine/src/utest13?.s6)
+
+utests10: $(notdir $(addsuffix .debug,$(basename $(UTESTS10))))
+utests11: $(notdir $(addsuffix .debug,$(basename $(UTESTS11))))
+utests12: $(notdir $(addsuffix .debug,$(basename $(UTESTS12))))
+utests13: $(notdir $(addsuffix .debug,$(basename $(UTESTS13))))
+

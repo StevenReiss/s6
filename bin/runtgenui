@@ -1,0 +1,148 @@
+#! /bin/csh -f
+
+if ($?BROWN_S6_ROOT == 0) then
+   setenv BROWN_S6_ROOT /pro
+   setenv BROWN_S6_S6 /pro/s6
+   setenv BROWN_S6_IVY /pro/ivy
+   setenv BROWN_S6_ARCH "`$BROWN_S6_IVY/bin/ivyarch`"
+endif
+
+if (-d $BROWN_S6_S6/java) then
+   setenv CLASSPATH $BROWN_S6_S6/java:$BROWN_S6_IVY/java:
+else
+   setenv CLASSPATH $BROWN_S6_S6/lib/s6.jar:$BROWN_S6_IVY/lib/ivy.jar:
+endif
+
+setenv SUISEPATH $BROWN_S6_S6/lib/jsyntaxpane.jar:$BROWN_S6_S6/lib/asm4.jar:$BROWN_S6_S6/public/batik-1.7/batik.jar:
+setenv ADDPATH $BROWN_S6_S6/lib/json.jar:$BROWN_S6_S6/lib/jtar-1.1.jar:$BROWN_S6_S6/lib/jsoup.jar:
+
+if ($?BROWN_JAVA_HOME) then
+else
+   set tx = /usr/bin/test
+   if (-e /bin/test) set tx = /bin/test
+
+   set PRG = `zsh -c "whence java"`
+   while ( { $tx -h "$PRG" } )
+      set ls = `/bin/ls -ld "${PRG}"`
+      set link = `expr "$ls" : '.*-> \(.*\)$'`
+      set y = `expr "X$link" : 'X/'` >& /dev/null
+      if ($y == 2) then
+	 set PRG = "${link}"
+      else
+	 set PRG = "${PRG:h}/${link}"
+      endif
+    end
+
+   set j1 = "${PRG:h}"
+   set j2 = "${j1:h}"
+
+   if (${j2:t} == jre) set j2 = ${j2:h}
+
+   if ($BROWN_S6_ARCH == i686 || $BROWN_S6_ARCH == x86_64) then
+      set javaarch = i386
+      set javaos = linux
+   else if ($BROWN_S6_ARCH == ppc || $BROWN_S6_ARCH == i386) then
+      set javaarch = ppc
+      set javaos = darwin
+      set j2 = /System/Library/Frameworks/JavaVM.Framework/Versions/1.5
+   else if ($BROWN_S6_ARCH == mac64) then
+      set javaarch = mac64
+      set javaos = darwin
+      set j2 = `/usr/libexec/java_home`
+   else if ($BROWN_S6_ARCH == cygwin) then
+      set javaarch = i686
+      set javaos = Windows
+   else
+      set javaarch = sparc
+      set javaos = solaris
+   endif
+
+   # javaos is used for include files and should be the name of the appropriate
+   #   machine dependent subdirectory of $JAVA_HOME/include
+   # javaarch is the architecture name in $PRO/ivy/lib with native libraries for
+   #   use with java.  Note that java might have a different default architecture
+   #   on a given platform (e.g. be 64 bit where the platform is 32 by default)
+
+   setenv BROWN_JAVA_HOME $j2
+   setenv BROWN_JAVA_ARCH $javaarch
+   setenv BROWN_JAVA_THREADS native_threads
+   setenv BROWN_JAVA_OS $javaos
+
+   set blib = $BROWN_JAVA_HOME/jre/lib
+   if (-e $BROWN_JAVA_HOME/../Classes) then
+      set blib = $BROWN_JAVA_HOME/../Classes
+   endif
+   set bx = ""
+   foreach i ($blib/*.jar)
+      if ($i !~ $blib/alt-* ) then
+	 set bx = ${bx}:$i
+      endif
+    end
+   setenv BROWN_JAVA_BOOT $bx
+
+endif
+if ($?ECLIPSEPATH == 0) then
+   set eclipse = ~spr/eclipse43/eclipse
+   if ( $?ECLIPSEROOT == 1) then
+      set eclipse = $ECLIPSEROOT
+   endif
+   set nonomatch
+   set eclipsejar =
+   set swt = swt.gtk.linux.x86_64
+   if ($BROWN_S6_ARCH == i386 || $BROWN_S6_ARCH == ppc) set swt = swt.carbon.macosx
+
+   foreach i (jdt.core core.filebuffers core.resources core.runtime core.jobs \
+		core.contenttype equinox.common equinox.preferences equinox.registry \
+		equinox.app \
+		debug.core debug.ui jdt.debug \
+		text core.runtime.compatibility.auth \
+		core.filesystem search \
+		jface ui.workbench swt $swt \
+		jface.text jdt.ui \
+		osgi osgi.util osgi.services)
+      set f1 = `echo $eclipse/plugins/org.eclipse.${i}_*.jar`
+      set f2 = `echo $eclipse/plugins/org.eclipse.${i}_*/*.jar`
+      if ("$f1" != "$eclipse/plugins/org.eclipse.${i}_*.jar") then
+	 set f = `ls -1 $eclipse/plugins/org.eclipse.${i}_*.jar | tail -1`
+	 set eclipsejar = "${eclipsejar}:$f"
+      else if ("$f2" != "$eclipse/plugins/org.eclipse.${i}_*/*.jar") then
+	 set f = `ls -1d $eclipse/plugins/org.eclipse.${i}_* | tail -1`
+	 foreach j ($f/*.jar)
+	    set eclipsejar = "${eclipsejar}:$j"
+	 end
+      endif
+   end
+
+   unset nonomatch
+   setenv ECLIPSEPATH "$eclipsejar"
+endif
+
+if ($?BROWN_S6_DBMS == 0) then
+   if (-e $BROWN_S6_IVY/lib/postgresqlcopy.jar) then
+      setenv BROWN_S6_DBMS "$BROWN_S6_IVY/lib/postgresqlcopy.jar"
+   else if (-e $BROWN_S6_IVY/lib/postgresql.jar) then
+      setenv BROWN_S6_DBMS "$BROWN_S6_IVY/lib/postgresql.jar"
+   endif
+   set mys = "`echo $BROWN_S6_IVY/lib/mysql*.jar`"
+   if (-e "$BROWN_S6_IVY/lib/mysql.jar") then
+      foreach x ($mys)
+	 setenv CLASSPATH "${CLASSPATH}:$x"
+	 if ($?BROWN_S6_DBMS == 0) then
+	    setenv BROWN_S6_DBMS "$x"
+	 else
+	    setenv BROWN_S6_DBMS "${BROWN_S6_DBMS}:$x"
+	 endif
+      end
+   endif
+endif
+
+set cp = ${CLASSPATH}${SUISEPATH}${ADDPATH}${ECLIPSEPATH}:${BROWN_S6_DBMS}
+
+
+set jargs = "-Dedu.brown.cs.s6.ROOT=$BROWN_S6_ROOT -Dedu.brown.cs.s6.IVY=$BROWN_S6_IVY -Dedu.brown.cs.s6.S6=$BROWN_S6_S6 -Dedu.brown.cs.s6.ARCH=$BROWN_S6_ARCH -Dedu.brown.cs.s6.BOOT=$BROWN_JAVA_BOOT"
+
+set iargs = "-Dedu.brown.cs.ivy.ROOT=$BROWN_S6_ROOT -Dedu.brown.cs.ivy.IVY=$BROWN_S6_ROOT/ivy -Dedu.brown.cs.ivy.ARCH=$BROWN_S6_ARCH"
+
+set cmd = java
+
+java -Xmx1024m -cp $cp $jargs $iargs edu.brown.cs.s6.tgen.TgenUI $*

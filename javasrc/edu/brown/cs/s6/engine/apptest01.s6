@@ -1,0 +1,54 @@
+<SEARCH WHAT='APPLICATION' LOCAL='FALSE' REMOTE='TRUE' GITZIP='TRUE' SCOPE='PACKAGE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.httpserver'>
+      <CLASS NAME='SprServerMain' MODS='1' MAIN='true' >
+	 <CREATES CLASS='SprHttpServer' />
+      </CLASS>
+      <CLASS NAME='SprHttpServer'>
+	 <CREATES CLASS='SprServerListener' />
+      </CLASS>
+      <CLASS NAME='SprServerListener'>
+	 <IMPLEMENTS> java.lang.Runnable</IMPLEMENTS>
+	 <FIELD TYPE='java.net.ServerSocket' />
+	 <CREATES CLASS='SprProcessor' />
+      </CLASS>
+      <CLASS NAME='SprRequest'>
+	 <METHOD NAME='getPath' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getHeader' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;' />
+	 <METHOD NAME='getBaseUrl' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getProtocol' SIGNATURE='()Ljava/lang/String;' />
+	 <METHOD NAME='getQuery' SIGNATURE='()Ljava/lang/String;' />
+      </CLASS>
+      <CLASS NAME='SprResponse'>
+	 <METHOD NAME='append' SIGNATURE='(Ljava/lang/String;)V' />
+	 <METHOD NAME='redirect' SIGNATURE='(Ljava/lang/String;)V' />
+	 <METHOD NAME='setStatus' SIGNATURE='(I)V' />
+	 <METHOD NAME='setContentType' SIGNATURE='(Ljava/lang/String;)V' />
+      </CLASS>
+      <CLASS NAME='SprProcessor'>
+	 <FIELD TYPE='edu.brown.cs.spr.httpserver.SprRequest' />
+	 <FIELD TYPE='edu.brown.cs.spr.httpserver.SprResponse' />
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		 String [] args = new String [0];
+		 // RompMain.main(args);
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>http</KEYWORD>
+   <KEYWORD>server</KEYWORD>
+   <KEYWORD>serversocket</KEYWORD>
+   <KEYWORD>request</KEYWORD>
+   <KEYWORD>response</KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

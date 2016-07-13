@@ -1,0 +1,13 @@
+<S6:CHECK WHAT='CALLTEST' xmlns='http://www.cs.brown.edu/S6' xmlns:S6='http://www.cs.brown.edu/S6'><S6:SIGNATURE xmlns:S6='http://www.cs.brown.edu/S6'>
+  <S6:METHOD>
+    <S6:NAME>tokenize</S6:NAME>
+    <S6:RETURN>java.util.List</S6:RETURN>
+    <S6:ARGS>java.lang.String</S6:ARGS>
+  </S6:METHOD>
+  <S6:TEXT>java.util.List tokenize(java.lang.String a1)</S6:TEXT>
+</S6:SIGNATURE><S6:ARGS><![CDATA["this is a 'test of' tokens"]]></S6:ARGS>
+<S6:OP>eql</S6:OP>
+<S6:RESULT><![CDATA[ ["this", "is", "a", "test of", "tokens"] ]]></S6:RESULT>
+<S6:TESTNAME>test_1_1</S6:TESTNAME>
+</S6:CHECK>
+

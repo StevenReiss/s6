@@ -1,0 +1,27 @@
+<SEARCH FORMAT='NONE' LOCAL='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0'>
+    <NAME>invert</NAME>
+    <RETURN>double[][]</RETURN>
+    <ARGS>double[][]</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>double[][] invert(double[][] a1)</TEXT>
+  </METHOD>
+</SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='invert' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new double[][] {new double[] {1.0 , 2.0} , new double[] {3.0 , 4.0}}]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new double[][] {new double[] {-2.0 , 1.0} , new double[] {1.5 , -0.5}}]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT><CONTEXT /></CONTEXT>\
+<KEYWORDS><KEYWORD><![CDATA[matrix]]></KEYWORD><KEYWORD><![CDATA[inverse]]></KEYWORD></KEYWORDS>
+<SOURCES>
+    <SOURCE USE='TRUE'>LABRADOR:file:///home/spr/bloomold/public/gesture/src/util/Matrix.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

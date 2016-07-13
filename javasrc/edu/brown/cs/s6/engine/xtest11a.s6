@@ -1,0 +1,22 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestDifferentEquals'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='DifferentEquals'>
+	  <METHOD NAME='equalArrays' SIGNATURE='([I[I)Z' STATIC='TRUE'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>array</KEYWORD>
+    <KEYWORD>equals</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+  <SOURCES>
+    <SOURCE USE='TRUE'>GITHUB:/c0d3d/CoinGame/blob/5dc476a3d1770efe00e4d4fd0e0386958b747c83/CircularAccessArrayListTest.java</SOURCE>
+  </SOURCES>
+</SEARCH>
+

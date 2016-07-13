@@ -1,0 +1,58 @@
+<SEARCH FORMAT='NONE' KODERS='TRUE' LOCAL='TRUE' REMOTE='TRUE' WHAT='FULLCLASS'><SIGNATURE><CLASS NAME='RangeSlider'><METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS>int,int,int,int,int</ARGS>
+    <ARGNAMES>min,max,v0,v1,dir</ARGNAMES>
+    <TEXT>RangeSlider(int min,int max,int v0,int v1,int dir)</TEXT>
+  </METHOD><METHOD INT='true' MODS='0'>
+    <NAME>getLowValue</NAME>
+    <RETURN>int</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>int getLowValue()</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>setRange</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>int,int</ARGS>
+    <ARGNAMES>mn,mx</ARGNAMES>
+    <TEXT>void setRange(int mn,int mx)</TEXT>
+  </METHOD><METHOD INT='true' MODS='0'>
+    <NAME>getHighValue</NAME>
+    <RETURN>int</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>int getHighValue()</TEXT>
+  </METHOD></CLASS></SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='RangeSlider' NEW='true' OP='SAVE'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[0]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[100]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[10]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[20]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[0]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='SAVE' VALUE='x'>
+	<CODE><![CDATA[RangeSlider x;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL OP='SHOW' THIS='x' />
+    <CALL METHOD='getHighValue' OP='EQL' THIS='x'>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[20]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL OP='EQL' />
+    <CALL OP='EQL' />
+  </TESTCASE>
+</TESTS><SECURITY />
+<KEYWORDS><KEYWORD><![CDATA[range]]></KEYWORD><KEYWORD><![CDATA[slider]]></KEYWORD></KEYWORDS>
+</SEARCH>
+

@@ -1,0 +1,30 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='spr.complex' NAME='S6_complex_Test'>
+      <TESTEE PACKAGE='spr.complex'>
+	 <CLASS NAME='Complex'>
+	    <METHOD NAME='add' SIGNATURE='(Lspr.complex.Complex;)Lspr.complex.Complex;'
+		RETURN='spr.complex.Complex'
+		ARGS='(spr.complex.Complex)' />
+	    <METHOD NAME='add' SIGNATURE='(Lspr.complex.Complex;Lspr.complex.Complex)Lspr.complex.Complex;'
+		RETURN='spr.complex.Complex' STATIC='TRUE'
+		ARGS='(spr.complex.Complex,spr.complex.Complex)' />
+	    <METHOD NAME='sum' SIGNATURE='(Lspr.complex.Complex;)Lspr.complex.Complex;'
+		RETURN='spr.complex.Complex'
+		ARGS='(spr.complex.Complex)' />
+	    <METHOD NAME='sub' SIGNATURE='(Lspr.complex.Complex;Lspr.complex.Complex)Lspr.complex.Complex;'
+		RETURN='spr.complex.Complex' STATIC='TRUE'
+		ARGS='(spr.complex.Complex,spr.complex.Complex)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>complex</KEYWORD>
+   <KEYWORD>number</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>org.junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/complextest.s6ctx' />
+</SEARCH>
+

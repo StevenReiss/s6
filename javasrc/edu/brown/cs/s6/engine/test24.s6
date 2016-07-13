@@ -1,0 +1,28 @@
+<S6:SEARCH xmlns:S6="http://www.cs.brown.edu/S6" xmlns="http://www.cs.brown.edu/S6" REMOTE='TRUE' OHLOH='TRUE' WHAT='METHOD' FORMAT='BROWN'>
+   <S6:KEYWORDS>
+      <KEYWORD>tokenize</KEYWORD>
+      <KEYWORD>quote</KEYWORD>
+   </S6:KEYWORDS>
+   <S6:SIGNATURE>
+      <METHOD NAME='tokenize'
+	      SIGNATURE='(Ljava/lang/String;)Ljava/util/List&lt;java/lang/String;&gt;;'
+	      RETURN='java.util.List&lt;java.lang.String&gt;'
+	      ARGS='(java.lang.String)' />
+   </S6:SIGNATURE>
+   <S6:TESTS>
+      <TESTCASE NAME='test1' TYPE='CALLS'>
+	 <CALL METHOD='tokenize' OP='EQL'>
+	    <INPUT TYPE='STRING'>this is a test</INPUT>
+	    <OUTPUT TYPE='VARIABLE' VALUE="rslt">
+	       <CODE><![CDATA[
+		  java.util.List<java.lang.String> rslt = new java.util.ArrayList<java.lang.String>();
+		  rslt.add("this");
+		  rslt.add("is");
+		  rslt.add("a");
+		  rslt.add("test");
+	       ]]></CODE>
+	    </OUTPUT>
+	 </CALL>
+      </TESTCASE>
+   </S6:TESTS>
+</S6:SEARCH>

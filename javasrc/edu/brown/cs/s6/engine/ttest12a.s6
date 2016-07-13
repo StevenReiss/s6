@@ -1,0 +1,29 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.ivy.file' NAME='IvyFormatTest'>
+      <TESTEE PACKAGE='edu.brown.cs.ivy.file'>
+	 <CLASS NAME='IvyFormat'>
+	    <METHOD NAME='formatTypeName' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='(java.lang.String)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>format</KEYWORD>
+   <KEYWORD>jvm</KEYWORD>
+   <KEYWORD>internal</KEYWORD>
+   <KEYWORD>type</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+<SOURCES>
+   <SOURCE USE='TRUE'>OHLOH:/file?fid=VVNHv16JVs0Yv81o8v5AKBJ348Y&amp;cid=TJ6X__tn2JQ</SOURCE>
+</SOURCES>
+</SEARCH>
+
+
+
+

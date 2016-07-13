@@ -1,0 +1,24 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_94343' NAME='S6TestStrings'>
+      <TESTEE PACKAGE='s6tgen_94343'>
+        <CLASS NAME='Strings'>
+          <METHOD NAME='dataToString' SIGNATURE='([B)Ljava/lang/String;' STATIC='true' />
+          <METHOD NAME='stringToData' SIGNATURE='(Ljava/lang/String;[B)Z' STATIC='true' />
+          <METHOD NAME='stringToData' SIGNATURE='(Ljava/lang/String;I)[B' STATIC='true' />
+          <METHOD NAME='getEncodedStringLength' SIGNATURE='(I)I' STATIC='true' />
+          <METHOD NAME='getDecodedDataLength' SIGNATURE='(I)I' STATIC='true' />
+          <METHOD NAME='stringToData' SIGNATURE='(Ljava/lang/String;)[B' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>encoded</KEYWORD>
+    <KEYWORD>bits</KEYWORD>
+    <KEYWORD>bit</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_94343/context.s6ctx' />
+</SEARCH>

@@ -1,0 +1,23 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestLetterCollection'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='LetterCollection'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Z)'/>
+	  <METHOD NAME='add' SIGNATURE='(C)V'/>
+	  <METHOD NAME='add' SIGNATURE='(Ljava/lang/String;)Z'/>
+	  <METHOD NAME='draw' SIGNATURE='()C'/>
+	  <METHOD NAME='remove' SIGNATURE='(Ljava/lang/String;)V'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+     <KEYWORD>anagrams</KEYWORD>
+     <KEYWORD>letters</KEYWORD>
+     <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

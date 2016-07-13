@@ -1,0 +1,24 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestDictionaryElement'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='DictionaryElement'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;I)'/>
+	  <METHOD NAME='getWord' SIGNATURE='()Ljava/lang/String;'/>
+	  <METHOD NAME='getIndex' SIGNATURE='()I'/>
+	  <METHOD NAME='setIndex' SIGNATURE='(I)V'/>
+	  <METHOD NAME='compareTo' SIGNATURE='(Ljava/lang/Object;)I'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>word</KEYWORD>
+    <KEYWORD>compareTo</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+
+

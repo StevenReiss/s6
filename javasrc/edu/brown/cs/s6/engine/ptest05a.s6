@@ -1,0 +1,38 @@
+<SEARCH WHAT='PACKAGE' FORMAT='NONE' LOCAL='TRUE' REMOTE='FALSE' KODERS='FALSE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.crawl'>
+      <CLASS NAME='CrawlMain' MODS='1' MAIN='true' >
+      </CLASS>
+      <CLASS NAME='CrawlThread'>
+	 <SUPERCLASS>java.lang.Runnable</SUPERCLASS>
+      </CLASS>
+      <CLASS NAME='CrawlParser'>
+	 <KEY>parser</KEY>
+	 <KEY>HTML</KEY>
+      </CLASS>
+      <CLASS NAME='CrawlPage'>
+	 <FIELD MODS='2' TYPE='java.lang.String' />
+	 <KEY>URL</KEY>
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		 String [] args = new String [0];
+		 // CrawlMain.main(args);
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>url</KEYWORD>
+   <KEYWORD>crawl</KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='TRUE'>LABRADOR:file:///gpfs/main/home/spr/crawler/javasrc/edu/brown/cs/cs032/crawler/crawl/CrawlMain.java</SOURCE>
+</SOURCES>
+</SEARCH>

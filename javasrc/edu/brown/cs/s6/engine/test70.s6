@@ -1,0 +1,49 @@
+<SEARCH FORMAT='NONE' GOOGLE='TRUE' LOCAL='TRUE' REMOTE='TRUE' WHAT='CLASS'>
+<SIGNATURE>
+<CLASS NAME='TextDelta'>
+<METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS>java.lang.String,java.lang.String</ARGS>
+    <ARGNAMES>newstr,ordstr</ARGNAMES>
+    <TEXT>TextDelta(java.lang.String newstr,java.lang.String ordstr)</TEXT>
+  </METHOD>
+<METHOD MODS='0' STRING='true'>
+    <NAME>apply</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>old</ARGNAMES>
+    <TEXT>java.lang.String apply(java.lang.String old)</TEXT>
+  </METHOD>
+<METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>MultiMap()</TEXT>
+  </METHOD>
+</CLASS></SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='TextDelta' NEW='true' OP='SAVE'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abcdef]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abxef]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='SAVE' VALUE='t'>
+	<CODE><![CDATA[TextDelta t;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='apply' OP='EQL' THIS='t'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abxef]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[abcdef]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL OP='EQL' />
+  </TESTCASE>
+</TESTS><SECURITY /><KEYWORDS>
+<KEYWORD><![CDATA[text]]></KEYWORD><KEYWORD><![CDATA[delta]]></KEYWORD></KEYWORDS></SEARCH>
+

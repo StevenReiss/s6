@@ -1,0 +1,106 @@
+<project name="$(PROJECTNAME)" default="test" xmlns:jacoco='antlib:org.jacoco.ant'>
+
+   <taskdef uri='antlib:org.jacoco.ant' resource='org/jacoco/ant/antlib.xml'>
+      <classpath path='/pro/s6/public/jacoco/lib/jacocoant.jar' />
+   </taskdef>
+
+   <target name="compile">
+      <javac srcdir="." destdir="$(BIN)" includeantruntime='false' debug='true'>
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	 </classpath>
+      </javac>
+   </target>
+
+   <target name="test" depends="compile">
+      <junit printsummary='true' haltonerror='true' fork='true' >
+	 <assertions><enable/></assertions>
+	 <formatter type="xml" usefile="true" />
+	 <test name="$(TESTCLASS)" outfile="test.out" />
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	 </classpath>
+      </junit>
+   </target>
+
+   <target name="s6test" depends="compile">
+      <junit printsummary='true' haltonerror='true' fork='true' >
+	 <assertions><enable/></assertions>
+	 <formatter type="xml" usefile="true" />
+	 <test name="$(PACKAGE).S6Test$(USERCLASS)" outfile="s6test.out" />
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	 </classpath>
+      </junit>
+   </target>
+
+   <target name='origcoverage' depends='compile'>
+      <delete file='jacoco.exec' quiet='true' />
+      <jacoco:coverage>
+	 <junit fork='true' printsummary='true' haltonerror='false' forkmode='once'>
+	    <test name='$(TESTCLASS)' outfile='orig.test.out'/>
+	    <formatter type='xml' usefile='true' />
+	    <classpath>
+	       <pathelement location='./bin'/>
+	       <pathelement location="/pro/s6/lib/junit.jar" />
+	    </classpath>
+	 </junit>
+      </jacoco:coverage>
+      <jacoco:report>
+	 <executiondata>
+	    <file file='jacoco.exec' />
+	 </executiondata>
+	 <structure name='Test'>
+	    <classfiles>
+	       <fileset dir='bin'>
+		  <include name='**/$(USERCLASS).class' />
+	       </fileset>
+	    </classfiles>
+	    <sourcefiles encoding='UTF-8'>
+	       <fileset dir='.' />
+	    </sourcefiles>
+	 </structure>
+	 <xml destfile='origtest.xml' />
+	 <html destdir='origtest.out' />
+      </jacoco:report>
+   </target>
+
+    <target name='s6coverage' depends='compile'>
+      <delete file='jacoco.exec' quiet='true' />
+      <jacoco:coverage>
+	 <junit printsummary='true' haltonerror='false' fork='true' forkmode='once'>
+	    <test name='$(PACKAGE).S6Test$(USERCLASS)' outfile='s6test.test.out'/>
+	    <formatter type='xml' usefile='true' />
+	    <classpath>
+	       <pathelement location='./bin'/>
+	       <pathelement location="/pro/s6/lib/junit.jar" />
+	    </classpath>
+	 </junit>
+      </jacoco:coverage>
+      <jacoco:report>
+	 <executiondata>
+	    <file file='jacoco.exec' />
+	 </executiondata>
+	 <structure name='Test'>
+	    <classfiles>
+	       <fileset dir='bin'>
+		  <include name='**/$(USERCLASS).class' />
+	       </fileset>
+	    </classfiles>
+	    <sourcefiles encoding='UTF-8'>
+	       <fileset dir='.' />
+	    </sourcefiles>
+	 </structure>
+	 <xml destfile='s6test.xml' />
+	 <html destdir='s6test.out' />
+      </jacoco:report>
+   </target>
+
+
+
+
+</project>
+

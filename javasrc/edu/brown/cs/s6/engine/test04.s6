@@ -1,0 +1,94 @@
+<S6:SEARCH xmlns:S6="http://www.cs.brown.edu/S6" xmlns="http://www.cs.brown.edu/S6"
+		WHAT='METHOD' KODERS='TRUE' LOCAL='TRUE' >
+   <S6:KEYWORDS>
+      <KEYWORD>command</KEYWORD>
+      <KEYWORD>tokenize</KEYWORD>
+      <KEYWORD>split</KEYWORD>
+      <KEYWORD>argument</KEYWORD>
+      <KEYWORD>quote</KEYWORD>
+      <KEYWORD>list</KEYWORD>
+   </S6:KEYWORDS>
+   <S6:SIGNATURE>
+      <METHOD NAME='tokenize'
+	      SIGNATURE='(Ljava/lang/String;)Ljava/util/List;'
+	      RETURN='java.util.List'
+	      ARGS='(java.lang.String)' />
+   </S6:SIGNATURE>
+   <S6:TESTS>
+      <IMPORT TYPE="java.util.List" />
+      <IMPORT TYPE="java.util.ArrayList" />
+      <TESTCASE NAME='Simple' TYPE='CALLS'>
+	 <CALL METHOD='tokenize' OP='EQL'>
+	    <INPUT TYPE='STRING'>this is a test</INPUT>
+	    <OUTPUT TYPE="VARIABLE" VALUE="rslt">
+	       <CODE><![CDATA[
+		  List<java.lang.String> rslt = new java.util.ArrayList<java.lang.String>();
+		  rslt.add("this");
+		  rslt.add("is");
+		  rslt.add("a");
+		  rslt.add("test");
+	       ]]></CODE>
+	    </OUTPUT>
+	 </CALL>
+      </TESTCASE>
+      <TESTCASE NAME='Simpler' TYPE='CALLS'>
+	 <CALL METHOD='tokenize' OP='EQL'>
+	    <INPUT TYPE='STRING'>Testing</INPUT>
+	    <OUTPUT TYPE="VARIABLE" VALUE="rslt">
+	       <CODE><![CDATA[
+		  List<java.lang.String> rslt = new java.util.ArrayList<java.lang.String>();
+		  rslt.add("Testing");
+	       ]]></CODE>
+	    </OUTPUT>
+	 </CALL>
+      </TESTCASE>
+      <TESTCASE NAME='Quotes' TYPE='USERCODE' OPTIONAL='TRUE'>
+	 <CODE><![CDATA[
+	      {
+		 java.util.List l = $(PREFIX).tokenize("this is a 'test with' quoted \"string types\" in it");
+		 assertEquals("Wrong size list returned",l.size(),8);
+		 assertEquals("Element 0 bad: " + l,l.get(0),"this");
+		 assertEquals("Element 1 bad: " + l,l.get(1),"is");
+		 assertEquals("Element 2 bad: " + l,l.get(2),"a");
+		 assertEquals("Element 3 bad: " + l,l.get(3),"test with");
+		 assertEquals("Element 4 bad: " + l,l.get(4),"quoted");
+		 assertEquals("Element 5 bad: " + l,l.get(5),"string types");
+		 assertEquals("Element 6 bad: " + l,l.get(6),"in");
+		 assertEquals("Element 7 bad: " + l,l.get(7),"it");
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+      <TESTCASE NAME='DoubleQuote' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		 java.util.List l = $(PREFIX).tokenize("this is a \"test with\" quoted strings in it");
+		 assertEquals("Wrong size list returned",l.size(),8);
+		 assertEquals("Element 0 bad: " + l,l.get(0),"this");
+		 assertEquals("Element 1 bad: " + l,l.get(1),"is");
+		 assertEquals("Element 2 bad: " + l,l.get(2),"a");
+		 assertEquals("Element 3 bad: " + l,l.get(3),"test with");
+		 assertEquals("Element 4 bad: " + l,l.get(4),"quoted");
+		 assertEquals("Element 5 bad: " + l,l.get(5),"strings");
+		 assertEquals("Element 6 bad: " + l,l.get(6),"in");
+		 assertEquals("Element 7 bad: " + l,l.get(7),"it");
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+      <TESTCASE NAME='SingleQuote' TYPE='USERCODE' OPTIONAL='TRUE'>
+	 <CODE><![CDATA[
+	      {
+		 java.util.List l = $(PREFIX).tokenize("this is a 'test with' quoted strings in it");
+		 assertEquals("Wrong size list returned",l.size(),8);
+		 assertEquals("Element 0 bad: " + l,l.get(0),"this");
+		 assertEquals("Element 1 bad: " + l,l.get(1),"is");
+		 assertEquals("Element 2 bad: " + l,l.get(2),"a");
+		 assertEquals("Element 3 bad: " + l,l.get(3),"test with");
+		 assertEquals("Element 4 bad: " + l,l.get(4),"quoted");
+		 assertEquals("Element 5 bad: " + l,l.get(5),"strings");
+		 assertEquals("Element 6 bad: " + l,l.get(6),"in");
+		 assertEquals("Element 7 bad: " + l,l.get(7),"it");
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+   </S6:TESTS>
+</S6:SEARCH>

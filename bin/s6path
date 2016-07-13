@@ -1,0 +1,41 @@
+#! /bin/tcsh -f
+
+if ($?BROWN_S6_ROOT == 0) then
+   set x0 = `zsh -c "whence $0"`
+   set x1 = ${x0:h}
+   set x2 = $x1/s6setupenv
+   source $x2
+endif
+
+set path = ( /bin /usr/bin /usr/ucb/bin $BROWN_S6_IVY/bin $BROWN_S6_S6/bin )
+
+set p = `s6pwd`
+
+if ($#argv == 0) then
+   set x = $p
+else
+   set x = $1
+endif
+
+set y = UNKNOWN
+
+cd `s6basepath`
+set z = `s6pwd`
+cd $p
+
+if ($x =~ $z/javasrc/edu/brown/cs/*) then
+   set y = `echo $x | sed -e "s@$z/javasrc/@@"`
+else if ($x =~ $z/java/edu/brown/cs/*) then
+   set y = `echo $x | sed -e "s@$z/java/@@"`
+else if ($x =~ $z/*/src) then
+   set y = `echo $x | sed -e "s@$z/\([^/]*\)/src@edu/brown/cs/s6/\1@"`
+else if ($x =~ $z/*/src/*) then
+   set y = `echo $x | sed -e "s@$z/([^/]*)/src@edu/brown/cs/s6/\1/@"`
+else if ($x =~ $z/*/bin*) then
+   set y = `echo $x | sed -e "s@$z/\([^/]*\)/bin[^/]*@edu/brown/cs/s6/\1@"`
+else if ($x =~ $z/*/bin*/*) then
+   set y = `echo $x | sed -e "s@$z/([^/]*)/bin[^/]*@edu/brown/cs/s6/\1/@"`
+endif
+
+
+echo $y

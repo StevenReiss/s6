@@ -1,0 +1,17 @@
+<S6:CHECK xmlns:S6="http://www.cs.brown.edu/S6" xmlns="http://www.cs.brown.edu/S6"
+		WHAT="CALLTEST">
+   <S6:SIGNATURE>
+      <METHOD NAME='tokenize'
+	      SIGNATURE='(Ljava/lang/String;)Ljava/util/List;'
+	      RETURN='java.util.List'
+	      ARGS='(java.lang.String)' />
+   </S6:SIGNATURE>
+   <S6:ARGS>"This is a test"</S6:ARGS>
+   <S6:OP>eql</S6:OP>
+   <S6:RESULT><![CDATA[rslt { List<String> rslt = new java.util.ArrayList<String>();
+			rslt.add("this");
+			rslt.add("is");
+			rslt.add("a");
+			rslt.add("test"); }]]></S6:RESULT>
+</S6:CHECK>
+

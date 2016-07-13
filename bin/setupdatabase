@@ -1,0 +1,26 @@
+#! /bin/csh -f
+
+dropdb -h db.cs.brown.edu -W s6
+
+createdb -h db.cs.brown.edu -W s6
+
+psql -h db.cs.brown.edu -W s6 << EOF
+
+CREATE TABLE LicenseData (
+    uid text PRIMARY KEY,
+    hash text,
+    license text
+);
+
+CREATE TABLE LicenseUid (
+    uid integer
+);
+
+CREATE INDEX LicenceIndex ON LicenseData (hash);
+
+INSERT INTO LicenseUid VALUES (1);
+
+
+EOF
+
+

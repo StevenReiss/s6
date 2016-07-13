@@ -1,0 +1,71 @@
+
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/sviweb/client/Make.data,v 1.7 2013/09/13 20:33:15 spr Exp $
+
+#
+# SVIWEB.CLIENT -- S6 web client implementation
+#
+
+PACKAGE= sviweb/client
+SUBDIR= client
+
+SFILES= \
+	SviwebClassSearch.java \
+	SviwebClassNameArea.java \
+	SviwebClassTestArea.java \
+	SviwebConstants.java \
+	SviwebContextArea.java \
+	SviwebContractArea.java \
+	SviwebDeclaration.java \
+	SviwebEnvironArea.java \
+	SviwebFileWidget.java \
+	SviwebMain.java \
+	SviwebMethodSearch.java \
+	SviwebMethodTestArea.java \
+	SviwebMultiArea.java \
+	SviwebResultArea.java \
+	SviwebSearch.java \
+	SviwebSecurityArea.java \
+	SviwebService.java \
+	SviwebServiceAsync.java \
+	SviwebTestArea.java \
+	SviwebTestCase.java \
+	SviwebTestCaseImpl.java \
+	SviwebThreadingArea.java \
+	SviwebWidget.java \
+	SviwebXml.java \
+
+LOCALJAVAFLAGS= -source 1.6 -target 1.6 -bootclasspath /pro/java/linux/jdk1.6/jre/lib/rt.jar
+
+GWTDIR= $(BROWN_S6_S6)/public/gwt
+GWTDEV= $(wildcard $(GWTDIR)/gwt-dev*.jar)
+WEBCP= $(BROWN_S6_S6)/public/gwt/gwt-user.jar:$(BROWN_S6_S6)/public/gwt/gwt-dev-linux.jar:$(BROWN_S6_S6)/javasrc:$(BROWN_S6_S6)/java
+BASEDIR= $(BROWN_S6_S6)/sviweb/src
+WARDIR= $(BASEDIR)/war
+PCP= $(GWTDIR)/gwt-user.jar:$(GWTDEV):$(BROWN_S6_S6)/javasrc:$(BROWN_S6_S6)/java:$(BROWN_S6_IVY)/java
+
+test:
+	ssh valerie java -Xmx512M -cp $(PCP) com.google.gwt.dev.HostedMode -war $(WARDIR) \
+		-startupUrl edu.brown.cs.s6.sviweb.S6Search/s6search.html edu.brown.cs.s6.sviweb.S6Search
+
+
+testold:
+	ssh valerie djava -Xmx1000m -cp $(WEBCP) com.google.gwt.dev.GWTShell \
+		-whitelist http: \
+		edu.brown.cs.s6.sviweb.S6Search
+
+
+test1:
+	ssh valerie djava -Xmx1000m -cp $(WEBCP) com.google.gwt.dev.HostedMode \
+		-whitelist http: \
+		edu.brown.cs.s6.sviweb.S6Search
+
+
+TGWT= /home/spr/gwt/trunk/build/lib
+TGWTDEV= $(wildcard $(TGWT)/gwt-dev*.jar)
+TPCP= $(TGWT)/gwt-user.jar:$(TGWTDEV):$(BROWN_S6_S6)/javasrc:$(BROWN_S6_S6)/java:$(BROWN_S6_IVY)/java
+
+test2:
+	java -Xmx512M -cp $(TPCP) com.google.gwt.dev.HostedMode -war $(WARDIR) \
+		-startupUrl edu.brown.cs.s6.sviweb.S6Search/s6search.html edu.brown.cs.s6.sviweb.S6Search
+
+

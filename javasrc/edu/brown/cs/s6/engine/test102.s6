@@ -1,0 +1,39 @@
+<SEARCH FORMAT='NONE' LOCAL='TRUE' WHAT='CLASS'><SIGNATURE><CLASS NAME='Sort'><METHOD MODS='0' VOID='true'>
+    <NAME>quicksort</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>int[]</ARGS>
+    <ARGNAMES>id</ARGNAMES>
+    <TEXT>void quicksort(int[] id)</TEXT>
+  </METHOD><METHOD INT='true' MODS='0'>
+    <NAME>getId</NAME>
+    <RETURN>int</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>int getId()</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>setName</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>name</ARGNAMES>
+    <TEXT>void setName(java.lang.String name)</TEXT>
+  </METHOD><METHOD MODS='0' STRING='true'>
+    <NAME>getName</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>java.lang.String getName()</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>setPrice</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>double</ARGS>
+    <ARGNAMES>price</ARGNAMES>
+    <TEXT>void setPrice(double price)</TEXT>
+  </METHOD><METHOD DOUBLE='true' MODS='0'>
+    <NAME>getPrice</NAME>
+    <RETURN>double</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>double getPrice()</TEXT>
+  </METHOD></CLASS></SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='USERCODE' />
+

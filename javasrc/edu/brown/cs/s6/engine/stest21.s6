@@ -1,0 +1,20 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_61367' NAME='S6TestArrayUtilities'>
+      <TESTEE PACKAGE='s6tgen_61367'>
+	<CLASS NAME='ArrayUtilities'>
+	  <METHOD NAME='reverse' SIGNATURE='([CII)[C' STATIC='true' />
+	  <METHOD NAME='reverse' SIGNATURE='([C)[C' STATIC='true' />
+	  <METHOD NAME='reverseTokens' SIGNATURE='([CIIC)[C' STATIC='true' />
+	  <METHOD NAME='reverseTokens' SIGNATURE='([CC)[C' STATIC='true' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>reverse</KEYWORD>
+    <KEYWORD>array</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_61367/context.s6ctx' />
+</SEARCH>

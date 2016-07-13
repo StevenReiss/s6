@@ -1,0 +1,23 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestCoin'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='Coin'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()'/>
+	  <METHOD NAME='flip' SIGNATURE='()V'/>
+	  <METHOD NAME='isHeads' SIGNATURE='()Z'/>
+	  <METHOD NAME='toString' SIGNATURE='()Ljava/lang/String;'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>coin</KEYWORD>
+    <KEYWORD>flip</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+
+

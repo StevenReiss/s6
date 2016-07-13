@@ -1,0 +1,21 @@
+<SEARCH FORMAT='NONE' GOOGLE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD INT='true' MODS='0'>
+    <NAME>maxPrefixSum</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>int[]</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>int maxPrefixSum(int[] a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='maxPrefixSum' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new int[] {1,-1,4,-2,3,-5,1,1,1}]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[5]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT><CONTEXT /></CONTEXT><KEYWORDS><KEYWORD><![CDATA[max]]></KEYWORD><KEYWORD><![CDATA[prefix sum]]></KEYWORD></KEYWORDS></SEARCH>
+

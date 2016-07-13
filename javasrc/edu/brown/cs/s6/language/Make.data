@@ -1,0 +1,25 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/Make.data,v 1.4 2015/09/23 17:58:03 spr Exp $
+
+#
+# S6:COMMON -- Semantic Search of Shared Source Software System
+#
+
+
+PACKAGE=language
+
+
+SFILES=\
+	ContextBase.java \
+	LanguageBase.java \
+	LanguageConstants.java \
+	LanguageController.java \
+	FragmentBase.java \
+	TextDelta.java \
+	TextDelta0.java \
+	TextDelta1.java \
+	TextDelta2.java \
+	TransformBase.java \
+
+
+SUBDIRS= java

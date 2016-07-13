@@ -1,0 +1,26 @@
+<SEARCH FORMAT='NONE' LOCAL='TRUE' WHAT='METHOD'><SIGNATURE>
+<METHOD FLOAT='true' MODS='0'>
+<NAME>mean</NAME>
+<RETURN>float</RETURN>
+<ARGS>float[]</ARGS>
+<ARGNAMES>a1</ARGNAMES>
+<TEXT>float mean(float[] a1)</TEXT>
+</METHOD>
+</SIGNATURE><TESTS>
+<TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+<CALL METHOD='mean' OP='EQL'>
+<INPUT TYPE='LITERAL'>
+<VALUE><![CDATA[new float[] {1.0f , 4.0f , 10.0f , 6.0f}]]></VALUE>
+</INPUT>
+<OUTPUT TYPE='LITERAL'>
+<VALUE><![CDATA[5.25f]]></VALUE>
+</OUTPUT>
+</CALL>
+</TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS><KEYWORD><![CDATA[mean]]></KEYWORD></KEYWORDS>
+<SOURCES>
+ <SOURCE USE='TRUE'>LABRADOR:file:///gpfs/main/research/wadi/public/mallet-0.4/src/edu/umass/cs/mallet/base/types/MatrixOps.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

@@ -1,0 +1,22 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestNodePool'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='NodePool'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()'/>
+	  <METHOD NAME='allocate' SIGNATURE='(Ljava/lang/Object;Lsampler/spr/textex/ListNode;)Lsampler/spr/textex/ListNode'/>
+	  <METHOD NAME='free' SIGNATURE='(Lsampler/spr/textex/ListNode;)V'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>allocate</KEYWORD>
+    <KEYWORD>free</KEYWORD>
+    <KEYWORD>node</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

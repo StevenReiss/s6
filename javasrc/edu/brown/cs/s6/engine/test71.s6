@@ -1,0 +1,66 @@
+<SEARCH WHAT='FULLCLASS' FORMAT='BROWN' REMOTE='TRUE' GOOGLE='TRUE'><SIGNATURE><CLASS NAME='Complex'><METHOD MODS='0' CONSTRUCTOR='true'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS>double,double</ARGS>
+    <ARGNAMES>x,y</ARGNAMES>
+    <TEXT>Complex(double x,double y)</TEXT>
+  </METHOD><METHOD MODS='0'>
+    <NAME>add</NAME>
+    <RETURN>Complex</RETURN>
+    <ARGS>Complex</ARGS>
+    <ARGNAMES>t</ARGNAMES>
+    <TEXT>Complex add(Complex t)</TEXT>
+  </METHOD><METHOD MODS='0' DOUBLE='true'>
+    <NAME>r</NAME>
+    <RETURN>double</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>double r()</TEXT>
+  </METHOD><METHOD MODS='0' DOUBLE='true'>
+    <NAME>i</NAME>
+    <RETURN>double</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>double i()</TEXT>
+  </METHOD></CLASS></SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_3' TYPE='CALLS'>
+    <CALL METHOD='Complex' NEW='true' OP='SAVE'>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[1.0]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[2.0]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='SAVE' VALUE='x'>
+        <CODE><![CDATA[Complex x;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='Complex' NEW='true' OP='SAVE'>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[3.0]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[4.0]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='SAVE' VALUE='y'>
+        <CODE><![CDATA[Complex y;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='add' THIS='x' OP='SAVE'>
+      <INPUT TYPE='VARIABLE' VALUE='y' />
+      <OUTPUT TYPE='SAVE' VALUE='z'>
+        <CODE><![CDATA[Complex z;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='r' THIS='z' OP='EQL'>
+      <OUTPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[4.0]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='i' THIS='z' OP='EQL'>
+      <OUTPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[6.0]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><KEYWORDS><KEYWORD><![CDATA[complex]]></KEYWORD></KEYWORDS></SEARCH>
+

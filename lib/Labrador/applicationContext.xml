@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<import resource="applicationContext-dataSources.xml"/>
+	<import resource="applicationContext-hibernate.xml" /> <!-- imports data -->
+	<import resource="applicationContext-fscb.xml"/> <!-- imports data and hibernate -->
+	
+	<import resource="applicationContext-analysis.xml"/>
+	<import resource="applicationContext-search.xml"/> <!-- imports analysis and data -->
+	
+	<import resource="applicationContext-engine.xml"/>
+
+	<!-- Clients, Servers, and Jobs -->
+	<bean name="synchronizeIndexJob" class="labrador.server.SynchronizeIndexJob" lazy-init="true" />
+	<bean name="synchronizeIndexJobDetail" class="labrador.server.SynchronizeIndexJobDetail" lazy-init="true">
+		<constructor-arg ref="synchronizeIndexJob" />
+		<constructor-arg ref="defaultEngineBuilder" />
+	</bean>
+	<bean id="serverControlClient" class="pandorasbox.simpleclientserver.client.SimpleClient" lazy-init="true" />
+	<bean id="quartzProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean" lazy-init="true">
+		<property name="location" value="quartz.properties"/>
+	</bean>
+	<bean id="requestCallback" class="labrador.server.LabradorServerRequestHandler" lazy-init="true" />
+	<bean id="serverPrototype" class="pandorasbox.scheduling.server.SchedulingServer" lazy-init="true">
+		<property name="properties" ref="quartzProperties" />
+		<property name="requestCallback" ref="requestCallback" />
+<!--		<util:properties id="properties" location="quartz.properties"/>-->
+	</bean>
+
+	<!-- Applications -->
+	<bean id="serverCommandLineApplication" class="labrador.server.commandline.ServerApplicationImpl" lazy-init="true">
+		<property name="serverController" ref="serverControlClient" />
+		<property name="serverPrototype" ref="serverPrototype" />
+		<property name="synchronizeIndexJobDetail" ref="synchronizeIndexJobDetail" />
+	</bean>
+	<bean id="managementCommandLineApplication" class="labrador.management.commandline.ManagementApplicationImpl" lazy-init="true">
+		<property name="engineBuilder" ref="defaultEngineBuilder" />
+	</bean>
+
+</beans>

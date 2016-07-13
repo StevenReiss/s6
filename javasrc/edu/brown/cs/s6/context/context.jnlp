@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- JNLP file for S6 Context creation -->
+
+<jnlp spec='1.0+' codebase='http://conifer.cs.brown.edu/s6/Context' href='context.jnlp'>
+  <information>
+    <title>edu.brown.cs.s6.context.Context Builder</title>
+    <vendor>spr @ fred3</vendor>
+    <description><![CDATA[This builds a user context so that the S6 search engine can
+		       use local files and the user's class path or Eclipse project
+		       for doing search transformations and testing.]]></description>
+    <offline-allowed />
+    <shortcut online='false'>
+      <desktop />
+      <menu submenu='S6 Context Builder' />
+    </shortcut>
+  </information>
+  <security>
+    <all-permissions />
+  </security>
+  <resources>
+    <j2se version='1.6+' max-heap-size='256m' />
+    <jar href='lib/context.jar' />
+  </resources>
+  <application-desc main-class='edu.brown.cs.s6.context.ContextMain'>
+    <argument>-i</argument>
+  </application-desc>
+</jnlp>

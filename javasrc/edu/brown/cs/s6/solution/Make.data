@@ -1,0 +1,15 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/solution/Make.data,v 1.1.1.1 2008-06-03 12:59:22 spr Exp $
+
+#
+# S6:SOLUTION -- Semantic Search of Shared Source Software System potential solution
+#
+
+
+PACKAGE=solution
+
+
+SFILES=\
+	SolutionConstants.java \
+	SolutionBase.java \
+	SolutionSet.java \

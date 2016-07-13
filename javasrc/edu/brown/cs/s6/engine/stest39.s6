@@ -1,0 +1,29 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_37442' NAME='S6TestAtomicPositiveInteger'>
+      <TESTEE PACKAGE='s6tgen_37442'>
+	<CLASS NAME='AtomicPositiveInteger'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()' />
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(I)' />
+	  <METHOD NAME='getAndIncrement' SIGNATURE='()I' />
+	  <METHOD NAME='getAndDecrement' SIGNATURE='()I' />
+	  <METHOD NAME='incrementAndGet' SIGNATURE='()I' />
+	  <METHOD NAME='decrementAndGet' SIGNATURE='()I' />
+	  <METHOD NAME='get' SIGNATURE='()I' />
+	  <METHOD NAME='set' SIGNATURE='(I)V' />
+	  <METHOD NAME='getAndSet' SIGNATURE='(I)I' />
+	  <METHOD NAME='getAndAdd' SIGNATURE='(I)I' />
+	  <METHOD NAME='addAndGet' SIGNATURE='(I)I' />
+	  <METHOD NAME='compareAndSet' SIGNATURE='(II)Z' />
+	  <METHOD NAME='weakCompareAndSet' SIGNATURE='(II)Z' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>atomicpositiveinteger</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_37442/context.s6ctx' />
+</SEARCH>

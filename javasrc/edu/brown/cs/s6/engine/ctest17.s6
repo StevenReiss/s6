@@ -1,0 +1,17 @@
+<CHECK WHAT='TESTS'>
+<SIGNATURE>
+<METHOD MODS='0'>
+<NAME>sqrt</NAME>
+<RETURN>spr.complex.Complex</RETURN>
+<ARGS>spr.complex.Complex</ARGS>
+<ARGNAMES>a1</ARGNAMES>
+<TEXT>spr.complex.Complex sqrt(spr.complex.Complex a1)</TEXT>
+</METHOD>
+</SIGNATURE>
+<TEST TESTID='0' TESTNAME='SVIWEB_1' TYPE='CALL' METHOD='sqrt' OP='EQL'>
+<INPUT><![CDATA[{ new Complex(16) }]]></INPUT>
+<OUTPUT><![CDATA[{ new Complex(4) }]]></OUTPUT>
+</TEST>
+<CONTEXT FILE='/pro/s6/tmp/files/s6data63883.s6ctx' />
+</CHECK>
+

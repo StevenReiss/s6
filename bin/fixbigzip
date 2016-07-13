@@ -1,0 +1,14 @@
+#! /bin/csh -f
+
+# this fixes up zip files from github that should have been zip64'd but
+# weren't
+
+# fixbigzip <directory>
+
+
+cd $1
+zip -FF DATA.zip --out xxx.zip <<EOF
+y
+EOF
+
+mv xxx.zip DATA.zip

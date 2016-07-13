@@ -1,0 +1,35 @@
+test06.s6HAT='PACKAGE' FORMAT='NONE' LOCAL='TRUE' REMOTE='TRUE' KODERS='TRUE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.crawl'>
+      <CLASS NAME='SprCrawlMain' MODS='1' MAIN='true' >
+      </CLASS>
+      <CLASS NAME='SprCrawlThread'>
+	 <SUPERCLASS>java.lang.Runnable</SUPERCLASS>
+      </CLASS>
+      <CLASS NAME='SprCrawlParser'>
+	 <KEY>parser</KEY>
+	 <KEY>HTML</KEY>
+      </CLASS>
+      <CLASS NAME='SprCrawlPage'>
+	 <FIELD MODS='2' TYPE='java.lang.String' />
+	 <KEY>URL</KEY>
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		 String [] args = new String [0];
+		 // CrawlMain.main(args);
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>web</KEYWORD>
+   <KEYWORD>crawler</KEYWORD>
+</KEYWORDS>
+</SEARCH>

@@ -1,0 +1,20 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_86347' NAME='S6TestVersionComparator'>
+      <TESTEE PACKAGE='s6tgen_86347'>
+        <CLASS NAME='VersionComparator'>
+          <METHOD NAME='compare' SIGNATURE='(Ljava/lang/String;Ljava/lang/String;)I' />
+          <METHOD NAME='compareInternal' SIGNATURE='(Ljava/lang/String;Ljava/lang/String;)I' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>parts</KEYWORD>
+    <KEYWORD>numeric</KEYWORD>
+    <KEYWORD>part</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_86347/context.s6ctx' />
+</SEARCH>

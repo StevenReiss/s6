@@ -1,0 +1,30 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/Make.data,v 1.6 2014/08/29 15:16:13 spr Exp $
+
+#
+# S6:REQUEST -- Semantic Search of Shared Source Software System request storage
+#
+
+
+PACKAGE=request
+
+
+SFILES=\
+	RequestConstants.java \
+	RequestContext.java \
+	RequestContracts.java \
+	RequestBase.java \
+	RequestCheck.java \
+	RequestClass.java \
+	RequestField.java \
+	RequestFormat.java \
+	RequestKeywordSet.java \
+	RequestMethod.java \
+	RequestSearch.java \
+	RequestSecurity.java \
+	RequestSignature.java \
+	RequestSources.java \
+	RequestTestCase.java \
+	RequestTesting.java \
+	RequestTests.java \
+	RequestUIFramework.java \

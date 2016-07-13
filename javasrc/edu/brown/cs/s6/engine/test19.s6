@@ -1,0 +1,81 @@
+<SEARCH LOCAL='TRUE' WHAT='CLASS'>
+<SIGNATURE>
+<CLASS NAME='UnionFind'>
+  <METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS />
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>add</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>java.lang.Object</ARGS>
+  </METHOD><METHOD MODS='0'>
+    <NAME>find</NAME>
+    <RETURN>java.lang.Object</RETURN>
+    <ARGS>java.lang.Object</ARGS>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>union</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>java.lang.Object,java.lang.Object</ARGS>
+  </METHOD>
+</CLASS>
+</SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='UnionFind' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='set'>
+	<CODE><![CDATA[UnionFind set;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='add' THIS='set' OP='IGNORE'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </INPUT>
+    </CALL>
+    <CALL METHOD='add' THIS='set' OP='IGNORE'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[def]]></VALUE>
+      </INPUT>
+    </CALL>
+    <CALL METHOD='add' THIS='set' OP='IGNORE'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[ghi]]></VALUE>
+      </INPUT>
+    </CALL>
+    <CALL METHOD='find' THIS='set' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='union' THIS='set' OP='IGNORE'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[def]]></VALUE>
+      </INPUT>
+    </CALL>
+    <CALL METHOD='find' THIS='set' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[def]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='add' THIS='set' OP='IGNORE'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[jkl]]></VALUE>
+      </INPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS>
+<SECURITY />
+<KEYWORDS>
+<KEYWORD><![CDATA[union]]></KEYWORD><KEYWORD><![CDATA[find]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+
+

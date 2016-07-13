@@ -1,0 +1,59 @@
+<SEARCH FORMAT='NONE' KODERS='TRUE' REMOTE='TRUE' WHAT='CLASS'><SIGNATURE><CLASS NAME='IntArray'><METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>IntArray()</TEXT>
+  </METHOD><METHOD INT='true' MODS='0'>
+    <NAME>get</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>int</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>int get(int a1)</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>set</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>int,int</ARGS>
+    <ARGNAMES>idx,v</ARGNAMES>
+    <TEXT>void set(int idx,int v)</TEXT>
+  </METHOD></CLASS></SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='IntArray' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='arr'>
+	<CODE><![CDATA[IntArray arr;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='set' OP='IGNORE' THIS='arr'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[1]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+    </CALL>
+    <CALL METHOD='set' OP='IGNORE' THIS='arr'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[2]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[4]]></VALUE>
+      </INPUT>
+    </CALL>
+    <CALL METHOD='set' OP='IGNORE' THIS='arr'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[5]]></VALUE>
+      </INPUT>
+    </CALL>
+    <CALL METHOD='get' OP='EQL' THIS='arr'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[5]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><KEYWORDS><KEYWORD><![CDATA[dynamic]]></KEYWORD><KEYWORD><![CDATA[int]]></KEYWORD><KEYWORD><![CDATA[array]]></KEYWORD></KEYWORDS></SEARCH>
+

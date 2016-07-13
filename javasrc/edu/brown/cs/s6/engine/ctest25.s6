@@ -1,0 +1,41 @@
+<SEARCH FORMAT='SUN' GITHUB='TRUE' REMOTE='TRUE' WHAT='CLASS' SCOPE='PACKAGE'><SIGNATURE><CLASS NAME='HttpServer'><METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS>int</ARGS>
+    <ARGNAMES>port</ARGNAMES>
+    <TEXT>HttpServer(int port)</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>start</NAME>
+    <RETURN>void</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>void start()</TEXT>
+  </METHOD></CLASS></SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_2' TYPE='USERCODE'>
+     <CODE>
+      Thread th = new Thread() {
+	 HttpServer s = new HttpServer(44456);
+	 public void run() { s.start(); }
+       };
+      th.start();
+      try { Thread.sleep(200); }  catch (InterruptedException e) { }
+      java.net.Socket sock = new java.net.Socket("localhost",44456);
+      Assert.assertTrue(sock != null);
+    </CODE>
+  </TESTCASE>
+</TESTS>
+<SECURITY />
+<KEYWORDS>
+<KEYWORD><![CDATA[http]]></KEYWORD>
+<KEYWORD><![CDATA[server]]></KEYWORD>
+<KEYWORD><![CDATA[serversocket]]></KEYWORD>
+<KEYWORD><![CDATA[start]]></KEYWORD>
+<KEYWORD><![CDATA[port]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+
+
+
+
+
+

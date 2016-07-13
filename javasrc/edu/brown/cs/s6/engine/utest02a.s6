@@ -1,0 +1,50 @@
+<SEARCH WHAT='UIFRAMEWORK' FORMAT='NONE' LOCAL='TRUE' REMOTE='FALSE' KODERS='FALSE'>
+<SIGNATURE>
+   <UI PACKAGE='spr.sampler.simple' NAME='S6_UI_CLASS'>
+      <COMPONENT ID='C1' TYPES='javax.swing.JPanel' >
+	 <COMPONENT ID='C2' TYPES='javax.swing.JLabel' DATA='Look For:' TOP='C1' LEFT='C1' />
+	 <COMPONENT ID='C3' TYPES='javax.swing.JTextField' TOP='C1' LEFT='C2' />
+	 <COMPONENT ID='C4' TYPES='javax.swing.JSeparator' TOP='C3' LEFT='C1' />
+	 <COMPONENT ID='C5' TYPES='javax.swing.JLabel' DATA='Name:' TOP='C3' LEFT='C1' />
+	 <COMPONENT ID='C6' TYPES='javax.swing.JTextField' TOP='C3' LEFT='C2' />
+	 <COMPONENT ID='C7' TYPES='javax.swing.JLabel' DATA='Address:' TOP='C5' LEFT='C1' />
+	 <COMPONENT ID='C8' TYPES='javax.swing.JTextField' TOP='C5' LEFT='C2' />
+	 <COMPONENT ID='C9' TYPES='javax.swing.JLabel' DATA='Telephone:' TOP='C7' LEFT='C1' />
+	 <COMPONENT ID='Ca' TYPES='javax.swing.JTextField' TOP='C7' LEFT='C2' />
+	 <COMPONENT ID='Cb' TYPES='javax.swing.JLabel' DATA='Email:' TOP='C9' LEFT='C1' />
+	 <COMPONENT ID='Cc' TYPES='javax.swing.JTextField' TOP='C9' LEFT='C2' />
+      </COMPONENT>
+      <CLASS NAME='S6_UI_CLASS'>
+	 <METHOD NAME='S6_UI' RETURN='java.awt.Component' />
+      </CLASS>
+   </UI>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='S6_UI_CLASS' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='x'>
+	<CODE><![CDATA[S6_UI_CLASS x;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='S6_UI' THIS='x' OP='SAVE'>
+       <OUTPUT TYPE='SAVE' VALUE='y'>
+	 <CODE><![CDATA[java.awt.Component y;]]></CODE>
+       </OUTPUT>
+    </CALL>
+    <CALL OP='HIERARCHY' THIS='y' />
+    <CALL OP='INTERACT' THIS='y' />
+  </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>jpanel</KEYWORD>
+   <KEYWORD>jlabel</KEYWORD>
+   <KEYWORD>jseparator</KEYWORD>
+   <KEYWORD>jtextfield</KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='TRUE'>LABRADOR:file:///map/aux0fred/javasrc1.6/deploy/src/common/share/classes/com/sun/deploy/ui/DialogTemplate.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

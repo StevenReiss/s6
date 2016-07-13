@@ -1,0 +1,24 @@
+<S6:SEARCH LOCAL='TRUE' REMOTE='FALSE' WHAT='METHOD' xmlns:S6='http://www.cs.brown.edu/S6'>
+<S6:KEYWORDS><KEYWORD>tokenize</KEYWORD></S6:KEYWORDS><S6:SIGNATURE>
+  <S6:METHOD>
+    <S6:NAME>tokenize</S6:NAME>
+    <S6:RETURN>java.util.List</S6:RETURN>
+    <S6:ARGS>java.lang.String</S6:ARGS>
+  </S6:METHOD>
+  <S6:TEXT>java.util.List tokenize(java.lang.String a1)</S6:TEXT>
+</S6:SIGNATURE><S6:TESTS><S6:TESTCASE NAME='test_1_1' TYPE='CALLS'>
+  <S6:CALL METHOD='tokenize'>
+    <S6:INPUT TYPE='STRING'>
+      <S6:VALUE><![CDATA[this is a test]]></S6:VALUE>
+    </S6:INPUT>
+    <S6:OUTPUT TYPE='VARIABLE' VALUE='v_1'>
+      <S6:CODE><![CDATA[java.util.Collection v_1 = new java.util.ArrayList();
+v_1.add("this");
+v_1.add("is");
+v_1.add("a");
+v_1.add("test");
+]]></S6:CODE>
+    </S6:OUTPUT>
+  </S6:CALL>
+</S6:TESTCASE></S6:TESTS></S6:SEARCH>
+

@@ -1,0 +1,64 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.upod.basis' NAME='BasisCalendarEventTest'>
+      <TESTEE PACKAGE='edu.brown.cs.upod.basis'>
+	 <CLASS NAME='BasisCalendarEvent'>
+	    <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/util/Calendar;Ljava/util/Calendar;)'
+		ARGS='(java.util.Calendar,java.util.Calendar)' />
+	    <METHOD NAME='getDescription' SIGNATURE='()Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='()'
+		EXCPETIONS='java.io.IOException' />
+	    <METHOD NAME='makeAllDay' SIGNATURE='()V;'
+		RETURN='void'
+		ARGS='()' />
+	    <METHOD NAME='setRepeat' SIGNATURE='(I)V;'
+		RETURN='void'
+		ARGS='(int)' />
+	    <METHOD NAME='setDays' SIGNATURE='(Ljava/lang/String;)V;'
+		RETURN='void'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='setDays' SIGNATURE='(Ljava/util/Bitset;)V;'
+		RETURN='void'
+		ARGS='(java.util.Bitset)' />
+	    <METHOD NAME='getDaySet' SIGNATURE='(Ljava/lang/String;)Ljava/util/Bitset;' STATIC='TRUE'
+		RETURN='java.util.Bitset'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='getDays' SIGNATURE='()Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='()' />
+	    <METHOD NAME='addExcludeDate' SIGNATURE='(Ljava/util/Calendar;)V'
+		RETURN='void'
+		ARGS='(java.util.Calendar)' />
+	    <METHOD NAME='getSlots' SIGNATURE='(Ljava/util/Calendar;Ljava/util/Calendar;)Ljava/util/List;'
+		RETURN='java/util/List&lt;java/util/Calendar&gt;'
+		ARGS='(java.util.Calendar,java.util.Calendar)' />
+	    <METHOD NAME='isActive' SIGNATURE='(J)Z'
+		RETURN='boolean'
+		ARGS='(long)' />
+	    <METHOD NAME='startOfDay' SIGNATURE='(Ljava/util/Calendar;)Ljava/util/Calendar;'
+		RETURN='java.util.Calendar'  STATIC='TRUE'
+		ARGS='(java.util.Calendar)' />
+	    <METHOD NAME='startOfNextDay' SIGNATURE='(Ljava/util/Calendar;)Ljava/util/Calendar;'
+		RETURN='java.util.Calendar'  STATIC='TRUE'
+		ARGS='(java.util.Calendar)' />
+	    <METHOD NAME='canOverlap' SIGNATURE='(Ledu.brown.cs.upod.basis.BasisCalendarEvent;)Z'
+		RETURN='boolean'
+		ARGS='(edu.brown.cs.upod.basis.BasisCalendarEvent)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>calendar</KEYWORD>
+   <KEYWORD>event</KEYWORD>
+   <KEYWORD>start</KEYWORD>
+   <KEYWORD>repeat</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+</SEARCH>
+
+
+

@@ -1,0 +1,22 @@
+<SEARCH FORMAT='NONE' GITHUB='true' LOCAL='false' OHLOH='true' REMOTE='true' WHAT='TESTCASES'>
+  <SIGNATURE>
+    <TESTING NAME='S6TestOnsetBitSet' PACKAGE='spr.onsets'>
+      <TESTEE PACKAGE='spr.onsets'>
+	<CLASS NAME='OnsetBitSet'>
+	  <METHOD NAME='check' SIGNATURE='(I)Z' />
+	  <METHOD NAME='checkAndSet' SIGNATURE='(I)Z' />
+	  <METHOD NAME='clear' SIGNATURE='(I)V' />
+	  <METHOD NAME='clearAll' SIGNATURE='()V' />
+	  <METHOD NAME='compIntersect' SIGNATURE='(Lspr/onsets/OnsetBitSet;)V' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>bitset</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/gpfs/main/research/s6/tmp/files/s6data8130389456154137833.s6ctx' />
+</SEARCH>
+

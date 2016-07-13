@@ -1,0 +1,15 @@
+ <CHECK WHAT='TESTS'><SIGNATURE>
+   <METHOD MODS='0'>
+   <NAME>invert</NAME>
+   <RETURN>double[][]</RETURN>
+   <ARGS>double[][]</ARGS>
+   <ARGNAMES>a1</ARGNAMES>
+   <TEXT>double[][] invert(double[][] a1)</TEXT>
+   </METHOD>
+   </SIGNATURE>
+<TEST TESTID='0' TESTNAME='SVIWEB_1' TYPE='CALL' METHOD='invert' OP='EQL'>
+<INPUT><![CDATA[[ [ 1, 2], [3, 4]]]]></INPUT>
+<OUTPUT><![CDATA[[ [-2,1],[1.5,-0.5]]]]></OUTPUT>
+</TEST>
+</CHECK>
+

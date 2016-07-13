@@ -1,0 +1,26 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_106858' NAME='S6TestExpressionTokenizer'>
+      <TESTEE PACKAGE='s6tgen_106858'>
+	<CLASS NAME='ExpressionTokenizer'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;)' />
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/StringBuilder;)' />
+	  <METHOD NAME='hasNext' SIGNATURE='()Z' />
+	  <METHOD NAME='next' SIGNATURE='()Ls6tgen_106858/ExpressionTokenizer$ExpressionTokenizerToken;' />
+	  <METHOD NAME='pushBack' SIGNATURE='()V' />
+	  <METHOD NAME='previousPipe' SIGNATURE='()I' />
+	  <METHOD NAME='pos' SIGNATURE='()I' />
+	  <METHOD NAME='lastPipe' SIGNATURE='()I' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>tokenize</KEYWORD>
+    <KEYWORD>hasNext</KEYWORD>
+    <KEYWORD>expr</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_106858/context.s6ctx' />
+</SEARCH>

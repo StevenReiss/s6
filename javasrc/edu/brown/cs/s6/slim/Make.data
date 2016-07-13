@@ -1,0 +1,26 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/slim/Make.data,v 1.1 2008-06-12 18:33:29 spr Exp $
+
+#
+# S6:SLIM -- Security management for S6
+#
+
+
+PACKAGE=slim
+
+
+SFILES=\
+	SlimAllPermission.java \
+	SlimAwtPermission.java \
+	SlimConstants.java \
+	SlimDomainCombiner.java \
+	SlimFilePermission.java \
+	SlimPermission.java \
+	SlimPermissionSet.java \
+	SlimPropertyPermission.java \
+	SlimRuntimePermission.java \
+	SlimSecurityDomain.java \
+	SlimSecurityPolicy.java \
+	SlimSocketPermission.java \
+
+

@@ -1,0 +1,27 @@
+
+# RCS: $Header$
+
+#
+# RUNCTX -- context runner for S6 testing
+#
+
+PACKAGE= runctx
+
+BFILES=runctxmonitor.o runctxio.o
+SFILES=runctxmonitor.C runctxio.C
+HFILES=runctx_local.H
+
+SHLIBLINKS= librunctx.$(SHAREDEXT)
+OSHLIBLINKS= librunctxopt.$(SHAREDEXT)
+PSHLIBLINKS= librunctxprof.$(SHAREDEXT)
+
+
+DYNLIB= -ldl
+
+
+ALL= librunctx.$(LIBTYPE)
+
+opt: allopt librunctxopt.$(LIBTYPE)
+
+prof: allprof librunctxprof.$(LIBTYPE)
+

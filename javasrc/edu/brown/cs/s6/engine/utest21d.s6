@@ -1,0 +1,61 @@
+<SEARCH WHAT='UIFRAMEWORK' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' GITHUB='TRUE' SCOPE='PACKAGE'>
+<SIGNATURE>
+   <UI PACKAGE='spr.sampler.uitest' NAME='S6_UI_CLASS'>
+      <COMPONENT ID='C1' TYPES='javax.swing.JComponent' >
+	 <COMPONENT ID='C4' TYPES='javax.swing.AbstractButton' DATA='Help' TOP='C1' RIGHT='C1' />
+	 <COMPONENT ID='C2' TYPES='javax.swing.JLabel' DATA='Student Number' TOP='C1' LEFT='C1' />
+	 <COMPONENT ID='C3' TYPES='javax.swing.JLabel' LEFT='C2' RIGHT='C1' />
+	 <COMPONENT ID='C5' TYPES='javax.swing.JLabel' DATA='First Name' TOP='C2' LEFT='C1' />
+	 <COMPONENT ID='C6' TYPES='javax.swing.text.JTextComponent' LEFT='C5' RIGHT='C1' />
+	 <COMPONENT ID='C7' TYPES='javax.swing.JLabel' DATA='Middle' TOP='C5' LEFT='C1' />
+	 <COMPONENT ID='C8' TYPES='javax.swing.text.JTextComponent' LEFT='C7' RIGHT='C1' />
+	 <COMPONENT ID='C9' TYPES='javax.swing.JLabel' DATA='Surname' TOP='C7' LEFT='C1' />
+	 <COMPONENT ID='C10' TYPES='javax.swing.text.JTextComponent' LEFT='C9' RIGHT='C1' />
+	 <COMPONENT ID='C11' TYPES='javax.swing.JLabel' DATA='Salutation' TOP='C9' LEFT='C1' />
+	 <COMPONENT ID='C12' TYPES='javax.swing.JComboBox' Data='Mr;Mrs;Dr' LEFT='C11' RIGHT='C1' />
+	 <COMPONENT ID='C13' TYPES='javax.swing.JLabel' DATA='Date First Entered' TOP='C11' LEFT='C1' />
+	 <COMPONENT ID='C14' TYPES='javax.swing.JLabel' LEFT='C13' RIGHT='C1' />
+	 <COMPONENT ID='C15' TYPES='javax.swing.JLabel' DATA='Seminars' LEFT='C1' TOP='C13' />
+	 <COMPONENT ID='C16' TYPES='javax.swing.JTable' LEFT='C1' RIGHT='C1' TOP='C14' />
+	 <COMPONENT ID='C17' TYPES='javax.swing.AbstractButton' DATA='Add...' BOTTOM='C1' LEFT='C1' />
+	 <COMPONENT ID='C18' TYPES='javax.swing.AbstractButton' DATA='Drop...' BOTTOM='C1' LEFT='C17' />
+	 <COMPONENT ID='C19' TYPES='javax.swing.AbstractButton' DATA='Transcript' BOTTOM='C1' LEFT='C18' />
+	 <COMPONENT ID='C20' TYPES='javax.swing.AbstractButton' DATA='Close' BOTTOM='C1' LEFT='C19' />
+      </COMPONENT>
+      <CLASS NAME='S6_UI_CLASS'>
+	 <METHOD NAME='S6_UI' RETURN='java.awt.Component' />
+      </CLASS>
+   </UI>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='S6_UI_CLASS' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='x'>
+	<CODE><![CDATA[S6_UI_CLASS x;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='S6_UI' THIS='x' OP='SAVE'>
+       <OUTPUT TYPE='SAVE' VALUE='y'>
+	 <CODE><![CDATA[java.awt.Component y;]]></CODE>
+       </OUTPUT>
+    </CALL>
+    <CALL OP='HIERARCHY' THIS='y' />
+    <CALL OP='INTERACT' THIS='y' />
+  </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>name</KEYWORD>
+   <KEYWORD>registration</KEYWORD>
+   <KEYWORD>JTable</KEYWORD>
+   <KEYWORD>JComboBox</KEYWORD>
+   <KEYWORD>JLabel</KEYWORD>
+   <KEYWORD>JButton</KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='TRUE'>GITHUB:/saimoom92/STudentRecordinfo/blob/7c6b063e9c503b2ce1890899440f38d6d7401fe6/STudentRecordInfo/src/com/studentinfosys/RegistryDialog.java</SOURCE>
+</SOURCES>
+</SEARCH>
+
+

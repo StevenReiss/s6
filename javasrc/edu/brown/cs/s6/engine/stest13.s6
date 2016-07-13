@@ -1,0 +1,22 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_97429' NAME='S6TestStringAddition'>
+      <TESTEE PACKAGE='s6tgen_97429'>
+        <CLASS NAME='StringAddition'>
+          <METHOD NAME='add1' SIGNATURE='(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;' STATIC='true' />
+          <METHOD NAME='add2' SIGNATURE='(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;' STATIC='true' />
+          <METHOD NAME='add3' SIGNATURE='(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;' STATIC='true' />
+          <METHOD NAME='add4' SIGNATURE='(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>edition</KEYWORD>
+    <KEYWORD>sum</KEYWORD>
+    <KEYWORD>output</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_97429/context.s6ctx' />
+</SEARCH>

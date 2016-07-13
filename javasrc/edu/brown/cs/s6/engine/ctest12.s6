@@ -1,0 +1,14 @@
+<CHECK WHAT='TESTS'><SIGNATURE>
+<METHOD MODS='0'>
+<NAME>computeEaster</NAME>
+<RETURN>java.util.Date</RETURN>
+<ARGS>int</ARGS>
+<ARGNAMES>year</ARGNAMES>
+<TEXT>java.util.Date computeEaster(int year)</TEXT>
+</METHOD>
+</SIGNATURE>
+<TEST METHOD='computeEaster' OP='EQL' TESTID='0' TESTNAME='SVIWEB_1' TYPE='CALL'>
+<INPUT><![CDATA[2008]]></INPUT>
+<OUTPUT><![CDATA[{ new Date(2008,3,23) }]]></OUTPUT>
+</TEST></CHECK>
+

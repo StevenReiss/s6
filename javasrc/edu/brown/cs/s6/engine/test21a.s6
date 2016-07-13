@@ -1,0 +1,29 @@
+<SEARCH LOCAL='FALSE' GITHUB='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD INT='true' MODS='0'>
+    <NAME>convert</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>int convert(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='convert' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[viii]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[8]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS />
+<SOURCES>
+   <SOURCE USE='TRUE'>GITHUB:/andohmikihiro/RomanNumberConverter/blob/0e2e145c2bdec1bad5b198b9673cb9b924e68666/sampleApp/src/main/java/jp/leve_five/careerup/sample/InputOutput.java</SOURCE>
+</SOURCES>
+<KEYWORDS>
+<KEYWORD><![CDATA[roman]]></KEYWORD>
+<KEYWORD><![CDATA[numerals]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

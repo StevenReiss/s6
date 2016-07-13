@@ -1,0 +1,23 @@
+<SEARCH FORMAT='NONE' GOOGLE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>dayOfWeek</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.util.Date</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String dayOfWeek(java.util.Date a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='dayOfWeek' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new java.util.Date(108,6,8)]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[Thursday]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><KEYWORDS>
+<KEYWORD><![CDATA[day]]></KEYWORD><KEYWORD><![CDATA[week]]></KEYWORD>
+<KEYWORD><![CDATA[Monday]]></KEYWORD><KEYWORD><![CDATA[Date]]></KEYWORD></KEYWORDS></SEARCH>
+

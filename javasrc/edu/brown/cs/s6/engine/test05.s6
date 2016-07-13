@@ -1,0 +1,64 @@
+<S6:SEARCH xmlns:S6="http://www.cs.brown.edu/S6" xmlns="http://www.cs.brown.edu/S6"
+		WHAT='CLASS' REMOTE='FALSE' LOCAL='TRUE' GOOGLE='TRUE' >
+   <S6:KEYWORDS>
+      <KEYWORD>multiset</KEYWORD>
+      <KEYWORD>multimap</KEYWORD>
+      <KEYWORD>set</KEYWORD>
+   </S6:KEYWORDS>
+   <S6:SIGNATURE>
+      <CLASS NAME='MultiMap'>
+	 <METHOD NAME='&lt;init&gt;'
+	       SIGNATURE='()'
+	       ARG='()' />
+	 <METHOD NAME='add'
+	       SIGNATURE='(Ljava/lang/Object;)V'
+	       RETURN='void'
+	       ARGS='(java.lang.Object)' />
+	 <METHOD NAME='count'
+	       SIGNATURE='(Ljava/lang/Object;)I'
+	       RETURN='int'
+	       ARGS='(java.lang.Object)' />
+      </CLASS>
+   </S6:SIGNATURE>
+   <S6:TESTS>
+      <TESTCASE NAME='Simple' TYPE='CALLS'>
+	 <CODE>
+	     MultiMap rslt = new MultiMap();
+	 </CODE>
+	 <CALL METHOD='add' THIS='rslt' OP='IGNORE'>
+	    <INPUT TYPE='STRING'>Hello</INPUT>
+	 </CALL>
+	 <CALL METHOD='add' THIS='rslt' OP='IGNORE'>
+	    <INPUT TYPE='STRING'>Tata</INPUT>
+	 </CALL>
+	 <CALL METHOD='add' THIS='rslt' OP='IGNORE'>
+	    <INPUT TYPE='STRING'>Hello</INPUT>
+	 </CALL>
+	 <CALL METHOD='add' THIS='rslt' OP='IGNORE'>
+	    <INPUT TYPE='STRING'>Goodbye</INPUT>
+	 </CALL>
+	 <CALL METHOD='add' THIS='rslt' OP='IGNORE'>
+	    <INPUT TYPE='STRING'>Tata</INPUT>
+	 </CALL>
+	 <CALL METHOD='add' THIS='rslt' OP='IGNORE'>
+	    <INPUT TYPE='STRING'>Tata</INPUT>
+	 </CALL>
+	 <CALL METHOD='count' THIS='rslt' OP='EQL'>
+	    <INPUT TYPE='STRING'>Unknown</INPUT>
+	    <OUTPUT TYPE='LITERAL' VALUE='0' />
+	 </CALL>
+	 <CALL METHOD='count' THIS='rslt' OP='EQL'>
+	    <INPUT TYPE='STRING'>Hello</INPUT>
+	    <OUTPUT TYPE='LITERAL' VALUE='2' />
+	 </CALL>
+	 <CALL METHOD='count' THIS='rslt' OP='EQL'>
+	    <INPUT TYPE='STRING'>Tata</INPUT>
+	    <OUTPUT TYPE='LITERAL' VALUE='3' />
+	 </CALL>
+	 <CALL METHOD='count' THIS='rslt' OP='EQL'>
+	    <INPUT TYPE='STRING'>Goodbye</INPUT>
+	    <OUTPUT TYPE='LITERAL' VALUE='1' />
+	 </CALL>
+      </TESTCASE>
+   </S6:TESTS>
+</S6:SEARCH>

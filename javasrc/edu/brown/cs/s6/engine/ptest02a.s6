@@ -1,0 +1,27 @@
+<SEARCH WHAT='PACKAGE' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' KODERS='TRUE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.romp'>
+      <CLASS NAME='RompMain' MODS='1' MAIN='true' >
+      </CLASS>
+      <CLASS NAME='RompPhysics'>
+	 <IMPLEMENTS>java.lang.Runnable</IMPLEMENTS>
+      </CLASS>
+      <CLASS NAME='RompDisplay'>
+	 <SUPERCLASS>javax.swing.JComponent</SUPERCLASS>
+      </CLASS>
+      <CLASS NAME='RompObject'>
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<KEYWORDS>
+   <KEYWORD>physics</KEYWORD>
+   <KEYWORD>swing</KEYWORD>
+   <KEYWORD>thread</KEYWORD>
+   <KEYWORD>3d</KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='TRUE'>KODERS:/java/fid83DE4037DE6F72F708F3995B437FB745DC2812D1.aspx</SOURCE>
+</SOURCES>
+</SEARCH>

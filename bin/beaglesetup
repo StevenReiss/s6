@@ -1,0 +1,61 @@
+#! /bin/csh -f
+
+setenv BEAGLE_HOME /map/aux3fred/beagle
+unsetenv BEAGLE_EXERCISE_THE_DOG
+setenv MONO_SHARED_DIR $BEAGLE_HOME/share
+
+bash /usr/bin/beagle-shutdown
+
+rm -rf $BEAGLE_HOME/static
+rm -rf $BEAGLE_HOME/.beagle
+mkdir $BEAGLE_HOME/static
+
+beagle-config indexing IndexHome
+
+beagle-config indexing DelRoot /pro/ivy
+beagle-config indexing DelRoot /pro/bloom
+beagle-config indexing DelRoot /pro/clime
+beagle-config indexing DelRoot /pro/s6
+beagle-config indexing DelRoot /pro/taiga
+beagle-config indexing DelRoot /pro/veld
+beagle-config indexing DelRoot /pro/wadi
+beagle-config indexing DelRoot /home/spr
+
+beagle-config indexing AddRoot /pro/s6
+beagle-config daemon DenyBackend Thunderbird
+beagle-config daemon DenyBackend KMail
+
+
+
+/usr/sbin/beagle-build-index --recursive --allow-pattern '*.java' \
+	--disable-restart \
+	--target $BEAGLE_HOME/static \
+	/map/aux0fred/javasrc1.6 /map/aux0fred/sol8src \
+	/map/aux0fred/unixsrc /map/aux0fred/open \
+	/pro/kona /pro tea /pro/java /pro/bloom /pro/veld
+	/pro/ivy /pro/clime /pro/taiga /pro/wadi /home/spr
+
+
+bash /usr/bin/beagle-shutdown
+beagle-config indexing ListRoots
+beagle-config daemon AddStaticQueryable $BEAGLE_HOME/static
+
+beagled --bg --indexing-delay 5 --debug
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

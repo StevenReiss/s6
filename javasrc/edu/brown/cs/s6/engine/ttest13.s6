@@ -1,0 +1,49 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.ivy.xml' NAME='IvyXmlTest'>
+      <TESTEE PACKAGE='edu.brown.cs.ivy.xml'>
+	 <CLASS NAME='IvyXml'>
+	    <METHOD NAME='getAttrString' SIGNATURE='(Lorg/w3c/dom/Node;Ljava/lang/String;)Ljava/lang/String;'
+		STATIC='true' RETURN='java.lang.String'
+		ARGS='(org.w3c.dom.Node,java.lang.String)' />
+	    <METHOD NAME='getAttrString' SIGNATURE='(Lorg/w3c/dom/Node;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;'
+		STATIC='true' RETURN='java.lang.String'
+		ARGS='(org.w3c.dom.Node,java.lang.String,java.lang.String)' />
+	    <METHOD NAME='getAttrBool' SIGNATURE='(Lorg/w3c/dom/Node;Ljava/lang/String;)Z'
+		STATIC='TRUE' RETURN='boolean'
+		ARGS='(org.w3c.dom.Node,java.lang.String)' />
+	    <METHOD NAME='getAttrBool' SIGNATURE='(Lorg/w3c/dom/Node;Ljava/lang/String;Z)Z'
+		STATIC='TRUE' RETURN='boolean'
+		ARGS='(org.w3c.dom.Node,java.lang.String,boolean)' />
+	    <METHOD NAME='getAttrInt' SIGNATURE='(Lorg/w3c/dom/Node;Ljava/lang/String;)I'
+		STATIC='TRUE' RETURN='int'
+		ARGS='(org.w3c.dom.Node,java.lang.String)' />
+	    <METHOD NAME='getAttrInt' SIGNATURE='(Lorg/w3c/dom/Node;Ljava/lang/String;I)I'
+		STATIC='true' RETURN='int'
+		ARGS='(org.w3c.dom.Node,java.lang.String,int)' />
+	    <METHOD NAME='convertStringToXml' SIGNATURE='(Ljava/lang/String)Lorg/w3c/dom/Element;'
+		STATIC='true' RETURN='org.w3c.dom.Element'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='convertXmlToString' SIGNATURE='(Lorg/w3c/dom/Node;)Ljava/lang/String;'
+		STATIC='true' RETURN='java.lang.String'
+		ARGS='(org.w3c.dom.Node)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>xml</KEYWORD>
+   <KEYWORD>Attr</KEYWORD>
+   <KEYWORD>Node</KEYWORD>
+   <KEYWORD>Element</KEYWORD>
+   <KEYWORD>org.w3c.dom</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>org.junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+</SEARCH>
+
+
+
+
+

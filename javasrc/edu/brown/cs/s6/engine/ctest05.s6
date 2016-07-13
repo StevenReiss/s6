@@ -1,0 +1,13 @@
+<S6:CHECK WHAT='CALLTEST' xmlns='http://www.cs.brown.edu/S6' xmlns:S6='http://www.cs.brown.edu/S6'>
+<S6:SIGNATURE CONSTRUCTOR='true' xmlns:S6='http://www.cs.brown.edu/S6'>
+  <S6:METHOD>
+    <S6:NAME>&lt;init&gt;</S6:NAME>
+    <S6:ARGS />
+  </S6:METHOD>
+  <S6:TEXT>Sample()</S6:TEXT>
+</S6:SIGNATURE> 			
+<S6:ARGS><![CDATA[]]></S6:ARGS><S6:OP>eql</S6:OP>
+<S6:RESULT><![CDATA[8]]></S6:RESULT>
+<S6:TESTNAME>test_1_2</S6:TESTNAME>
+</S6:CHECK>
+

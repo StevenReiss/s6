@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:compass="http://www.compass-project.org/schema/spring-core-config"
+	   xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	http://www.compass-project.org/schema/spring-core-config
+	http://www.compass-project.org/schema/spring-compass-core-config-2.1.xsd">
+
+	<context:property-placeholder location="classpath:resources.properties"/>
+
+	<import resource="applicationContext-dataSources.xml"/>
+	<import resource="applicationContext-analysis.xml"/>
+
+	<alias alias="defaultSearchProvider" name="compassSearchProvider"/>
+<!--	<alias alias="defaultSearchProvider" name="luceneJdbcDirectorySearchProvider"/>-->
+<!--	<alias alias="defaultSearchProvider" name="luceneFileSystemSearchProvider"/>-->
+
+	<!-- Search Providers -->
+	<bean name="compassSearchProvider" class="labrador.search.compass.CompassSearchProvider" lazy-init="true">
+		<property name="compass" ref="compass" />
+	</bean>
+	<bean name="luceneFileSystemSearchProvider" class="labrador.search.lucene.LuceneFileSystemSearchProvider" lazy-init="true">
+		<property name="indexPath" value="lucene-index" />
+		<property name="analyzer" ref="defaultAnalyzer" />
+	</bean>
+	<bean name="luceneJdbcDirectorySearchProvider" class="labrador.search.lucene.compass.LuceneJdbcDirectorySearchProvider" lazy-init="true">
+		<property name="dataSource" ref="defaultDataSource" />
+		<property name="analyzer" ref="defaultAnalyzer" />
+	</bean>
+
+	<!-- Compass -->
+    <compass:compass name="compass" dataSource="defaultDataSource">
+	<compass:connection>
+	    <compass:jdbc>
+		<compass:dataSourceProvider>
+			<compass:external/>
+		</compass:dataSourceProvider>
+	    </compass:jdbc>
+	</compass:connection>
+	<compass:searchEngine>
+		<compass:analyzer name="default" type="CustomAnalyzer" analyzerClass="labrador.analysis.JavaCodeAnalyzer" />
+		<compass:analyzer name="search" type="CustomAnalyzer" analyzerClass="labrador.analysis.JavaCodeAnalyzer" />
+		<compass:optimizer schedule="false" type="org.compass.core.lucene.engine.optimizer.AggressiveOptimizer" />
+	</compass:searchEngine>
+	<compass:mappings>
+		<compass:resource location="codefile.cpm.xml"/>
+	</compass:mappings>
+	<compass:settings>
+		<compass:setting name="compass.engine.analyzer.default.factory" value="labrador.analysis.compass.DefaultAnalyzerFactory"/>
+		<compass:setting name="compass.engine.analyzer.search.factory" value="labrador.analysis.compass.DefaultAnalyzerFactory"/>
+	</compass:settings>
+    </compass:compass>
+
+</beans>

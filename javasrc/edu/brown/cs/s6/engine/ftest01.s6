@@ -1,0 +1,65 @@
+<FORMAT TYPE='BROWN' WHAT='Method'><ITEM ID='1'><![CDATA[private final static String[] Ones={"","i","ii","iii","iv","v","vi","vii","viii","ix"};
+
+private final static String[] Tens={"","x","xx","xxx","xl","l","lx","lxx","lxxx","xc"};
+
+private final static String[] Hundreds={"","c","cc","ccc","cd","d","dc","dcc","dccc","cm"};
+
+private final static String[] Thousands={"","m","mm","mmm"};
+
+
+private String convert(int n){
+  if (n <= 0 || n > 4000) {
+    return "" + n;
+  }
+  return Thousands[n / 1000] + Hundreds[(n / 100) % 10] + Tens[(n / 10) % 10]+ Ones[n % 10];
+}]]></ITEM><ITEM ID='2'><![CDATA[static final char romanChars[][]={{'i','v'},{'x','l'},{'c','d'},{'m','?'}};
+
+/**
+ * Converts the item number into a roman numeral
+ * @param num  number to format
+ */
+String formatRomanNumerals(int level,int num){
+  if (num < 10) {
+    return formatRomanDigit(level,num);
+  }
+ else {
+    return formatRomanNumerals(level + 1,num / 10) + formatRomanDigit(level,num % 10);
+  }
+}
+
+/**
+ * Converts the item number into a roman numeral
+ * @param level position
+ * @param num	digit to format
+ */
+String formatRomanDigit(int level,int digit){
+  String result="";
+  if (digit == 9) {
+    result=result + romanChars[level][0];
+    result=result + romanChars[level + 1][0];
+    return result;
+  }
+ else	if (digit == 4) {
+    result=result + romanChars[level][0];
+    result=result + romanChars[level][1];
+    return result;
+  }
+ else	if (digit >= 5) {
+    result=result + romanChars[level][1];
+    digit-=5;
+  }
+  for (int i=0; i < digit; i++) {
+    result=result + romanChars[level][0];
+  }
+  return result;
+}
+
+
+/**
+ * Converts the item number into a roman numeral
+ * @param num  number to format
+ */
+String convert(int num){
+  return formatRomanNumerals(0,num);
+}]]></ITEM></FORMAT>
+

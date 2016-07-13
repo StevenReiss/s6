@@ -1,0 +1,79 @@
+<SEARCH WHAT='CLASS' FORMAT='NONE' REMOTE='TRUE' KODERS='TRUE'><SIGNATURE><CLASS NAME='Matrix'><METHOD MODS='1' PUBLIC='true' CONSTRUCTOR='true'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS>int,int,int,int</ARGS>
+    <ARGNAMES>a,b,c,d</ARGNAMES>
+    <TEXT>public Matrix(int a,int b,int c,int d)</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>Multiply</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>Matrix</ARGS>
+    <ARGNAMES>a</ARGNAMES>
+    <TEXT>void Multiply(Matrix a)</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>invert</NAME>
+    <RETURN>void</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>void invert()</TEXT>
+  </METHOD></CLASS></SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='Matrix' NEW='true' OP='SAVE'>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[2]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[2]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[2]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[2]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='SAVE' VALUE='foo'>
+        <CODE><![CDATA[Matrix foo;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='Matrix' NEW='true' OP='SAVE'>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='SAVE' VALUE='bar'>
+        <CODE><![CDATA[Matrix bar;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='Multiply' THIS='foo' OP='IGNORE'>
+      <INPUT TYPE='VARIABLE' VALUE='bar' />
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='Matrix' NEW='true' OP='SAVE'>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[4]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[4]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[4]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+        <VALUE><![CDATA[4]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='SAVE' VALUE='x'>
+        <CODE><![CDATA[Matrix x;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='invert' THIS='x' OP='IGNORE' />
+  </TESTCASE>
+</TESTS><SECURITY /><KEYWORDS><KEYWORD><![CDATA[matrix]]></KEYWORD><KEYWORD><![CDATA[multiply]]></KEYWORD><KEYWORD><![CDATA[invert]]></KEYWORD></KEYWORDS></SEARCH>
+

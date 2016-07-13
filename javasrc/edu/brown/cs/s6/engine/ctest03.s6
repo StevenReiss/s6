@@ -1,0 +1,12 @@
+<S6:CHECK WHAT='CALLTEST' xmlns='http://www.cs.brown.edu/S6' xmlns:S6='http://www.cs.brown.edu/S6'>
+<S6:SIGNATURE>
+<S6:METHOD>
+<NAME>test</NAME>
+<RETURN>int</RETURN>
+<ARGS>int</ARGS>
+</S6:METHOD>
+</S6:SIGNATURE>
+<S6:ARGS>string</S6:ARGS>
+<S6:OP>eql</S6:OP>
+<S6:RESULT>6</S6:RESULT>
+</S6:CHECK>

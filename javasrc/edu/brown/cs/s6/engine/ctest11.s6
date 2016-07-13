@@ -1,0 +1,19 @@
+<CHECK WHAT='CONTRACTS'>
+<SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>convert</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>int</ARGS>
+    <TEXT>java.lang.String convert(int a1)</TEXT>
+  </METHOD>
+</SIGNATURE>
+<CONTRACT INDEX='0' TYPE='REQUIRE'>
+  <CODE><![CDATA[a1 > 0]]></CODE>
+  <METHOD><![CDATA[convert]]></METHOD>
+</CONTRACT>
+<CONTRACT INDEX='1' TYPE='ENSURE'>
+  <CODE><![CDATA[\result != null]]></CODE>
+  <METHOD><![CDATA[convert]]></METHOD>
+</CONTRACT>
+</CHECK>
+

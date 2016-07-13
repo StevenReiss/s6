@@ -1,0 +1,29 @@
+<SEARCH FORMAT='NONE' CODEEX='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='9' PUBLIC='true' STATIC='true'>
+    <NAME>power</NAME>
+    <RETURN>double[][]</RETURN>
+    <ARGS>double[][],int</ARGS>
+    <ARGNAMES>A,n</ARGNAMES>
+    <TEXT>public static double[][] power(double[][] A,int n)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='add' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new double[][] {new double[] {1.0 , 1.0} , new double[] {1.0 , 1.0}}]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new double[][] {new double[] {4.0 , 4.0} , new double[] {4.0 , 4.0}}]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS><KEYWORD><![CDATA[Raise]]></KEYWORD>
+<KEYWORD><![CDATA[matrix]]></KEYWORD>
+<KEYWORD><![CDATA[power]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

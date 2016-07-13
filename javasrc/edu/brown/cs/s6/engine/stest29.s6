@@ -1,0 +1,20 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_93869' NAME='S6TestPeriodFormat'>
+      <TESTEE PACKAGE='s6tgen_93869'>
+        <CLASS NAME='PeriodFormat'>
+          <METHOD NAME='parseSeconds' SIGNATURE='(Ljava/lang/String;)D' STATIC='true' />
+          <METHOD NAME='formatSeconds' SIGNATURE='(D)Ljava/lang/String;' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>seconds</KEYWORD>
+    <KEYWORD>period</KEYWORD>
+    <KEYWORD>format</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_93869/context.s6ctx' />
+</SEARCH>

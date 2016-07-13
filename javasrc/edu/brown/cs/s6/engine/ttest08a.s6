@@ -1,0 +1,31 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.upod.basis' NAME='BasisHtmlSanitizerTest'>
+      <TESTEE PACKAGE='edu.brown.cs.upod.basis'>
+	 <CLASS NAME='BasisHtmlSanitizer'>
+	    <METHOD NAME='sanitize' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;'
+		RETURN='java.lang.String' STATIC='TRUE'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='parse' SIGNATURE='(Ljava/io/Reader;Ljava/io/Writer;)V;'
+		RETURN='void'
+		ARGS='(java.io.Reader,java.io.Writer)'
+		EXCPETIONS='java.io.IOException' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>html</KEYWORD>
+   <KEYWORD>sanitize</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+   <KEYWORD>org.junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+<SOURCES>
+   <SOURCE USE='TRUE'>GITHUB:/vishwaAbhinav/OpenNMS/blob/f6eeceeaa9f4f4e9674e60435f1ca89fd5a04552/opennms-web-api/src/test/java/org/opennms/web/WebSecurityUtilsTest.java</SOURCE>
+</SOURCES>
+</SEARCH>
+
+
+

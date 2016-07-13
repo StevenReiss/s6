@@ -1,0 +1,37 @@
+<SEARCH WHAT='PACKAGE' FORMAT='NONE' LOCAL='TRUE' REMOTE='TRUE' KODERS='TRUE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.romp'>
+      <CLASS NAME='RompMain' MODS='1' MAIN='true' >
+      </CLASS>
+      <CLASS NAME='RompPhysics'>
+	 <SUPERCLASS>java.lang.Runnable</SUPERCLASS>
+      </CLASS>
+      <CLASS NAME='RompDisplay'>
+	 <SUPERCLASS>java.awt.Component</SUPERCLASS>
+      </CLASS>
+      <CLASS NAME='RompObject'>
+	 <FIELD MODS='2' TYPE='double' />
+	 <FIELD MODS='2' TYPE='double' />
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		 String [] args = new String [0];
+		 // RompMain.main(args);
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>physics</KEYWORD>
+   <KEYWORD>swing</KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='TRUE'>KODERS:/java/fid15208338C2F151FD02E11163D67EC09BD271FC84.aspx</SOURCE>
+</SOURCES>
+</SEARCH>

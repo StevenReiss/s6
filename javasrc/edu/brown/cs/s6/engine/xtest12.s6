@@ -1,0 +1,25 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestEmployee'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='Employee'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;I)'/>
+	  <METHOD NAME='compareTo' SIGNATURE='(Ljava/lang/Object;)I'/>
+	  <METHOD NAME='toString' SIGNATURE='()Ljava/lang/String;'/>
+	  <METHOD NAME='getName' SIGNATURE='()Ljava/lang/String;'/>
+	  <METHOD NAME='getYears' SIGNATURE='()I'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>compareTo</KEYWORD>
+    <KEYWORD>employee</KEYWORD>
+    <KEYWORD>name</KEYWORD>
+    <KEYWORD>years</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

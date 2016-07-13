@@ -1,0 +1,34 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.ivy.petal' NAME='IvyPetalTest'>
+      <TESTEE PACKAGE='edu.brown.cs.ivy.petal'>
+	 <CLASS NAME='PetalHelper'>
+	    <METHOD NAME='findPortPoint' SIGNATURE='(Ljava/awt/Rectangle;Ljava/awt/Point;Ljava/awt/Point;)Ljava/awt/Point;'
+		STATIC='true' RETURN='java.awt.Point'
+		ARGS='(java.awt.Rectange.java.awt.Point,java.awt.Point)' />
+	    <METHOD NAME='getIntersect' SIGNATURE='(DLjava/awt/Point;Ljava/awt/Point;DDDD)D'
+		STATIC='true' RETURN='double'
+		ARGS='(double,java.awt.Point,java.awt.Point,double,double,double,double)' />
+	    <METHOD NAME='findShapePortPoint' SIGNATURE='(Ljava/awt/Component;Ljava/awt/Shape;Ljava/awt/Point;Ljava/awt/Point)Ljava/awt/point;'
+		STATIC='TRUE' RETURN='java.awt.Point'
+		ARGS='(java.awt.Component,java.awt.Shape,java.awt.Point,java.awt.Point)' />
+	    <METHOD NAME='findOvalPortPoint' SIGNATURE='(Ljava/awt/Rectangle;Ljava/awt/Point;Ljava/awt/Point)Ljava/awt/point;'
+		STATIC='TRUE' RETURN='java.awt.Point'
+		ARGS='(java.awt.Rectangle,java.awt.Point,java.awt.Point)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>java.awt</KEYWORD>
+   <KEYWORD>Point</KEYWORD>
+   <KEYWORD>intersect</KEYWORD>
+   <KEYWORD>port</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+</SEARCH>
+
+
+
+
+

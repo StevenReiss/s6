@@ -1,0 +1,161 @@
+<project name="$(PROJECTNAME)" default="$(ANTRUN)" >
+   <property name='JML' value='/pro/s6/public/jml' />
+   <property name='SDK' value='/home/spr/Android/android-sdk-linux' />
+   <property name='AAPT' value='${SDK}/build-tools/22.0.1/aapt' />
+   <property name='AAPTJAR' value='${SDK}/platforms/android-22/android.jar' />
+   <property name='AAPTHOME' value='$(DIRECTORY)' />
+
+   <target name="compile">
+      <javac srcdir="." destdir="$(BIN)" includeantruntime='false' debug='true'>
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	    <pathelement location="$(S6CLS)" />
+	    <pathelement location="$(IVY)" />
+	    <pathelement location="$(S6CTX)" />
+	 </classpath>
+      </javac>
+   </target>
+
+   <target name="compileandroid">
+      <exec executable='${AAPT}'>
+	 <arg value='package' />
+	 <arg value='-v' />
+	 <arg value='-f' />
+	 <arg value='-m' />
+	 <arg value='-S' />
+	 <arg value='${AAPTHOME}/res' />
+	 <arg value='-J' />
+	 <arg value='${AAPTHOME}/..' />
+	 <arg value='-M' />
+	 <arg value='${AAPTHOME}/AndroidManifest.xml' />
+	 <arg value='-I' />
+	 <arg value='${AAPTJAR}' />
+      </exec>
+      <javac srcdir="." destdir="$(BIN)" includeantruntime='false' debug='true'>
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	    <pathelement location="$(S6CLS)" />
+	    <pathelement location="$(IVY)" />
+	    <pathelement location="$(S6CTX)" />
+	    <fileset dir='$(ANDROIDJARS)' includes='*.jar' />
+	 </classpath>
+      </javac>
+   </target>
+
+   <target name="oldjmlcompile">
+      <apply executable="/pro/s6/public/bin/jmlc">
+	 <fileset dir="." includes="*.java" />
+	 <arg value="-G" />
+	 <arg value="-Q" />
+	 <srcfile/>
+      </apply>
+   </target>
+
+   <target name='jmlcompile'>
+      <java jar='${JML}/openjml.jar' fork='true'>
+	 <arg value="-noPurityCheck" />
+	 <arg value="-noInternalSpecs" />
+	 <arg value="-d" />
+	 <arg value="$(BIN)" />
+	 <arg value="-cp" />
+	 <arg path="$(BIN):$(JUNITCP):$(S6CLS):$(IVY):$(S6CTX)" />
+	 <arg value="-rac" />
+	 <arg path="$(SOURCEFILE)" />
+      </java>
+   </target>
+
+   <target name='setupcontext'>
+      $(CONTEXT_ANT)
+   </target>
+
+   <target name="test" depends="compile,setupcontext">
+      <junit printsummary='true' haltonerror='true' fork='true' >
+	 <assertions><enable/></assertions>
+	 <formatter type="xml" usefile="true" />
+	 <test name="$(PACKAGEDOT)$(CLASS)" outfile="test.out" />
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	    <pathelement location="$(S6CLS)" />
+	    <pathelement location="$(IVY)" />
+	    <pathelement location="$(S6CTX)" />
+	 </classpath>
+      </junit>
+   </target>
+
+   <target name="testandroid" depends="compileandroid,setupcontext">
+      <junit printsummary='true' haltonerror='true' fork='true' >
+	 <assertions><enable/></assertions>
+	 <formatter type="xml" usefile="true" />
+	 <test name="$(PACKAGEDOT)$(CLASS)" outfile="test.out" />
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	    <pathelement location="$(S6CLS)" />
+	    <pathelement location="$(IVY)" />
+	    <pathelement location="$(S6CTX)" />
+	 </classpath>
+      </junit>
+   </target>
+
+   <target name="oldjmltest" depends="jmlcompile,setupcontext">
+      <junit printsummary='true' haltonerror='true' fork='true' >
+	 <assertions><enable/></assertions>
+	 <formatter type="xml" usefile="true" />
+	 <test name="$(PACKAGEDOT)$(CLASS)" outfile="test.out" />
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	    <pathelement location="$(S6CLS)" />
+	    <pathelement location="$(IVY)" />
+	    <pathelement location="$(JMLCP)" />
+	    <pathelement location="$(S6CTX)" />
+	 </classpath>
+      </junit>
+   </target>
+
+   <target name="jmltest" depends="jmlcompile,setupcontext">
+      <junit printsummary='true' haltonerror='true' fork='true' >
+	 <assertions><enable/></assertions>
+	 <formatter type="xml" usefile="true" />
+	 <test name="$(PACKAGEDOT)$(CLASS)" outfile="test.out" />
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	    <pathelement location="$(S6CLS)" />
+	    <pathelement location="$(IVY)" />
+	    <pathelement location="$(S6CTX)" />
+	    <pathelement location="${JML}/jmlruntime.jar" />
+	    <pathelement location="${JML}/openjml.jar" />
+	 </classpath>
+      </junit>
+   </target>
+
+   <target name="jar">
+      <jar destfile='$(UIJAR)'>
+	 <manifest>
+	    <attribute name='Main-Class' value='$(PACKAGEDOT)$(CLASS)' />
+	 </manifest>
+	 <fileset dir='$(S6CLS)' includes='**/runner/Runner*.class' />
+	 <fileset dir='./bin' includes='**/*.class' />
+	 <zipfileset src='$(JUNITCP)' excludes='META-INF/*' />
+      </jar>
+   </target>
+
+   <target name="run">
+      <java classname="$(PACKAGEDOT)$(CLASS)" fork='true'>
+	 <classpath>
+	    <pathelement location="$(BIN)" />
+	    <pathelement location="$(JUNITCP)" />
+	    <pathelement location="$(S6CLS)" />
+	    <pathelement location="$(IVY)" />
+	    <pathelement location="$(S6CTX)" />
+	    <pathelement location="${JML}/jmlruntime.jar" />
+	    <pathelement location="${JML}/openjml.jar" />
+	 </classpath>
+      </java>
+   </target>
+
+</project>

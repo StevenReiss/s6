@@ -1,0 +1,27 @@
+<SEARCH FORMAT='NONE' LOCAL='false' REMOTE='true' GOOGIT='true' WHAT='METHOD'>
+  <SIGNATURE>
+    <METHOD MODS='8' STATIC='true' STRING='true'>
+      <NAME>ordinal</NAME>
+      <RETURN>java.lang.String</RETURN>
+      <ARGS>int</ARGS>
+      <ARGNAMES>a1</ARGNAMES>
+      <TEXT>static java.lang.String ordinal(int a1)</TEXT>
+    </METHOD>
+  </SIGNATURE>
+  <TESTS>
+    <TESTCASE NAME='TEST_1' TYPE='CALLS'>
+      <CALL METHOD='ordinal' OP='=='>
+	<INPUT>
+	  <VALUE><![CDATA[17]]></VALUE>
+	</INPUT>
+	<OUTPUT>
+	  <VALUE><![CDATA["seventeenth"]]></VALUE>
+	</OUTPUT>
+      </CALL>
+    </TESTCASE>
+  </TESTS>
+  <KEYWORDS>
+    <KEYWORD><![CDATA[ordinal]]></KEYWORD>
+    <KEYWORD><![CDATA[third]]></KEYWORD>
+  </KEYWORDS>
+</SEARCH>

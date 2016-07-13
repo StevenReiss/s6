@@ -1,0 +1,36 @@
+<CHECK WHAT='TESTS'><SIGNATURE><CLASS NAME='RangeSlider'><METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS>int,int,int,int,int</ARGS>
+    <ARGNAMES>a1,a2,a3,a4,a5</ARGNAMES>
+    <TEXT>RangeSlider(int a1,int a2,int a3,int a4,int a5)</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>setRange</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>int,int,</ARGS>
+    <ARGNAMES>a1a2</ARGNAMES>
+    <TEXT>void setRange(int a1,int a2)</TEXT>
+  </METHOD><METHOD INT='true' MODS='0'>
+    <NAME>getLowValue</NAME>
+    <RETURN>int</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>int getLowValue()</TEXT>
+  </METHOD><METHOD INT='true' MODS='0'>
+    <NAME>getHighValue</NAME>
+    <RETURN>int</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>int getHighValue()</TEXT>
+  </METHOD><METHOD INT='true' MODS='0'>
+    <NAME>getMinValue</NAME>
+    <RETURN>int</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>int getMinValue()</TEXT>
+  </METHOD><METHOD INT='true' MODS='0'>
+    <NAME>getMaxValue</NAME>
+    <RETURN>int</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>int getMaxValue()</TEXT>
+  </METHOD></CLASS></SIGNATURE><TEST METHOD='&lt;init&gt;' OP='SAVE' TESTID='0' TESTNAME='SVIWEB_1' TYPE='CALLSET'><INPUT><![CDATA[0,100,10,20,0]]></INPUT><OUTPUT><![CDATA[w]]></OUTPUT></TEST></CHECK>

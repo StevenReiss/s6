@@ -1,0 +1,53 @@
+<SEARCH WHAT='UIFRAMEWORK' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' SCOPE='FILE'>
+<SIGNATURE>
+   <UI PACKAGE='spr.sampler.uitest' NAME='S6_UI_CLASS'>
+      <COMPONENT ID='C1' TYPES='javax.swing.JComponent' >
+	 <COMPONENT ID='C2' TYPES='javax.swing.JLabel' DATA='Create New Class' TOP='C1' />
+	 <COMPONENT ID='C3' TYPES='javax.swing.JLabel' DATA='Project' TOP='C2' LEFT='C1' />
+	 <COMPONENT ID='C4' TYPES='javax.swing.JComboBox' TOP='C2' LEFT='C3' />
+	 <COMPONENT ID='C5' TYPES='javax.swing.JLabel' DATA='Package' TOP='C3' LEFT='C1' />
+	 <COMPONENT ID='C6' TYPES='javax.swing.JComboBox' TOP='C4' LEFT='C5' />
+	 <COMPONENT ID='C7' TYPES='javax.swing.JLabel' DATA='Name' TOP='C5' LEFT='C1' />
+	 <COMPONENT ID='C8' TYPES='javax.swing.text.JTextComponent' TOP='C6' LEFT='C7' />
+	 <COMPONENT ID='C12' TYPES='javax.swing.JLabel' DATA='Extends' TOP='C7' LEFT='C1' />
+	 <COMPONENT ID='C13' TYPES='javax.swing.text.JTextComponent' TOP='C8' LEFT='C12' />
+	 <COMPONENT ID='C9' TYPES='javax.swing.JRadioButton' DATA='Public' TOP='C12' LEFT='C1' />
+	 <COMPONENT ID='C10' TYPES='javax.swing.JRadioButton' DATA='Default' TOP='C9' LEFT='C1' />
+	 <COMPONENT ID='C11' TYPES='javax.swing.JToggleButton' DATA='Abstract' TOP='C10' LEFT='C1' />
+	 <COMPONENT ID='C14' TYPES='javax.swing.JLabel' DATA='Implements' TOP='C13' RIGHT='C1' />
+	 <COMPONENT ID='C15' TYPES='javax.swing.JList' TOP='C14' RIGHT='C1' />
+	 <COMPONENT ID='C19' TYPES='javax.swing.AbstractButton' DATA='Cancel' BOTTOM='C1' />
+	 <COMPONENT ID='C20' TYPES='javax.swing.AbstractButton' DATA='Create' BOTTOM='C1' LEFT='C19' />
+      </COMPONENT>
+      <CLASS NAME='S6_UI_CLASS'>
+	 <METHOD NAME='S6_UI' RETURN='java.awt.Component' />
+      </CLASS>
+   </UI>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='S6_UI_CLASS' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='x'>
+	<CODE><![CDATA[S6_UI_CLASS x;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='S6_UI' THIS='x' OP='SAVE'>
+       <OUTPUT TYPE='SAVE' VALUE='y'>
+	 <CODE><![CDATA[java.awt.Component y;]]></CODE>
+       </OUTPUT>
+    </CALL>
+    <CALL OP='HIERARCHY' THIS='y' />
+    <CALL OP='INTERACT' THIS='y' />
+  </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>interface</KEYWORD>
+   <KEYWORD>JList</KEYWORD>
+   <KEYWORD>project</KEYWORD>
+   <KEYWORD>JRadioButton</KEYWORD>
+   <KEYWORD>JToggleButton</KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

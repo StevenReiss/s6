@@ -1,0 +1,40 @@
+<SEARCH WHAT='FULLCLASS' FORMAT='NONE' REMOTE='TRUE' KODERS='TRUE'><SIGNATURE>
+<CLASS NAME='Account'><METHOD MODS='0' CONSTRUCTOR='true'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>Account()</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>save</NAME>
+    <RETURN>void</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>void save()</TEXT>
+  </METHOD><METHOD MODS='0'>
+    <NAME>find</NAME>
+    <RETURN>Account</RETURN>
+    <ARGS>int</ARGS>
+    <ARGNAMES>id</ARGNAMES>
+    <TEXT>Account find(int id)</TEXT>
+  </METHOD></CLASS></SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='Account' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='a'>
+	<CODE><![CDATA[Account a;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='save' THIS='a' OP='IGNORE' />
+    <CALL METHOD='find' THIS='a' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[15]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[null]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY />
+<KEYWORDS><KEYWORD><![CDATA[Bank]]></KEYWORD><KEYWORD><![CDATA[account]]></KEYWORD>
+<KEYWORD><![CDATA[credit]]></KEYWORD><KEYWORD><![CDATA[EJB]]></KEYWORD></KEYWORDS>
+</SEARCH>
+

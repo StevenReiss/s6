@@ -1,0 +1,24 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestDeck'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='Deck'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()'/>
+	  <METHOD NAME='deal' SIGNATURE='()Lsampler/spr/textex/Card;'/>
+	  <METHOD NAME='isEmpty' SIGNATURE='()Z'/>
+	  <METHOD NAME='shuffle' SIGNATURE='()V'/>
+	  <METHOD NAME='size' SIGNATURE='()I'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+     <KEYWORD>card</KEYWORD>
+     <KEYWORD>deck</KEYWORD>
+    <KEYWORD>shuffle</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

@@ -1,0 +1,25 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE'>
+<SIGNATURE>
+   <TESTING PACKAGE='spr.roman' NAME='S6_convertToRoman_Test'>
+      <TESTEE PACKAGE='spr.roman'>
+	 <CLASS NAME='Roman'>
+	    <METHOD NAME='convertToRoman' SIGNATURE='(I)Ljava/lang/String;' STATIC='TRUE'
+		RETURN='java.lang.String'
+		ARGS='(int)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>roman</KEYWORD>
+   <KEYWORD>numeral</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/romantest.s6ctx' />
+<SOURCES>
+   <SOURCE USE='TRUE'>OHLOH:/file?fid=ZRS7FiRWdxH21EefbPIEWcFc_8s&amp;cid=DlNneXYHn18</SOURCE>
+   <SOURCE USE='TRUE'>GITHUB:/moss/roman-numeral-kata/blob/9ad83e414136fbe597a403b9efd7187210f3e50e/test/net/m14m/romannumeralkata/ExpressionParserTest.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

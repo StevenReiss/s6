@@ -1,0 +1,19 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_30365' NAME='S6TestRUtil'>
+      <TESTEE PACKAGE='s6tgen_30365'>
+        <CLASS NAME='RUtil'>
+          <METHOD NAME='escapeRStringContent' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>escape</KEYWORD>
+    <KEYWORD>R string</KEYWORD>
+    <KEYWORD>quoted</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_30365/context.s6ctx' />
+</SEARCH>

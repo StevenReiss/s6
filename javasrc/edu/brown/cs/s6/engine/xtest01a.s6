@@ -1,0 +1,26 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestArrayIterator'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='ArrayIterator'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='([java/lang/Object;I)'/>
+	  <METHOD NAME='hasNext' SIGNATURE='()Z'/>
+	  <METHOD NAME='next' SIGNATURE='()Ljava/lang/Object;'/>
+	  <METHOD NAME='remove' SIGNATURE='()V'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+     <KEYWORD>object</KEYWORD>
+     <KEYWORD>array</KEYWORD>
+    <KEYWORD>iterator</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+  <SOURCES>
+     <SOURCE USE='true'>GITHUB:/astrapi69/jaulp.core/blob/7b570c3c277395b2e93fe77dc8a387aff0f81b7a/jaulp.collections/src/test/java/net/sourceforge/jaulp/collections/iterators/ArrayIteratorTest.java</SOURCE>
+  </SOURCES>
+</SEARCH>
+

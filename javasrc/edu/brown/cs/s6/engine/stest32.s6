@@ -1,0 +1,24 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_31478' NAME='S6TestByteUtilsArt'>
+      <TESTEE PACKAGE='s6tgen_31478'>
+        <CLASS NAME='ByteUtilsArt'>
+          <METHOD NAME='byte2toIn' SIGNATURE='([BI)I' STATIC='true' />
+          <METHOD NAME='byte4toIn' SIGNATURE='([BI)I' STATIC='true' />
+          <METHOD NAME='bitIsSet' SIGNATURE='(II)Z' STATIC='true' />
+          <METHOD NAME='in8toByte' SIGNATURE='(I)[B' STATIC='true' />
+          <METHOD NAME='in16toByte' SIGNATURE='(I)[B' STATIC='true' />
+          <METHOD NAME='in16toBit' SIGNATURE='(I)[B' STATIC='true' />
+          <METHOD NAME='hexStringToByteArray' SIGNATURE='(Ljava/lang/String;)[B' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>toByte</KEYWORD>
+    <KEYWORD>toInt</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_31478/context.s6ctx' />
+</SEARCH>

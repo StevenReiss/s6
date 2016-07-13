@@ -1,0 +1,27 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_1275' NAME='S6TestAxis'>
+      <TESTEE PACKAGE='s6tgen_1275'>
+	<CLASS NAME='Axis'>
+	  <METHOD NAME='Axis' SIGNATURE='(Lorg/broad/igv/charts/Axis/Orientation;)' />
+	  <METHOD NAME='getOrientation' SIGNATURE='()Lorg/broad/igv/charts/Axis/Orientation;' />
+	  <METHOD NAME='getPixelForValue' SIGNATURE='(D)I' />
+	  <METHOD NAME='getDataValueForPixel' SIGNATURE='(I)D' />
+	  <METHOD NAME='setRange' SIGNATURE='(DD)V' />
+	  <METHOD NAME='setLabel' SIGNATURE='(Ljava/lang/String;)V' />
+	  <METHOD NAME='getLabel' SIGNATURE='()Ljava/lang/String;' />
+	  <METHOD NAME='setPanelSize' SIGNATURE='(I)V' />
+	  <METHOD NAME='computeTicks' SIGNATURE='(DDI)[D' STATIC='true' />
+	  <METHOD NAME='getScale' SIGNATURE='()D' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>axis</KEYWORD>
+    <KEYWORD>setrange</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_1275/context.s6ctx' />
+</SEARCH>

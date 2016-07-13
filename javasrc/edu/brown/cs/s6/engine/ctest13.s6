@@ -1,0 +1,12 @@
+<CHECK WHAT='TESTS'><SIGNATURE>
+  <METHOD MODS='0'>
+    <NAME>topSort</NAME>
+    <RETURN>java.util.List</RETURN>
+    <ARGS>java.util.Map</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.util.List topSort(java.util.Map a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TEST METHOD='topSort' OP='EQL' TESTID='0' TESTNAME='SVIWEB_1' TYPE='CALL'>
+<INPUT><![CDATA[[ "a" : "b", "b" : "c", "a" : "c"]]]></INPUT>
+<OUTPUT><![CDATA[["a","b","c"]]]></OUTPUT></TEST></CHECK>
+

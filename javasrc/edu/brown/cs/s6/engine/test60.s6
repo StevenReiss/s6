@@ -1,0 +1,37 @@
+<SEARCH FORMAT='NONE' OHLOH='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD INT='true' MODS='0'>
+    <NAME>calculateWeekday</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>date</ARGNAMES>
+    <TEXT>int calculateWeekday(java.lang.String date)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='calculateWeekday' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[2009-06-05]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[5]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='calculateWeekday' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[1984-01-13]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS>
+<KEYWORD><![CDATA[day]]></KEYWORD>
+<KEYWORD><![CDATA[date]]></KEYWORD>
+<KEYWORD><![CDATA[monday]]></KEYWORD>
+<KEYWORD><![CDATA[weekday]]></KEYWORD></KEYWORDS>
+</SEARCH>
+

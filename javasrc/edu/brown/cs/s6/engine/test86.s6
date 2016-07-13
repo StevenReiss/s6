@@ -1,0 +1,29 @@
+<SEARCH FORMAT='NONE' KODERS='true' LOCAL='false' REMOTE='true' WHAT='METHOD'>
+  <SIGNATURE>
+    <METHOD MODS='8' STATIC='true' STRING='true'>
+      <NAME>roman</NAME>
+      <RETURN>java.lang.String</RETURN>
+      <ARGS>int</ARGS>
+      <ARGNAMES>a1</ARGNAMES>
+      <TEXT>static java.lang.String roman(int a1)</TEXT>
+    </METHOD>
+  </SIGNATURE>
+  <TESTS>
+    <TESTCASE NAME='TEST_1' TYPE='CALLS'>
+      <CALL METHOD='roman' OP='=='>
+	<INPUT>
+	  <VALUE><![CDATA[17]]></VALUE>
+	</INPUT>
+	<OUTPUT>
+	  <VALUE><![CDATA["xvii"]]></VALUE>
+	</OUTPUT>
+      </CALL>
+    </TESTCASE>
+  </TESTS>
+  <KEYWORDS>
+    <KEYWORD><![CDATA[roman]]></KEYWORD>
+    <KEYWORD><![CDATA[numerals]]></KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/gpfs/main/research/s6/tmp/files/s6data667470592751861289.data' />
+</SEARCH>
+

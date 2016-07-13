@@ -1,0 +1,27 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD INT='true' MODS='0'>
+    <NAME>check</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>int,int,int</ARGS>
+    <ARGNAMES>a1,a2,a3</ARGNAMES>
+    <TEXT>int check(int a1,int a2,int a3)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='check' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[1]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[2]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[6]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS><KEYWORD><![CDATA[login]]></KEYWORD><KEYWORD><![CDATA[dialog]]></KEYWORD><KEYWORD><![CDATA[jpassword]]></KEYWORD></KEYWORDS></SEARCH>
+

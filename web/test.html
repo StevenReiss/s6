@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>S6 Search Page</title>
+<link rel="stylesheet" type="text/css" href="s6.css" />
+<script type="text/javascript" src="search.js" />
+<script type="text/javascript" src="util.js" />
+</head>
+<body>
+
+
+<table width='100%' class="methodtable" id="Method1" frame='box' rules='none'
+		summary="Information for a method">
+  <caption align="top" class="methodcaption">Method</caption>
+  <colgroup width="0*" />
+  <colgroup width="2*" />
+  <tr>
+    <td class="methoddecl">
+      <label id="MthddescLabel1" for="Mthddesc1">Declaration:&nbsp;</label>
+    </td>
+    <td>
+      <input type='text' name="Mthddesc1" id="Mthddesc1" size='64' maxlength='256'
+		onblur='checkMethodDeclaration(1,true)' />
+    </td>
+  </tr>
+  <tr>
+    <td class="methodtest">Tests: </td>
+    <td>
+      <table class="tests" border='3' frame='box' cellPadding='2px'
+			summary="Information for method tests">
+	<colgroup width="1*" />
+	<colgroup width="0*" />
+	<colgroup width="1*" />
+	<colgroup width="0*" />
+	<tr>
+	  <th colspan='3'>Test Description</th>
+	  <th>Type</th>
+	</tr>
+
+	<tr id="Test1Row1" class="tablerow" style="display:table-row">
+	  <td>
+	    <input type='text' id='Test1In1' name='test1in1' size='30' maxlength='256'
+			alt="method arguments"
+			onblur='checkTest(1,1)' />
+	  </td>
+	  <td>
+	    <select id='Test1Op1' name='test1op1' size='1' onblur='checkTest(1,1)'>
+	      <option selected='selected' value='eql'>==</option>
+	      <option value='apx'>~=</option>
+	      <option value='lss'>&lt;</option>
+	      <option value='gtr'>&gt;</option>
+	      <option value='leq'>&lt;=</option>
+	      <option value='geq'>&gt;=</option>
+	      <option value='neq'>!=</option>
+	      <option value='ign'>??</option>
+	    </select>
+	  </td>
+	  <td>
+	    <input type='text' id='Test1Out1' name='test1out1' size='24' maxlength='256'
+			alt="method result" onblur='checkTest(1,1)' />
+	  </td>
+	  <td>
+	    <select id='Test1Type1' name='test1type1' size='1'
+			onchange='resetTest(1,1)'>
+	      <option selected='selected' value='CALL'>CALL</option>
+	      <option value='CALLSET'>CALL SET</option>
+	      <option value='USERCODE'>USER CODE</option>
+	      <option value='TESTFILE'>TEST FILE</option>
+	    </select>
+	  </td>
+	</tr>
+
+	<tr class="tablerow" style="display:table-row">
+	  <td>
+	    <input type='text' size='30' maxlength='256'
+			alt="method arguments"
+			onblur='checkTest(1,1)' />
+	  </td>
+	  <td>
+	    <select size='1' onblur='checkTest(1,1)'>
+	      <option selected='selected' value='eql'>==</option>
+	      <option value='neq'>!=</option>
+	    </select>
+	  </td>
+	  <td>
+	    <input type='text' size='24' maxlength='256'
+			alt="method result" onblur='checkTest(1,1)' />
+	  </td>
+	  <td>
+	    <select size='1' onchange='resetTest(1,1)'>
+	      <option selected='selected' value='CALL'>CALL</option>
+	      <option value='CALLSET'>CALL SET</option>
+	      <option value='USERCODE'>USER CODE</option>
+	      <option value='TESTFILE'>TEST FILE</option>
+	    </select>
+	  </td>
+	</tr>
+
+	<tr class="tablerow">
+	  <td>
+	    ()
+	  </td>
+	  <td>
+	    <select size='1' onblur='checkTest(1,1)'>
+	      <option selected='selected' value='eql'>==</option>
+	    </select>
+	  </td>
+	  <td>
+	    <textarea rows='1' cols='24' onblur='checktest(1,1)'></textarea>
+	  </td>
+	  <td>
+	    <select size='1' onchange='resetTest(1,1)'>
+	      <option selected='selected' value='CALL'>CALL</option>
+	      <option value='CALLSET'>CALL SET</option>
+	      <option value='USERCODE'>USER CODE</option>
+	      <option value='TESTFILE'>TEST FILE</option>
+	    </select>
+	  </td>
+	</tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+<br/>
+<input type='submit' class='findit' value='Find It!'/>
+
+</body>
+</html>
+
+

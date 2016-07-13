@@ -1,0 +1,22 @@
+#! /bin/csh -f
+
+beaglestop
+
+setenv BEAGLE_HOME /map/aux3fred/beagle
+unsetenv BEAGLE_EXERCISE_THE_DOG
+setenv MONO_SHARED_DIR $BEAGLE_HOME/share
+
+rm -rf $BEAGLE_HOME/static.old
+mv $BEAGLE_HOME/static $BEAGLE_HOME/static.old
+mkdir $BEAGLE_HOME/static
+
+/usr/sbin/beagle-build-index --recursive --allow-pattern '*.java' \
+	--disable-restart \
+	--target $BEAGLE_HOME/static \
+	/map/aux0fred/javasrc1.6 /map/aux0fred/sol8src \
+	/map/aux0fred/unixsrc /map/aux0fred/open \
+	/pro/kona /pro/tea /pro/java /pro/bloom /pro/veld \
+	/pro/ivy /pro/clime /pro/taiga /pro/wadi /home/spr
+
+
+beaglerun

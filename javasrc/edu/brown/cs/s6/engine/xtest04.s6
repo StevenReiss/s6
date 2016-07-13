@@ -1,0 +1,23 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestHuffman'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='Huffman'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()'/>
+	  <METHOD NAME='decode' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;'/>
+	  <METHOD NAME='encode' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+     <KEYWORD>huffman</KEYWORD>
+     <KEYWORD>encode</KEYWORD>
+     <KEYWORD>decode</KEYWORD>
+     <KEYWORD>string</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

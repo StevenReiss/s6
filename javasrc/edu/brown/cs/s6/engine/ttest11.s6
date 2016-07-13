@@ -1,0 +1,32 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.ivy.file' NAME='IvyFormatTest'>
+      <TESTEE PACKAGE='edu.brown.cs.ivy.file'>
+	 <CLASS NAME='IvyFormat'>
+	    <METHOD NAME='formatMemory' SIGNATURE='(J)Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='(long)' />
+	    <METHOD NAME='formatCount' SIGNATURE='(J)Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='(long)' />
+	    <METHOD NAME='formatPercent' SIGNATURE='(J)Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='(long)' />
+	    <METHOD NAME='formatTime' SIGNATURE='(J)Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='(long)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>format</KEYWORD>
+   <KEYWORD>readable</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+</SEARCH>
+
+
+

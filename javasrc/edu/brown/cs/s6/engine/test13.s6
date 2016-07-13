@@ -1,0 +1,26 @@
+<SEARCH LOCAL='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>caps</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+  </METHOD>
+  <TEXT>java.lang.String caps(java.lang.String a1)</TEXT>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='caps' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abcD]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[ABCD]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS />
+<KEYWORDS>
+<KEYWORD><![CDATA[capitalize]]></KEYWORD>
+<KEYWORD><![CDATA[uppercase]]></KEYWORD>
+<KEYWORD><![CDATA[case]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+    
+	<import resource="applicationContext-dataSources.xml"/>
+	<import resource="applicationContext-hibernate.xml" /> 
+	
+	<alias alias="defaultFscb" name="fscbTreeImpl"/>
+	<alias alias="defaultFileFilter" name="javaCodeFileFilter"/>
+	<alias alias="defaultFscbDao" name="fscbDaoHibernate"/>
+	
+	<!-- File System Change Broadcasters -->
+	<bean name="fscbTreeImpl" class="pandorasbox.filesystemchangebroadcasting.treeimplementation.FileSystemChangeBroadcasterTreeImpl" lazy-init="true">
+		<constructor-arg ref="defaultFileFilter" />
+	</bean>
+
+	<!-- File Filters -->
+	<bean name="javaCodeFileFilter" class="pandorasbox.filesystemchangebroadcasting.JavaCodeFileFilter" lazy-init="true" />
+	<bean name="allFilesFileFilter" class="pandorasbox.filesystemchangebroadcasting.AllFilesFileFilter" lazy-init="true" />
+
+	<!-- Daos -->
+	<bean id="fscbDaoHibernate" class="pandorasbox.dao.fscb.hibernate.FscbDaoHibernate" lazy-init="true">
+		<property name="sessionFactory" ref="hibernateSessionFactory" />
+	    <property name="fscbPrototype" ref="defaultFscb" />
+	</bean>
+	<bean id="fscbDaoFileSystem" class="pandorasbox.dao.fscb.filesystem.FscbDaoFileSystem" lazy-init="true">
+<!--		<property name="persistencePath" ref="" />-->
+	    <property name="fscbPrototype" ref="defaultFscb" />
+	</bean>
+
+</beans>

@@ -1,0 +1,56 @@
+<SEARCH FORMAT='NONE' GITHUB='true' SCOPE='FILE' WHAT='UIFRAMEWORK'>
+  <SIGNATURE>
+    <UI CLASS='S6_UI_CLASS' PACKAGE='spr.sampler.uitest'>
+      <COMPONENT HEIGHT='291' ID='U_20' TYPES='java.awt.Container' WIDTH='572' X='27' Y='15'>
+	<COMPONENT BOTTOM='U_20' HEIGHT='33' ID='U_17' RIGHT='U_20' TYPES='javax.swing.JTextField' WIDTH='207' X='392' Y='283' />
+	<COMPONENT BOTTOM='U_20' DATA='Phone' HEIGHT='11' ID='U_19' TYPES='javax.swing.JLabel' WIDTH='39' X='333' Y='292' />
+	<COMPONENT BOTTOM='U_20' DATA='Create a New Contact' HEIGHT='29' ID='U_8' LEFT='U_20' TYPES='javax.swing.JButton,javax.swing.JMenuItem' WIDTH='250' X='33' Y='403' />
+	<COMPONENT DATA='Contact Details' HEIGHT='20' ID='U_10' TYPES='javax.swing.JLabel' WIDTH='171' X='321' Y='114' />
+	<COMPONENT HEIGHT='33' ID='U_12' RIGHT='U_20' TYPES='javax.swing.JTextField' WIDTH='207' X='394' Y='167' />
+	<COMPONENT BOTTOM='U_20' HEIGHT='291' ID='U_2' LEFT='U_20' TYPES='javax.swing.JList,javax.swing.JTable,javax.swing.JTextArea,javax.swing.JEditorPane' WIDTH='246' X='34' Y='97' />
+	<COMPONENT DATA='My Address Book' HEIGHT='51' ID='U_1' LEFT='U_20' TOP='U_20' TYPES='javax.swing.JLabel' WIDTH='387' X='27' Y='15' />
+	<COMPONENT HEIGHT='33' ID='U_15' RIGHT='U_20' TYPES='javax.swing.JTextField' WIDTH='207' X='392' Y='222' />
+	<COMPONENT DATA='E-mail' HEIGHT='11' ID='U_14' TYPES='javax.swing.JLabel' WIDTH='42' X='334' Y='233' />
+	<COMPONENT DATA='Name' HEIGHT='10' ID='U_11' TYPES='javax.swing.JLabel' WIDTH='37' X='337' Y='178' />
+      </COMPONENT>
+      <CLASS NAME='S6_UI_CLASS'>
+	<METHOD NAME='S6_UI' RETURN='java.awt.Component' />
+      </CLASS>
+    </UI>
+  </SIGNATURE>
+  <REQUIRE />
+  <TESTS>
+    <TESTCASE NAME='SVIUI_1' TYPE='CALLS'>
+      <CALL METHOD='S6_UI_CLASS' NEW='true' OP='SAVE'>
+	<OUTPUT TYPE='SAVE' VALUE='x'>
+	  <CODE><![CDATA[S6_UI_CLASS x;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL METHOD='S6_UI' OP='SAVE' THIS='x'>
+	<OUTPUT TYPE='SAVE' VALUE='y'>
+	  <CODE><![CDATA[java.awt.Component y;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL OP='SCOREHIER' THIS='y'>
+	<OUTPUT TYPE='SAVE' VALUE='__score__'>
+	  <CODE><![CDATA[double __score__;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL OP='INTERACT' THIS='y'>
+	<INPUT TYPE='VARIABLE' VALUE='__score__' />
+      </CALL>
+    </TESTCASE>
+  </TESTS>
+  <KEYWORDS>
+    <KEYWORD><![CDATA[address]]></KEYWORD>
+    <KEYWORD><![CDATA[book]]></KEYWORD>
+    <KEYWORD><![CDATA[name]]></KEYWORD>
+    <KEYWORD><![CDATA[email]]></KEYWORD>
+    <KEYWORD><![CDATA[phone]]></KEYWORD>
+    <KEYWORD><![CDATA[jlist]]></KEYWORD>
+  </KEYWORDS>
+<SOURCES>
+  <SOURCE USE='TRUE'>GITHUB:https://github.com/justinjung90/File-IO/blob/d36a8f6edd2f4dbc759d1091316281b225a12fd5/File-IO/src/MainFrame.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

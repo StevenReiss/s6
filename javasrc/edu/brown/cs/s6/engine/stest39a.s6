@@ -1,0 +1,34 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_37442' NAME='S6TestAtomicPositiveInteger'>
+      <TESTEE PACKAGE='s6tgen_37442'>
+	<CLASS NAME='AtomicPositiveInteger'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()' />
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(I)' />
+	  <METHOD NAME='getAndIncrement' SIGNATURE='()I' />
+	  <METHOD NAME='getAndDecrement' SIGNATURE='()I' />
+	  <METHOD NAME='incrementAndGet' SIGNATURE='()I' />
+	  <METHOD NAME='decrementAndGet' SIGNATURE='()I' />
+	  <METHOD NAME='get' SIGNATURE='()I' />
+	  <METHOD NAME='set' SIGNATURE='(I)V' />
+	  <METHOD NAME='getAndSet' SIGNATURE='(I)I' />
+	  <METHOD NAME='getAndAdd' SIGNATURE='(I)I' />
+	  <METHOD NAME='addAndGet' SIGNATURE='(I)I' />
+	  <METHOD NAME='compareAndSet' SIGNATURE='(II)Z' />
+	  <METHOD NAME='weakCompareAndSet' SIGNATURE='(II)Z' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>atomic</KEYWORD>
+    <KEYWORD>positive</KEYWORD>
+    <KEYWORD>integer</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_37442/context.s6ctx' />
+  <SOURCES>
+   <SOURCE USE='true'>GITHUB:https://github.com/wuziliang18/source-code-learn-dubbo/blob/64fcb74fb17a7c7dfcaaa3cf236c008105600069/dubbo-common/src/test/java/com/alibaba/dubbo/common/utils/AtomicPositiveIntegerTest.java</SOURCE>
+  </SOURCES>
+</SEARCH>

@@ -1,0 +1,21 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_5327' NAME='S6TestFizzBuzz'>
+      <TESTEE PACKAGE='s6tgen_5327'>
+        <CLASS NAME='FizzBuzz'>
+          <METHOD NAME='FizzBuzz' SIGNATURE='()' />
+          <METHOD NAME='main' SIGNATURE='([Ljava/lang/String;)V' STATIC='true' />
+          <METHOD NAME='fizzBuzz' SIGNATURE='(I)I' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>multiples</KEYWORD>
+    <KEYWORD>multiple</KEYWORD>
+    <KEYWORD>numbers</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_5327/context.s6ctx' />
+</SEARCH>

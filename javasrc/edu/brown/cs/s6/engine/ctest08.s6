@@ -1,0 +1,44 @@
+<S6:CHECK WHAT='CLASSTESTS' xmlns:S6='http://www.cs.brown.edu/S6'>
+<S6:SIGNATURE>
+  <S6:CLASS NAME='Sample'>
+    <S6:METHOD>
+      <S6:NAME>&lt;init&gt;</S6:NAME>
+      <S6:ARGS />
+    </S6:METHOD>
+    <S6:METHOD>
+      <S6:NAME>test</S6:NAME>
+      <S6:RETURN>int</S6:RETURN>
+      <S6:ARGS>int</S6:ARGS>
+    </S6:METHOD>
+    <S6:METHOD>
+      <S6:NAME>test1</S6:NAME>
+      <S6:RETURN>int</S6:RETURN>
+      <S6:ARGS>Sample,int</S6:ARGS>
+    </S6:METHOD>
+  </S6:CLASS>
+</S6:SIGNATURE>
+<TEST TESTID='1' METHOD='&lt;init&gt;' OP='SAVE' TYPE='CALLSET'><OUTPUT>v</OUTPUT></TEST>
+<TEST TESTID='2' METHOD='v.test' OP='EQL' TYPE='CALLSETCONT'><INPUT>5</INPUT><OUTPUT>6</OUTPUT></TEST>
+<TEST TESTID='3' METHOD='v.test1' OP='EQL' TYPE='CALLSETCONT'><INPUT>v,6</INPUT><OUTPUT>7</OUTPUT></TEST>
+</S6:CHECK>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

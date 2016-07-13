@@ -1,0 +1,32 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_32069' NAME='S6TestPosition'>
+      <TESTEE PACKAGE='s6tgen_32069'>
+        <CLASS NAME='Position'>
+          <METHOD NAME='Position' SIGNATURE='(Ljava/lang/String;)' />
+          <METHOD NAME='getSymbol' SIGNATURE='()Ljava/lang/String;' />
+          <METHOD NAME='setQuantity' SIGNATURE='(I)V' />
+          <METHOD NAME='getQuantity' SIGNATURE='()I' />
+          <METHOD NAME='setType' SIGNATURE='(Ljava/lang/String;)V' />
+          <METHOD NAME='getType' SIGNATURE='()Ljava/lang/String;' />
+          <METHOD NAME='setPricePaid' SIGNATURE='(F)V' />
+          <METHOD NAME='getPricePaid' SIGNATURE='()F' />
+          <METHOD NAME='setPurchaseDate' SIGNATURE='(I)V' />
+          <METHOD NAME='getPurchaseDate' SIGNATURE='()I' />
+          <METHOD NAME='setPriceSold' SIGNATURE='(F)V' />
+          <METHOD NAME='getPriceSold' SIGNATURE='()F' />
+          <METHOD NAME='setSaleDate' SIGNATURE='(I)V' />
+          <METHOD NAME='getSaleDate' SIGNATURE='()I' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>price</KEYWORD>
+    <KEYWORD>paid</KEYWORD>
+    <KEYWORD>sale</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_32069/context.s6ctx' />
+</SEARCH>

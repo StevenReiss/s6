@@ -1,0 +1,24 @@
+<SEARCH LOCAL='FALSE' GITHUB='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD INT='true' MODS='0'>
+    <NAME>convert</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>int convert(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='convert' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[viii]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[8]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><KEYWORDS>
+<KEYWORD><![CDATA[roman]]></KEYWORD>
+<KEYWORD><![CDATA[numerals]]></KEYWORD>
+</KEYWORDS></SEARCH>
+

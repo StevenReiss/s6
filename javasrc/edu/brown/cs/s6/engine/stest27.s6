@@ -1,0 +1,20 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_123073' NAME='S6TestChunker'>
+      <TESTEE PACKAGE='s6tgen_123073'>
+        <CLASS NAME='Chunker'>
+          <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/io/Reader;C)' />
+          <METHOD NAME='nextWord' SIGNATURE='()Ljava/lang/String;' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>reader</KEYWORD>
+    <KEYWORD>word</KEYWORD>
+    <KEYWORD>next</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_123073/context.s6ctx' />
+</SEARCH>

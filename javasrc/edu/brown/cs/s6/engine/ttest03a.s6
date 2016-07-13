@@ -1,0 +1,23 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='spr.roman' NAME='S6_robots_Test'>
+      <TESTEE PACKAGE='spr.roman'>
+	 <CLASS NAME='UrlRobots'>
+	    <METHOD NAME='check' SIGNATURE='(Ljava/net/URL;)Z'
+		RETURN='boolean'
+		ARGS='(java.net.URL)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>robots.txt</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/robotstest.s6ctx' />
+<SOURCES>
+<SOURCE USE='TRUE'>GITHUB:/nvasilakis/yippee/blob/5b0158a206fe837d9b4c79e7e26feaa55c1c1a86/test/com/yippee/crawler/RobotsModuleTest.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

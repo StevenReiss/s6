@@ -1,0 +1,100 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/sviweb/Make.data,v 1.10 2013/09/13 20:33:14 spr Exp $
+
+#
+# S6:SVIWEB -- Semantic Search of Shared Source Software System web front end
+#
+
+
+PACKAGE=sviweb
+
+
+SUBDIRS= client server
+
+POSTALL= gwt install
+
+GWTDIR= $(BROWN_S6_S6)/public/gwt
+GWTDIR= $(BROWN_S6_S6)/public/gwt-2.4.0
+
+WEBDIR= /pro/s6/sviweb/src/www
+WEBCP= $(GWTDIR)/gwt-user.jar:$(GWTDIR)/gwt-dev-linux.jar:$(GWTDIR)/gwt-servlet-deps.jar:$(BROWN_S6_S6)/javasrc:$(BROWN_S6_S6)/java
+LOCALJAVAFLAGS= -source 1.6 -target 1.6 -bootclasspath /pro/java/linux/jdk1.6/jre/lib/rt.jar
+
+
+gwt:	gwtc gwtwar gwtsetup
+install: gwtinstall
+
+test: $(PREALL) javadep $(STAMP) $(REMOTEALL) $(ALL) hosted
+
+testold: all
+	ssh valerie java -cp $(WEBCP) com.google.gwt.dev.GWTShell \
+		-whitelist http: \
+		edu.brown.cs.s6.sviweb.S6Search
+
+
+SRCD = $(BROWN_S6_S6)/sviweb/src
+WWW= $(SRCD)/www/edu.brown.cs.s6.sviweb.S6Search
+INSTALL= $(wildcard $(WWW)/*.html $(WWW)/*.js $(WWW)/*.xml $(WWW)/*.rpc $(WWW)/*.gif $(WWW)/*.css)
+
+installold:
+	ssh conifer.cs.brown.edu rm -rf /vol/s6/S6Search/*.{html,js,xml,rpc,gif,css}
+	scp $(INSTALL) conifer.cs.brown.edu:/vol/s6/S6Search
+
+
+gwt1:
+	$(GWTDIR)/webAppCreator -ignore -out $(GENDIR) edu.brown.cs.s6.sviweb.S6Search
+
+BASEDIR= $(BROWN_S6_S6)/sviweb/src
+WARDIR= $(BASEDIR)/war
+
+GWTDEV= $(wildcard $(GWTDIR)/gwt-dev*.jar)
+GWTXTRA= $(GWTDIR)/gwt-servlet-deps.jar:$(GWTDIR)/validation-api-1.0.0.GA.jar:$(GWTDIR)/validation-api-1.0.0.GA-sources.jar
+
+PCP= $(WARDIR)/WEB-INF/classes:$(GWTDIR)/gwt-user.jar:$(GWTDEV):$(GWTXTRA):$(BROWN_S6_S6)/javasrc:$(BROWN_S6_S6)/java
+
+
+gwtc:
+	java -Xmx512M -cp $(PCP) -Xss16M com.google.gwt.dev.Compiler -style PRETTY \
+		-strict \
+		edu.brown.cs.s6.sviweb.S6Search -war $(WARDIR)
+
+
+hosted:
+	java -Xmx512M -cp $(PCP) com.google.gwt.dev.DevMode -war $(WARDIR) \
+		-startupUrl edu.brown.cs.s6.sviweb.S6Search/s6search.html edu.brown.cs.s6.sviweb.S6Search
+
+hosted32:
+	java -Xmx512M -cp $(PCP) com.google.gwt.dev.HostedMode -war $(WARDIR) \
+		-startupUrl edu.brown.cs.s6.sviweb.S6Search/s6search.html edu.brown.cs.s6.sviweb.S6Search
+
+
+gwtwar:
+	(cd $(WARDIR); rm -rf `find . -name bBACKUP -print`)
+	(cd $(WARDIR); rm -rf `find . -name bBUFFERS -print`)
+	(cd $(WARDIR); rm -rf `find . -name bCONTROL -print`)
+	rm -rf $(BASEDIR)/s6search.war
+	(cd $(WARDIR); zip -r $(BASEDIR)/s6search.war .)
+
+
+
+APPDIR= $(WARDIR)/edu.brown.cs.s6.sviweb.S6Search
+
+gwtsetup:
+	-rm -rf $(WARDIR)/WEB-INF
+	-mkdir -p $(WARDIR)/WEB-INF/lib
+	-mkdir -p $(WARDIR)/WEB-INF/classes/edu/brown/cs/s6/sviweb/server
+	-mkdir -p $(WARDIR)/WEB-INF/classes/edu/brown/cs/s6/sviweb/client
+	cp $(GWTDIR)/gwt-servlet.jar $(WARDIR)/WEB-INF/lib
+	cp $(BASEDIR)/web.xml $(WARDIR)/WEB-INF
+	cp $(BROWN_S6_S6)/java/edu/brown/cs/s6/sviweb/client/SviwebConstants*.class $(WARDIR)/WEB-INF/classes/edu/brown/cs/s6/sviweb/client
+	cp $(BROWN_S6_S6)/java/edu/brown/cs/s6/sviweb/client/SviwebService.class $(WARDIR)/WEB-INF/classes/edu/brown/cs/s6/sviweb/client
+	cp $(BROWN_S6_S6)/java/edu/brown/cs/s6/sviweb/server/*.class $(WARDIR)/WEB-INF/classes/edu/brown/cs/s6/sviweb/server
+	cp $(APPDIR)/* $(WARDIR)
+
+
+gwtinstall:
+	cp $(BASEDIR)/web.xml.remote $(WARDIR)/WEB-INF/web.xml
+	-ssh conifer.cs.brown.edu rm -rf /vol/s6/S6Search/*
+	scp -r $(WARDIR)/* conifer.cs.brown.edu:/vol/s6/S6Search
+	cp $(BASEDIR)/web.xml $(WARDIR)/WEB-INF
+

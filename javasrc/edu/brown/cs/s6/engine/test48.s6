@@ -1,0 +1,31 @@
+<SEARCH WHAT='METHOD' FORMAT='NONE' GOOGLE='TRUE'><SIGNATURE>
+  <METHOD MODS='0' INT='true'>
+    <NAME>median</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>int[]</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>int median(int[] a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='median' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new int[] {1 , 2 , 3 , 4 , 5}]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='median' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new int[] {7 , 0 , 23 , 9 , 6 , 8 , 3 , 2 , 3}]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[6]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT><CONTEXT /></CONTEXT>
+<KEYWORDS><KEYWORD><![CDATA[median]]></KEYWORD></KEYWORDS></SEARCH>

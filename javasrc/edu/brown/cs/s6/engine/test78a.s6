@@ -1,0 +1,28 @@
+<SEARCH FORMAT='NONE' KODERS='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='8' STATIC='true' VOID='true'>
+    <NAME>sort</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>int[]</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>void sort(int[] a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='sort' OP='IGNORE'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new int[] {1 , 3 , 2}]]></VALUE>
+      </INPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='USERCODE'>
+    <CODE><![CDATA[int [] t = new int [] { 1,3,2};
+$(PREFIX).sort(t);
+assert(t[0] == 1 && t[1] == 2 && t[2] == 3); ]]></CODE>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS><KEYWORD><![CDATA[quick]]></KEYWORD><KEYWORD><![CDATA[sort]]></KEYWORD></KEYWORDS>
+<SOURCES>
+<SOURCE USE='TRUE'>KODERS:/java/fid40F283E6B90582E81762DE0782D71E0461F9D6AD.aspx</SOURCE>
+</SOURCES>
+</SEARCH>
+

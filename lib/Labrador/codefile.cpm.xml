@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE compass-core-mapping PUBLIC
+    "-//Compass/Compass Core Mapping DTD 2.0//EN"
+    "http://www.compass-project.org/dtd/compass-core-mapping-2.1.dtd">
+<!--<!DOCTYPE compass-core-mapping PUBLIC-->
+<!--    "-//Compass/Compass Core Mapping DTD 2.0//EN"-->
+<!--    "http://www.opensymphony.com/compass/dtd/compass-core-mapping.dtd">-->
+
+<compass-core-mapping>
+
+  <resource alias="codefile">
+    <resource-id name="path" />
+    <resource-property name="code" store="compress" index="tokenized" />
+    <resource-property name="lastmodified" store="yes" index="no" converter="date" />
+  </resource>
+
+</compass-core-mapping>

@@ -1,0 +1,20 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_98229' NAME='S6TestStringUtils'>
+      <TESTEE PACKAGE='s6tgen_98229'>
+        <CLASS NAME='StringUtils'>
+          <METHOD NAME='isBlank' SIGNATURE='(Ljava/lang/String;)Z' STATIC='true' />
+          <METHOD NAME='isNotBlank' SIGNATURE='(Ljava/lang/String;)Z' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>blank</KEYWORD>
+    <KEYWORD>bob</KEYWORD>
+    <KEYWORD>whites</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_98229/context.s6ctx' />
+</SEARCH>

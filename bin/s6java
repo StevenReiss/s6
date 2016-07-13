@@ -1,0 +1,48 @@
+#! /bin/tcsh -f
+
+
+if ($?BROWN_S6_ROOT == 0) then
+   set x0 = `zsh -c "whence $0"`
+   set x1 = ${x0:h}
+   set x2 = $x1/s6setupenv
+   source $x2
+endif
+
+
+if ($?SOURCEPATH == 0) then
+   setenv SOURCEPATH $CLASSPATH
+endif
+
+
+if (-d $BROWN_S6_S6/java) then
+   setenv CLASSPATH $BROWN_S6_S6/java:$BROWN_S6_IVY/java:$BROWN_S6_IVY/lib/jikesbt.jar:
+else
+   setenv CLASSPATH $BROWN_S6_S6/lib/s6.jar:$BROWN_S6_IVY/lib/ivy.jar:$BROWN_S6_IVY/lib/jikesbt.jar:
+endif
+
+setenv SUISEPATH $BROWN_S6_S6/lib/jsyntaxpane.jar:$BROWN_S6_S6/lib/asm4.jar:$BROWN_S6_S6/public/batik-1.7/batik.jar:
+setenv ADDPATH $BROWN_S6_S6/lib/json.jar:$BROWN_S6_S6/lib/jtar-1.1.jar:$BROWN_S6_S6/lib/jsoup.jar:
+
+
+setenv CLASSPATH ${CLASSPATH}${SUISEPATH}${ADDPATH}${ECLIPSEPATH}:${BROWN_IVY_DBMS}
+
+
+set jargs = "-Dedu.brown.cs.s6.ROOT=$BROWN_S6_ROOT -Dedu.brown.cs.s6.IVY=$BROWN_S6_IVY -Dedu.brown.cs.s6.S6=$BROWN_S6_S6 -Dedu.brown.cs.s6.ARCH=$BROWN_S6_ARCH -Dedu.brown.cs.s6.BOOT=$BROWN_JAVA_BOOT"
+
+if ($?BROWN_IVY_ROOT) then
+   set iargs = "-Dedu.brown.cs.ivy.ROOT=$BROWN_IVY_ROOT -Dedu.brown.cs.ivy.IVY=$BROWN_IVY_IVY -Dedu.brown.cs.ivy.ARCH=$BROWN_IVY_ARCH"
+else
+   set iargs = "-Dedu.brown.cs.ivy.ROOT=$BROWN_S6_ROOT -Dedu.brown.cs.ivy.IVY=$BROWN_S6_ROOT/ivy -Dedu.brown.cs.ivy.ARCH=$BROWN_S6_ARCH"
+endif
+
+if ($?SOURCEPATH != 0) then
+   set jargs = "$jargs -Dedu.brown.cs.ivy.SOURCEPATH=$SOURCEPATH"
+endif
+
+set cmd = java
+if ($?BROWN_S6_IVY == 1) then
+   set cmd = djava
+endif
+
+exec $cmd -Xmx1024m $jargs $iargs $*
+

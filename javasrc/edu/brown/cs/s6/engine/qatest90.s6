@@ -1,0 +1,21 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' VOID='true'>
+    <NAME>sort</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>int[]</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>void sort(int[] a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='USERCODE'>
+    <CODE><![CDATA[int [] t = new int [] { 1,3,2};
+$(PREFIX).sort(t);
+assert(t[0] == 1 && t[1] == 2 && t[2] == 3); ]]></CODE>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS>
+  <KEYWORD>arrayins</KEYWORD>
+  <KEYWORD>partitionit</KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

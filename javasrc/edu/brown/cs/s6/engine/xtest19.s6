@@ -1,0 +1,21 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestMedianQuick'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='MedianQuick'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(I)'/>
+	  <METHOD NAME='insert' SIGNATURE='(J)V'/>
+	  <METHOD NAME='recMedian' SIGNATURE='(II)J'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>median</KEYWORD>
+    <KEYWORD>insert</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

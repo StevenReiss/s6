@@ -1,0 +1,26 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_20100' NAME='S6TestDateTime'>
+      <TESTEE PACKAGE='s6tgen_20100'>
+	<CLASS NAME='DateTime'>
+	  <METHOD NAME='DateTime' SIGNATURE='(JI)' />
+	  <METHOD NAME='DateTime' SIGNATURE='(Ljava/util/Date;Ljava/util/TimeZone;)' />
+	  <METHOD NAME='DateTime' SIGNATURE='(Ljava/util/Date;)' />
+	  <METHOD NAME='parse' SIGNATURE='(Ljava/lang/String;)Ls6tgen_20100/DateTime;' STATIC='true' />
+	  <METHOD NAME='getDate' SIGNATURE='()Ljava/util/Date;' />
+	  <METHOD NAME='getHgString' SIGNATURE='()Ljava/lang/String;' />
+	  <METHOD NAME='toString' SIGNATURE='()Ljava/lang/String;' />
+	  <METHOD NAME='hashCode' SIGNATURE='()I' />
+	  <METHOD NAME='equals' SIGNATURE='(Ljava/lang/Object;)Z' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>datetime</KEYWORD>
+    <KEYWORD>parse</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_20100/context.s6ctx' />
+</SEARCH>

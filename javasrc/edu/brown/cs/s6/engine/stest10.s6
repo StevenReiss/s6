@@ -1,0 +1,26 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_9408' NAME='S6TestSessionAttendee'>
+      <TESTEE PACKAGE='s6tgen_9408'>
+        <CLASS NAME='SessionAttendee'>
+          <METHOD NAME='SessionAttendee' SIGNATURE='()' />
+          <METHOD NAME='SessionAttendee' SIGNATURE='(Ljava/lang/String;I)' />
+          <METHOD NAME='toggleAttendance' SIGNATURE='()V' />
+          <METHOD NAME='isGoing' SIGNATURE='()Z' />
+          <METHOD NAME='equals' SIGNATURE='(Ljava/lang/Object;)Z' />
+          <METHOD NAME='hashCode' SIGNATURE='()I' />
+          <METHOD NAME='getAttendeeEmail' SIGNATURE='()Ljava/lang/String;' />
+          <METHOD NAME='getSessionId' SIGNATURE='()I' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>session</KEYWORD>
+    <KEYWORD>going</KEYWORD>
+    <KEYWORD>email</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_9408/context.s6ctx' />
+</SEARCH>

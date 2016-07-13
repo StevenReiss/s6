@@ -1,0 +1,20 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_34744' NAME='S6TestArrayUtils'>
+      <TESTEE PACKAGE='s6tgen_34744'>
+        <CLASS NAME='ArrayUtils'>
+          <METHOD NAME='contains' SIGNATURE='([Ljava/lang/String;Ljava/lang/String;)Z' STATIC='true' />
+          <METHOD NAME='concat' SIGNATURE='([Ljava/lang/String;[Ljava/lang/String;)[Ljava/lang/String;' STATIC='true' />
+          <METHOD NAME='concat' SIGNATURE='([Ljava/lang/String;)[Ljava/lang/String;' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>array</KEYWORD>
+    <KEYWORD>concat</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_34744/context.s6ctx' />
+</SEARCH>

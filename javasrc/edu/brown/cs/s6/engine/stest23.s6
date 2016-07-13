@@ -1,0 +1,19 @@
+<SEARCH FORMAT='NONE' GITHUB='true' LOCAL='false' OHLOH='false' REMOTE='true' WHAT='TESTCASES'>
+  <SIGNATURE>
+    <TESTING NAME='S6TestNumberOfInversions' PACKAGE='s6tgen_16322'>
+      <TESTEE PACKAGE='s6tgen_16322'>
+	<CLASS NAME='NumberOfInversions'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='([I)' />
+	  <METHOD NAME='numberOfInversions' SIGNATURE='()I' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>inversions</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_16322/context.s6ctx' />
+</SEARCH>
+

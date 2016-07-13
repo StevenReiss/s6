@@ -1,0 +1,25 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestDie'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='Die'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()'/>
+	  <METHOD NAME='compareTo' SIGNATURE='(Lsampler/spr/textex/Die;)I'/>
+	  <METHOD NAME='equals' SIGNATURE='(Ljava/lang/Object;)Z'/>
+	  <METHOD NAME='getTopFace' SIGNATURE='()I'/>
+	  <METHOD NAME='roll' SIGNATURE='()V'/>
+	  <METHOD NAME='setTopFace' SIGNATURE='(I)V'/>
+	  <METHOD NAME='toString' SIGNATURE='()Ljava/lang/String;'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>die</KEYWORD>
+    <KEYWORD>roll</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

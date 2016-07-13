@@ -1,0 +1,23 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestRabinKarpStringMatcher'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='RabinKarpStringMatcher'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;)'/>
+	  <METHOD NAME='match' SIGNATURE='(Ljava/lang/String;)I'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>rabin</KEYWORD>
+    <KEYWORD>karp</KEYWORD>
+    <KEYWORD>substring</KEYWORD>
+    <KEYWORD>pattern</KEYWORD>
+    <KEYWORD>match</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

@@ -1,0 +1,21 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_84967' NAME='S6TestIAmImmutable'>
+      <TESTEE PACKAGE='s6tgen_84967'>
+	<CLASS NAME='IAmImmutable'>
+	  <METHOD NAME='IAmImmutable' SIGNATURE='(C)' />
+	  <METHOD NAME='increse' SIGNATURE='()s6tgen_84967/IAmImmutable;' />
+	  <METHOD NAME='getCha' SIGNATURE='()C' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>immutable</KEYWORD>
+    <KEYWORD>objects</KEYWORD>
+    <KEYWORD>synchronization</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_84967/context.s6ctx' />
+</SEARCH>

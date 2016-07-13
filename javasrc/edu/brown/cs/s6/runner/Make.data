@@ -1,0 +1,32 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/runner/Make.data,v 1.7 2016/01/14 17:03:46 spr Exp $
+
+#
+# S6:RUNNER -- routines to handle s6 testing
+#
+
+
+PACKAGE=runner
+
+
+SFILES=\
+	RunnerResourceBundle.java \
+	RunnerS6HierData.java \
+	RunnerSwingShow.java \
+	RunnerSwingMatcher.java \
+	RunnerSwingModels.java \
+	RunnerTestCase.java \
+	RunnerTest.java \
+	RunnerAndroid.java \
+	RunnerAndroidMatcher.java \
+	RunnerPencilXMLParser.java \
+	RunnerPencilHierData.java \
+	RunnerAssert.java \
+
+
+LOCALJAVAFLAGS= -cp $(PRO)/s6/java:$(PRO)/ivy/java:$(PRO)/s6/lib/junit.jar
+
+ALL= runnerjar
+
+runnerjar:
+	jar cvf $(PRO)/s6/lib/runner.jar -C $(PRO)/s6/java edu/brown/cs/s6/runner

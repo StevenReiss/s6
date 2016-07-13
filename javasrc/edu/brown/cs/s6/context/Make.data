@@ -1,0 +1,35 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/context/Make.data,v 1.1 2012-06-11 14:07:28 spr Exp $
+
+#
+# S6:CONTEXT -- routines to build a s6 context
+#
+
+
+PACKAGE=context
+
+
+SFILES=\
+	ContextConstants.java \
+	ContextEclipse.java \
+	ContextMain.java \
+	ContextPanel.java \
+	ContextUserFile.java \
+
+
+test:
+	java edu.brown.cs.s6.context.ContextMain -o $(BROWN_S6_S6)/context/src/test.s6ctx
+
+testi:
+	java edu.brown.cs.s6.context.ContextMain -i
+
+
+CP=/pro/s6/java:/pro/ivy/java
+
+jnlp:
+	ssh conifer mkdir -p /vol/web/html/s6/Context
+	ssh conifer mkdir -p /vol/web/html/s6/Context/lib
+	scp $(BROWN_S6_S6)/context/src/context.jnlp conifer:/vol/web/html/s6/Context
+	taigabuildimpljar -cp $(CP) -j context.jar -x edu.brown.cs.s6.context.ContextMain
+	jarsigner -keystore $(BROWN_S6_S6)/.keystore context.jar s6
+	scp context.jar conifer:/vol/web/html/s6/Context/lib

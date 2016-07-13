@@ -1,0 +1,25 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_85590' NAME='S6TestCRC16'>
+      <TESTEE PACKAGE='s6tgen_85590'>
+	<CLASS NAME='CRC16'>
+	  <METHOD NAME='getTable' SIGNATURE='()[I' STATIC='true' />
+	  <METHOD NAME='getValue' SIGNATURE='()J' />
+	  <METHOD NAME='reset' SIGNATURE='()V' />
+	  <METHOD NAME='update' SIGNATURE='(I)V' />
+	  <METHOD NAME='update' SIGNATURE='([B)V' />
+	  <METHOD NAME='update' SIGNATURE='([BII)V' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>crc16</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_85590/context.s6ctx' />
+  <SOURCES>
+    <SOURCE USE='TRUE'>GITHUB:/fujaba/NetworkParser/blob/9258d626fae4c25093502d3779ac51b65d362a93/NetworkParser/src/test/java/de/uniks/networkparser/test/CheckSumTest.java</SOURCE>
+  </SOURCES>
+</SEARCH>

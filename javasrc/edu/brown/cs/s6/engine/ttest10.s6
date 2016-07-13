@@ -1,0 +1,27 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.ivy.exec' NAME='IvyFileTest'>
+      <TESTEE PACKAGE='edu.brown.cs.ivy.file'>
+	 <CLASS NAME='IvyFile'>
+	    <METHOD NAME='expandName' SIGNATURE='(Ljava/lang/String;Ljava/util/Map;)Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='(java.lang.String,java.util.Map&lt;String,String&gt;)' />
+	    <METHOD NAME='expandName' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='(java.lang.String)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>string</KEYWORD>
+   <KEYWORD>substitute</KEYWORD>
+   <KEYWORD>$(</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+</SEARCH>
+
+
+

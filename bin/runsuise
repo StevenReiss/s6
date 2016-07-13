@@ -1,0 +1,3 @@
+#! /bin/csh -f
+
+/pro/s6/bin/s6java edu.brown.cs.s6.suise.SuiseMain $*

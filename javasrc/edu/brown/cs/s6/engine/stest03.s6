@@ -1,0 +1,48 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='FALSE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='s6tgen_107162' NAME='S6TestLink'>
+      <TESTEE PACKAGE='s6tgen_107162'>
+	 <CLASS NAME='Link'>
+	    <METHOD NAME='&lt;init&gt;' SIGNATURE='()'
+		ARGS='()' />
+	    <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;)'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;Ljava/awt/event/ActionListener;)'
+		ARGS='(java.lang.String,java.awt.event.ActionListener)' />
+	    <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;Ljava/awt/event/ActionListener;Ljava/lang/String;)'
+		ARGS='(java.lang.String,java.awt.event.ActionListener,java.lang.String)' />
+	    <METHOD NAME='getLinkText' SIGNATURE='()Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='()' />
+	    <METHOD NAME='setEnabled' SIGNATURE='(Z)V;'
+		RETURN='void'
+		ARGS='(boolean)' />
+	    <METHOD NAME='getHoveringColor' SIGNATURE='()Ljava/awt/Color;'
+		RETURN='java.awt.Color'
+		ARGS='()' />
+	    <METHOD NAME='getTextColor' SIGNATURE='()Ljava/awt/Color;'
+		RETURN='java.awt.Color'
+		ARGS='()' />
+	    <METHOD NAME='setHoveringColor' SIGNATURE='(Ljava/awt/Color;)V'
+		RETURN='void'
+		ARGS='(java.awt.Color)' />
+	    <METHOD NAME='setText' SIGNATURE='(Ljava/lang/String;)V'
+		RETURN='void'
+		ARGS='(java.lang.String)' />
+	    <METHOD NAME='setTextColor' SIGNATURE='(Ljava/awt/Color;)V'
+		RETURN='void'
+		ARGS='(java.awt.Color)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>jbutton</KEYWORD>
+   <KEYWORD>html</KEYWORD>
+   <KEYWORD>link</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>org.junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/ws/volfred/s6/s6tgen/context.s6ctx' />
+</SEARCH>
+

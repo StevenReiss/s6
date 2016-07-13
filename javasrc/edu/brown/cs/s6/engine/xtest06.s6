@@ -1,0 +1,31 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestPet'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='Pet'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;ID)'/>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/String;)'/>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(I)'/>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(D)'/>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()'/>
+	  <METHOD NAME='set' SIGNATURE='(Ljava/lang/String;ID)V'/>
+	  <METHOD NAME='setName' SIGNATURE='(Ljava/lang/String;)Z'/>
+	  <METHOD NAME='setAge' SIGNATURE='(I)Z'/>
+	  <METHOD NAME='setWeight' SIGNATURE='(D)Z'/>
+	  <METHOD NAME='getName' SIGNATURE='()Ljava/lang/String;'/>
+	  <METHOD NAME='getAge' SIGNATURE='()I'/>
+	  <METHOD NAME='getWeight' SIGNATURE='()D'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+     <KEYWORD>name</KEYWORD>
+     <KEYWORD>age</KEYWORD>
+    <KEYWORD>weight</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

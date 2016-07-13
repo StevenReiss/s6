@@ -1,0 +1,22 @@
+<SEARCH LOCAL='FALSE' GITHUB='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>toRoman</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>int</ARGS>
+  </METHOD>
+  <TEXT>java.lang.String toRoman(int a1)</TEXT>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='test_1' TYPE='CALLS'>
+    <CALL METHOD='toRoman'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[17]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[seventeenth]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS>
+<KEYWORDS><KEYWORD><![CDATA[ordinal]]></KEYWORD><KEYWORD><![CDATA[number]]></KEYWORD></KEYWORDS>
+</SEARCH>
+

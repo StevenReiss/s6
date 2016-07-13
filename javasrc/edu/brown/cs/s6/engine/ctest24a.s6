@@ -1,0 +1,46 @@
+<SEARCH FORMAT='SUN' GITHUB='TRUE' REMOTE='TRUE' WHAT='CLASS'><SIGNATURE><CLASS NAME='HttpServer'><METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS>int</ARGS>
+    <ARGNAMES>port</ARGNAMES>
+    <TEXT>HttpServer(int port)</TEXT>
+  </METHOD><METHOD MODS='0' VOID='true'>
+    <NAME>start</NAME>
+    <RETURN>void</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>void start()</TEXT>
+  </METHOD></CLASS></SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_2' TYPE='USERCODE'>
+     <CODE>
+      Thread th = new Thread() {
+	 HttpServer s = new HttpServer(44456);
+	 public void run() { s.start(); }
+       };
+      th.start();
+      try { Thread.sleep(200); }  catch (InterruptedException e) { }
+      java.net.Socket sock = new java.net.Socket("localhost",44456);
+      Assert.assertTrue(sock != null);
+    </CODE>
+  </TESTCASE>
+</TESTS>
+<SECURITY />
+<KEYWORDS>
+<KEYWORD><![CDATA[http]]></KEYWORD>
+<KEYWORD><![CDATA[server]]></KEYWORD>
+<KEYWORD><![CDATA[serversocket]]></KEYWORD>
+<KEYWORD><![CDATA[start]]></KEYWORD>
+<KEYWORD><![CDATA[port]]></KEYWORD>
+</KEYWORDS>
+<SOURCE>
+   <SOURCE USE='TRUE'>GITHUB:https://github.com/EvgenyMokhnachev/Http_Server_Native/blob/e9ae252cb8638e33995af5f8c478206ca2c6358b/emServer/src/main/java/em/server/HttpServer.java</SOURCE>
+   <SOURCE USE='TRUE'>GITHUB:https://github.com/hsllany/WebServer/blob/44ab19be3e8101f00b7035e8e5ad597f8c1004ad/src/com/baca/server/main/HttpServer.java</SOURCE>
+   <SOURCE USE='TRUE'>GITHUB:https://github.com/MyJavaTutorial/TrivialHttpServer/blob/ab6140065e3dd6e902845c8f1224f3fd2799ed7e/src/myhttp/Server.java</SOURCE>
+</SOURCES>
+</SEARCH>
+
+
+
+
+
+

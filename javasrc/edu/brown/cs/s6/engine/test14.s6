@@ -1,0 +1,46 @@
+<SEARCH LOCAL='TRUE' GITHUB='TRUE' WHAT='METHOD'>
+<SIGNATURE>
+  <METHOD INT='true' MODS='0'>
+    <NAME>convert</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>java.lang.String</ARGS>
+  </METHOD>
+  <TEXT>int convert(java.lang.String a1)</TEXT>
+</SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='convert' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[VIII]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[8]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='convert' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[xxvi]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[26]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS>
+<SECURITY>
+<PERMISSION INDEX='0' TYPE='FILE'>
+<VALUE><![CDATA[*]]></VALUE>
+<ACTIONS><![CDATA[read,write,execute,delete]]></ACTIONS>
+</PERMISSION>
+</SECURITY>
+<CONTRACTS />
+<KEYWORDS>
+<KEYWORD><![CDATA[roman]]></KEYWORD>
+<KEYWORD><![CDATA[numeral]]></KEYWORD>
+<KEYWORD><![CDATA[number]]></KEYWORD>
+<KEYWORD><![CDATA[conversion]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

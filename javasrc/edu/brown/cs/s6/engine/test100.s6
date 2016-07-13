@@ -1,0 +1,27 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' REMOTE='TRUE' WHAT='CLASS'><SIGNATURE><CLASS NAME='ComplexNumber'><METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS>double,double</ARGS>
+    <ARGNAMES>i,j</ARGNAMES>
+    <TEXT>ComplexNumber(double i,double j)</TEXT>
+  </METHOD><METHOD DOUBLE='true' MODS='0'>
+    <NAME>getRealPart</NAME>
+    <RETURN>double</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>double getRealPart()</TEXT>
+  </METHOD><METHOD DOUBLE='true' MODS='0'>
+    <NAME>getImaginaryPart</NAME>
+    <RETURN>double</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>double getImaginaryPart()</TEXT>
+  </METHOD><METHOD MODS='0'>
+    <NAME>add</NAME>
+    <RETURN>ComplexNumber</RETURN>
+    <ARGS>ComplexNumber</ARGS>
+    <ARGNAMES>i</ARGNAMES>
+    <TEXT>ComplexNumber add(ComplexNumber i)</TEXT>
+  </METHOD></CLASS></SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='USERCODE' />
+</TESTS><SECURITY /><KEYWORDS><KEYWORD><![CDATA[complex]]></KEYWORD><KEYWORD><![CDATA[number]]></KEYWORD></KEYWORDS></SEARCH>
+

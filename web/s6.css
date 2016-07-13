@@ -1,0 +1,137 @@
+body {
+   background-color: #eeeebb;
+}
+
+.toptable {
+   border-width: 10px;
+   border-style: solid;
+   border-color: yellow;
+}
+
+.logo {
+   font-size: 128px;
+   border-color: red;
+   background-color: yellow;
+}
+
+.logosup {
+   font-size: 32px;
+   font-weight: bold;
+   vertical-align: top;
+}
+
+.logotopbar {
+   height: 15px;
+   background-color: yellow;
+}
+
+.logobar {
+   height: 15px;
+   background-color: yellow;
+}
+
+.lookfor {
+   font-weight: bold;
+}
+
+.description {
+   font-weight: bold;
+}
+
+.subdesc {
+   font-weight: normal;
+   font-size: 9px;
+   vertical-align: top;
+}
+
+.descriptioninput {
+   padding-top: 8px;
+}
+
+
+.buttonon {
+   font-weight: bolder;
+   background-color: transparent;
+}
+
+.buttonoff {
+   font-weight: lighter;
+   background-color: transparent;
+}
+
+.errormessage {
+   color: red;
+}
+
+.methodtable {
+   border-width: thick;
+   border-color: blue;
+   border-style: solid;
+}
+
+.methodcaption {
+   color: blue;
+   font-size: 12px;
+   text-align: left
+}
+
+.findit {
+   font-weight: bold;
+   font-size: 24px;
+   background-color: yellow;
+   width: 60%;
+   left: 20%;
+}
+
+.tablerow {
+}
+
+.classtable {
+   border-width: thick;
+   border-color: blue;
+   border-style: solid;
+}
+
+.classcaption {
+   color: blue;
+   font-size: 12px;
+   text-align: left
+}
+
+.resultsep {
+   height: 5px;
+   width: 100%;
+   color: blue;
+   background-color: black;
+   border: 0;
+}
+
+.resulthead {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.results {
+   font-size: 10px;
+   font-family: monospace;
+}
+
+.resulttable {
+   border-style: solid;
+   border-color: blue;
+}
+
+.resultanimlow {
+   font-weight: lighter;
+   color: #eeeeee;
+}
+
+.resultanimhigh {
+   font-weight: bold;
+   color: black;
+}
+
+.resulterror {
+   font-weight: bold;
+   color : red;
+}

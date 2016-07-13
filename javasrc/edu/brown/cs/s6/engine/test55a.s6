@@ -1,0 +1,34 @@
+<SEARCH FORMAT='NONE' LOCAL='TRUE' GOOGLE='TRUE' WHAT='METHOD'>
+<SIGNATURE>
+ <METHOD MODS='0'>
+ <NAME>sqrt</NAME>
+ <RETURN>spr.complex.Complex</RETURN>
+ <ARGS>spr.complex.Complex</ARGS>
+ <ARGNAMES>a1</ARGNAMES>
+ <TEXT>spr.complex.Complex sqrt(spr.complex.Complex a1)</TEXT>
+ </METHOD>
+</SIGNATURE>
+<TESTS>
+ <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+ <CALL METHOD='sqrt' OP='EQL'>
+ <INPUT TYPE='LITERAL'>
+ <VALUE><![CDATA[ new  Complex (16)]]></VALUE>
+ </INPUT>
+ <OUTPUT TYPE='LITERAL'>
+ <VALUE><![CDATA[ new  Complex (4)]]></VALUE>
+ </OUTPUT>
+ </CALL>
+ </TESTCASE>
+</TESTS>
+<SECURITY />
+<CONTRACTS />
+<CONTEXT FILE='/pro/s6/tmp/files/s6data46253.s6ctx' />
+<KEYWORDS>
+<KEYWORD><![CDATA[complex]]></KEYWORD>
+<KEYWORD><![CDATA[square]]></KEYWORD>
+<KEYWORD><![CDATA[root]]></KEYWORD>
+</KEYWORDS>
+<SOURCES>
+ <SOURCE USE='TRUE'>GOOGLE:Y8frtKRhDrc/bayelvira2/elvira/tools/statistics/complex/Complex.java@http://leo.ugr.es/~elvira/Bayelvira/bayelvira2.tar.gz/bayelvira2/elvira/tools/statistics/complex/Complex.java@bayelvira2/elvira/tools/statistics/complex/Complex.java@http://leo.ugr.es/~elvira/Bayelvira/bayelvira2.tar.gz</SOURCE>
+</SOURCES>
+</SEARCH>

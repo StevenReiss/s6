@@ -1,0 +1,62 @@
+<S6:SEARCH xmlns:S6="http://www.cs.brown.edu/S6" xmlns="http://www.cs.brown.edu/S6"
+		WHAT='CLASS' REM`TE='TRUE' KRUGLE='TRUE' LOCAL='FALSE' >
+   <S6:KEYWORDS>
+      <KEYWORD>robots.txt</KEYWORD>
+   </S6:KEYWORDS>
+   <S6:SIGNATURE>
+      <CLASS NAME='UrlRobots'>
+	 <METHOD NAME='check' MODS='8'
+		SIGNATURE='(Ljava/net/URL;)Z'
+		RETURN='boolean'
+		ARGS='(java.net.URL)' />
+      </CLASS>
+   </S6:SIGNATURE>
+   <S6:TESTS>
+      <IMPORT TYPE="java.net.URL" />
+      <IMPORT TYPE="java.net.MalformedURLException" />
+
+      <TESTCASE NAME='None' TYPE='CALLS'>
+	 <CALL METHOD='check' OP='EQL'>
+	    <INPUT TYPE='VARIABLE' VALUE='url'>
+	       <CODE><![CDATA[
+			java.net.URL url = null;
+			try {
+			   url = new URL("http://www.cs.brown.edu/people/spr");
+			 }
+			catch(MalformedURLException e) { }
+	       ]]></CODE>
+	     </INPUT>
+	     <OUTPUT TYPE='LITERAL' VALUE='true' />
+	  </CALL>
+      </TESTCASE>
+      <TESTCASE NAME='Pass' TYPE='CALLS'>
+	 <CALL METHOD='check' OP='EQL'>
+	    <INPUT TYPE='VARIABLE' VALUE='url'>
+	       <CODE><![CDATA[
+			java.net.URL url = null;
+			try {
+			   url = new URL("http://www.cnn.com/topics/");
+			 }
+			catch(MalformedURLException e) { }
+	       ]]></CODE>
+	     </INPUT>
+	     <OUTPUT TYPE='LITERAL' VALUE='true' />
+	  </CALL>
+      </TESTCASE>
+      <TESTCASE NAME='Banned' TYPE='CALLS'>
+	 <CALL METHOD='check' OP='EQL'>
+	    <INPUT TYPE='VARIABLE' VALUE='url'>
+	       <CODE><![CDATA[
+			java.net.URL url = null;
+			try {
+			   url = new URL("http://www.nytimes.com/college/students");
+			 }
+			catch(MalformedURLException e) { }
+	       ]]></CODE>
+	     </INPUT>
+	     <OUTPUT TYPE='LITERAL' VALUE='false' />
+	  </CALL>
+      </TESTCASE>
+
+   </S6:TESTS>
+</S6:SEARCH>

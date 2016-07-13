@@ -1,0 +1,27 @@
+<FORMAT WHAT='METHOD'>
+   <ITEM ID='1'><![CDATA[public static java.util.List<java.lang.String> tokenize(java.lang.String vn){
+  int k=0;
+  java.lang.String tmpVpath=null;
+  int i=0;
+  java.lang.String tmpstring=null;
+  java.util.Vector vnodes=null;
+  vnodes=new Vector();
+  for (i=0, tmpVpath=vn; tmpVpath.length() > 0; ) {
+    k=tmpVpath.indexOf(File.pathSeparatorChar);
+    if (k >= 0) {
+      tmpstring=tmpVpath.substring(0,k);
+      tmpVpath=tmpVpath.substring(k + 1);
+    }
+ else {
+      tmpstring=tmpVpath;
+      tmpVpath="";
+    }
+    if (tmpstring.length() > 0) {
+      vnodes.addElement(tmpstring);
+      i++;
+    }
+  }
+  return vnodes;
+}
+]]></ITEM>
+</FORMAT>

@@ -1,0 +1,34 @@
+<SEARCH FORMAT='NONE' GOOGLE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0'>
+    <NAME>sort</NAME>
+    <RETURN>java.util.List</RETURN>
+    <ARGS>java.util.List</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.util.List sort(java.util.List a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='sort' OP='EQL'>
+      <INPUT TYPE='VARIABLE' VALUE='v_1'>
+	<CODE><![CDATA[java.util.List v_1 = new java.util.ArrayList<java.lang.Object>();
+v_1.add("a");
+v_1.add("c");
+v_1.add("b");
+]]></CODE>
+      </INPUT>
+      <OUTPUT TYPE='VARIABLE' VALUE='v_2'>
+	<CODE><![CDATA[java.util.List v_2 = new java.util.ArrayList<java.lang.Object>();
+v_2.add("a");
+v_2.add("b");
+v_2.add("c");
+]]></CODE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT><CONTEXT /></CONTEXT>
+<KEYWORDS>
+<KEYWORD><![CDATA[sort]]></KEYWORD>
+<KEYWORD><![CDATA[list]]></KEYWORD>
+<KEYWORD><![CDATA[quicksort]]></KEYWORD>
+</KEYWORDS></SEARCH>
+

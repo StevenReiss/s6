@@ -1,0 +1,26 @@
+<SEARCH LOCAL='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>toRoman</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>int</ARGS>
+  </METHOD>
+  <TEXT>java.lang.String toRoman(int a1)</TEXT>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='test_1' TYPE='CALLS'>
+    <CALL METHOD='toRoman'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[13]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[xiii]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS>
+<KEYWORDS><KEYWORD><![CDATA[roman]]></KEYWORD><KEYWORD><![CDATA[numeral]]></KEYWORD></KEYWORDS>
+<SOURCES>
+    <SOURCE USE='TRUE'>LABRADOR:file:///map/aux0fred/javasrc1.6/j2se/src/share/classes/javax/swing/text/html/StyleSheet.java</SOURCE>
+</SOURCES>
+
+</SEARCH>
+

@@ -1,0 +1,16 @@
+<CHECK WHAT='TESTS'>
+<SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>exec</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.util.List&lt;java.lang.String&gt;</ARGS>
+  </METHOD>
+  <TEXT>java.lang.String exec(java.util.List&lt;java.lang.String&gt; a1)</TEXT>
+</SIGNATURE>
+<TEST METHOD='exec' OP='EQL' TESTID='0' TESTNAME='test_1' TYPE='CALL'>
+<INPUT><![CDATA[["whoami"]]]></INPUT>
+<OUTPUT><![CDATA["whoami"]]></OUTPUT>
+</TEST>
+</CHECK>
+
+

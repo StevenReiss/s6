@@ -1,0 +1,24 @@
+<SEARCH FORMAT='NONE' HUNTER='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>lcs</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String,java.lang.String</ARGS>
+    <ARGNAMES>a,b</ARGNAMES>
+    <TEXT>java.lang.String lcs(java.lang.String a,java.lang.String b)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='lcs' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[12345]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[2456]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[245]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS><KEYWORD><![CDATA[longest]]></KEYWORD><KEYWORD><![CDATA[common]]></KEYWORD><KEYWORD><![CDATA[subsequence]]></KEYWORD></KEYWORDS></SEARCH>
+

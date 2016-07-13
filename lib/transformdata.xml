@@ -1,0 +1,233 @@
+<TRANSFORMS>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformAddReturn'
+	NAME='AddReturn' PHASE='NORMAL' REMOVE='TRUE' FIRST='FALSE' >
+   <AFTER NAME='ChangeRemoveUndef' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformAddSucceed'
+	NAME='AddSucceed' PHASE='NORMAL' SEARCH='TESTCASES' REQUIRE='COMPILES' REMOVE='TRUE'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformChunk'
+	NAME='FindChunks' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformCleanupTests'
+	NAME='CleanupTests' PHASE='NORMAL' SEARCH='TESTCASES' REQUIRE='COMPILES' REMOVE='TRUE' >
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformContext'
+	NAME='ContextTypes' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformException'
+	NAME='ChangeExceptions' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformExtraParameters'
+	NAME='RemoveExtraParameters' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformExtractClass'
+	NAME='ExtractClass' PHASE='INITIAL'>
+   <BEFORE NAME="UIClass" SEARCH='UIFRAMEWORK,ANDROIDUI' />
+   <BEFORE NAME='FixUndefinedNames'/>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixEnum'
+	NAME='FixEnum' PHASE='INITIAL' REMOVE='TRUE'>
+   <AFTER SEARCH='UIFRAMEWORK,ANDROIDUI' NAME='UIClass' />
+   <BEFORE NAME='FixUndefinedNames' />
+   <BEFORE NAME='RequiredUI' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixOldJunit'
+	NAME='FixOldJunit' PHASE='INITIAL' SEARCH='TESTCASES' >
+   <BEFORE NAME='StaticClass' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixReturn'
+	NAME='ChangeReturnValue' PHASE='TEST'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixStaticImport'
+	NAME='FixStaticImport' PHASE='NORMAL' REMOVE='TRUE'>
+   <BEFORE NAME='FixUndefinedNames' />
+   <BEFORE NAME='RequiredUI' />
+   <BEFORE NAME='FixEnum' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixSwing'
+	NAME='FixSwingCalls' PHASE='NORMAL' SEARCH='UIFRAMEWORK,ANDROIDUI' MULTIPLE='FALSE' REMOVE='TRUE'>
+   <BEFORE NAME='ChangeRemoveUndef' />
+   <BEFORE NAME='FixUndefVariables' />
+   <BEFORE NAME='RemoveSpecials' />
+   <AFTER SEARCH='UIFRAMEWORK,ANDROIDUI' NAME='UIClass' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixTryCatch'
+	NAME='FixTryCatch' PHASE='NORMAL' REQUIRE='COMPILES' REMOVE='TRUE'>
+   <BEFORE NAME='ChangeThrow' />
+   <BEFORE NAME='CleanupTests' />
+   <BEFORE NAME='FixUndefVariables' />
+   <BEFORE NAME='RemoveSpecials' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixUndef'
+	NAME='FixUndefinedNames' PHASE='INITIAL'>
+   <BEFORE NAME='RequiredUI' />
+   <BEFORE NAME='RemoveSpecials' />
+   <AFTER SEARCH='UIFRAMEWORK,ANDROIDUI' NAME='UIClass' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixUndefStatics'
+	NAME='FixUndefStatics' PHASE='NORMAL' SEARCH='TESTCASES' REQUIRE='COMPILES'>
+   <BEFORE NAME='CleanupTests' />
+   <BEFORE NAME='AddSucceed' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixVariables'
+	NAME='FixUndefVariables' PHASE='NORMAL' MULTIPLE='FALSE'>
+   <BEFORE NAME='RequiredUI' />
+   <BEFORE NAME='RemoveImplements' />
+   <BEFORE NAME='AddSucceed' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixupTesting'
+	NAME='MergeFixTestCases' PHASE='FINAL' SEARCH='TESTCASES'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformGeneralize'
+	NAME='GeneralizeClassTypes' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformImplement'
+	NAME='RemoveImplements' PHASE='NORMAL' FIRST='FALSE'>
+   <BEFORE NAME='ChangeName' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformIntParams'
+	NAME='ChangeParameterNumerics' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformJunitAssert'
+	NAME='FixAssertStatements' PHASE='NORMAL' SEARCH='TESTCASES' REQUIRE='COMPILES' REMOVE='TRUE'>
+   <BEFORE NAME='CleanupTests' />
+   <BEFORE NAME='FixUndefVariables' />
+   <BEFORE NAME='RemoveExcessTests' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformMapNames'
+	NAME='MapLibraryNames' PHASE='NORMAL' REMOVE='TRUE' >
+   <BEFORE NAME='FixSwingCalls' />
+   <BEFORE NAME='ChangeRemoveUndef' />
+   <BEFORE NAME='FixUndefVariables' />
+   <BEFORE NAME='RemoveSpecials' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformName'
+	NAME='ChangeName' PHASE='NORMAL'>
+   <AFTER SEARCH='TESTCASES' NAME='SetupTesting' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFrameworkNames'
+	NAME='ChangeFrameworkNames' PHASE='NORMAL' SEARCH='APPLICATION' REMOVE='TRUE'>
+   <AFTER SEARCH='TESTCASES' NAME='SetupTesting' />
+   <BEFORE NAME='ChangeName' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformPackage'
+	NAME='FixupPackage' PHASE='INITIAL'
+	SEARCH='CLASS,FULLCLASS,APPLICATION,PACKAGE,UIFRAMEWORK,ANDROIDUI'>
+   <BEFORE NAME='FixUndefinedNames' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformParameterOrder'
+	NAME='ChangeParameterOrder' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformParameterTypes'
+	NAME='ChangeParameterTypes' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformPrivate'
+	NAME='RemovePrivate' PHASE='NORMAL' REMOVE='TRUE'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformRemoveExcessTests'
+	NAME='RemoveExcessTests' PHASE='NORMAL' SEARCH='TESTCASES' REQUIRE='COMPILES' REMOVE='TRUE'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformRemoveOverrides'
+	NAME='RemoveOverrides' PHASE='NORMAL' REMOVE='TRUE'>
+   <BEFORE NAME='FixUndefinedNames' />
+   <BEFORE NAME='RequiredUI' />
+   <BEFORE NAME='FixEnum' />
+   <BEFORE NAME='FixStaticImport' />
+   <BEFORE NAME='AddSucceed' />
+   <BEFORE NAME='CleanupTests' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformRemoveSpecials'
+	NAME='RemoveSpecials' PHASE='NORMAL' REMOVE='TRUE'>
+   <BEFORE SEARCH='TESTCASES'  NAME='AddSucceed' />
+   <BEFORE SEARCH='TESTCASES' NAME='FixAssertStatements' />
+   <BEFORE NAME='RequiredUI' />
+   <BEFORE NAME='FixUndefVariables' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformRemoveStatic'
+	NAME='RemoveStaticFromMethod' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformRemoveUndef'
+	NAME='ChangeRemoveUndef' PHASE='NORMAL' MULTIPLE='FALSE' REMOVE='TRUE'>
+   <BEFORE NAME='FixUndefVariables' />
+   <BEFORE NAME='FixTryCatch' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformRequired'
+	NAME='RequiredUI' PHASE='INITIAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformReturn'
+	NAME='ChangeReturnType' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformSetupTesting'
+	NAME='SetupTesting' PHASE='INITIAL' MULTIPLE='FALSE' SEARCH='TESTCASES' REMOVE='TRUE'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformSetupUI'
+	NAME='UIClass' PHASE='INITIAL' MULTIPLE='FALSE' SEARCH='UIFRAMEWORK,ANDROIDUI'>
+   <BEFORE NAME='FixUndefinedNames' />
+   <BEFORE NAME='FixEnum' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformSplitClass'
+	NAME='SplitClass' PHASE='INITIAL'>
+   <BEFORE NAME='ExtractClass' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformStatic'
+	NAME='MakeStatic' PHASE='NORMAL'>
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformStaticClass'
+	NAME='StaticClass' PHASE='INITIAL'>
+   <REQUIRE SEARCH='TESTCASES' NAME='SetupTesting' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformSwingModels'
+	NAME='FixSwingModels' PHASE='NORMAL' SEARCH='UIFRAMEWORK,ANDROIDUI'>
+   <BEFORE NAME='FixSwingCalls' />
+   <BEFORE NAME='ChangeRemoveUndef' />
+   <BEFORE NAME='RemoveSpecials' />
+</TRANSFORM>
+
+<TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformThrow'
+	NAME='ChangeThrow' PHASE='NORMAL'>
+</TRANSFORM>
+
+</TRANSFORMS>

@@ -1,0 +1,34 @@
+#! /bin/csh -fx
+
+setenv BEAGLE_HOME /map/aux3fred/beagle
+
+unsetenv BEAGLE_EXERCISE_THE_DOG
+if ($HOST == 'valerie') setenv BEAGLE_EXERCISE_THE_DOG 1
+
+
+setenv TMPDIR $BEAGLE_HOME/tmp
+setenv TMP $BEAGLE_HOME/tmp
+setenv TEMP $BEAGLE_HOME/tmp
+
+
+bash /usr/bin/beagle-shutdown
+
+beagled --bg --indexing-delay 5 --debug --add-static-backend $BEAGLE_HOME/static
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

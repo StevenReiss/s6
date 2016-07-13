@@ -1,0 +1,19 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_17210' NAME='S6TestCapitalizer'>
+      <TESTEE PACKAGE='s6tgen_17210'>
+        <CLASS NAME='Capitalizer'>
+          <METHOD NAME='capitalize' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;' STATIC='true' />
+          <METHOD NAME='capitalizeAllWords' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;' STATIC='true' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>capitalize</KEYWORD>
+    <KEYWORD>words</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_17210/context.s6ctx' />
+</SEARCH>

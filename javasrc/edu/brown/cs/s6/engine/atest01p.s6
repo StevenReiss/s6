@@ -1,0 +1,56 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' OHLOH='FALSE' REMOTE='TRUE' WHAT='ANDROIDUI' SCOPE='PACKAGE' ANDROID='TRUE'>
+<SIGNATURE>
+    <UI CLASS='S6_UI_CLASS' PACKAGE='spr.sampler.androidtest'>
+      <COMPONENT HEIGHT='417' ID='U_50' TYPES='java.awt.Container,android.view.View' WIDTH='572' X='27' Y='15'>
+	<COMPONENT DATA='Phone' HEIGHT='11' ID='U_49' TYPES='javax.swing.JLabel,android.view.TextView' WIDTH='39' X='333' Y='292' />
+	<COMPONENT HEIGHT='33' ID='U_42' RIGHT='U_50' TYPES='javax.swing.JTextField,android.widget.TextView' WIDTH='207' X='394' Y='167' />
+	<COMPONENT DATA='Name' HEIGHT='10' ID='U_41' TYPES='javax.swing.JLabel,android.view.TextView' WIDTH='37' X='337' Y='178' />
+	<COMPONENT DATA='E-mail' HEIGHT='11' ID='U_44' TYPES='javax.swing.JLabel,android.view.TextView' WIDTH='42' X='334' Y='233' />
+	<COMPONENT DATA='My Address Book' HEIGHT='51' ID='U_31' LEFT='U_50' TOP='U_50' TYPES='javax.swing.JLabel,android.view.TextView' WIDTH='387' X='27' Y='15' />
+	<COMPONENT HEIGHT='33' ID='U_45' RIGHT='U_50' TYPES='javax.swing.JTextField,android.widget.TextView' WIDTH='207' X='392' Y='222' />
+	<COMPONENT HEIGHT='33' ID='U_47' RIGHT='U_50' TYPES='javax.swing.JTextField,android.widget.TextView' WIDTH='207' X='392' Y='283' />
+	<COMPONENT HEIGHT='291' ID='U_32' LEFT='U_50' TYPES='javax.swing.JList,javax.swing.JTable,android.widget.ListView,android.widget.GridView,javax.swing.JTextArea,javax.swing.JEditorPane,android.widget.TextView' WIDTH='246' X='34' Y='97' />
+	<COMPONENT BOTTOM='U_50' DATA='Create a New Contact' HEIGHT='29' ID='U_38' LEFT='U_50' TYPES='javax.swing.JButton,javax.swing.JMenuItem,android.widget.Button' WIDTH='250' X='33' Y='403' />
+	<COMPONENT DATA='Contact Details' HEIGHT='20' ID='U_40' TYPES='javax.swing.JLabel,android.view.TextView' WIDTH='171' X='321' Y='114' />
+      </COMPONENT>
+      <CLASS NAME='S6_UI_CLASS' SUPERCLASS='edu.brown.cs.s6.runner.RunnerAndroid'>
+      </CLASS>
+    </UI>
+</SIGNATURE>
+  <TESTS>
+    <TESTCASE NAME='SVIUI_1' TYPE='CALLS'>
+      <CALL METHOD='S6_UI_CLASS' NEW='true' OP='SAVE'>
+	<OUTPUT TYPE='SAVE' VALUE='x'>
+	  <CODE><![CDATA[S6_UI_CLASS x;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL METHOD='setup' THIS='x'> </CALL>
+      <CALL METHOD='score' OP='SAVE' THIS='x'>
+	<OUTPUT TYPE='SAVE' VALUE='__score__'>
+	  <CODE><![CDATA[double __score__;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL OP='INTERACT' THIS='x'>
+	<INPUT TYPE='VARIABLE' VALUE='__score__' />
+      </CALL>
+    </TESTCASE>
+  </TESTS>
+<KEYWORDS LANGUAGE='JAVA'>
+  <KEYWORD>address</KEYWORD>
+  <KEYWORD>book</KEYWORD>
+  <KEYWORD>android</KEYWORD>
+</KEYWORDS>
+<KEYWORDS LANGUAGE='XML'>
+  <KEYWORD>address</KEYWORD>
+  <KEYWORD>book</KEYWORD>
+  <KEYWORD>android</KEYWORD>
+  <KEYWORD>manifest</KEYWORD>
+  <KEYWORD>application</KEYWORD>
+  <KEYWORD>activity</KEYWORD>
+</KEYWORDS>
+<SOURCES>
+    <SOURCE USE='TRUE'>GITHUB:https://github.com/neerajkum/consumer-app/blob/863eead203a703205303451904c0da7182c97031/YogaApp/app/build/intermediates/manifests/full/debug/AndroidManifest.xml</SOURCE>
+</SOURCES>
+</SEARCH>
+
+

@@ -1,0 +1,24 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE'>
+<SIGNATURE>
+   <TESTING PACKAGE='spr.roman' NAME='S6_convertToRoman_Test'>
+      <TESTEE PACKAGE='spr.roman'>
+	 <CLASS NAME='Roman'>
+	    <METHOD NAME='convertToRoman' SIGNATURE='(I)Ljava/lang/String;' STATIC='TRUE'
+		RETURN='java.lang.String'
+		ARGS='(int)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>roman</KEYWORD>
+   <KEYWORD>numeral</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/romantest.s6ctx' />
+<SOURCES>
+   <SOURCE USE='TRUE'>GITHUB:/tfnico/roman-numerals-kata/blob/ec90e7ae42152aae1fc2c74b2ee1f00263af4ff7/src/test/java/RomanNumeralsTest.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

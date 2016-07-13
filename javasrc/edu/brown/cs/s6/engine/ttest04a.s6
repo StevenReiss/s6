@@ -1,0 +1,37 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='spr.complex' NAME='S6_complex_Test'>
+      <TESTEE PACKAGE='spr.complex'>
+	 <CLASS NAME='Complex'>
+	    <METHOD NAME='add' SIGNATURE='(Lspr.complex.Complex;)Lspr.complex.Complex;'
+		RETURN='spr.complex.Complex'
+		ARGS='(spr.complex.Complex)' />
+	    <METHOD NAME='add' SIGNATURE='(Lspr.complex.Complex;Lspr.complex.Complex)Lspr.complex.Complex;'
+		RETURN='spr.complex.Complex' STATIC='TRUE'
+		ARGS='(spr.complex.Complex,spr.complex.Complex)' />
+	    <METHOD NAME='sum' SIGNATURE='(Lspr.complex.Complex;)Lspr.complex.Complex;'
+		RETURN='spr.complex.Complex'
+		ARGS='(spr.complex.Complex)' />
+	    <METHOD NAME='sub' SIGNATURE='(Lspr.complex.Complex;Lspr.complex.Complex)Lspr.complex.Complex;'
+		RETURN='spr.complex.Complex' STATIC='TRUE'
+		ARGS='(spr.complex.Complex,spr.complex.Complex)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>complex</KEYWORD>
+   <KEYWORD>number</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/complextest.s6ctx' />
+<SOURCES>
+   <SOURCE USE='TRUE'>OHLOH:/file?fid=bpRMJ5czL--G_KkKrTn5yxG5F7Y&amp;cid=sU4DVSPm26E</SOURCE>
+   <SOURCE USE='TRUE'>GITHUB:/UNN-VMK-Software/agile-development-course/blob/4397f002af02bc80dfa6a72acd090b56ffbbfd47/code/kirill-kornyakov-lab2/Model/src/test/ru/unn/agile/ComplexNumber/model/ComplexNumberTests.java</SOURCE>
+   <SOURCE USE='TRUE'>GITHUB:/rodjo2u/HW03/blob/62c1b8d261d484c4f654a2a750292b14897a8678/src/test/java/hr/fer/zemris/java/tecaj/hw3/ComplexNumberTest.java</SOURCE>
+   <SOURCE USE='TRUE'>GITHUB:/marco-dierenfeldt/Mandelbrot/blob/7e386a5340b026feb2982058858a6fe6028bef80/test/de/saxsys/dojo/mandelbrot/util/ComplexMathTest.java</SOURCE>
+   <SOURCE USE='TRUE'>OHLOH:/file?fid=RV7ITnYc1lNdjs9f1IqWdMv_Ar8&amp;cid=qCyo3OmF_4g</SOURCE>
+</SOURCES>
+</SEARCH>
+

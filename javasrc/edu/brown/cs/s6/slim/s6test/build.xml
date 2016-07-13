@@ -1,0 +1,17 @@
+<project name="" default="test" >
+   <target name="compile">
+      <javac srcdir="." destdir="/pro/s6/java" classpath="/pro/s6/lib/junit.jar:/pro/s6/java" />
+   </target>
+
+   <target name="test" depends="compile">
+      <junit printsummary='true' haltonerror='true' >
+	 <formatter type="xml" usefile="true" />
+	 <test name="edu.brown.cs.s6.slim.s6test.S6TestClass" outfile="test.out" />
+	 <classpath>
+	    <pathelement location="/pro/s6/lib/junit.jar" />
+	    <pathelement location="/pro/s6/java" />
+	 </classpath>
+      </junit>
+   </target>
+
+</project>

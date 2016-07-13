@@ -1,0 +1,32 @@
+<SEARCH FORMAT='NONE' GITHUB='true' LOCAL='false' OHLOH='true' REMOTE='true' WHAT='METHOD'>
+  <SIGNATURE>
+    <METHOD MODS='8' STATIC='true' STRING='true'>
+      <NAME>convert</NAME>
+      <RETURN>java.lang.String</RETURN>
+      <ARGS>int</ARGS>
+      <ARGNAMES>a1</ARGNAMES>
+      <TEXT>static java.lang.String convert(int a1)</TEXT>
+    </METHOD>
+  </SIGNATURE>
+  <TESTS>
+    <TESTCASE CLASS='edu.brown.cs.ref.RefConvertTest' METHOD='test_convert_1' NAME='test_convert_1(edu.brown.cs.ref.RefConvertTest)' TESTNAME='test_convert_1(edu.brown.cs.ref.RefConvertTest)' TYPE='JUNIT' />
+  </TESTS>
+  <KEYWORDS>
+    <KEYWORD><![CDATA[roman]]></KEYWORD>
+    <KEYWORD><![CDATA[numeral]]></KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/gpfs/main/research/s6/tmp/files/s6data4883676401905569352.data' />
+</SEARCH>
+
+
+
+
+
+
+
+
+
+
+
+
+

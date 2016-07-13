@@ -1,0 +1,75 @@
+#
+#		Make.template
+#
+#	Global makefile for all tea subdirectorys
+#
+#
+# Copyright 1990 Steven P. Reiss, Brown University - All rights reserved.
+#
+#
+#	This file is used by gmake (gnu-make) as the primary makefile
+#	when building any of the binary directorys of bwe.  The file
+#	Make.pass in this directory is used in source directorys.  A
+#	make in the source directory generally does:
+#		cd ../bin.$(BROWN_S6_ARCH)
+#		$(MAKE) ../../data/Make.template VPATH=../src $@
+#			SRCDIR=`pwd` ARCH=<arch>
+#	giving this makefile control in the proper binary directory.
+#	This makefile in turn includes the file
+#		../src/Make.data
+#	from the source directory to get definitions for the actual
+#	make.
+#
+#	The following should be defined in the Make.data file:
+#		PACKAGE -- package name
+#		HFILES --  common header files
+#	The following may optionally be defined:
+#		SFILES --  Original source files (listings, etc)
+#		BFILES --  Binary files
+#
+
+
+#
+#	General Definitions for this system
+#
+
+ROOTPATH:=$(shell s6basepath)
+SYSTEM= s6
+JAVASYSTEM= edu.brown.s6
+SRCPATH:= $(shell s6srcpath)
+BASEDIR:= $(shell s6path)
+VPATH:= $(shell s6srcpath)
+BARCH:= $(shell ivyarch)
+JHOME:= $(shell ivyjavapath)
+JOS:= $(shell ivyjavaos)
+JBINDIR:= $(shell s6binpath)
+BROOT:= $(BROWN_S6_ROOT)
+
+
+#
+#	include general definitions
+#
+
+include $(ROOTPATH)/data/Make.defs
+
+
+#
+#	include data for the particular make
+#
+
+
+include $(SRCPATH)/Make.data
+
+
+
+#
+#	include our general make rules
+#
+
+include $(ROOTPATH)/data/Make.global
+
+
+
+
+# end of Makefile
+

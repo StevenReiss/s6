@@ -1,0 +1,72 @@
+
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/Make.data,v 1.17 2015/12/23 15:45:09 spr Exp $
+
+#
+# LANGUAGE.JAVA -- language files for Java
+#
+
+PACKAGE= language/java
+SUBDIR= java
+
+SFILES= \
+	FragmentJava.java \
+	JavaAst.java \
+	JavaAstClassName.java \
+	JavaChecker.java \
+	JavaConstants.java \
+	JavaContext.java \
+	JavaContracts.java \
+	JavaDepends.java \
+	JavaFormatter.java \
+	JavaTester.java \
+	LanguageJava.java \
+	TransformAddReturn.java \
+	TransformAddSucceed.java \
+	TransformChunk.java \
+	TransformCleanupTests.java \
+	TransformCollapse.java \
+	TransformContext.java \
+	TransformException.java \
+	TransformExtraParameters.java \
+	TransformExtractClass.java \
+	TransformFixEnum.java \
+	TransformFixOldJunit.java \
+	TransformFixReturn.java \
+	TransformFixStaticImport.java \
+	TransformFixSwing.java \
+	TransformFixTryCatch.java \
+	TransformFixUndef.java \
+	TransformFixUndefStatics.java \
+	TransformFixVariables.java \
+	TransformFixupTesting.java \
+	TransformFlatten.java \
+	TransformGeneralize.java \
+	TransformImplement.java \
+	TransformIntParams.java \
+	TransformJava.java \
+	TransformJunitAssert.java \
+	TransformMapNames.java \
+	TransformName.java \
+	TransformPackage.java \
+	TransformParameterOrder.java \
+	TransformParameterTypes.java \
+	TransformPrivate.java \
+	TransformRemoveExcessTests.java \
+	TransformRemoveOverrides.java \
+	TransformRemoveSpecials.java \
+	TransformRemoveStatic.java \
+	TransformRemoveUndef.java \
+	TransformRequired.java \
+	TransformReturn.java \
+	TransformSetupTesting.java \
+	TransformSetupUI.java \
+	TransformSplitClass.java \
+	TransformStatic.java \
+	TransformStaticClass.java \
+	TransformSwingModels.java \
+	TransformThrow.java \
+
+SLIBLINKS= JavaMethodTest.proto build.xml.proto android.build.xml.proto
+
+
+links: JavaMethodTest.proto build.xml.proto

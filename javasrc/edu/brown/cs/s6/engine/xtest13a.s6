@@ -1,0 +1,33 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestMemory'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='Memory'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()'/>
+	  <METHOD NAME='allocate' SIGNATURE='()I' />
+	  <METHOD NAME='free' SIGNATURE='(I)V' />
+	  <METHOD NAME='freeList' SIGNATURE='(I)V' />
+	  <METHOD NAME='freeTree' SIGNATURE='(I)V' />
+	  <METHOD NAME='garbageCollect' SIGNATURE='()V' />
+	  <METHOD NAME='get' SIGNATURE='(I)I' />
+	  <METHOD NAME='set' SIGNATURE='(II)V' />
+	  <METHOD NAME='swap' SIGNATURE='(II)V' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>memory</KEYWORD>
+    <KEYWORD>management</KEYWORD>
+    <KEYWORD>allocate</KEYWORD>
+    <KEYWORD>free</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+  <SOURCES>
+    <SOURCE USE='TRUE'>GITHUB:/Benedicto/Stratosphere/blob/cf44193d33d4ae618c3b37fdb6187eb918d3b53c/nephele/nephele-server/src/test/java/eu/stratosphere/nephele/services/memorymanager/DefaultMemoryManagerTest.java</SOURCE>
+  </SOURCES>
+</SEARCH>
+
+

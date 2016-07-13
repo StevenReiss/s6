@@ -1,0 +1,26 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE'>
+<SIGNATURE>
+   <TESTING PACKAGE='spr.roman' NAME='S6_convertToRoman_Test'>
+      <TESTEE PACKAGE='spr.roman'>
+	 <CLASS NAME='Roman'>
+	    <METHOD NAME='convertToRoman' SIGNATURE='(I)Ljava/lang/String;' STATIC='TRUE'
+		RETURN='java.lang.String'
+		ARGS='(int)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>roman</KEYWORD>
+   <KEYWORD>numeral</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/romantest.s6ctx' />
+<SOURCES>
+   <SOURCE USE='TRUE'>GITHUB:/alpane/katas/blob/19293b137cc712dda98479314ba645f756e1123d/src/test/groovy/com/lesd/romannumerals/acceptance/AcceptanceTests.java</SOURCE>
+   <SOURCE USE='TRUE'>OHLOH:/file?fid=cUcV47py2X0zuxMcpyPp6ONvll8&amp;cid=sU4DVSPm26E</SOURCE>
+   <SOURCE USE='TRUE'>OHLOH:/file?fid=ZRS7FiRWdxH21EefbPIEWcFc_8s&amp;cid=DlNneXYHn18</SOURCE>
+</SOURCES>
+</SEARCH>
+

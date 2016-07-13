@@ -1,0 +1,26 @@
+s6test_54085.MainFrame (600x400+1620+386) 
+ javax.swing.JRootPane (594x373+3+23) 
+  javax.swing.JPanel (594x373+0+0) 
+  javax.swing.JLayeredPane (594x373+0+0) 
+   javax.swing.JPanel (594x373+0+0) 
+    javax.swing.JPanel (297x373+0+0) 
+     javax.swing.JLabel (54x20+34+122) [Name: ] 
+     javax.swing.JLabel (56x20+33+146) [E-mail: ] 
+     javax.swing.JLabel (59x20+32+170) [Phone: ] 
+     javax.swing.JTextField (174x24+91+120) [15]
+     javax.swing.JTextField (174x24+91+144) [15]
+     javax.swing.JTextField (174x24+91+168) [15]
+     javax.swing.JButton (174x30+91+192) [Save] 
+     javax.swing.JButton (174x30+91+222) [Delete] 
+    javax.swing.JPanel (297x373+297+0) 
+     javax.swing.JScrollPane (297x186+0+0) 
+      javax.swing.JViewport (279x183+1+1) 
+       javax.swing.JList (279x183+0+0) 
+        javax.swing.CellRendererPane (0x0+0+0) 
+      javax.swing.JScrollPane$ScrollBar (15x183+280+1) 
+       javax.swing.plaf.metal.MetalScrollButton (15x15+0+168) [] 
+       javax.swing.plaf.metal.MetalScrollButton (15x15+0+0) [] 
+      javax.swing.JScrollPane$ScrollBar (0x0+0+0) 
+       javax.swing.plaf.metal.MetalScrollButton (0x0+0+0) [] 
+       javax.swing.plaf.metal.MetalScrollButton (0x0+0+0) [] 
+     javax.swing.JTextArea (297x186+0+186) 

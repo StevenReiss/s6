@@ -1,0 +1,28 @@
+<SEARCH GOOGLE='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>exec</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.util.List</ARGS>
+  </METHOD>
+  <TEXT>java.lang.String exec(java.util.List a1)</TEXT>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='test_1' TYPE='CALLS'>
+    <CALL METHOD='exec' OP='EQL'>
+      <INPUT TYPE='VARIABLE' VALUE='v_1'>
+	<CODE><![CDATA[java.util.List<java.lang.String> v_1 = new java.util.ArrayList<java.lang.String>();
+v_1.add("whoami");
+]]></CODE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[whoami]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS />
+<KEYWORDS><KEYWORD><![CDATA[string]]></KEYWORD><KEYWORD><![CDATA[list]]></KEYWORD></KEYWORDS>
+<SOURCES>
+    <SOURCE USE='TRUE'>GOOGLE:q=show:5Bb3TcRbb-Q:7l2RlL9xLcc:CG9lcv69H_8@je-1.7.1/src/com/sleepycat/je/util/DbDump.java @ http://downloads.sleepycat.com/je-1.7.1.tar.gz</SOURCE>
+</SOURCES>
+
+</SEARCH>
+

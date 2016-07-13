@@ -1,0 +1,205 @@
+#! /bin/tcsh -f
+
+if ($?BROWN_S6_ROOT) then
+else
+   unset x0
+   if $?0 == 0 then
+      set x0 = s6setupenv
+   endif
+
+   if $?x0 == 0 then
+      if X$0 == X then
+	 set x0 = s6setupenv
+      else if X$0 == X-csh then
+	 set x0 = s6setupenv
+      else if X$0 == Xcsh then
+	 set x0 = s6setupenv
+      else
+	 set x0 = $0
+      endif
+    endif
+
+   unsetenv BROWN_S6_ARCH
+
+   set path = ($path .)
+   set x = `zsh -c "whence s6setupenv"`
+   if (X$x == X) then
+      set x = "`zsh -c "whence $x0"`"
+   endif
+   if (X$x == X) then
+      if ($?BROWN_IVY_ROOT) then
+	 if (-e $BROWN_IVY_ROOT/s6/bin/s6setupenv) then
+	    set x = "$BROWN_IVY_ROOT/s6/bin/s6setupenv"
+	 endif
+      endif
+   endif
+
+   if ("X$x" == X) then
+      echo "Can't locate s6setupenv"
+      exit 1
+    endif
+
+   set y1 = "${x:h}"
+   if ($y1 == ".") then
+      set y1 = "`pwd`"
+    endif
+
+   set y1x = "`echo $y1 | grep '^/'`"
+
+   if ( "X$y1x" == X ) then
+      set y1 = "`pwd`/$y1"
+   endif
+
+   set y2 = "${y1:h}"
+   if ($y2 == bin) then
+      set y2 = "`pwd`"
+   else if ("${y2:t}" == bin) then
+      set y2 = "${y2:h}"
+    endif
+
+   set y3 = "${y2:h}"
+   set y4 = "$y3/tea"
+   setenv BROWN_S6_ROOT "$y3"
+   setenv BROWN_S6_S6 "$y2"
+   setenv BROWN_S6_IVY "$y3/ivy"
+   setenv BROWN_S6_ARCH "`$BROWN_S6_IVY/bin/ivyarch`"
+
+   source "$BROWN_S6_IVY/bin/ivysetupenv"
+
+   if ($?LD_LIBRARY_PATH == 0) then
+      setenv LD_LIBRARY_PATH "$BROWN_S6_ROOT/lib:$BROWN_S6_S6/lib/${BROWN_S6_ARCH}"
+   else
+      setenv LD_LIBRARY_PATH "$BROWN_S6_ROOT/lib:$BROWN_S6_S6/lib/${BROWN_S6_ARCH}:$LD_LIBRARY_PATH"
+   endif
+   if ($BROWN_S6_ARCH == ppc) then
+      setenv DYLD_LIBRARY_PATH "$LD_LIBRARY_PATH"
+   endif
+
+   set path = ( $path "$BROWN_S6_S6/bin" "$BROWN_S6_S6/bin/$BROWN_S6_ARCH" )
+
+endif
+
+
+if ($?CLASSPATH) then
+   set xxx = `echo $CLASSPATH | fgrep s6/java`
+   if ( "X$xxx" == X ) then
+      setenv CLASSPATH "${CLASSPATH}:$BROWN_S6_S6/java:$BROWN_S6_S6/javasrc"
+   endif
+else
+   setenv CLASSPATH "$BROWN_S6_S6/java:$BROWN_S6_S6/javasrc"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep jikesbt.jar`
+if ( "X$xxx" == X ) then
+   setenv CLASSPATH "${CLASSPATH}:$BROWN_S6_IVY/lib/jikesbt.jar"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep ivy/java`
+if ( "X$xxx" == X ) then
+   setenv CLASSPATH "${CLASSPATH}:$BROWN_S6_IVY/java"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep lucene`
+if ( "X$xxx" == X ) then
+   setenv CLASSPATH "${CLASSPATH}:$BROWN_S6_S6/lib/lucene230.jar"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep gwt`
+if ( "X$xxx" == X ) then
+   set gwt = $BROWN_S6_S6/public/gwt
+   setenv CLASSPATH "${CLASSPATH}:$gwt/gwt-user.jar:$gwt/gwt-dev-linux.jar"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep asm4`
+if ( "X$xxx" == X ) then
+   set asm = $BROWN_S6_S6/lib/asm4.jar
+   setenv CLASSPATH "${CLASSPATH}:$asm"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep json`
+if ( "X$xxx" == X ) then
+   set json = $BROWN_S6_S6/lib/json.jar
+   setenv CLASSPATH "${CLASSPATH}:$json"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep junit`
+if ( "X$xxx" == X ) then
+   set junit = $BROWN_S6_S6/lib/junit.jar
+   setenv CLASSPATH "${CLASSPATH}:$junit"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep batik`
+if ( "X$xxx" == X ) then
+   set batik = $BROWN_S6_S6/public/batik-1.7/batik.jar
+   setenv CLASSPATH "${CLASSPATH}:$batik"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep GLIPS`
+if ( "X$xxx" == X ) then
+   set glips = $BROWN_S6_S6/public/GLIPSGraffiti1.5/GLIPSGraffiti.jar
+   # setenv CLASSPATH "${CLASSPATH}:$glips"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep jsyntax`
+if ( "X$xxx" == X ) then
+   set jsyntax = $BROWN_S6_S6/lib/jsyntaxpane.jar
+   setenv CLASSPATH "${CLASSPATH}:$jsyntax"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep json`
+if ( "X$xxx" == X ) then
+   set json = $BROWN_S6_S6/lib/json.jar
+   setenv CLASSPATH "${CLASSPATH}:$json"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep jsoup`
+if ( "X$xxx" == X ) then
+   set jsoup = $BROWN_S6_S6/lib/jsoup.jar
+   setenv CLASSPATH "${CLASSPATH}:$jsoup"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep androidcommon`
+if ( "X$xxx" == X ) then
+   set acom = $BROWN_S6_S6/lib/androidcommon.jar
+   setenv CLASSPATH "${CLASSPATH}:$acom"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep ddmlib`
+if ( "X$xxx" == X ) then
+   set ddml = $BROWN_S6_S6/lib/ddmlib.jar	
+   setenv CLASSPATH "${CLASSPATH}:$ddml"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep jtar`
+if ( "X$xxx" == X ) then
+   set jtar = $BROWN_S6_S6/lib/jtar-1.1.jar
+   setenv CLASSPATH "${CLASSPATH}:$jtar"
+endif
+
+if ($?LD_LIBRARY_PATH == 0) then
+   set xxx =
+else
+   set xxx = `echo $LD_LIBRARY_PATH | fgrep s6/lib`
+endif
+if ( "X$xxx" == X ) then
+   if ($BROWN_S6_ARCH == i686 || $BROWN_S6_ARCH == x86_64) then
+      if ($?LD_LIBRARY_PATH == 0) then
+	 setenv LD_LIBRARY_PATH "$BROWN_S6_ROOT/lib:$BROWN_S6_S6/lib/${BROWN_S6_ARCH}"
+      else
+	 setenv LD_LIBRARY_PATH "$BROWN_S6_ROOT/lib:$BROWN_S6_S6/lib/${BROWN_S6_ARCH}:$LD_LIBRARY_PATH"
+      endif
+      if ($BROWN_S6_ARCH == ppc) then
+	 setenv DYLD_LIBRARY_PATH "$LD_LIBRARY_PATH"
+      endif
+   endif
+endif
+
+
+
+
+
+setenv BEAGLE_HOME /map/aux3fred/beagle
+
+
+
+

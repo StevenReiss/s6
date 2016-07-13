@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<alias alias="defaultDataSource" name="postgreSqlDataSource"/>
+
+	<!-- Data Sources -->
+    <bean id="postgreSqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="true">
+	<property name="driverClassName" value="org.postgresql.Driver" />
+	<property name="url" value="jdbc:postgresql://db.cs.brown.edu/labrador_spr" />
+	<property name="username" value="spr" />
+	<property name="password" value="yGCdDnDC" />
+	<property name="initialSize" value="2" />
+	<property name="maxActive" value="5" />
+	<property name="maxIdle" value="2" />
+	<property name="defaultAutoCommit" value="false" />
+    </bean>
+    <bean id="h2SqlDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" lazy-init="true">
+	<property name="driverClassName" value="org.h2.Driver" />
+	<property name="url" value="jdbc:h2:test/test_h2db" />
+	<property name="username" value="sa" />
+    </bean>
+	<bean id="hsqldbDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" lazy-init="true">
+	<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+	<property name="url" value="jdbc:hsqldb:test/test_hsqldb" />
+	<property name="username" value="sa" />
+    </bean>
+
+</beans>

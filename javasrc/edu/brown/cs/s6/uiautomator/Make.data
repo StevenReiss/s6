@@ -1,0 +1,18 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/uiautomator/Make.data,v 1.1 2016/01/14 17:05:16 spr Exp $
+
+#
+# S6:RUNNER -- routines to handle s6 testing
+#
+
+
+PACKAGE=runner
+
+
+SFILES=\
+	UiAutomatorHelper.java \
+	UiAutomatorModel.java \
+	UiAutomatorTree.java \
+	UiAutomatorViewer.java \
+
+

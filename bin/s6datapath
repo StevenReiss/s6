@@ -1,0 +1,10 @@
+#! /bin/tcsh -f
+
+if ($?BROWN_S6_ROOT == 0) then
+   set x0 = `zsh -c "whence $0"`
+   set x1 = ${x0:h}
+   set x2 = $x1/s6setupenv
+   source $x2
+endif
+
+echo $BROWN_S6_S6/data

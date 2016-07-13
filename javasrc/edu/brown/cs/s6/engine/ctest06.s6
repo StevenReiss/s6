@@ -1,0 +1,4 @@
+<S6:CHECK WHAT='METHOD' xmlns='http://www.cs.brown.edu/S6' xmlns:S6='http://www.cs.brown.edu/S6'>
+<METHOD><![CDATA[int sum(int a1,int,double f)]]></METHOD>
+</S6:CHECK>
+

@@ -1,0 +1,43 @@
+<SEARCH LOCAL='TRUE' WHAT='CLASS'>
+<SIGNATURE>
+<CLASS NAME='RobotChecker'>
+<METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS />
+  </METHOD>
+<METHOD BOOLEAN='true' MODS='0'>
+    <NAME>check</NAME>
+    <RETURN>boolean</RETURN>
+    <ARGS>java.net.URL</ARGS>
+  </METHOD>
+</CLASS>
+</SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='test_1' TYPE='CALLS'>
+    <CALL METHOD='RobotChecker' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='v'>
+	<CODE><![CDATA[RobotChecker v;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='check' THIS='v' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new URL ("http://www.cs.brown.edu/people/spr")]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[true]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='check' THIS='v' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new URL ("http://www.nytimes.com/college/students")]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[false]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS>
+<SECURITY />
+<KEYWORDS><KEYWORD><![CDATA[robots.txt]]></KEYWORD></KEYWORDS>
+</SEARCH>
+

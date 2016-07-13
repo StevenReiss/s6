@@ -1,0 +1,37 @@
+<SEARCH WHAT='METHOD' FORMAT='NONE' LOCAL='TRUE'><SIGNATURE>
+  <METHOD MODS='0' INT='true'>
+    <NAME>multiply</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>int,int</ARGS>
+    <ARGNAMES>a,b</ARGNAMES>
+    <TEXT>int multiply(int a,int b)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='multiply' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[2]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[6]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='multiply' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[4]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[5]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[20]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS><KEYWORD><![CDATA[multiply]]></KEYWORD></KEYWORDS></SEARCH>
+

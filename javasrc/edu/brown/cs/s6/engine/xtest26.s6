@@ -1,0 +1,23 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestMergeSort'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='MergeSort'>
+	  <METHOD NAME='sort' SIGNATURE='([DII)V' STATIC='TRUE'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>sort</KEYWORD>
+    <KEYWORD>assertArrayEquals</KEYWORD>
+    <KEYWORD>double</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+
+
+
+

@@ -1,0 +1,25 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestLinkedQueue'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='LinkedQueue'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()' />
+	  <METHOD NAME='enqueue' SIGNATURE='(Ljava/lang/Object;)V' />
+	  <METHOD NAME='getFront' SIGNATURE='()Ljava/lang/Object;' />
+	  <METHOD NAME='dequeue' SIGNATURE='()Ljava/lang/Object;' />
+	  <METHOD NAME='isEmpty' SIGNATURE='()Z' />
+	  <METHOD NAME='clear' SIGNATURE='()V' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>queue</KEYWORD>
+    <KEYWORD>enqueue</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+
+

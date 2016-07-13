@@ -1,0 +1,41 @@
+<SEARCH WHAT='METHOD' FORMAT='NONE' REMOTE='TRUE' GOOGLE='TRUE'><SIGNATURE>
+  <METHOD MODS='0'>
+    <NAME>tokenize</NAME>
+    <RETURN>java.lang.String[]</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>str</ARGNAMES>
+    <TEXT>java.lang.String[] tokenize(java.lang.String str)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='tokenize' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[hello world]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new java.lang.String[] {"hello" , "world"}]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='tokenize' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[hello]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new java.lang.String[] {"hello"}]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_3' TYPE='CALLS'>
+    <CALL METHOD='tokenize' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[new java.lang.String[] {}]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS><KEYWORD><![CDATA[tokenize]]></KEYWORD>
+<KEYWORD><![CDATA[a]]></KEYWORD><KEYWORD><![CDATA[string]]></KEYWORD></KEYWORDS></SEARCH>

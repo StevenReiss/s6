@@ -1,0 +1,36 @@
+<SEARCH LOCAL='TRUE' WHAT='METHOD'>
+<SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>convert</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>int</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String convert(int a1)</TEXT>
+  </METHOD>
+</SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='convert' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[27]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[xxvii]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS>
+<SECURITY />
+<CONTRACTS>
+<CONTRACT INDEX='0' TYPE='REQUIRE'>
+  <CODE><![CDATA[a1 > 0]]></CODE>
+  <METHOD><![CDATA[convert]]></METHOD>
+</CONTRACT>
+<CONTRACT INDEX='1' TYPE='ENSURE'>
+  <CODE><![CDATA[\result != null]]></CODE>
+  <METHOD><![CDATA[convert]]></METHOD>
+</CONTRACT>
+</CONTRACTS>
+<KEYWORDS><KEYWORD><![CDATA[roman]]></KEYWORD><KEYWORD><![CDATA[numerals]]></KEYWORD></KEYWORDS>
+</SEARCH>
+

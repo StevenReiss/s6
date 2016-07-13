@@ -1,0 +1,77 @@
+<SEARCH FORMAT='NONE' GOOGLE='TRUE' REMOTE='TRUE' WHAT='CLASS'><SIGNATURE><CLASS NAME='Stack'><METHOD MODS='0'>
+    <NAME>push</NAME>
+    <RETURN>java.lang.Object</RETURN>
+    <ARGS>java.lang.Object</ARGS>
+    <ARGNAMES>o</ARGNAMES>
+    <TEXT>java.lang.Object push(java.lang.Object o)</TEXT>
+  </METHOD><METHOD MODS='0'>
+    <NAME>pop</NAME>
+    <RETURN>java.lang.Object</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>java.lang.Object pop()</TEXT>
+  </METHOD><METHOD MODS='0'>
+    <NAME>peek</NAME>
+    <RETURN>java.lang.Object</RETURN>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>java.lang.Object peek()</TEXT>
+  </METHOD><METHOD CONSTRUCTOR='true' MODS='0'>
+    <NAME>&lt;init&gt;</NAME>
+    <ARGS />
+    <ARGNAMES />
+    <TEXT>Stack()</TEXT>
+  </METHOD></CLASS></SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='Stack' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='stack'>
+	<CODE><![CDATA[Stack stack;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='push' OP='EQL' THIS='stack'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[a]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='push' OP='EQL' THIS='stack'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[b]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='push' OP='EQL' THIS='stack'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[c]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='pop' OP='EQL' THIS='stack'>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[c]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='push' OP='EQL' THIS='stack'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[a]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[]]></VALUE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='pop' OP='EQL' THIS='stack'>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[b]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><KEYWORDS><KEYWORD><![CDATA[duplicates]]></KEYWORD>
+<KEYWORD>unique</KEYWORD>
+<KEYWORD><![CDATA[stack]]></KEYWORD></KEYWORDS></SEARCH>
+

@@ -1,0 +1,25 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/tgen/Make.data,v 1.2 2015/02/18 23:24:28 spr Exp $
+
+#
+# S6:RUNNER -- routines to handle s6 testing
+#
+
+
+PACKAGE=runner
+
+
+SFILES=\
+	TgenConstants.java \
+	TgenMain.java \
+	TgenOhloh.java \
+	TgenProject.java \
+	TgenRunner.java \
+	TgenSource.java \
+	TgenUI.java \
+
+
+
+# LOCALJAVAFLAGS= -cp $(PRO)/s6/java:$(PRO)/ivy/java:$(PRO)/s6/lib/junit.jar:
+
+

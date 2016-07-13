@@ -1,0 +1,23 @@
+<SEARCH FORMAT='NONE' LOCAL='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>dayOfWeek</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String dayOfWeek(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='dayOfWeek' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[08/07/08]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[Thursday]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><KEYWORDS>
+<KEYWORD><![CDATA[day]]></KEYWORD><KEYWORD><![CDATA[of]]></KEYWORD>
+<KEYWORD><![CDATA[the]]></KEYWORD><KEYWORD><![CDATA[week]]></KEYWORD></KEYWORDS></SEARCH>
+

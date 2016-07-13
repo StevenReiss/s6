@@ -1,0 +1,24 @@
+#! /bin/csh -f
+
+setenv BEAGLE_HOME /map/aux3fred/beagle
+unsetenv BEAGLE_EXERCISE_THE_DOG
+
+bash /usr/bin/beagle-shutdown
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

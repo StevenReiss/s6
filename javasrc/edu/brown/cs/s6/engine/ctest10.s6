@@ -1,0 +1,7 @@
+<CHECK WHAT='SECURITY'>
+<PERMISSION INDEX='0' TYPE='FILE'>
+<VALUE><![CDATA[*]]></VALUE>
+<ACTIONS><![CDATA[read,write,execute,delete]]></ACTIONS>
+</PERMISSION>
+</CHECK>
+

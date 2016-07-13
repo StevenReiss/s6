@@ -1,0 +1,74 @@
+<HUMP>
+  <PARAMETERS>
+    <EXTENSIONS>.java.</EXTENSIONS>
+    <LARGE>3</LARGE>
+    <DO_SPACING>true</DO_SPACING>
+    <DO_NAMING>false</DO_NAMING>
+    <DO_SHORTNAMES>false</DO_SHORTNAMES>
+    <DO_SEQUENCES>true</DO_SEQUENCES>
+    <DO_PATTERNS>false</DO_PATTERNS>
+    <CONFIDENCE>5.0</CONFIDENCE>
+    <INDENTMODE>NONE</INDENTMODE>
+    <SPACEMODE>NONE</SPACEMODE>
+    <SP_METHOD>WT</SP_METHOD>
+    <SP_BOOLEAN>true</SP_BOOLEAN>
+    <NM_METHOD>WT</NM_METHOD>
+    <NM_BOOLEAN>true</NM_BOOLEAN>
+    <SH_METHOD>WT</SH_METHOD>
+    <SH_BOOLEAN>true</SH_BOOLEAN>
+    <SQ_METHOD>WT</SQ_METHOD>
+    <SQ_BOOLEAN>true</SQ_BOOLEAN>
+    <PT_METHOD>WT</PT_METHOD>
+    <PT_BOOLEAN>true</PT_BOOLEAN>
+    <SP_MODEL>/pro/s6/lib/hump/sun.spacing.model</SP_MODEL>
+    <SP_PROPERTIES />
+    <NM_MODEL>/pro/s6/lib/hump/sun.naming.model</NM_MODEL>
+    <NM_PROPERTIES>
+      <TYPES>
+        <TYPE>boolean</TYPE>
+        <TYPE>byte</TYPE>
+        <TYPE>char</TYPE>
+        <TYPE>double</TYPE>
+        <TYPE>float</TYPE>
+        <TYPE>int</TYPE>
+        <TYPE>long</TYPE>
+        <TYPE>short</TYPE>
+        <TYPE>void</TYPE>
+      </TYPES>
+      <SHORTS>
+        <SHORT>*</SHORT>
+      </SHORTS>
+    </NM_PROPERTIES>
+    <SH_MODEL>/pro/s6/lib/hump/sun.short.model</SH_MODEL>
+    <SQ_MODEL>/pro/s6/lib/hump/sun.order.model</SQ_MODEL>
+    <SQ_PROPERTIES>
+      <IMPORTS>
+        <IMPORT>COM.</IMPORT>
+        <IMPORT>EDU.</IMPORT>
+        <IMPORT>ORG.</IMPORT>
+        <IMPORT>com.</IMPORT>
+        <IMPORT>edu.</IMPORT>
+        <IMPORT>java.</IMPORT>
+        <IMPORT>javax.</IMPORT>
+        <IMPORT>org.</IMPORT>
+      </IMPORTS>
+      <ANNOTATIONS />
+    </SQ_PROPERTIES>
+    <PT_MODEL>/pro/s6/lib/hump/sun.pattern.model</PT_MODEL>
+    <PT_PROPERTIES />
+  </PARAMETERS>
+  <LEARN WHAT='SPACING'>
+    <STATS>
+      <TIME>665968</TIME>
+      <INPUT SIZE='83474385' LOC='0' TOC='0' NFEATURES='57'>/ws/volfred/tmp/HumpLearn2810623855766772071.data</INPUT>
+      <MODEL SIZE='842547641' />
+    </STATS>
+  </LEARN>
+  <LEARN WHAT='SEQUENCES'>
+    <STATS>
+      <TIME>1805234</TIME>
+      <INPUT SIZE='81879709' LOC='0' TOC='0' NFEATURES='96'>/ws/volfred/tmp/HumpLearn5488513740788120443.data</INPUT>
+      <MODEL SIZE='715168' />
+    </STATS>
+  </LEARN>
+</HUMP>

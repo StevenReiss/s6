@@ -1,0 +1,39 @@
+<SEARCH WHAT='UIFRAMEWORK' FORMAT='NONE' LOCAL='false' REMOTE='true' GITHUB='false' OHLOH='true' SCOPE='FILE'>
+  <SIGNATURE>
+    <UI PACKAGE='spr.sampler.uitest' CLASS='S6_UI_CLASS'>
+      <COMPONENT ID='U_24' X='60.5' Y='19.5' WIDTH='410.0' HEIGHT='193.5' TOP='U_34' LEFT='U_34' RIGHT='U_34' TYPES='java.awt.Container'>
+	<COMPONENT ID='U_28' X='173.5' Y='89.5' WIDTH='277.0' HEIGHT='29.0' TYPES='javax.swing.JPasswordField' />
+	<COMPONENT ID='U_31' X='99.0' Y='180.0' WIDTH='46.0' HEIGHT='20.5' TYPES='javax.swing.JButton,javax.swing.JMenuItem' />
+	<COMPONENT ID='U_25' X='82.76041412353516' Y='44.046875' WIDTH='80.0689468383789' HEIGHT='12.651042938232422' RIGHT='U_26' DATA='User Name' TYPES='javax.swing.JLabel' />
+	<COMPONENT ID='U_27' X='146.234375' Y='108.546875' WIDTH='67.86198425292969' HEIGHT='11.640625' DATA='Password' TYPES='javax.swing.JLabel' />
+	<COMPONENT ID='U_26' X='172.5' Y='34.5' WIDTH='281.0' HEIGHT='34.0' LEFT='U_25' TYPES='javax.swing.JTextField' />
+	<COMPONENT ID='U_35' X='114.330078125' Y='19.0' WIDTH='138.5' HEIGHT='141.5' TOP='U_24' DATA='Remember Me' TYPES='javax.swing.JToggleButton,javax.swing.JCheckBoxMenuItem,javax.swing.JRadioButtonMenuItem' />
+      </COMPONENT>
+      <CLASS NAME='S6_UI_CLASS'>
+	<METHOD NAME='S6_UI' RETURN='java.awt.Component' />
+      </CLASS>
+    </UI>
+  </SIGNATURE>
+  <REQUIRE />
+  <TESTS>
+    <TESTCASE NAME='SVIUI_1' TYPE='CALLS'>
+      <CALL METHOD='S6_UI_CLASS' NEW='true' OP='SAVE'>
+	<OUTPUT TYPE='SAVE' VALUE='x'>
+	  <CODE><![CDATA[S6_UI_CLASS x;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL METHOD='S6_UI' THIS='x' OP='SAVE'>
+	<OUTPUT TYPE='SAVE' VALUE='y'>
+	  <CODE><![CDATA[java.awt.Component y;]]></CODE>
+	</OUTPUT>
+      </CALL>
+      <CALL OP='HIERARCHY' THIS='y' />
+      <CALL OP='INTERACT' THIS='y' />
+    </TESTCASE>
+  </TESTS>
+  <KEYWORDS>
+    <KEYWORD><![CDATA[login]]></KEYWORD>
+    <KEYWORD><![CDATA[dialog]]></KEYWORD>
+    <KEYWORD><![CDATA[jpassword]]></KEYWORD>
+  </KEYWORDS>
+</SEARCH>

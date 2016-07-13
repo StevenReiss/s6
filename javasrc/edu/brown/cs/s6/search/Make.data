@@ -1,0 +1,27 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/search/Make.data,v 1.2 2015/02/14 19:40:21 spr Exp $
+
+#
+# S6:SEARCH -- Semantic Search of Shared Source Software System lucene interface
+#
+
+
+PACKAGE=engine
+
+
+SFILES=\
+	SearchConstants.java \
+	SearchJava.java \
+	SearchTester.java \
+	SearchWordBag.java \
+	SearchWordCacheSetup.java \
+	SearchWordConstants.java \
+	SearchWordFactory.java \
+	SearchWordPluralFilter.java \
+	SearchWordRun.java \
+	SearchWordSemantics.java \
+	SearchWordSpellCheck.java \
+	SearchWordStemmer.java
+
+
+

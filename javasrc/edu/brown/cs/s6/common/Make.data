@@ -1,0 +1,33 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/common/Make.data,v 1.7 2015/12/23 15:44:32 spr Exp $
+
+#
+# S6:COMMON -- Semantic Search of Shared Source Software System
+#
+
+
+PACKAGE=common
+
+
+SFILES=\
+	S6Constants.java \
+	S6Context.java \
+	S6Contracts.java \
+	S6Engine.java \
+	S6Exception.java \
+	S6Factory.java \
+	S6FactoryImpl.java \
+	S6FileLocation.java \
+	S6Language.java \
+	S6License.java \
+	S6KeySearch.java \
+	S6Request.java \
+	S6Resource.java \
+	S6Security.java \
+	S6Solution.java \
+	S6Source.java \
+	S6TestCase.java \
+	S6TestResults.java \
+	S6Transform.java\
+
+

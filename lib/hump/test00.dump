@@ -1,0 +1,804 @@
+
+num   #instances    #bytes  class name
+--------------------------------------
+  1:   4283242	 448867192  [C
+  2:	 51170	 364826136  [I
+  3:   5461184	 262136832  java.util.HashMap$Entry
+  4:   2832068	 249221984  org.eclipse.jdt.core.dom.SimpleName
+  5:   4260494	 170419760  java.lang.String
+  6:   2314216	 170084968  [Ljava.util.HashMap$Entry;
+  7:   2705741	 151521496  org.eclipse.jdt.core.dom.ASTNode$NodeList
+  8:   2314209	 148109376  java.util.HashMap
+  9:   3113541	 128707744  [Ljava.lang.Object;
+ 10:   3106349	 124253960  java.util.ArrayList
+ 11:	942016	  67820528  [[C
+ 12:	487425	  50692200  org.eclipse.jdt.core.dom.MethodInvocation
+ 13:	568465	  36381760  org.eclipse.jface.text.TreeLineTracker$Node
+ 14:	424121	  33929680  org.eclipse.jdt.core.dom.SimpleType
+ 15:	331183	  29144104  org.eclipse.jdt.core.dom.ExpressionStatement
+ 16:	264608	  23285504  org.eclipse.jdt.core.dom.Block
+ 17:	285731	  22858480  org.eclipse.jdt.core.dom.TextElement
+ 18:	262943	  21035440  org.eclipse.jdt.core.dom.StringLiteral
+ 19:	198794	  20674576  org.eclipse.jdt.core.dom.InfixExpression
+ 20:	215189	  20658144  org.eclipse.jdt.core.dom.QualifiedName
+ 21:	134781	  20486712  com.ibm.jikesbt.BT_Class
+ 22:	227742	  18219360  org.eclipse.jdt.core.dom.NumberLiteral
+ 23:	185290	  17787840  org.eclipse.jdt.core.dom.Assignment
+ 24:	183677	  17632992  org.eclipse.jdt.core.dom.VariableDeclarationFragment
+ 25:	103731	  15767112  org.eclipse.jdt.core.dom.MethodDeclaration
+ 26:	138859	  15552208  org.eclipse.jdt.core.dom.VariableDeclarationStatement
+ 27:	193401	  15472080  org.eclipse.jdt.core.dom.Modifier
+ 28:	128159	  15379080  org.eclipse.jdt.core.dom.SingleVariableDeclaration
+ 29:	243701	  13647256  com.ibm.jikesbt.BT_LoadLocalIns
+ 30:	129293	  13446472  org.eclipse.jdt.core.dom.IfStatement
+ 31:	414849	  13275168  edu.brown.cs.s6.language.java.JavaScopeAst
+ 32:	141997	  12495736  org.eclipse.jdt.core.dom.TagElement
+ 33:	310584	  12423360  edu.brown.cs.s6.language.java.JavaSymbol$VariableSymbol
+ 34:	145869	  11669520  org.eclipse.jdt.core.dom.PrimitiveType
+ 35:	 32516	  11443040  [Lcom.ibm.jikesbt.BT_Ins;
+ 36:	 91517	  10982040  org.eclipse.jdt.core.dom.ClassInstanceCreation
+ 37:	121453	  10687864  org.eclipse.jdt.core.dom.ArrayAccess
+ 38:	315156	  10084992  edu.brown.cs.s6.language.java.JavaScopeLookup$VarElement
+ 39:	108698	   9565424  org.eclipse.jdt.core.dom.ReturnStatement
+ 40:	117401	   9392080  org.eclipse.jdt.core.dom.LineComment
+ 41:	287342	   9194944  com.ibm.jikesbt.BT_ClassVector
+ 42:	 31398	   8289288  [[[C
+ 43:	248567	   7954144  com.ibm.jikesbt.BT_AttributeVector
+ 44:	 57643	   5994872  com.ibm.jikesbt.BT_Method
+ 45:	 81664	   5879808  org.eclipse.jdt.core.dom.NullLiteral
+ 46:	181130	   5796160  com.ibm.jikesbt.BT_LineNumberAttribute$PcRange
+ 47:	 58842	   5648832  org.eclipse.jdt.core.dom.Javadoc
+ 48:	134781	   5391240  com.ibm.jikesbt.BT_MethodTable
+ 49:	134781	   5391240  com.ibm.jikesbt.BT_FieldTable
+ 50:	125571	   5022840  com.ibm.jikesbt.BT_MethodCallSite
+ 51:	 56229	   4948152  org.eclipse.jdt.core.dom.FieldAccess
+ 52:	134781	   4312992  com.ibm.jikesbt.BT_CreationSiteVector
+ 53:	 51604	   4128320  org.eclipse.jdt.core.dom.ArrayType
+ 54:	 85751	   4116048  com.ibm.jikesbt.BT_FieldRefIns
+ 55:	 25632	   3987072  <constMethodKlass>
+ 56:	115286	   3689152  com.ibm.jikesbt.BT_MethodVector
+ 57:	 56750	   3632000  edu.brown.cs.s6.language.java.JavaType$MethodType
+ 58:	 44174	   3533920  org.eclipse.jdt.core.dom.BooleanLiteral
+ 59:	 85751	   3430040  com.ibm.jikesbt.BT_Accessor
+ 60:	 71141	   3414768  com.ibm.jikesbt.BT_InvokeVirtualIns
+ 61:	101959	   3262688  com.ibm.jikesbt.BT_BasicBlockMarkerIns
+ 62:	 96997	   3212312  [Lcom.ibm.jikesbt.BT_Attribute;
+ 63:	 23188	   3100440  [Lcom.ibm.jikesbt.BT_Class;
+ 64:	 25632	   3083968  <methodKlass>
+ 65:	 63869	   3065712  com.ibm.jikesbt.BT_JumpOffsetIns
+ 66:	 26487	   2966544  org.eclipse.jdt.core.dom.FieldDeclaration
+ 67:	 86209	   2758688  edu.brown.cs.s6.language.java.JavaScopeLookup$MethodElement
+ 68:	 67348	   2693920  com.ibm.jikesbt.BT_ConstantIntegerIns
+ 69:	 80740	   2583680  com.ibm.jikesbt.BT_Ins
+ 70:	  1936	   2573272  <constantPoolKlass>
+ 71:	 32020	   2561600  com.ibm.jikesbt.BT_CodeAttribute
+ 72:	 44885	   2513560  com.ibm.jikesbt.BT_StoreLocalIns
+ 73:	103260	   2478240  edu.brown.cs.s6.language.java.JavaSymbol$MethodSymbol
+ 74:	 26859	   2363592  org.eclipse.jdt.core.dom.CastExpression
+ 75:	 26529	   2334552  org.eclipse.jdt.core.dom.ImportDeclaration
+ 76:	 27919	   2233520  org.eclipse.jdt.core.dom.CharacterLiteral
+ 77:	 31721	   2210344  [Lcom.ibm.jikesbt.BT_LineNumberAttribute$PcRange;
+ 78:	 25068	   2205984  org.eclipse.jdt.core.dom.PrefixExpression
+ 79:	 91240	   2189760  com.ibm.jikesbt.BT_Local
+ 80:	 42107	   2106264  <symbolKlass>
+ 81:	 18466	   2068192  org.eclipse.jdt.core.dom.ForStatement
+ 82:	 23803	   1904240  org.eclipse.jdt.core.dom.ParenthesizedExpression
+ 83:	 22045	   1862096  [Lcom.ibm.jikesbt.BT_MethodCallSite;
+ 84:	 57643	   1844576  com.ibm.jikesbt.BT_MethodCallSiteVector
+ 85:	 57643	   1844576  com.ibm.jikesbt.BT_MethodInlawVector
+ 86:	 16976	   1765504  org.eclipse.jdt.core.dom.VariableDeclarationExpression
+ 87:	 20022	   1761936  org.eclipse.jdt.core.dom.ThrowStatement
+ 88:	 24123	   1736856  com.ibm.jikesbt.BT_Field
+ 89:	 19290	   1697520  org.eclipse.jdt.core.dom.PostfixExpression
+ 90:	 31101	   1635784  [Lcom.ibm.jikesbt.BT_Local;
+ 91:	  2245	   1596488  [Lorg.eclipse.jdt.core.dom.Comment;
+ 92:	  3767	   1596000  <methodDataKlass>
+ 93:	  1630	   1588544  <constantPoolCacheKlass>
+ 94:	  1936	   1554640  <instanceKlassKlass>
+ 95:	 32020	   1536960  com.ibm.jikesbt.BT_InsVector
+ 96:	 15063	   1446048  org.eclipse.jdt.core.dom.ArrayCreation
+ 97:	 17978	   1438240  java.util.zip.ZipEntry
+ 98:	 28108	   1425256  [Lcom.ibm.jikesbt.BT_Method;
+ 99:	 29460	   1414080  com.ibm.jikesbt.BT_InvokeSpecialIns
+100:	 14021	   1346016  org.eclipse.jdt.core.dom.ParameterizedType
+101:	 16583	   1326640  org.eclipse.jdt.core.dom.BlockComment
+102:	 12444	   1294176  org.eclipse.jdt.core.dom.TryStatement
+103:	 32020	   1280800  com.ibm.jikesbt.BT_LocalVector
+104:	  3691	   1240672  [J
+105:	 12649	   1214304  org.eclipse.jdt.core.dom.SwitchCase
+106:	 18750	   1200000  org.eclipse.jdt.internal.compiler.problem.DefaultProblem
+107:	  3668	   1190832  [Lorg.eclipse.jdt.core.dom.ASTNode;
+108:	 10817	   1188048  [Lcom.ibm.jikesbt.BT_Accessor;
+109:	 13178	   1159664  org.eclipse.jdt.core.dom.CatchClause
+110:	 19506	   1092336  edu.brown.cs.s6.language.java.JavaType$UnknownType
+111:	 33347	   1067104  com.ibm.jikesbt.BT_DupIns
+112:	 25984	   1039360  com.ibm.jikesbt.BT_ConstantStringIns
+113:	 32300	   1033600  org.eclipse.jdt.internal.core.dom.rewrite.NodeRewriteEvent
+114:	 32020	   1024640  com.ibm.jikesbt.BT_ExceptionTableEntryVector
+115:	 31721	   1015072  com.ibm.jikesbt.BT_LineNumberAttribute
+116:	  4485	   1004640  org.eclipse.jdt.internal.compiler.parser.Scanner
+117:	  9224	    885504  org.eclipse.jdt.core.dom.WhileStatement
+118:	  9789	    861432  org.eclipse.jdt.core.dom.BreakStatement
+119:	  2799	    822672  [B
+120:	 24123	    771936  com.ibm.jikesbt.BT_AccessorVector
+121:	  4482	    717120  org.eclipse.jdt.core.dom.TypeDeclaration
+122:	 17734	    709360  com.ibm.jikesbt.BT_NewIns
+123:	  8826	    706080  org.eclipse.jdt.core.dom.ThisExpression
+124:	 12624	    605952  com.ibm.jikesbt.BT_InvokeInterfaceIns
+125:	 12346	    592608  com.ibm.jikesbt.BT_InvokeStaticIns
+126:	 12110	    581280  com.ibm.jikesbt.BT_MethodSignature
+127:	  6932	    554560  org.eclipse.jdt.core.dom.ArrayInitializer
+128:	  4858	    466368  org.eclipse.jdt.core.dom.ConditionalExpression
+129:	 14333	    458656  com.ibm.jikesbt.BT_IntegerOperationIns
+130:	  3884	    403936  org.eclipse.jdt.core.dom.EnhancedForStatement
+131:	  9641	    385640  com.ibm.jikesbt.BT_CreationSite
+132:	  2178	    383328  java.lang.Class
+133:	  4259	    374792  org.eclipse.jdt.core.dom.ContinueStatement
+134:	  7654	    367392  org.eclipse.text.edits.DeleteEdit
+135:	  4485	    358800  [[[[C
+136:	  4322	    345760  org.eclipse.jdt.core.dom.TypeLiteral
+137:	  2245	    341240  org.eclipse.jdt.core.dom.CompilationUnit
+138:	  8458	    338320  com.ibm.jikesbt.BT_CheckCastIns
+139:	  6555	    314640  edu.brown.cs.s6.language.java.JavaType$ArrayType
+140:	  2883	    305056  [[I
+141:	  4212	    294072  [Lcom.ibm.jikesbt.BT_Field;
+142:	  2982	    283816  [S
+143:	  8710	    278720  com.ibm.jikesbt.BT_NullIns
+144:	  4652	    260512  edu.brown.cs.s6.language.java.JavaType$ParamType
+145:	  3011	    252824  [Ljava.lang.String;
+146:	  2573	    247008  org.apache.xerces.dom.DeferredElementImpl
+147:	  4966	    238368  edu.brown.cs.s6.language.java.JavaSymbol$KnownMethod
+148:	  3691	    236224  com.ibm.jikesbt.BT_ExceptionTableEntry
+149:	  4771	    229008  com.ibm.jikesbt.BT_InnerClassesAttribute$Description
+150:	  4577	    219696  com.ibm.jikesbt.BT_IIncIns
+151:	  3921	    219576  org.eclipse.text.edits.InsertEdit
+152:	  2245	    215520  org.eclipse.jdt.core.dom.AST
+153:	  3825	    214200  org.apache.xerces.dom.DeferredAttrImpl
+154:	  2205	    211680  org.eclipse.jdt.core.dom.PackageDeclaration
+155:	  2352	    206976  org.eclipse.jdt.core.dom.MemberRef
+156:	  2312	    203456  org.eclipse.jdt.core.dom.InstanceofExpression
+157:	  2509	    200720  org.eclipse.jdt.core.dom.AnonymousClassDeclaration
+158:	  6176	    197632  edu.brown.cs.s6.language.java.JavaScopeFixed
+159:	  2040	    195840  org.eclipse.jdt.core.dom.SwitchStatement
+160:	  4545	    181800  org.eclipse.jdt.internal.core.dom.rewrite.RewriteEventStore$EventHolder
+161:	  2245	    179600  org.eclipse.jdt.core.dom.DefaultCommentMapper
+162:	  4271	    170840  java.util.LinkedList$Entry
+163:	   700	    166800  [Lorg.eclipse.jdt.core.compiler.CategorizedProblem;
+164:	  1718	    164928  org.eclipse.jdt.core.dom.MethodRefParameter
+165:	  2664	    164920  [Lcom.ibm.jikesbt.BT_CreationSite;
+166:	  1713	    164448  org.eclipse.jdt.core.dom.MethodRef
+167:	  2404	    153856  java.util.IdentityHashMap
+168:	  1881	    150480  org.eclipse.jdt.internal.core.dom.rewrite.RewriteEventStore
+169:	  2342	    149888  org.apache.xerces.dom.DeferredTextImpl
+170:	  2486	    139216  javax.swing.text.html.parser.ContentModel
+171:	  4257	    136224  com.ibm.jikesbt.BT_ConstantValueAttribute
+172:	  5670	    136080  com.ibm.jikesbt.BT_ExceptionsAttribute
+173:	  4140	    132480  com.ibm.jikesbt.BT_SourceFileAttribute
+174:	  1358	    130368  org.eclipse.jdt.core.dom.SynchronizedStatement
+175:	  3902	    124864  com.ibm.jikesbt.BT_SignatureAttribute
+176:	   213	    120984  <objArrayKlassKlass>
+177:	  1131	    117624  org.eclipse.jdt.core.dom.SuperConstructorInvocation
+178:	  1208	    115968  edu.brown.cs.s6.language.java.FragmentJava$ClonedMethodFragment
+179:	  1946	    108976  org.eclipse.text.edits.MultiTextEdit
+180:	  2245	    107760  edu.brown.cs.s6.language.java.JavaTyper
+181:	  4482	    107568  edu.brown.cs.s6.language.java.JavaSymbol$TypeSymbol
+182:	  1881	    105336  edu.brown.cs.s6.language.java.TransformJava$JavaMemo
+183:	  2619	    104760  com.ibm.jikesbt.BT_InstanceofIns
+184:	  2389	     95560  edu.brown.cs.s6.language.java.JavaType$VarType
+185:	   557	     93576  org.eclipse.jface.text.Document
+186:	   973	     93408  org.eclipse.jdt.core.dom.ConstructorInvocation
+187:	  1931	     92688  java.util.Hashtable$Entry
+188:	  1881	     90288  org.eclipse.jdt.core.dom.rewrite.ASTRewrite
+189:	  1881	     90288  org.eclipse.text.edits.RangeMarker
+190:	  2245	     89800  edu.brown.cs.s6.language.java.JavaType$ErrorType
+191:	  2245	     89800  edu.brown.cs.s6.language.java.JavaType$AnyClassType
+192:	  2070	     87848  [Lcom.ibm.jikesbt.BT_InnerClassesAttribute$Description;
+193:	  1208	     86976  edu.brown.cs.s6.language.java.FragmentJava$FragmentDelta
+194:	  2160	     86400  com.ibm.jikesbt.BT_ANewArrayIns
+195:	  2154	     86160  java.util.Vector
+196:	  2105	     84200  org.apache.xerces.dom.AttributeMap
+197:	  1980	     79200  java.util.LinkedList
+198:	  1748	     75648  [Lcom.ibm.jikesbt.BT_ExceptionTableEntry;
+199:	  1881	     75240  org.eclipse.jdt.internal.core.dom.rewrite.NodeInfoStore
+200:	  2346	     75072  java.util.Collections$UnmodifiableRandomAccessList
+201:	  3071	     73704  java.util.HashSet
+202:	   697	     72488  org.eclipse.jdt.core.dom.SuperMethodInvocation
+203:	  2248	     71936  java.util.Arrays$ArrayList
+204:	  2245	     71840  edu.brown.cs.s6.language.java.JavaScopeLookup
+205:	  1680	     67200  edu.brown.cs.s6.language.java.JavaTester$TestReport
+206:	  1110	     62160  edu.brown.cs.s6.language.java.JavaType$KnownType
+207:	  1910	     61120  org.eclipse.jdt.internal.core.dom.rewrite.ListRewriteEvent
+208:	  1881	     60192  org.eclipse.text.edits.TextEditGroup
+209:	  1881	     60192  org.eclipse.jdt.internal.core.dom.rewrite.TrackedNodePosition
+210:	  2343	     56232  java.util.HashMap$EntrySet
+211:	  1390	     55600  com.ibm.jikesbt.BT_ConstantClassIns
+212:	  2230	     53520  com.ibm.jikesbt.BT_AnyConstantValue$IntV
+213:	  1671	     53472  org.eclipse.core.runtime.ListenerList
+214:	  1329	     53160  com.ibm.jikesbt.BT_NewArrayIns
+215:	  2070	     49680  com.ibm.jikesbt.BT_InnerClassesAttribute
+216:	   673	     48456  edu.brown.cs.s6.solution.SolutionBase
+217:	   834	     46704  edu.brown.cs.s6.language.java.JavaAstClassName
+218:	  1881	     45144  java.util.IdentityHashMap$KeySet
+219:	   536	     42880  org.eclipse.text.edits.CopySourceEdit
+220:	   754	     42224  org.eclipse.text.edits.ReplaceEdit
+221:	  1051	     42040  edu.brown.cs.s6.language.java.JavaSymbol$KnownField
+222:	  1718	     41232  com.ibm.jikesbt.BT_AnyConstantValue$StringV
+223:	   984	     39360  org.eclipse.jdt.internal.core.dom.rewrite.RewriteEventStore$PropertyLocation
+224:	   984	     39360  org.eclipse.jdt.internal.core.dom.rewrite.RewriteEventStore$CopySourceInfo
+225:	  2284	     36544  java.lang.Object
+226:	  2245	     35920  org.eclipse.jdt.core.dom.NodeEventHandler
+227:	  2245	     35920  org.eclipse.jdt.core.dom.BindingResolver
+228:	   448	     35840  org.eclipse.text.edits.MoveSourceEdit
+229:	   407	     35816  org.eclipse.jdt.core.dom.TypeParameter
+230:	   557	     35648  org.eclipse.jface.text.DefaultPositionUpdater
+231:	    69	     35384  [Ljava.util.Hashtable$Entry;
+232:	   557	     31192  org.eclipse.jface.text.DefaultLineTracker
+233:	  1881	     30096  org.eclipse.jdt.core.dom.rewrite.TargetSourceRangeComputer
+234:	   536	     30016  org.eclipse.text.edits.CopyTargetEdit
+235:	   273	     28392  org.eclipse.jdt.core.dom.Initializer
+236:	   314	     27632  org.eclipse.jdt.core.dom.SingleMemberAnnotation
+237:	   689	     27560  java.util.RegularEnumSet
+238:	   204	     26112  java.lang.reflect.Field
+239:	   267	     25632  org.eclipse.jdt.core.dom.DoStatement
+240:	   448	     25088  org.eclipse.text.edits.MoveTargetEdit
+241:	   984	     23616  org.eclipse.jdt.internal.core.dom.rewrite.NodeInfoStore$CopyPlaceholderData
+242:	   557	     22280  org.eclipse.jface.text.GapTextStore
+243:	   462	     22176  com.ibm.jikesbt.BT_EnclosingMethodAttribute
+244:	   549	     21960  com.ibm.jikesbt.BT_ConstantLongIns
+245:	   536	     21440  org.eclipse.jdt.internal.core.dom.rewrite.SourceModifier
+246:	   242	     21296  edu.brown.cs.s6.language.java.FragmentJava$MethodFragment
+247:	   414	     19872  edu.brown.cs.s6.language.java.JavaType$KnownInterfaceType
+248:	   276	     19872  com.ibm.jikesbt.BT_TableSwitchIns
+249:	   223	     19624  org.eclipse.jdt.core.dom.WildcardType
+250:	   601	     19232  com.ibm.jikesbt.BT_LongOperationIns
+251:	    66	     18384  [[I
+252:	   456	     18240  com.ibm.jikesbt.BT_ConstantFloatIns
+253:	   557	     17824  org.eclipse.jface.text.Position
+254:	   557	     17824  org.eclipse.jface.text.CopyOnWriteTextStore
+255:	   557	     17824  org.eclipse.jface.text.AbstractLineTracker$2
+256:	   557	     17824  org.eclipse.jface.text.AbstractLineTracker$DelimiterInfo
+257:	   369	     17712  edu.brown.cs.s6.language.java.JavaType$UnknownInterfaceType
+258:	   218	     17440  org.eclipse.jdt.core.dom.EmptyStatement
+259:	   254	     16256  java.lang.ref.Finalizer
+260:	   167	     16032  edu.brown.cs.s6.language.java.FragmentJava$FileFragment
+261:	   219	     15768  com.ibm.jikesbt.BT_LookupSwitchIns
+262:	   647	     15528  java.util.HashMap$KeySet
+263:	   116	     15024  [Z
+264:	   133	     13832  java.net.URL
+265:	   283	     13584  com.ibm.jikesbt.BT_MethodInlaw
+266:	   334	     13360  com.ibm.jikesbt.BT_AnnotationAttribute$Annotation
+267:	   546	     13104  java.lang.Integer
+268:	   192	     12288  java.util.LinkedHashMap$Entry
+269:	   291	     11640  com.ibm.jikesbt.BT_AnnotationAttribute
+270:	   126	     11088  java.util.concurrent.FutureTask$Sync
+271:	   137	     10960  org.eclipse.jdt.core.dom.MarkerAnnotation
+272:	    40	     10944  [[Ljava.lang.Object;
+273:	   210	     10696  [Lcom.ibm.jikesbt.BT_MethodInlaw;
+274:	   373	     10392  [Lcom.ibm.jikesbt.BT_AnnotationAttribute$Value;
+275:	   255	     10200  javax.swing.text.html.parser.Entity
+276:	   254	     10160  com.ibm.jikesbt.BT_GenericAttribute
+277:	   291	      9656  [Lcom.ibm.jikesbt.BT_AnnotationAttribute$Annotation;
+278:	    62	      9424  java.lang.reflect.Method
+279:	   166	      9296  javax.swing.text.html.parser.AttributeList
+280:	    90	      8640  org.eclipse.jdt.core.dom.LabeledStatement
+281:	   337	      8088  java.util.HashMap$Values
+282:	   336	      8064  edu.brown.cs.s6.language.java.JavaTester$SuiteReport
+283:	   302	      7248  com.ibm.jikesbt.BT_AnyConstantValue$LongV
+284:	    89	      7120  javax.swing.text.html.parser.Element
+285:	    73	      7008  java.lang.Package
+286:	   155	      6200  com.ibm.jikesbt.BT_ConstantDoubleIns
+287:	    50	      6000  java.lang.reflect.Constructor
+288:	   115	      5520  org.eclipse.jdt.core.dom.ChildPropertyDescriptor
+289:	   169	      5408  java.util.jar.Attributes$Name
+290:	    96	      5376  org.eclipse.jdt.internal.core.dom.rewrite.RewriteEventStore$NodeRangeInfo
+291:	   160	      5120  com.ibm.jikesbt.BT_Dup2Ins
+292:	   126	      5040  edu.brown.cs.s6.engine.EngineMain$TestWorker
+293:	   156	      4992  java.lang.ProcessEnvironment$Variable
+294:	   156	      4992  java.lang.ProcessEnvironment$Value
+295:	   121	      4840  org.apache.xerces.util.SymbolTable$Entry
+296:	    13	      4680  org.apache.xerces.dom.DeferredDocumentImpl
+297:	     8	      4544  <typeArrayKlassKlass>
+298:	    40	      4480  java.util.jar.JarFile$JarFileEntry
+299:	   108	      4320  com.ibm.jikesbt.BT_AnnotationAttribute$ConstEnumValue
+300:	    38	      4256  org.apache.xerces.dom.DeferredElementNSImpl
+301:	   127	      4064  java.util.concurrent.LinkedBlockingQueue$Node
+302:	   126	      4032  java.util.concurrent.Executors$RunnableAdapter
+303:	    80	      3840  org.apache.xerces.xni.QName
+304:	    51	      3672  sun.misc.URLClassPath$JarLoader
+305:	    55	      3520  java.util.Hashtable
+306:	   108	      3456  com.ibm.jikesbt.BT_DoubleOperationIns
+307:	    43	      3440  java.util.jar.JarFile
+308:	    61	      3416  java.lang.ref.SoftReference
+309:	    70	      3360  java.util.concurrent.locks.ReentrantLock$NonfairSync
+310:	    64	      3072  java.util.concurrent.ConcurrentHashMap$Segment
+311:	   126	      3024  java.util.concurrent.FutureTask
+312:	   120	      2880  java.io.FileDescriptor
+313:	    98	      2792  [Ljava.lang.Class;
+314:	    55	      2640  java.util.zip.Inflater
+315:	    65	      2600  edu.brown.cs.s6.keysearch.KeySearchKrugle$KrugleSource
+316:	    24	      2496  java.security.Provider$Service
+317:	    77	      2464  javax.swing.text.html.HTML$Tag
+318:	    61	      2440  sun.reflect.UnsafeStaticObjectFieldAccessorImpl
+319:	    64	      2384  [Ljava.util.concurrent.ConcurrentHashMap$HashEntry;
+320:	    33	      2376  org.apache.xerces.dom.DeferredAttrNSImpl
+321:	    73	      2336  java.io.FileInputStream
+322:	    48	      2304  org.eclipse.jdt.core.dom.ChildListPropertyDescriptor
+323:	    70	      2240  <compiledICHolderKlass>
+324:	    90	      2160  edu.brown.cs.s6.language.java.JavaSymbol$LabelSymbol
+325:	     1	      2072  [Ljava.lang.Integer;
+326:	    43	      2064  edu.brown.cs.s6.keysearch.KeySearchKoders$KoderSource
+327:	    10	      2000  <klassKlass>
+328:	    81	      1944  javax.swing.text.html.HTML$Attribute
+329:	    40	      1920  edu.brown.cs.s6.keysearch.KeySearchGoogle$GoogleSource
+330:	    47	      1880  java.security.Provider$ServiceKey
+331:	    46	      1840  java.io.FileOutputStream
+332:	    10	      1680  java.lang.Thread
+333:	     2	      1664  [Lorg.apache.xerces.util.SymbolTable$Entry;
+334:	     1	      1640  [[S
+335:	    50	      1600  org.apache.xerces.dom.DeferredDocumentImpl$RefCount
+336:	    31	      1488  org.eclipse.jdt.core.dom.SimplePropertyDescriptor
+337:	    30	      1440  java.security.Provider$EngineDescription
+338:	    15	      1440  sun.nio.cs.StreamEncoder
+339:	    29	      1392  java.util.concurrent.ConcurrentHashMap$HashEntry
+340:	    17	      1360  sun.nio.cs.US_ASCII$Encoder
+341:	    24	      1344  org.apache.xerces.util.XMLAttributesImpl$Attribute
+342:	    42	      1344  java.io.File
+343:	     8	      1336  [Ljava.lang.reflect.Field;
+344:	    39	      1248  com.ibm.jikesbt.BT_AnnotationAttribute$ArrayValue
+345:	    24	      1152  org.apache.xerces.util.AugmentationsImpl$SmallContainer
+346:	     2	      1136  <arrayKlassKlass>
+347:	    34	      1088  edu.brown.cs.s6.keysearch.KeySearchLabrador$LabradorSource
+348:	    15	      1080  java.io.BufferedWriter
+349:	    22	      1056  java.lang.ref.WeakReference
+350:	    33	      1056  com.ibm.jikesbt.BT_AnnotationAttribute$ConstStringValue
+351:	    13	      1040  java.io.PrintWriter
+352:	    32	      1024  edu.brown.cs.s6.common.S6Constants$S6SignatureType
+353:	    14	      1008  com.ibm.jikesbt.BT_ClassPathEntry
+354:	    20	       960  com.ibm.jikesbt.BT_MultiANewArrayIns
+355:	    24	       960  org.apache.xerces.util.XMLStringBuffer
+356:	    15	       960  sun.nio.cs.US_ASCII$Decoder
+357:	    17	       952  java.nio.HeapByteBuffer
+358:	     6	       944  [Lorg.apache.xerces.xni.QName;
+359:	    39	       936  java.util.regex.Pattern$CharPropertyNames$1
+360:	     6	       912  [Ljava.lang.ThreadLocal$ThreadLocalMap$Entry;
+361:	    19	       912  java.util.Locale
+362:	     2	       880  org.apache.xerces.impl.XMLDocumentScannerImpl
+363:	    25	       840  [Ljava.lang.reflect.Constructor;
+364:	    17	       816  java.security.AccessControlContext
+365:	     2	       784  org.apache.xerces.impl.dtd.XMLDTDValidator
+366:	    14	       784  java.security.ProtectionDomain
+367:	    14	       784  java.security.CodeSource
+368:	    23	       736  java.security.Provider$UString
+369:	    13	       728  java.io.ObjectStreamField
+370:	    15	       720  java.security.Permissions
+371:	    10	       720  java.util.Properties
+372:	    15	       720  java.io.OutputStreamWriter
+373:	     9	       720  java.util.ResourceBundle$CacheKey
+374:	    17	       680  java.lang.RuntimePermission
+375:	    14	       672  java.io.FilePermission
+376:	    14	       672  java.security.BasicPermissionCollection
+377:	     1	       672  [Ljavax.swing.text.html.HTML$Attribute;
+378:	    14	       672  java.util.zip.ZipFile
+379:	    20	       640  java.util.regex.Pattern$GroupTail
+380:	     6	       624  sun.reflect.DelegatingClassLoader
+381:	     2	       624  org.apache.xerces.impl.XMLDTDScannerImpl
+382:	     1	       616  [Ljavax.swing.text.html.HTML$Tag;
+383:	     4	       608  [Ljava.util.concurrent.ConcurrentHashMap$Segment;
+384:	     7	       600  [Ljava.lang.reflect.Method;
+385:	     9	       576  java.util.ResourceBundle$BundleReference
+386:	    24	       576  org.apache.xerces.util.AugmentationsImpl
+387:	     6	       576  java.util.regex.Pattern
+388:	    18	       576  java.lang.StringBuffer
+389:	    18	       576  java.util.regex.Pattern$GroupHead
+390:	     5	       560  sun.net.www.protocol.jar.URLJarFile
+391:	    10	       560  java.lang.ThreadLocal$ThreadLocalMap$Entry
+392:	     2	       560  org.apache.xerces.impl.dtd.XMLDTDProcessor
+393:	    17	       544  sun.nio.cs.Surrogate$Parser
+394:	    17	       544  sun.misc.URLClassPath$FileLoader
+395:	    11	       528  java.util.regex.Pattern$Curly
+396:	    13	       520  sun.reflect.NativeConstructorAccessorImpl
+397:	    13	       520  org.apache.xerces.util.DOMErrorHandlerWrapper
+398:	    16	       512  org.apache.xerces.xni.XMLString
+399:	     9	       504  edu.brown.cs.s6.language.java.JavaType$PrimType
+400:	     9	       504  java.util.ResourceBundle$LoaderReference
+401:	    10	       480  org.eclipse.jdt.internal.compiler.lookup.BaseTypeBinding
+402:	    15	       480  java.util.jar.Manifest
+403:	    19	       456  sun.reflect.DelegatingConstructorAccessorImpl
+404:	    19	       456  org.eclipse.jdt.core.dom.InfixExpression$Operator
+405:	    14	       448  java.util.BitSet
+406:	     2	       448  org.apache.xerces.parsers.StandardParserConfiguration
+407:	    14	       448  java.io.FilePermissionCollection
+408:	    10	       400  java.util.Stack
+409:	     5	       400  java.util.LinkedHashMap
+410:	     8	       384  sun.security.jca.ProviderConfig
+411:	    16	       384  java.util.regex.Pattern$CharPropertyNames$4
+412:	     8	       384  java.lang.OutOfMemoryError
+413:	     2	       368  edu.brown.cs.ivy.exec.IvyExec$ReaderThread
+414:	     9	       360  java.util.logging.Level
+415:	    15	       360  java.util.jar.Attributes
+416:	    11	       352  org.eclipse.jdt.core.dom.Modifier$ModifierKeyword
+417:	    11	       352  java.util.regex.Pattern$Slice
+418:	     3	       336  [D
+419:	    14	       336  [Ljava.security.Principal;
+420:	     2	       320  org.apache.xerces.parsers.DOMParser
+421:	     8	       320  java.util.logging.LogManager$LogNode
+422:	     5	       320  org.apache.xerces.dom.DeferredCDATASectionImpl
+423:	     9	       320  [Ljava.io.ObjectStreamField;
+424:	     2	       288  sun.security.provider.Sun
+425:	     6	       288  java.util.regex.Pattern$Branch
+426:	     9	       288  sun.misc.MetaIndex
+427:	    12	       288  org.eclipse.jdt.core.dom.Assignment$Operator
+428:	     4	       288  [Lorg.apache.xerces.util.XMLAttributesImpl$Attribute;
+429:	     4	       288  [Lorg.apache.xerces.util.AugmentationsImpl;
+430:	     6	       288  org.apache.xerces.util.XMLResourceIdentifierImpl
+431:	     4	       288  org.apache.xerces.impl.dtd.XMLEntityDecl
+432:	     4	       288  java.util.concurrent.ConcurrentHashMap
+433:	     7	       280  sun.reflect.NativeMethodAccessorImpl
+434:	     1	       280  [Ledu.brown.cs.s6.common.S6Constants$S6SignatureType;
+435:	    11	       264  java.lang.ThreadLocal
+436:	     3	       264  java.util.jar.JarVerifier
+437:	     8	       256  java.util.regex.Pattern$Ctype
+438:	     8	       256  java.util.regex.Pattern$BitClass
+439:	     2	       256  org.apache.xerces.impl.XMLEntityManager
+440:	     4	       256  org.apache.xerces.impl.dtd.XMLSimpleType
+441:	     6	       256  [Ljava.util.regex.Pattern$Node;
+442:	     8	       256  edu.brown.cs.s6.common.S6Constants$S6TestOp
+443:	     3	       240  sun.util.calendar.ZoneInfo
+444:	     6	       240  java.lang.ref.ReferenceQueue
+445:	     1	       232  org.eclipse.jdt.internal.core.JavaModelManager
+446:	     7	       224  java.util.regex.Pattern$Single
+447:	     4	       224  java.util.concurrent.locks.AbstractQueuedSynchronizer$Node
+448:	     2	       224  java.util.logging.Logger
+449:	     3	       216  java.util.PropertyResourceBundle
+450:	     9	       216  javax.swing.text.StyleConstants$ParagraphConstants
+451:	     9	       216  org.eclipse.jdt.core.dom.PrimitiveType$Code
+452:	     1	       200  org.eclipse.core.internal.runtime.InternalPlatform
+453:	     5	       200  java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject
+454:	     6	       192  java.lang.ThreadLocal$ThreadLocalMap
+455:	     8	       192  java.util.regex.Pattern$CharPropertyNames$3
+456:	     6	       192  edu.brown.cs.s6.common.S6Constants$S6SolutionFlag
+457:	     2	       192  java.io.LineNumberReader
+458:	     6	       192  edu.brown.cs.s6.common.S6Constants$S6SecurityType
+459:	     2	       192  org.apache.xerces.impl.XMLNamespaceBinder
+460:	     1	       184  java.net.SocksSocketImpl
+461:	     2	       176  [Ledu.brown.cs.s6.common.S6Constants$S6TestOp;
+462:	     2	       176  org.eclipse.jdt.core.dom.TypeDeclarationStatement
+463:	     2	       176  java.io.ExpiringCache$1
+464:	     1	       176  java.lang.UNIXProcess$1$1
+465:	     1	       176  java.util.logging.LogManager$Cleaner
+466:	     7	       168  javax.swing.text.StyleConstants$CharacterConstants
+467:	     7	       168  sun.reflect.DelegatingMethodAccessorImpl
+468:	     1	       168  java.lang.ref.Reference$ReferenceHandler
+469:	     3	       168  sun.misc.URLClassPath
+470:	     1	       168  java.lang.ref.Finalizer$FinalizerThread
+471:	     5	       160  com.ibm.jikesbt.BT_NopIns
+472:	     4	       160  edu.brown.cs.s6.request.RequestTestCase$CallArgImpl
+473:	     4	       160  org.eclipse.core.runtime.Path
+474:	     1	       160  javax.swing.text.html.parser.DTD
+475:	     4	       160  org.apache.xerces.util.XMLAttributesImpl
+476:	     4	       160  java.io.BufferedOutputStream
+477:	     2	       160  sun.nio.cs.StreamDecoder
+478:	     5	       160  edu.brown.cs.s6.common.S6Constants$S6TransformType
+479:	     1	       152  org.eclipse.jdt.internal.core.DeltaProcessingState
+480:	     2	       152  [[Ljava.lang.String;
+481:	     1	       152  postgresql.jdbc2.Connection
+482:	     1	       152  [Ljava.util.WeakHashMap$Entry;
+483:	     6	       144  sun.reflect.BootstrapConstructorAccessorImpl
+484:	     6	       144  java.util.regex.Pattern$BranchConn
+485:	     6	       144  java.util.concurrent.locks.ReentrantLock
+486:	     1	       144  sun.security.jca.ProviderList$1
+487:	     6	       144  java.util.regex.Pattern$CharPropertyNames$2
+488:	     2	       144  [Ledu.brown.cs.s6.common.S6Constants$S6SolutionFlag;
+489:	     6	       144  org.eclipse.jdt.core.dom.PrefixExpression$Operator
+490:	     2	       144  [Ljava.lang.Thread;
+491:	     1	       144  sun.misc.Launcher$ExtClassLoader
+492:	     2	       144  java.lang.ThreadGroup
+493:	     1	       136  sun.misc.Launcher$AppClassLoader
+494:	     4	       128  edu.brown.cs.s6.common.S6Constants$S6TestArgType
+495:	     4	       128  java.util.regex.Pattern$Start
+496:	     4	       128  edu.brown.cs.s6.common.S6Constants$S6Location
+497:	     2	       128  org.apache.xerces.impl.validation.ValidationState
+498:	     8	       128  java.lang.ref.ReferenceQueue$Lock
+499:	     2	       128  org.apache.xerces.impl.XMLErrorReporter
+500:	     2	       128  edu.brown.cs.s6.request.RequestTestCase$CallTestImpl
+501:	     2	       128  [Ledu.brown.cs.s6.common.S6Constants$S6TransformType;
+502:	     5	       120  com.ibm.jikesbt.BT_AnyConstantValue$FloatV
+503:	     1	       120  java.util.logging.LogManager$RootLogger
+504:	     3	       120  java.net.Inet4Address
+505:	     3	       120  edu.brown.cs.s6.request.RequestTestCase$UserCodeTest
+506:	     3	       120  sun.misc.JarIndex
+507:	     2	       112  org.apache.xerces.util.NamespaceSupport
+508:	     2	       112  java.util.regex.Pattern$GroupCurly
+509:	     2	       112  [Ledu.brown.cs.s6.common.S6Constants$S6TestArgType;
+510:	     2	       112  java.nio.HeapCharBuffer
+511:	     3	       112  [Ljava.security.ProtectionDomain;
+512:	     2	       112  [Lsun.security.jca.ProviderConfig;
+513:	     2	       112  [Ledu.brown.cs.s6.common.S6Constants$S6Location;
+514:	     2	       112  java.io.PrintStream
+515:	     1	       104  java.util.concurrent.ThreadPoolExecutor
+516:	     4	       104  [Lorg.eclipse.jdt.internal.compiler.lookup.ReferenceBinding;
+517:	     1	       104  edu.brown.cs.s6.engine.EngineMain
+518:	     2		96  java.io.BufferedInputStream
+519:	     4		96  [Ljava.lang.annotation.Annotation;
+520:	     4		96  javax.swing.text.StyleConstants$FontConstants
+521:	     2		96  java.lang.ClassLoader$NativeLibrary
+522:	     3		96  java.net.Proxy$Type
+523:	     2		96  java.io.ExpiringCache
+524:	     3		96  sun.misc.Signal
+525:	     3		96  edu.brown.cs.s6.common.S6Constants$S6FragmentType
+526:	     4		96  edu.brown.cs.s6.request.RequestKeywordSet
+527:	     2		96  org.apache.xerces.impl.dtd.XMLElementDecl
+528:	     3		96  java.util.Collections$SynchronizedSet
+529:	     1		96  sun.security.provider.NativePRNG$RandomIO
+530:	     2		96  edu.brown.cs.s6.request.RequestTestCase$CallSetTest
+531:	     3		96  java.io.ByteArrayOutputStream
+532:	     2		96  java.util.Collections$UnmodifiableMap
+533:	     4		96  javax.swing.text.StyleConstants
+534:	     1		88  [Lorg.eclipse.jdt.internal.core.util.WeakHashSetOfCharArray$HashableWeakReference;
+535:	     1		88  sun.security.provider.MD5
+536:	     2		88  [[J
+537:	     1		88  [Lorg.eclipse.jdt.internal.core.util.WeakHashSet$HashableWeakReference;
+538:	     1		88  edu.brown.cs.s6.request.RequestSearch
+539:	     2		80  java.lang.StringCoding$StringEncoder
+540:	     1		80  sun.net.www.http.KeepAliveStreamCleaner
+541:	     2		80  sun.security.jca.ProviderList
+542:	     2		80  java.util.regex.Pattern$Ques
+543:	     1		80  [Ljava.util.concurrent.TimeUnit;
+544:	     2		80  org.apache.xerces.impl.XMLEntityManager$ExternalEntity
+545:	     2		80  java.sql.DriverInfo
+546:	     1		80  java.lang.UNIXProcess
+547:	     1		80  java.lang.UNIXProcess$1
+548:	     2		80  [Ledu.brown.cs.s6.common.S6Constants$S6SearchType;
+549:	     1		80  java.util.concurrent.LinkedBlockingQueue
+550:	     2		80  java.lang.StringCoding$StringDecoder
+551:	     2		80  java.io.InputStreamReader
+552:	     2		80  java.lang.ref.ReferenceQueue$Null
+553:	     2		80  org.apache.xerces.impl.dtd.XMLAttributeDecl
+554:	     2		80  org.apache.xerces.impl.dtd.DTDGrammarBucket
+555:	     2		80  org.apache.xerces.jaxp.DocumentBuilderImpl
+556:	     2		80  sun.net.spi.DefaultProxySelector$NonProxyInfo
+557:	     5		80  javax.swing.text.html.parser.ParserDelegator
+558:	     1		72  [F
+559:	     1		72  edu.brown.cs.s6.request.RequestMethod
+560:	     3		72  org.eclipse.jdt.internal.compiler.impl.DoubleConstant
+561:	     1		72  org.eclipse.jdt.internal.compiler.ast.IntLiteral
+562:	     3		72  org.apache.xerces.impl.dv.dtd.ListDatatypeValidator
+563:	     3		72  java.util.concurrent.atomic.AtomicInteger
+564:	     1		72  java.util.logging.LogManager
+565:	     1		72  java.net.SocketOutputStream
+566:	     1		72  edu.brown.cs.s6.solution.SolutionSet
+567:	     1		72  sun.nio.cs.UTF_8$Decoder
+568:	     1		72  [Ledu.brown.cs.s6.common.S6Constants$S6SecurityType;
+569:	     1		72  java.util.WeakHashMap
+570:	     3		72  java.nio.charset.CodingErrorAction
+571:	     3		72  org.eclipse.jdt.internal.core.dom.rewrite.ASTRewriteFormatter$ConstPrefix
+572:	     1		72  sun.net.www.http.KeepAliveCache
+573:	     2		64  java.util.regex.Pattern$CharProperty$1
+574:	     2		64  edu.brown.cs.s6.common.S6Constants$S6SearchType
+575:	     2		64  org.apache.xerces.util.SymbolTable
+576:	     2		64  org.apache.xerces.impl.XMLDocumentScannerImpl$ContentDispatcher
+577:	     1		64  java.util.ResourceBundle$1
+578:	     2		64  java.net.InetAddress$Cache
+579:	     2		64  sun.security.jca.ProviderList$3
+580:	     2		64  java.net.InetAddress$Cache$Type
+581:	     2		64  java.util.regex.Pattern$SliceI
+582:	     2		64  org.apache.xerces.impl.validation.ValidationManager
+583:	     2		64  org.apache.xerces.impl.msg.XMLMessageFormatter
+584:	     2		64  [Ljava.net.InetAddress;
+585:	     1		64  [Lorg.eclipse.jdt.core.IElementChangedListener;
+586:	     1		64  java.net.SocketInputStream
+587:	     2		64  edu.brown.cs.s6.common.S6Constants$S6TestType
+588:	     2		64  org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$ElementStack
+589:	     1		56  [Ljava.lang.ThreadGroup;
+590:	     1		56  sun.nio.cs.StandardCharsets$Classes
+591:	     1		56  java.util.concurrent.ThreadPoolExecutor$Worker
+592:	     1		56  sun.nio.cs.StandardCharsets$Cache
+593:	     1		56  java.security.MessageDigest$Delegate
+594:	     1		56  sun.misc.SoftCache
+595:	     1		56  [Ljava.lang.OutOfMemoryError;
+596:	     1		56  java.util.Collections$SynchronizedMap
+597:	     1		56  edu.brown.cs.ivy.cinder.CinderManager
+598:	     1		56  edu.brown.cs.ivy.exec.IvyExec
+599:	     1		56  sun.nio.cs.StandardCharsets$Aliases
+600:	     2		48  javax.swing.text.StyleConstants$ColorConstants
+601:	     2		48  java.lang.Boolean
+602:	     1		48  java.util.concurrent.atomic.AtomicReferenceFieldUpdater$AtomicReferenceFieldUpdaterImpl
+603:	     1		48  java.io.UnixFileSystem
+604:	     1		48  java.util.regex.Pattern$Loop
+605:	     1		48  org.eclipse.jdt.internal.core.JavaModelManager$CompilationParticipants
+606:	     1		48  java.util.regex.Pattern$BnM
+607:	     2		48  java.nio.charset.CoderResult
+608:	     2		48  java.util.regex.Pattern$Dot
+609:	     1		48  [Ljava.net.Proxy$Type;
+610:	     2		48  sun.misc.NativeSignalHandler
+611:	     2		48  com.ibm.jikesbt.BT_AnyConstantValue$DoubleV
+612:	     2		48  org.eclipse.jdt.core.dom.PostfixExpression$Operator
+613:	     1		48  sun.nio.cs.StandardCharsets
+614:	     1		48  java.lang.IllegalArgumentException
+615:	     1		48  [Ledu.brown.cs.s6.common.S6Constants$S6FragmentType;
+616:	     2		48  edu.brown.cs.ivy.xml.IvyXml$XmlParser
+617:	     1		48  java.beans.PropertyChangeSupport
+618:	     1		48  java.lang.NullPointerException
+619:	     1		48  java.lang.ArithmeticException
+620:	     2		48  org.apache.xerces.impl.XMLEntityManager$EntityScanner
+621:	     1		48  edu.brown.cs.s6.keysearch.KeySearchKrugle
+622:	     3		48  sun.net.www.protocol.jar.Handler
+623:	     2		48  [Lorg.eclipse.jdt.internal.compiler.lookup.TypeBinding;
+624:	     2		48  org.apache.xerces.impl.XMLDocumentScannerImpl$XMLDeclDispatcher
+625:	     2		48  java.nio.ByteOrder
+626:	     2		48  org.apache.xerces.impl.XMLDocumentScannerImpl$PrologDispatcher
+627:	     2		48  org.apache.xerces.impl.XMLDocumentScannerImpl$DTDDispatcher
+628:	     2		48  java.lang.InheritableThreadLocal
+629:	     1		48  java.lang.VirtualMachineError
+630:	     2		48  org.apache.xerces.impl.XMLDocumentScannerImpl$TrailingMiscDispatcher
+631:	     2		48  [Ljava.util.logging.Handler;
+632:	     1		40  sun.nio.cs.US_ASCII
+633:	     1		40  [Lorg.eclipse.core.runtime.preferences.IEclipsePreferences;
+634:	     1		40  java.util.regex.Pattern$8
+635:	     1		40  com.ibm.jikesbt.BT_ClassTable
+636:	     1		40  edu.brown.cs.s6.language.java.JavaTester
+637:	     1		40  sun.jdbc.odbc.JdbcOdbcDriver
+638:	     1		40  edu.brown.cs.s6.language.java.LanguageJava
+639:	     1		40  [Ljava.io.File;
+640:	     1		40  java.lang.reflect.ReflectPermission
+641:	     1		40  java.util.AbstractList$Itr
+642:	     1		40  sun.nio.cs.UTF_8
+643:	     1		40  java.net.Socket
+644:	     1		40  [Ljava.net.InetAddress$Cache$Type;
+645:	     1		40  [[[J
+646:	     1		40  postgresql.PG_Stream
+647:	     1		40  java.util.logging.LoggingPermission
+648:	     1		40  java.sql.SQLPermission
+649:	     1		40  [Ledu.brown.cs.s6.common.S6Constants$S6TestType;
+650:	     1		40  org.eclipse.jdt.internal.core.util.WeakHashSet
+651:	     1		40  java.lang.ProcessEnvironment$StringEnvironment
+652:	     1		40  org.eclipse.jdt.internal.compiler.util.HashtableOfInt
+653:	     1		40  org.eclipse.jdt.internal.core.util.WeakHashSetOfCharArray
+654:	     1		32  java.util.concurrent.TimeUnit$2
+655:	     1		32  edu.brown.cs.s6.language.java.TransformRemoveUndef
+656:	     1		32  java.util.concurrent.TimeUnit$3
+657:	     1		32  java.net.InetAddress$CacheEntry
+658:	     1		32  java.util.regex.Pattern$2
+659:	     1		32  edu.brown.cs.s6.language.java.TransformThrow
+660:	     1		32  java.util.concurrent.TimeUnit$4
+661:	     1		32  java.util.concurrent.TimeUnit$5
+662:	     1		32  edu.brown.cs.s6.request.RequestSources
+663:	     1		32  java.util.concurrent.TimeUnit$6
+664:	     1		32  edu.brown.cs.s6.language.java.TransformGeneralize
+665:	     1		32  java.net.Proxy
+666:	     1		32  java.util.regex.Pattern$Prolog
+667:	     1		32  java.util.concurrent.TimeUnit$7
+668:	     1		32  edu.brown.cs.s6.request.RequestContracts
+669:	     1		32  java.util.regex.Pattern$Dollar
+670:	     1		32  sun.nio.cs.ThreadLocalCoders$1
+671:	     1		32  edu.brown.cs.s6.language.java.TransformName
+672:	     1		32  edu.brown.cs.s6.language.java.TransformStatic
+673:	     2		32  org.apache.xerces.impl.dv.dtd.ENTITYDatatypeValidator
+674:	     1		32  sun.nio.cs.ThreadLocalCoders$2
+675:	     1		32  edu.brown.cs.s6.language.java.TransformReturn
+676:	     1		32  java.lang.UNIXProcess$Gate
+677:	     1		32  edu.brown.cs.s6.language.java.TransformImplement
+678:	     1		32  sun.net.ProgressMonitor
+679:	     1		32  java.net.Inet6AddressImpl
+680:	     1		32  edu.brown.cs.s6.language.java.TransformExtraParameters
+681:	     1		32  sun.net.www.protocol.http.Handler
+682:	     1		32  java.util.Collections$EmptyMap
+683:	     1		32  edu.brown.cs.s6.language.java.TransformStaticClass
+684:	     1		32  [Lorg.eclipse.core.resources.IResourceChangeListener;
+685:	     1		32  edu.brown.cs.s6.request.RequestTests
+686:	     1		32  edu.brown.cs.s6.language.java.TransformChunk
+687:	     1		32  edu.brown.cs.s6.language.java.TransformFixReturn
+688:	     2		32  java.lang.Shutdown$Lock
+689:	     1		32  edu.brown.cs.s6.keysearch.KeySearchSet
+690:	     1		32  java.security.Policy$UnsupportedEmptyCollection
+691:	     1		32  edu.brown.cs.s6.language.java.TransformParameterTypes
+692:	     1		32  java.util.concurrent.TimeUnit$1
+693:	     1		32  edu.brown.cs.s6.language.java.TransformException
+694:	     1		32  edu.brown.cs.s6.language.java.TransformParameterOrder
+695:	     1		24  [Lorg.eclipse.jdt.core.dom.Message;
+696:	     1		24  [Lorg.eclipse.jdt.core.compiler.IProblem;
+697:	     1		24  java.util.Hashtable$EntrySet
+698:	     1		24  sun.misc.FloatingDecimal$1
+699:	     1		24  [Lorg.eclipse.jdt.internal.compiler.lookup.MethodBinding;
+700:	     1		24  [Ljava.lang.StackTraceElement;
+701:	     1		24  [Lorg.eclipse.jdt.internal.compiler.lookup.TypeVariableBinding;
+702:	     1		24  java.util.regex.Pattern$Begin
+703:	     1		24  edu.brown.cs.s6.request.RequestSecurity
+704:	     1		24  [Lorg.eclipse.jdt.internal.compiler.lookup.AnnotationBinding;
+705:	     1		24  sun.jdbc.odbc.JdbcOdbcTracer
+706:	     1		24  java.nio.charset.CoderResult$1
+707:	     1		24  [Lorg.eclipse.jdt.internal.compiler.lookup.ElementValuePair;
+708:	     1		24  [Ljava.security.Provider;
+709:	     1		24  java.nio.charset.CoderResult$2
+710:	     1		24  [Ljava.security.cert.Certificate;
+711:	     1		24  sun.net.www.protocol.http.AuthCacheImpl
+712:	     1		24  [Lorg.eclipse.jdt.core.ICompilationUnit;
+713:	     1		24  postgresql.Driver
+714:	     1		24  sun.misc.Launcher
+715:	     1		24  org.eclipse.jdt.internal.core.DefaultWorkingCopyOwner
+716:	     1		24  [Lorg.eclipse.jdt.internal.compiler.ast.MemberValuePair;
+717:	     1		24  java.util.Hashtable$KeySet
+718:	     1		24  sun.nio.cs.Surrogate$Generator
+719:	     1		24  edu.brown.cs.s6.keysearch.KeySearchKoders
+720:	     1		24  java.util.Collections$EmptyList
+721:	     1		24  sun.util.calendar.Gregorian
+722:	     1		24  java.util.regex.Pattern$CharPropertyNames$6
+723:	     1		24  java.io.Console$1$1
+724:	     1		24  java.util.regex.Pattern$CharPropertyNames$7
+725:	     1		24  java.util.regex.Pattern$CharPropertyNames$8
+726:	     1		24  java.util.regex.Pattern$CharPropertyNames$9
+727:	     1		24  com.ibm.jikesbt.BT_MonitorStream
+728:	     1		24  java.util.regex.Pattern$CharPropertyNames$10
+729:	     1		24  [Lorg.eclipse.text.edits.TextEdit;
+730:	     1		24  java.util.regex.Pattern$CharPropertyNames$11
+731:	     1		24  edu.brown.cs.s6.keysearch.KeySearchGoogle
+732:	     1		24  sun.net.spi.DefaultProxySelector
+733:	     1		24  edu.brown.cs.s6.engine.EngineMain$PoolFactory
+734:	     1		24  java.util.regex.Pattern$CharPropertyNames$12
+735:	     1		24  [Lorg.eclipse.jdt.internal.core.JavaElement;
+736:	     1		24  [Lorg.eclipse.jdt.internal.compiler.lookup.FieldBinding;
+737:	     1		24  java.util.regex.Pattern$CharPropertyNames$13
+738:	     1		24  edu.brown.cs.s6.keysearch.KeySearchLabrador
+739:	     1		24  java.util.regex.Pattern$CharPropertyNames$14
+740:	     1		24  java.util.regex.Pattern$CharPropertyNames$15
+741:	     1		24  org.eclipse.jdt.internal.core.JavaModel
+742:	     1		24  java.util.regex.Pattern$CharPropertyNames$16
+743:	     1		24  java.util.regex.Pattern$Node
+744:	     1		24  java.util.regex.Pattern$5
+745:	     1		24  java.util.regex.Pattern$CharPropertyNames$17
+746:	     1		24  java.util.regex.Pattern$CharPropertyNames$18
+747:	     1		24  java.util.regex.Pattern$LastNode
+748:	     1		24  java.util.regex.Pattern$CharPropertyNames$19
+749:	     1		24  [Lcom.ibm.jikesbt.BT_ConstantPoolItem;
+750:	     1		24  [Ljava.lang.Enum;
+751:	     1		24  java.util.regex.Pattern$CharPropertyNames$20
+752:	     1		24  edu.brown.cs.s6.license.LicenseManager
+753:	     1		24  java.util.regex.Pattern$CharPropertyNames$21
+754:	     1		16  java.lang.String$CaseInsensitiveComparator
+755:	     1		16  java.net.URLClassLoader$7
+756:	     1		16  java.lang.reflect.ReflectAccess
+757:	     1		16  javax.swing.text.SimpleAttributeSet$EmptyAttributeSet
+758:	     1		16  sun.reflect.GeneratedConstructorAccessor1
+759:	     1		16  sun.reflect.GeneratedConstructorAccessor6
+760:	     1		16  sun.net.www.protocol.file.Handler
+761:	     1		16  org.apache.xerces.impl.dv.dtd.DTDDVFactoryImpl
+762:	     1		16  java.lang.Terminator$1
+763:	     1		16  java.lang.System$2
+764:	     1		16  org.apache.xerces.impl.dv.dtd.StringDatatypeValidator
+765:	     1		16  org.apache.xerces.impl.dv.dtd.IDDatatypeValidator
+766:	     1		16  org.eclipse.jdt.internal.core.JavaModelManager$1
+767:	     1		16  sun.net.www.protocol.jar.JarFileFactory
+768:	     1		16  org.apache.xerces.impl.dv.dtd.IDREFDatatypeValidator
+769:	     1		16  org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration$1
+770:	     1		16  org.apache.xerces.impl.dv.dtd.NOTATIONDatatypeValidator
+771:	     1		16  org.apache.xerces.impl.dv.dtd.NMTOKENDatatypeValidator
+772:	     1		16  java.util.ResourceBundle$Control
+773:	     1		16  java.util.Collections$EmptySet
+774:	     1		16  java.util.regex.Pattern$CharPropertyNames$5
+775:	     1		16  sun.misc.Launcher$Factory
+776:	     1		16  java.lang.Runtime
+777:	     1		16  sun.net.DefaultProgressMeteringPolicy
+778:	     1		16  sun.reflect.ReflectionFactory
+779:	     1		16  java.net.InetAddress$1
+780:	     1		16  java.lang.ref.Reference$Lock
+781:	     1		16  org.eclipse.jdt.internal.compiler.CompilationResult$1
+782:	     1		16  java.io.Console$1
+783:	     1		16  edu.brown.cs.s6.common.S6FactoryImpl
+784:	     1		16  java.util.Collections$ReverseComparator
+785:	     1		16  sun.misc.ASCIICaseInsensitiveComparator
+786:	     1		16  sun.misc.Unsafe
+787:	     1		16  sun.reflect.GeneratedConstructorAccessor4
+788:	     1		16  org.apache.xerces.dom.CharacterDataImpl$1
+789:	     1		16  java.util.Hashtable$EmptyEnumerator
+790:	     1		16  org.eclipse.text.edits.TextEdit$InsertionComparator
+791:	     1		16  sun.reflect.GeneratedConstructorAccessor5
+792:	     1		16  javax.xml.parsers.SecuritySupport
+793:	     1		16  java.net.UnknownContentHandler
+794:	     1		16  java.util.concurrent.ThreadPoolExecutor$AbortPolicy
+795:	     1		16  java.util.Hashtable$EmptyIterator
+796:	     1		16  java.util.jar.JavaUtilJarAccessImpl
+797:	     1		16  java.io.File$1
+798:	     1		16  java.lang.ApplicationShutdownHooks
+799:	     1		16  sun.reflect.GeneratedConstructorAccessor2
+800:	     1		16  sun.reflect.GeneratedConstructorAccessor3
+Total 42159620	 -1242638736

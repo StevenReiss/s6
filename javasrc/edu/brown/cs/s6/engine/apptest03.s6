@@ -1,0 +1,27 @@
+<SEARCH WHAT='FULLCLASS' LOCAL='FALSE' REMOTE='TRUE' GITZIP='TRUE' SCOPE='CLASS'>
+<SIGNATURE>
+      <CLASS NAME='UavMapDisplay'>
+	 <METHOD NAME='UavMapDisplay' SIGNATURE='(I)' />
+	 <METHOD NAME='show' SIGNATURE='(Ljava/awt/Point2D;)V' />
+      </CLASS>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>swing</KEYWORD>
+   <KEYWORD>map</KEYWORD>
+   <KEYWORD>gps</KEYWORD>
+   <KEYWORD>latitude</KEYWORD>
+   <KEYWORD>longitude</KEYWORD>
+   <KEYWORD>display</KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

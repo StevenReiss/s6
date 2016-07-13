@@ -1,0 +1,10 @@
+#! /bin/csh -f
+
+#
+# run ant <dir>
+#
+
+cd $1
+unsetenv CLASSPATH
+setenv ANT_OPTS "-Xmx256m"
+ant

@@ -1,0 +1,38 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='FALSE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='s6tgen_1056' NAME='S6TestStopWatch'>
+      <TESTEE PACKAGE='s6tgen_1056'>
+	 <CLASS NAME='StopWatch'>
+	    <METHOD NAME='start' SIGNATURE='()V'
+		RETURN='void'
+		ARGS='()' />
+	    <METHOD NAME='getCurrentTime' SIGNATURE='()J'
+		RETURN='long'
+		ARGS='()' />
+	    <METHOD NAME='stop' SIGNATURE='()J'
+		RETURN='long'
+		ARGS='()' />
+	    <METHOD NAME='reset' SIGNATURE='()V'
+		RETURN='void'
+		ARGS='()' />
+	    <METHOD NAME='toString' SIGNATURE='()Ljava/lang/String;'
+		RETURN='java.lang.String'
+		ARGS='()' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>stop</KEYWORD>
+   <KEYWORD>watch</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>org.junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/ws/volfred/s6/s6tgen/context.s6ctx' />
+<SOURCES>
+   <SOURCE USE='TRUE'>GITHUB:/kawasima/test-streamer/blob/80edd631e0ed365405be4847b7d6220b72f12224/examples/simple-server/src/java/org/apache/commons/lang3/time/StopWatchTest.java</SOURCE>
+</SOURCES>
+</SEARCH>
+
+
+

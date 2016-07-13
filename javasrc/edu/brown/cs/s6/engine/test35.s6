@@ -1,0 +1,26 @@
+<SEARCH FORMAT='NONE' GOOGLE='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>comp</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String comp(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='comp' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[ATTAUG]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[TAATUC]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT><CONTEXT /></CONTEXT>
+<KEYWORDS>
+<KEYWORD><![CDATA[complementary]]></KEYWORD>
+<KEYWORD><![CDATA[DNA]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

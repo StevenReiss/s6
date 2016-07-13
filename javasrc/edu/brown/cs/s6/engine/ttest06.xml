@@ -1,0 +1,23 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='edu.brown.cs.upod.basis' NAME='BasisSebsorWebCache'>
+      <TESTEE PACKAGE='edu.brown.cs.upod.basis'>
+	 <CLASS NAME='BasisSensorWebCache'>
+	    <METHOD NAME='&lt;init&gt;' SIGNATURE='()'
+		ARGS='()' />
+	    <METHOD NAME='getContents' SIGNATURE='(Ljava/net/URL;J)Ljava/lang/String;' STATIC='TRUE'
+		RETURN='void'
+		ARGS='(java.lang.Runnable)' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>web</KEYWORD>
+   <KEYWORD>cache</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/upod.s6ctx' />
+</SEARCH>
+

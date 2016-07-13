@@ -1,0 +1,23 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_95741' NAME='S6TestElement'>
+      <TESTEE PACKAGE='s6tgen_95741'>
+	<CLASS NAME='Element'>
+	  <METHOD NAME='Element' SIGNATURE='(Ljava/lang/String;)' />
+	  <METHOD NAME='getName' SIGNATURE='()Ljava/lang/String;' />
+	  <METHOD NAME='getStereotypes' SIGNATURE='()Ljava/util/List&lt;Ljava/lang/String;&gt;;' />
+	  <METHOD NAME='addSterotype' SIGNATURE='(Ljava/lang/String;)Ls6tgen_95741/Element;' />
+	  <METHOD NAME='hashCode' SIGNATURE='()I' />
+	  <METHOD NAME='equals' SIGNATURE='(Ljava/lang/Object;)Z' />
+	  <METHOD NAME='toString' SIGNATURE='()Ljava/lang/String;' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>stereotype</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_95741/context.s6ctx' />
+</SEARCH>

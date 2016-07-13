@@ -1,0 +1,8 @@
+<module>
+   <inherits name="com.google.gwt.user.User" />
+   <inherits name="com.google.gwt.xml.XML" />
+   <entry-point class="edu.brown.cs.s6.sviweb.client.SviwebMain" />
+   <stylesheet src='s6.css' />
+   <servlet path='/sviweb' class='edu.brown.cs.s6.sviweb.server.SviwebServiceImpl' />
+   <servlet path='/sviwebfile' class='edu.brown.cs.s6.sviweb.server.SviwebFileImpl' />
+</module>

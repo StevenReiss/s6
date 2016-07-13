@@ -1,0 +1,21 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_27406' NAME='S6TestDesEncrypter'>
+      <TESTEE PACKAGE='s6tgen_27406'>
+        <CLASS NAME='DesEncrypter'>
+          <METHOD NAME='DesEncrypter' SIGNATURE='(Ljava/lang/String;)' />
+          <METHOD NAME='encrypt' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;' />
+          <METHOD NAME='decrypt' SIGNATURE='(Ljava/lang/String;)Ljava/lang/String;' />
+        </CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>spec</KEYWORD>
+    <KEYWORD>cipher</KEYWORD>
+    <KEYWORD>secret</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_27406/context.s6ctx' />
+</SEARCH>

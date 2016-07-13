@@ -1,0 +1,40 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='false' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='s6tgen_97260' NAME='S6TestIntHashMap'>
+      <TESTEE PACKAGE='s6tgen_97260'>
+	<CLASS NAME='IntHashMap'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(IF)' />
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(I)' />
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()' />
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/util/Map;)' />
+	  <METHOD NAME='size' SIGNATURE='()I' />
+	  <METHOD NAME='isEmpty' SIGNATURE='()Z' />
+	  <METHOD NAME='containsValue' SIGNATURE='(Ljava/lang/Object;)Z' />
+	  <METHOD NAME='containsKey' SIGNATURE='(Ljava/lang/Object;)Z' />
+	  <METHOD NAME='containsKey' SIGNATURE='(I)Z' />
+	  <METHOD NAME='get' SIGNATURE='(Ljava/lang/Object;)Ljava/lang/Object;' />
+	  <METHOD NAME='get' SIGNATURE='(I)Ljava/lang/Object;' />
+	  <METHOD NAME='put' SIGNATURE='(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;' />
+	  <METHOD NAME='put' SIGNATURE='(ILjava/lang/Object;)Ljava/lang/Object;' />
+	  <METHOD NAME='remove' SIGNATURE='(Ljava/lang/Object;)Ljava/lang/Object;' />
+	  <METHOD NAME='remove' SIGNATURE='(I)Ljava/lang/Object;' />
+	  <METHOD NAME='putAll' SIGNATURE='(Ljava/util/Map;)V' />
+	  <METHOD NAME='clear' SIGNATURE='()V' />
+	  <METHOD NAME='clone' SIGNATURE='()Ljava/lang/Object;' />
+	  <METHOD NAME='keySet' SIGNATURE='()Ljava/util/Set;' />
+	  <METHOD NAME='values' SIGNATURE='()Ljava/util/Collection;' />
+	  <METHOD NAME='entrySet' SIGNATURE='()Ljava/util/Set;' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>inthashmap</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/ws/volfred/tmp/s6tgen/s6tgen_97260/context.s6ctx' />
+  <SOURCES>
+    <SOURCE USE='T'>GITHUB:/threenoodles/platform/blob/f57237eb4ffadb4406020c0174ab7b1230b3faae/jar-source/commons-lang-2.6-src/src/test/java/org/apache/commons/lang/IntHashMapTest.java</SOURCE>
+  </SOURCES>
+</SEARCH>

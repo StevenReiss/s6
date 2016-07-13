@@ -1,0 +1,28 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='false' REMOTE='true' OHLOH='true' GITHUB='true'>
+  <SIGNATURE>
+    <TESTING PACKAGE='sampler.spr.textex' NAME='S6TestTwoTypePair'>
+      <TESTEE PACKAGE='sampler.spr.textex'>
+	<CLASS NAME='TwoTypePair'>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='()'/>
+	  <METHOD NAME='&lt;init&gt;' SIGNATURE='(Ljava/lang/Object;Ljava/lang/Object)'/>
+	  <METHOD NAME='setFirst' SIGNATURE='(Ljava/lang/Object;)V'/>
+	  <METHOD NAME='setSecond' SIGNATURE='(Ljava/lang/Object;)V'/>
+	  <METHOD NAME='getFirst' SIGNATURE='()Ljava/lang/Object;'/>
+	  <METHOD NAME='getSecond' SIGNATURE='()Ljava/lang/Object;'/>
+	  <METHOD NAME='toString' SIGNATURE='()Ljava/lang/String;'/>
+	  <METHOD NAME='equals' SIGNATURE='(Ljava/lang/Object;)Z'/>
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>pair</KEYWORD>
+    <KEYWORD>first</KEYWORD>
+    <KEYWORD>second</KEYWORD>
+    <KEYWORD>equals</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/home/spr/sampler/spr/textex/textex.s6ctx' />
+</SEARCH>
+

@@ -1,0 +1,21 @@
+<SEARCH FORMAT='NONE' GOOGLE='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>toCamel</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String toCamel(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='toCamel' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc_def]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[abcDef]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT><CONTEXT /></CONTEXT><KEYWORDS><KEYWORD><![CDATA[camelcase]]></KEYWORD></KEYWORDS></SEARCH>
+

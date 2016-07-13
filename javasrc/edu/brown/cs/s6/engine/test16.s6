@@ -1,0 +1,46 @@
+<SEARCH GOOGLE='TRUE' REMOTE='TRUE' WHAT='METHOD'>
+<SIGNATURE>
+  <METHOD BOOLEAN='true' MODS='0'>
+    <NAME>isPerfect</NAME>
+    <RETURN>boolean</RETURN>
+    <ARGS>int</ARGS>
+  </METHOD>
+  <TEXT>boolean isPerfect(int a1)</TEXT>
+</SIGNATURE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='isPerfect' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[6]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[true]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='isPerfect' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[12]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[false]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_3' TYPE='CALLS'>
+    <CALL METHOD='isPerfect' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[28]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[true]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS>
+<SECURITY />
+<CONTRACTS />
+<KEYWORDS><KEYWORD><![CDATA[perfect number]]></KEYWORD></KEYWORDS>
+</SEARCH>
+

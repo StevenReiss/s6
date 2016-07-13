@@ -1,0 +1,21 @@
+<SEARCH WHAT='TESTCASES' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' GITHUB='TRUE' >
+<SIGNATURE>
+   <TESTING PACKAGE='spr.roman' NAME='S6_sort_Test'>
+      <TESTEE PACKAGE='spr.roman'>
+	 <CLASS NAME='Qsort'>
+	    <METHOD NAME='sort' SIGNATURE='([I)V;' STATIC='TRUE'
+		RETURN='void'
+		ARGS='(int [])' />
+	 </CLASS>
+      </TESTEE>
+   </TESTING>
+</SIGNATURE>
+<KEYWORDS>
+   <KEYWORD>sort</KEYWORD>
+   <KEYWORD>quicksort</KEYWORD>
+   <KEYWORD>test</KEYWORD>
+   <KEYWORD>org.junit</KEYWORD>
+</KEYWORDS>
+<CONTEXT FILE='/pro/s6/tmp/files/sorttest.s6ctx' />
+</SEARCH>
+

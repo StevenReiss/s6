@@ -1,0 +1,95 @@
+<HUMP>
+  <PARAMETERS>
+    <EXTENSIONS>.java.</EXTENSIONS>
+    <LARGE>3</LARGE>
+    <DO_SPACING>true</DO_SPACING>
+    <DO_NAMING>true</DO_NAMING>
+    <DO_SHORTNAMES>true</DO_SHORTNAMES>
+    <DO_SEQUENCES>true</DO_SEQUENCES>
+    <DO_PATTERNS>true</DO_PATTERNS>
+    <CONFIDENCE>5.0</CONFIDENCE>
+    <INDENTMODE>CMMTINDENT</INDENTMODE>
+    <SPACEMODE>TAB_LAST</SPACEMODE>
+    <SP_METHOD>MM</SP_METHOD>
+    <SP_BOOLEAN>true</SP_BOOLEAN>
+    <NM_METHOD>MM</NM_METHOD>
+    <NM_BOOLEAN>true</NM_BOOLEAN>
+    <SH_METHOD>MM</SH_METHOD>
+    <SH_BOOLEAN>true</SH_BOOLEAN>
+    <SQ_METHOD>MM</SQ_METHOD>
+    <SQ_BOOLEAN>true</SQ_BOOLEAN>
+    <PT_METHOD>MM</PT_METHOD>
+    <PT_BOOLEAN>true</PT_BOOLEAN>
+    <SP_MODEL>/pro/s6/lib/hump/sun.spacing.model</SP_MODEL>
+    <SP_PROPERTIES />
+    <NM_MODEL>/pro/s6/lib/hump/sun.naming.model</NM_MODEL>
+    <NM_PROPERTIES>
+      <TYPES>
+        <TYPE>boolean</TYPE>
+        <TYPE>byte</TYPE>
+        <TYPE>char</TYPE>
+        <TYPE>double</TYPE>
+        <TYPE>float</TYPE>
+        <TYPE>int</TYPE>
+        <TYPE>long</TYPE>
+        <TYPE>short</TYPE>
+        <TYPE>void</TYPE>
+      </TYPES>
+      <SHORTS>
+        <SHORT>*</SHORT>
+      </SHORTS>
+    </NM_PROPERTIES>
+    <SH_MODEL>/pro/s6/lib/hump/sun.short.model</SH_MODEL>
+    <SQ_MODEL>/pro/s6/lib/hump/sun.order.model</SQ_MODEL>
+    <SQ_PROPERTIES>
+      <IMPORTS>
+        <IMPORT>COM.</IMPORT>
+        <IMPORT>EDU.</IMPORT>
+        <IMPORT>ORG.</IMPORT>
+        <IMPORT>com.</IMPORT>
+        <IMPORT>edu.</IMPORT>
+        <IMPORT>java.</IMPORT>
+        <IMPORT>javax.</IMPORT>
+        <IMPORT>org.</IMPORT>
+      </IMPORTS>
+      <ANNOTATIONS />
+    </SQ_PROPERTIES>
+    <PT_MODEL>/pro/s6/lib/hump/sun.pattern.model</PT_MODEL>
+    <PT_PROPERTIES />
+  </PARAMETERS>
+  <LEARN WHAT='SPACING'>
+    <STATS>
+      <TIME>9572693</TIME>
+      <INPUT SIZE='186830100' LOC='0' TOC='0' NFEATURES='60'>/ws/volfred/tmp/HumpLearn2797692401364253199.data</INPUT>
+      <MODEL SIZE='14337321' />
+    </STATS>
+  </LEARN>
+  <LEARN WHAT='NAMESTYLE'>
+    <STATS>
+      <TIME>7805</TIME>
+      <INPUT SIZE='1306528' LOC='0' TOC='0' NFEATURES='53'>/ws/volfred/tmp/HumpLearn2256487414437088501.data</INPUT>
+      <MODEL SIZE='12954' />
+    </STATS>
+  </LEARN>
+  <LEARN WHAT='SHORTNAMES'>
+    <STATS>
+      <TIME>64984</TIME>
+      <INPUT SIZE='1294463' LOC='0' TOC='0' NFEATURES='53'>/ws/volfred/tmp/HumpLearn5099829879530879841.data</INPUT>
+      <MODEL SIZE='206483' />
+    </STATS>
+  </LEARN>
+  <LEARN WHAT='SEQUENCES'>
+    <STATS>
+      <TIME>34053</TIME>
+      <INPUT SIZE='31262700' LOC='0' TOC='0' NFEATURES='98'>/ws/volfred/tmp/HumpLearn5786775175034968884.data</INPUT>
+      <MODEL SIZE='5983' />
+    </STATS>
+  </LEARN>
+  <LEARN WHAT='PATTERNS'>
+    <STATS>
+      <TIME>422</TIME>
+      <INPUT SIZE='3104' LOC='0' TOC='0' NFEATURES='2'>/ws/volfred/tmp/HumpLearn8345786860112824361.data</INPUT>
+      <MODEL SIZE='648' />
+    </STATS>
+  </LEARN>
+</HUMP>

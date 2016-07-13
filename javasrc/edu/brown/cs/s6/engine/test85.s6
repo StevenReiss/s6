@@ -1,0 +1,25 @@
+<SEARCH WHAT='METHOD' FORMAT='NONE' REMOTE='TRUE' KODERS='TRUE'><SIGNATURE>
+<METHOD MODS='0'>
+<NAME>getCommentText</NAME>
+<RETURN>java.util.List</RETURN>
+<ARGS>java.lang.String</ARGS>
+<ARGNAMES>cd</ARGNAMES>
+<TEXT>java.util.List getCommentText(java.lang.String cd)</TEXT>
+</METHOD>
+</SIGNATURE><TESTS>
+<TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+<CALL METHOD='getCommentText' OP='EQL'>
+<INPUT TYPE='STRING'>
+<VALUE><![CDATA[/* testing  abc */]]></VALUE>
+</INPUT>
+<OUTPUT TYPE='VARIABLE' VALUE='v_1'>
+<CODE><![CDATA[java.util.List v_1 = new java.util.ArrayList<java.lang.Object>();
+v_1.add("testing");
+v_1.add("abc");
+]]></CODE>
+</OUTPUT>
+</CALL>
+</TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS><KEYWORD><![CDATA[comment]]></KEYWORD><KEYWORD><![CDATA[text]]></KEYWORD></KEYWORDS>
+</SEARCH>

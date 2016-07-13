@@ -1,0 +1,137 @@
+$(PACKAGESTMT)
+
+import org.junit.*;
+
+$(IMPORTS)
+
+
+$(ANNOTATION)
+public class $(CLASS) extends edu.brown.cs.s6.runner.RunnerTestCase {
+
+$(SECURITY)
+
+$(STATICS)
+
+$(CODE)
+
+$(TESTS)
+
+
+private static String [] S6_TEST_CLASS_NAMES = new String [] { $(TESTCLASSES) };
+private static String [] S6_TEST_CASES = new String [] { $(TESTCASES) };
+private static Class [] S6_TEST_CLASSES;
+static {
+   S6_TEST_CLASSES = new Class[S6_TEST_CLASS_NAMES.length];
+   for (int i = 0; i < S6_TEST_CLASS_NAMES.length; ++i) {
+      try {
+	 S6_TEST_CLASSES[i] = Class.forName(S6_TEST_CLASS_NAMES[i]);
+       }
+      catch (Throwable t) {
+	 System.out.println("Problem getting Class");
+       }
+    }
+}
+
+
+
+
+public static class S6TestSelectRunner extends org.junit.runners.Suite {
+
+   private static boolean test_run = $(HAVETEST);
+
+   public S6TestSelectRunner(Class<?> clz) throws org.junit.runners.model.InitializationError {
+      super(clz,S6_TEST_CLASSES);
+      try {
+	 filter(new S6TestFilter());
+       }
+      catch (Exception e) { }
+    }
+
+   @Override protected void runChild(org.junit.runner.Runner r,org.junit.runner.notification.RunNotifier n) {
+      try {
+	 if (test_run) {
+	    test_run = false;
+	    org.junit.runners.BlockJUnit4ClassRunner cr = new org.junit.runners.BlockJUnit4ClassRunner(S6TestClass.class);
+	    super.runChild(cr,n);
+	  }
+       }
+      catch (org.junit.runners.model.InitializationError e) { }
+      catch (Throwable t) {
+	 Assert.fail(t.getMessage());
+       }
+
+      super.runChild(r,n);
+    }
+
+}	// end of inner class S6TestSelectRunner
+
+
+public static class S6TestFilter extends org.junit.runner.manipulation.Filter {
+
+   @Override public String describe() {
+      return "SelectUserTests";
+    }
+
+   @Override public boolean shouldRun(org.junit.runner.Description d) {
+      if (d.isSuite()) return true;
+
+      String ds = d.getDisplayName();
+      for (String s : S6_TEST_CASES) {
+	 if (ds.equals(s)) return true;
+       }
+
+      return false;
+    }
+
+}	// end of inner class S6TestFilter
+
+
+
+public static class S6TestFinisher {
+
+   @org.junit.Test public void S6testFinisher() throws Exception {
+      edu.brown.cs.s6.runner.RunnerAssert.checkUseForTesting();
+    }
+
+}
+
+
+
+private void disableTimer()
+{
+   if (s6_timertask != null) {
+      s6_timertask.cancel();
+      s6_timertask = null;
+    }
+}
+
+
+// @org.junit.Rule public org.junit.rules.Timeout s6_global_timeout = new Timeout((int) $(MAXTIME));
+private static java.util.Timer s6_timer;
+private static java.util.TimerTask s6_timertask;
+
+static {
+   s6_timer = new java.util.Timer(true);
+   s6_timertask = new java.util.TimerTask() { public void run() { System.exit(1); } };
+   s6_timer.schedule(s6_timertask,$(MAXTIME));
+}
+
+
+public static void main(String [] args)
+{
+   $(CLASS) tc = new $(CLASS)();
+   try {
+      tc.disableTimer();
+      setShowInteract(true);
+      org.junit.runner.Runner r = new org.junit.runners.JUnit4($(CLASS).class);
+      r.run(new org.junit.runner.notification.RunNotifier());
+    }
+   catch (Throwable t) {
+      System.exit(1);
+    }
+   System.exit(0);
+}
+
+
+
+}	// end of $(CLASS)

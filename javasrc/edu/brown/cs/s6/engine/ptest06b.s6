@@ -1,0 +1,40 @@
+<SEARCH WHAT='PACKAGE' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' KODERS='TRUE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.romp'>
+      <CLASS NAME='RompMain' MODS='1' MAIN='true' >
+      </CLASS>
+      <CLASS NAME='RompPhysics'>
+	 <IMPLEMENTS>java.lang.Runnable</IMPLEMENTS>
+      </CLASS>
+      <CLASS NAME='RompDisplay'>
+	 <SUPERCLASS>java.awt.Component</SUPERCLASS>
+      </CLASS>
+      <CLASS NAME='RompObject'>
+	 <FIELD MODS='2' TYPE='double' />
+	 <FIELD MODS='2' TYPE='double' />
+	 <FIELD MODS='2' TYPE='double' />
+	 <FIELD MODS='2' TYPE='double' />
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		 String [] args = new String [0];
+		 RompMain.main(args);
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>physics</KEYWORD>
+   <KEYWORD>simulation</KEYWORD>
+   <KEYWORD>main</KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='TRUE'>KODERS:/java/fid2A19F6B673CD7339FA4E11F1F7F2C4CBAEBB29B0.aspx</SOURCE>
+</SOURCES>
+</SEARCH>

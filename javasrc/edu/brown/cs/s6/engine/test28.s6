@@ -1,0 +1,30 @@
+<SEARCH FORMAT='NONE' LOCAL='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0'>
+    <NAME>topSort</NAME>
+    <RETURN>java.util.List</RETURN>
+    <ARGS>java.util.Map</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.util.List topSort(java.util.Map a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='topSort' OP='EQL'>
+      <INPUT TYPE='VARIABLE' VALUE='v_1'>
+	<CODE><![CDATA[java.util.Map v_1 = new java.util.HashMap<java.lang.Object,java.lang.Object>();
+v_1.put("a","b");
+v_1.put("b","c");
+v_1.put("a","c");
+]]></CODE>
+      </INPUT>
+      <OUTPUT TYPE='VARIABLE' VALUE='v_2'>
+	<CODE><![CDATA[java.util.List v_2 = new java.util.ArrayList<java.lang.Object>();
+v_2.add("a");
+v_2.add("b");
+v_2.add("c");
+]]></CODE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><KEYWORDS>
+<KEYWORD><![CDATA[topological]]></KEYWORD><KEYWORD><![CDATA[sort]]></KEYWORD></KEYWORDS></SEARCH>
+

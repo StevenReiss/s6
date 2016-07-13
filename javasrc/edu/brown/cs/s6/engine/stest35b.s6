@@ -1,0 +1,27 @@
+<SEARCH FORMAT='NONE' GITHUB='true' LOCAL='false' OHLOH='true' REMOTE='true' WHAT='TESTCASES'>
+  <SIGNATURE>
+    <TESTING NAME='S6TestOnsetBitSet' PACKAGE='spr.onsets'>
+      <TESTEE PACKAGE='spr.onsets'>
+	<CLASS NAME='OnsetBitSet'>
+	  <METHOD NAME='check' SIGNATURE='(I)Z' />
+	  <METHOD NAME='checkAndSet' SIGNATURE='(I)Z' />
+	  <METHOD NAME='clear' SIGNATURE='(I)V' />
+	  <METHOD NAME='clearAll' SIGNATURE='()V' />
+	  <METHOD NAME='compIntersect' SIGNATURE='(Lspr/onsets/OnsetBitSet;)V' />
+	  <METHOD NAME='complement' SIGNATURE='(Lspr/onsets/OnsetBitSet;)V' />
+	  <METHOD NAME='containedIn' SIGNATURE='(Lspr/onsets/OnsetBitSet;)Z' />
+	</CLASS>
+      </TESTEE>
+    </TESTING>
+  </SIGNATURE>
+  <KEYWORDS>
+    <KEYWORD>bitset</KEYWORD>
+    <KEYWORD>test</KEYWORD>
+    <KEYWORD>org.junit</KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/gpfs/main/research/s6/tmp/files/s6data187465590567255553.s6ctx' />
+<SOURCES>
+    <SOURCE USE='TRUE'>GITHUB:/WorldwideAntimalarialResistanceNetwork/WWARN-Maps-Surveyor/blob/6370a2aabcde6d16e554507becb84a4cb9d4e79e/SurveyorCore/src/test/java/org/wwarn/surveyor/client/core/GwtTestBitSetImpl.java</SOURCE>
+</SOURCES>
+</SEARCH>
+

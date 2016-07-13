@@ -1,0 +1,49 @@
+<SEARCH WHAT='UIFRAMEWORK' FORMAT='NONE' LOCAL='FALSE' REMOTE='TRUE' OHLOH='TRUE' SCOPE='FILE'>
+<SIGNATURE>
+   <UI PACKAGE='spr.sampler.uitest' NAME='S6_UI_CLASS'>
+      <COMPONENT ID='C01' TYPES='javax.swing.JComponent' >
+	 <COMPONENT ID='C02' TYPES='javax.swing.JLabel' DATA='Available Toppings' TOP='C01' LEFT='C01' />
+	 <COMPONENT ID='C03' TYPES='javax.swing.JLabel' DATA='Selected Toppings' TOP='C01' LEFT='C02' />
+	 <COMPONENT ID='C04' TYPES='javax.swing.JList' TOP='C02' LEFT='C01' />
+	 <COMPONENT ID='C05' TYPES='javax.swing.JList' TOP='C03' />
+	 <COMPONENT ID='C06' TYPES='javax.swing.AbstractButton' DATA='Add' LEFT='C04' RIGHT='C05' />
+	 <COMPONENT ID='C07' TYPES='javax.swing.AbstractButton' DATA='Remove' LEFT='C04' RIGHT='C05' TOP='C06' />
+	 <COMPONENT ID='C08' TYPES='javax.swing.AbstractButton' DATA='Order' BOTTOM='C01' />
+	 <COMPONENT ID='C09' TYPES='javax.swing.AbstractButton' DATA='Cancel' BOTTOM='C01' LEFT='C08' />
+	 <COMPONENT ID='C10' TYPES='javax.swing.JLabel' DATA='Size' TOP='C01' LEFT='C03' RIGHT='C01' />
+	 <COMPONENT ID='C11' TYPES='javax.swing.JComboBox' DATA='Small,Medium,Large' TOP='C10' RIGHT='C01' />
+	 <COMPONENT ID='C12' TYPES='javax.swing.JLabel' DATA='Price' TOP='C11' RIGHT='C01' />
+      </COMPONENT>
+      <CLASS NAME='S6_UI_CLASS'>
+	 <METHOD NAME='S6_UI' RETURN='java.awt.Component' />
+      </CLASS>
+   </UI>
+</SIGNATURE>
+<REQUIRE>
+</REQUIRE>
+<TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='S6_UI_CLASS' NEW='true' OP='SAVE'>
+      <OUTPUT TYPE='SAVE' VALUE='x'>
+	<CODE><![CDATA[S6_UI_CLASS x;]]></CODE>
+      </OUTPUT>
+    </CALL>
+    <CALL METHOD='S6_UI' THIS='x' OP='SAVE'>
+       <OUTPUT TYPE='SAVE' VALUE='y'>
+	 <CODE><![CDATA[java.awt.Component y;]]></CODE>
+       </OUTPUT>
+    </CALL>
+    <CALL OP='HIERARCHY' THIS='y' />
+    <CALL OP='INTERACT' THIS='y' />
+  </TESTCASE>
+</TESTS>
+<KEYWORDS>
+   <KEYWORD>jlist</KEYWORD>
+   <KEYWORD>jbutton</KEYWORD>
+   <KEYWORD>copy</KEYWORD>
+   <KEYWORD>move</KEYWORD>
+  <KEYWORD>jtextfield</KEYWORD>
+  <KEYWORD>jcombobox</KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

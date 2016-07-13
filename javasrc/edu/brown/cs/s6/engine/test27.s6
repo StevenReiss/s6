@@ -1,0 +1,23 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0'>
+    <NAME>computeEaster</NAME>
+    <RETURN>java.util.Date</RETURN>
+    <ARGS>int</ARGS>
+    <ARGNAMES>year</ARGNAMES>
+    <TEXT>java.util.Date computeEaster(int year)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='computeEaster' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[2008]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[ new  Date (108,2,23)]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><KEYWORDS><KEYWORD><![CDATA[Easter]]></KEYWORD>
+<KEYWORD><![CDATA[date]]></KEYWORD><KEYWORD><![CDATA[holiday]]></KEYWORD>
+<KEYWORD><![CDATA[year]]></KEYWORD></KEYWORDS></SEARCH>
+

@@ -1,0 +1,34 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD DOUBLE='true' MODS='0'>
+    <NAME>cvt</NAME>
+    <RETURN>double</RETURN>
+    <ARGS>double,java.lang.String,java.lang.String</ARGS>
+    <ARGNAMES>v,a2,a3</ARGNAMES>
+    <TEXT>double cvt(double v,java.lang.String a2,java.lang.String a3)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='cvt' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[2.0]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[feet]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[inches]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[24.0]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS>
+<KEYWORD><![CDATA[unit]]></KEYWORD>
+<KEYWORD><![CDATA[conversion]]></KEYWORD>
+<KEYWORD><![CDATA[feet]]></KEYWORD>
+<KEYWORD><![CDATA[inches]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+
