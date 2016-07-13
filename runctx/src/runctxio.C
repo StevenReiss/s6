@@ -98,9 +98,13 @@ static void setupMap();
 extern "C" {
 
    int open(const char *,int,...);
+   int open64(const char *,int,...);
    int creat(const char *,mode_t);
+   int creat64(const char *,mode_t);
    int stat(const char *,struct stat *) throw();
    int __xstat(int,const char *,struct stat *) throw();
+   int stat64(const char *,struct stat64 *);
+   int __xstat64(int v,const char *,struct stat64 *);
    int lstat(const char *,struct stat *) throw();
    int __lxstat(int,const char *,struct stat *) throw();
 
@@ -199,7 +203,7 @@ __xstat(int v,const char * nm,struct stat * st) throw()
 
 
 int
-stat64(const char * nm,struct stat64 * st)
+stat64(const char * nm,struct stat64 * st) throw()
 {
    const char * nnm = mapName(nm);
 
