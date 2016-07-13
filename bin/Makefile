@@ -1,5 +1,5 @@
 #
-# VELD bin makefile
+# S6 bin makefile
 #
 # Copyright 2000 Steven P. Reiss, Brown University - All rights reserved.
 #
@@ -21,8 +21,8 @@ ACTIVE= $(PFILES)
 all:
 
 create:
-	rm -rf $(BROWN_VELD_ARCH)
-	mkdir $(BROWN_VELD_ARCH)
+	rm -rf $(BROWN_S6_ARCH)
+	mkdir $(BROWN_S6_ARCH)
 
 all .DEFAULT:
 	@echo $@ nothing to do
