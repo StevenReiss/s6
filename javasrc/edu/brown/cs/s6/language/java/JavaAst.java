@@ -346,7 +346,12 @@ static boolean checkTypeSignature(AbstractTypeDeclaration td,S6Request.ClassSign
 
    if (td instanceof TypeDeclaration) {
       TypeDeclaration ttd = (TypeDeclaration) td;
-      if (ttd.isInterface() != cs.isInterface()) return false;
+      if (!cs.isInterface() && ttd.isInterface()) return false;
+      else if (cs.isInterface()) {
+         if (!ttd.isInterface() && !Modifier.isAbstract(ttd.getModifiers())) {
+            return false;
+          }
+       }
     }
 
    if (td.getName().getFullyQualifiedName().contains("$") && !styp.checkExtractable()) {

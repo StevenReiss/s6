@@ -213,6 +213,7 @@ interface MethodSignature extends Signature {
 
 
 interface FieldSignature extends Signature {
+   ClassSignature getDefiningClass();
    String getTypeName();
    boolean isStatic();
 }

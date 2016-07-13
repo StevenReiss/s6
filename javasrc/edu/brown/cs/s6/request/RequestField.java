@@ -58,6 +58,7 @@ import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Request;
+import edu.brown.cs.s6.common.S6Request.ClassSignature;
 
 
 
@@ -75,6 +76,7 @@ class RequestField extends RequestSignature implements S6Request.FieldSignature,
 private String	field_name;
 private String	field_type;
 private int	modifier_flags;
+private RequestClass in_class;
 
 
 
@@ -85,8 +87,9 @@ private int	modifier_flags;
 /*										*/
 /********************************************************************************/
 
-RequestField(Element xml) throws S6Exception
+RequestField(RequestClass csg,Element xml) throws S6Exception
 {
+   in_class = csg;
    modifier_flags = IvyXml.getAttrInt(xml,"MODS",0);
    if (modifier_flags == 0) {
       for (int i = 1; i != 0; i = i*2) {
@@ -110,9 +113,11 @@ RequestField(Element xml) throws S6Exception
 /*										*/
 /********************************************************************************/
 
-public String getName() 		{ return field_name; }
+public String getName() 	        	{ return field_name; }
 
-public String getTypeName()		{ return field_type; }
+public String getTypeName()		        { return field_type; }
+
+public ClassSignature getDefiningClass()        { return in_class; }
 
 public boolean isStatic()		{ return Modifier.isStatic(modifier_flags); }
 

@@ -116,6 +116,8 @@ private int    class_modifiers;
 RequestClass(Element xml) throws S6Exception
 {
    is_interface = IvyXml.isElement(xml,"INTERFACE");
+   is_interface |= IvyXml.getAttrBool(xml,"INTERFACE");
+   
    is_main = IvyXml.getAttrBool(xml,"MAIN");
 
    class_modifiers = IvyXml.getAttrInt(xml,"MODS");
@@ -138,7 +140,7 @@ RequestClass(Element xml) throws S6Exception
 
    known_fields = new ArrayList<S6Request.FieldSignature>();
    for (Element fe : IvyXml.children(xml,"FIELD")) {
-      known_fields.add(new RequestField(fe));
+      known_fields.add(new RequestField(this,fe));
     }
 
    key_words = new ArrayList<String>();

@@ -21,7 +21,7 @@ all .DEFAULT:
 	@echo $@ Nothing to do.
 
 create:
-	-if [ ! -d $(BROWN_BLOOM_ARCH) ] ; then mkdir $(BROWN_BLOOM_ARCH); else true; fi
+	-if [ ! -d $(BROWN_S6_ARCH) ] ; then mkdir $(BROWN_S6_ARCH); else true; fi
 
 print:
 	pr $(PFILES) | lpr -low

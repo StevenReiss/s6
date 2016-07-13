@@ -120,7 +120,6 @@ protected RequestBase(S6Engine eng,Element xml) throws S6Exception
       if (pelt != null) request_signature = new RequestPackage(pelt);
       else if (celt != null) request_signature = new RequestClass(celt);
       else if (melt != null) request_signature = new RequestMethod(melt);
-      else if (felt != null) request_signature = new RequestField(felt);
       else if (uelt != null) request_signature = new RequestUIFramework(uelt);
       else if (telt != null) request_signature = new RequestTesting(telt);
       else throw new S6Exception("Illegal signature");

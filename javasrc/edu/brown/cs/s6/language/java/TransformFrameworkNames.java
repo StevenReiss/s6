@@ -77,6 +77,7 @@ import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
+import edu.brown.cs.s6.common.S6Request.ClassSignature;
 
 public class TransformFrameworkNames extends TransformJava implements S6Constants, JavaConstants
 {
@@ -356,7 +357,8 @@ private void computeFieldMappings(NameMapper nm,S6Request.PackageSignature psg,L
       return;
     }
    S6Request.FieldSignature fld = flds.remove(0);
-   String fnm = fld.getTypeName();
+   S6Request.ClassSignature csg = fld.getDefiningClass();
+   String fnm = csg.getName();
    String pkgnm = psg.getName();
    if (fnm.startsWith(pkgnm)) {
       fnm = fnm.substring(pkgnm.length()+1);
@@ -372,14 +374,18 @@ private void computeFieldMappings(NameMapper nm,S6Request.PackageSignature psg,L
       for (Object o : fd.fragments()) {
          VariableDeclarationFragment vdf = (VariableDeclarationFragment) o;
          JcompSymbol fldsym = JcompAst.getDefinition(vdf);
+         if (nm.getMapping().keySet().contains(fldsym)) continue;
          candidates.add(fldsym);
        }
     }
    if (candidates.isEmpty()) return;
+   restrictByName(candidates,fld.getName());
    
-   // handle selecting one or more candidates here
-   
-   computeFieldMappings(nm,psg,flds,rslt);
+   for (JcompSymbol csym : candidates) {
+      NameMapper nm1 = new NameMapper(nm);
+      nm1.addMapping(csym,fld.getName());
+      computeFieldMappings(nm1,psg,flds,rslt);
+    }
 }
 
 
@@ -393,13 +399,49 @@ private boolean checkCompatibleField(S6Request.FieldSignature fld,
 }
 
 
+
+private void restrictByName(List<JcompSymbol> syms,String name)
+{
+   boolean exactmatch = false;
+   boolean contains = false;
+   
+   for (JcompSymbol sym : syms) {
+      String snm = sym.getName();
+      snm = getMatchName(snm);
+      if (snm.equals(name)) exactmatch = true;
+      else if (snm.contains(name)) contains = true;
+    }
+   
+   for (Iterator<JcompSymbol> it = syms.iterator(); it.hasNext(); ) {
+      JcompSymbol sym = it.next();
+      String snm = getMatchName(sym.getName());
+      if (exactmatch && !snm.equals(name)) it.remove();
+      else if (contains && !snm.contains(name)) it.remove();
+    }
+}
+
+
+private String getMatchName(String snm)
+{
+   int idx1 = snm.indexOf("(");
+   if (idx1 > 0) snm = snm.substring(0,idx1).trim();
+   
+   int idx = snm.lastIndexOf(".");
+   if (idx > 0) {
+      snm = snm.substring(idx+1);
+    }
+   
+   return snm;
+}
+
+
 private boolean checkCompatibleType(JcompType typ,String target,String pkg,
       JcompTyper typer,NameMapper nm)
 {
    if (target.startsWith(pkg)) {
-      target = target.substring(pkg.length() + 1);
-      JcompSymbol sym = nm.findMappedSymbol(target);
-      target = sym.getFullName();
+      String ntarget = target.substring(pkg.length() + 1);
+      JcompSymbol sym = nm.findMappedSymbol(ntarget);
+      if (sym != null) target = sym.getFullName();
     }
    JcompType ttype = typer.findType(target);
    if (!ttype.isCompatibleWith(typ)) return false;
@@ -690,6 +732,15 @@ private class NameMapper extends TreeMapper {
       sym_mapping = new HashMap<JcompSymbol,String>();
       dependent_types = null;
       if (rmc) dependent_types = new HashSet<JcompType>();
+    }
+   
+   NameMapper(NameMapper orig) {
+      map_name = orig.map_name;
+      remove_classes = orig.remove_classes;
+      sym_mapping = new HashMap<JcompSymbol,String>(orig.sym_mapping);
+      if (orig.dependent_types != null) 
+         dependent_types = new HashSet<JcompType>(orig.dependent_types);
+      else dependent_types = null;
     }
    
    @Override protected String getSpecificsName()	{ return map_name; }
