@@ -309,10 +309,11 @@ machall:
 	$(GMAKE) all
 else
 machall:
-	- if [ $(BROWN_VELD_ARCH) = i686 ]; then $(GMAKE) linux; else true; fi
-	- if [ $(BROWN_VELD_ARCH) = x86_64 ]; then $(GMAKE) linux; else true; fi
-	- if [ $(BROWN_VELD_ARCH) = sol ]; then $(GMAKE) solaris; else true; fi
-	- if [ $(BROWN_VELD_ARCH) = sol32 ]; then $(GMAKE) solaris; else true; fi
-	- if [ $(BROWN_VELD_ARCH) = ppc ]; then $(GMAKE) apple; else true; fi
-	- if [ $(BROWN_VELD_ARCH) = i386 ]; then $(GMAKE) apple; else true; fi
+	- if [ $(BROWN_S6_ARCH) = i686 ]; then $(GMAKE) linux; else true; fi
+	- if [ $(BROWN_S6_ARCH) = x86_64 ]; then $(GMAKE) linux; else true; fi
+	- if [ $(BROWN_S6_ARCH) = sol ]; then $(GMAKE) solaris; else true; fi
+	- if [ $(BROWN_S6_ARCH) = sol32 ]; then $(GMAKE) solaris; else true; fi
+	- if [ $(BROWN_S6_ARCH) = ppc ]; then $(GMAKE) apple; else true; fi
+	- if [ $(BROWN_S6_ARCH) = i386 ]; then $(GMAKE) apple; else true; fi
+	- if [ $(BROWN_S6_ARCH) = mac64 ]; then $(GMAKE) apple; else true; fi
 endif
