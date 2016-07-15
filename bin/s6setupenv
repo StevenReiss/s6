@@ -130,7 +130,7 @@ endif
 
 set xxx = `echo $CLASSPATH | fgrep batik`
 if ( "X$xxx" == X ) then
-   set batik = $BROWN_S6_S6/public/batik-1.7/batik.jar
+   set batik = $BROWN_S6_S6/lib/batik.jar
    setenv CLASSPATH "${CLASSPATH}:$batik"
 endif
 
@@ -166,7 +166,7 @@ endif
 
 set xxx = `echo $CLASSPATH | fgrep ddmlib`
 if ( "X$xxx" == X ) then
-   set ddml = $BROWN_S6_S6/lib/ddmlib.jar	
+   set ddml = $BROWN_S6_S6/lib/ddmlib.jar
    setenv CLASSPATH "${CLASSPATH}:$ddml"
 endif
 
