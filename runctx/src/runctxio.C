@@ -74,7 +74,11 @@ static int (*xstat64_addr)(int,const char *,struct stat64 *);
 static int (*lstat_addr)(const char *,struct stat *);
 static int (*lxstat_addr)(int,const char *,struct stat *);
 
-
+#ifdef APPLE
+#define THROW
+#else
+#define THROW throw()
+#endif
 
 
 
@@ -101,12 +105,12 @@ extern "C" {
    int open64(const char *,int,...);
    int creat(const char *,mode_t);
    int creat64(const char *,mode_t);
-   int stat(const char *,struct stat *) throw();
-   int __xstat(int,const char *,struct stat *) throw();
+   int stat(const char *,struct stat *) THROW;
+   int __xstat(int,const char *,struct stat *) THROW;
    int stat64(const char *,struct stat64 *);
    int __xstat64(int v,const char *,struct stat64 *);
-   int lstat(const char *,struct stat *) throw();
-   int __lxstat(int,const char *,struct stat *) throw();
+   int lstat(const char *,struct stat *) THROW;
+   int __lxstat(int,const char *,struct stat *) THROW;
 
 }
 
@@ -175,7 +179,7 @@ creat64(const char * nm,mode_t md)
 
 
 int
-stat(const char * nm,struct stat * st) throw()
+stat(const char * nm,struct stat * st) THROW
 {
    const char * nnm = mapName(nm);
 
@@ -189,7 +193,7 @@ stat(const char * nm,struct stat * st) throw()
 
 
 int
-__xstat(int v,const char * nm,struct stat * st) throw()
+__xstat(int v,const char * nm,struct stat * st) THROW
 {
    const char * nnm = mapName(nm);
 
@@ -203,7 +207,7 @@ __xstat(int v,const char * nm,struct stat * st) throw()
 
 
 int
-stat64(const char * nm,struct stat64 * st) throw()
+stat64(const char * nm,struct stat64 * st) THROW
 {
    const char * nnm = mapName(nm);
 
@@ -217,7 +221,7 @@ stat64(const char * nm,struct stat64 * st) throw()
 
 
 int
-__xstat64(int v,const char * nm,struct stat64 * st) throw()
+__xstat64(int v,const char * nm,struct stat64 * st) THROW
 {
    const char * nnm = mapName(nm);
 
@@ -231,7 +235,7 @@ __xstat64(int v,const char * nm,struct stat64 * st) throw()
 
 
 int
-lstat(const char * nm,struct stat * st) throw()
+lstat(const char * nm,struct stat * st) THROW
 {
    const char * nnm = mapName(nm);
 
@@ -244,7 +248,7 @@ lstat(const char * nm,struct stat * st) throw()
 
 
 int
-__lxstat(int v,const char * nm,struct stat * st) throw()
+__lxstat(int v,const char * nm,struct stat * st) THROW
 {
    const char * nnm = mapName(nm);
 
