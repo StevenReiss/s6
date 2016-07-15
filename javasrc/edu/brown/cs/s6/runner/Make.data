@@ -29,4 +29,4 @@ LOCALJAVAFLAGS= -cp $(BROWN_S6_S6)/java:$(BROWN_S6_IVY)/java:$(BROWN_S6_S6)/lib/
 ALL= runnerjar
 
 runnerjar:
-	jar cvf $(PRO)/s6/lib/runner.jar -C $(PRO)/s6/java edu/brown/cs/s6/runner
+	jar cvf $(BROWN_S6_S6)/lib/runner.jar -C $(BROWN_S6_S6)/java edu/brown/cs/s6/runner

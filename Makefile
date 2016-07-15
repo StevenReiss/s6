@@ -45,8 +45,8 @@ SETUPCOMPS= lib bin data
 OTHERCOMPS=
 
 C++_COMPONENTS = runctx
-JAVA_COMPONENTS= common request license solution keysearch slim language context runner \
-	uiautomator engine search suise tgen
+JAVA_COMPONENTS= common request license solution keysearch slim language context \
+	uiautomator runner engine search suise tgen
 LC++_COMPONENTS = $(C++_COMPONENTS)
 APPLE_COMPONENTS = $(C++_COMPONENTS)
 UI_COMPONENTS= sviweb
