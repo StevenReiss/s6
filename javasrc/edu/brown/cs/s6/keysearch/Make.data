@@ -1,0 +1,36 @@
+#
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/Make.data,v 1.7 2015/09/23 17:58:00 spr Exp $
+
+#
+# S6:KEYSEARCH -- Semantic Search of Shared Source Software System keyword based initial search
+#
+
+
+PACKAGE=keysearch
+
+
+SFILES=\
+	KeySearchConstants.java \
+	KeySearchBase.java \
+	KeySearchBeagle.java \
+	KeySearchCache.java \
+	KeySearchGithub.java \
+	KeySearchGoogle.java \
+	KeySearchGoogleGithub.java \
+	KeySearchLabrador.java \
+	KeySearchKoders.java \
+	KeySearchKrugle.java \
+	KeySearchMaster.java \
+	KeySearchOhloh.java \
+	KeySearchRepo.java \
+	KeySearchRepoGithub.java \
+	KeySearchRepoGitZip.java \
+	KeySearchRepoHunter.java \
+	KeySearchRepoLabrador.java \
+	KeySearchRepoOpenHub.java \
+	KeySearchSet.java \
+	KeySearchSource.java \
+	KeySearchSourcerer.java \
+	KeySearchTest.java \
+
+
