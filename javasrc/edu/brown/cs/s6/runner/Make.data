@@ -24,7 +24,7 @@ SFILES=\
 	RunnerAssert.java \
 
 
-LOCALJAVAFLAGS= -cp $(PRO)/s6/java:$(PRO)/ivy/java:$(PRO)/s6/lib/junit.jar
+LOCALJAVAFLAGS= -cp $(BROWN_S6_S6)/java:$(BROWN_S6_IVY)/java:$(BROWN_S6_S6)/lib/junit.jar
 
 ALL= runnerjar
 
