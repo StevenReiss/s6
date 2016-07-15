@@ -480,7 +480,7 @@ MAKEDEPSEP=
 MAKEDEPCLEAN= cp dep1 dep2
 JHOME:= /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK
 JINCL= Headers
-LIBTYPE= a
+# LIBTYPE= a
 BLOOM_NO_SYMTBL=1
 
 endif
