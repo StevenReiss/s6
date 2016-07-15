@@ -83,7 +83,6 @@ firewall.log
 **/engine/runutests
 **/engine/*.dump
 *.save
-keysearch
 **/language/java/*.csh
 **/language/java/*.sed
 **/language/java/test*
