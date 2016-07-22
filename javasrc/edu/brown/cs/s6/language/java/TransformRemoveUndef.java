@@ -31,12 +31,18 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformRemoveUndef.java,v 1.20 2015/12/23 15:45:10 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformRemoveUndef.java,v 1.22 2016/07/22 13:31:07 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: TransformRemoveUndef.java,v $
+ * Revision 1.22  2016/07/22 13:31:07  spr
+ * Fixups for framework search.
+ *
+ * Revision 1.21  2016/07/18 23:05:27  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.20  2015/12/23 15:45:10  spr
  * Minor fixes.
  *
@@ -759,6 +765,7 @@ private static class UndefFinder extends ASTVisitor {
           }
          if (do_android) return;
          if (js.isStatic() || js.isPrivate()) {
+            if (js.getName().equals("serialVersionUID")) return;
             // System.err.println("FIELD " + js + " NOT READ");
             has_undef = true;
             if (do_debug) System.err.println("SET UNDEF UNREAD " + js);

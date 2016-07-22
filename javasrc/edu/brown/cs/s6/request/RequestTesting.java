@@ -184,6 +184,9 @@ class TestingMethod extends RequestSignature implements S6Request.MethodSignatur
    @Override public boolean isStatic()          { return false; }
    @Override public boolean isAbstract()        { return false; }
    @Override public boolean useExceptions()     { return false; }
+   
+   @Override public S6Request.ClassSignature getDefiningClass()         { return null; }
+   
    @Override public String getDeclarationText() { 
       return "void " + method_name + "()";
     }

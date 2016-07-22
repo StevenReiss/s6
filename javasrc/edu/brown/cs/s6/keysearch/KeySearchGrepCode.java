@@ -31,11 +31,14 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/KeySearchGrepCode.java,v 1.4 2015/12/23 15:45:01 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/KeySearchGrepCode.java,v 1.5 2016/07/18 23:05:04 spr Exp $ */
 
 /*********************************************************************************
  *
  * $Log: KeySearchGrepCode.java,v $
+ * Revision 1.5  2016/07/18 23:05:04  spr
+ * Keysearch updates for applications, ui search.
+ *
  * Revision 1.4  2015/12/23 15:45:01  spr
  * Update search (for UI at least)
  *

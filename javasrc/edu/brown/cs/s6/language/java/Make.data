@@ -1,5 +1,5 @@
 
-# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/Make.data,v 1.17 2015/12/23 15:45:09 spr Exp $
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/Make.data,v 1.18 2016/07/22 13:31:06 spr Exp $
 
 #
 # LANGUAGE.JAVA -- language files for Java
@@ -40,6 +40,7 @@ SFILES= \
 	TransformFixVariables.java \
 	TransformFixupTesting.java \
 	TransformFlatten.java \
+	TransformFrameworkNames.java \
 	TransformGeneralize.java \
 	TransformImplement.java \
 	TransformIntParams.java \

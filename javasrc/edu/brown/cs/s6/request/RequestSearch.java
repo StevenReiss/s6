@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestSearch.java,v 1.14 2015/12/23 15:45:12 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestSearch.java,v 1.15 2016/07/18 23:05:37 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: RequestSearch.java,v $
+ * Revision 1.15  2016/07/18 23:05:37  spr
+ * Update request to contain more info for applications.
+ *
  * Revision 1.14  2015/12/23 15:45:12  spr
  * Minor fixes.
  *

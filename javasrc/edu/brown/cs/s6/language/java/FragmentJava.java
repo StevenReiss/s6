@@ -30,12 +30,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/FragmentJava.java,v 1.19 2015/12/23 15:45:09 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/FragmentJava.java,v 1.20 2016/07/18 23:05:25 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: FragmentJava.java,v $
+ * Revision 1.20  2016/07/18 23:05:25  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.19  2015/12/23 15:45:09  spr
  * Minor fixes.
  *

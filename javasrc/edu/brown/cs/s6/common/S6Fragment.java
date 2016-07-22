@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/common/S6Fragment.java,v 1.10 2015/09/23 17:57:47 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/common/S6Fragment.java,v 1.11 2016/07/18 23:04:44 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: S6Fragment.java,v $
+ * Revision 1.11  2016/07/18 23:04:44  spr
+ * Updates for cleanup.
+ *
  * Revision 1.10  2015/09/23 17:57:47  spr
  * Updates for Andriod UI and better keysearch.
  *

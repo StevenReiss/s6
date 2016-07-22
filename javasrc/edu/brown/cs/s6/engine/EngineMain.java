@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/engine/EngineMain.java,v 1.19 2015/12/23 15:44:48 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/engine/EngineMain.java,v 1.20 2016/07/18 23:04:53 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: EngineMain.java,v $
+ * Revision 1.20  2016/07/18 23:04:53  spr
+ * Handle applications better.
+ *
  * Revision 1.19  2015/12/23 15:44:48  spr
  * Minor fixes.
  *

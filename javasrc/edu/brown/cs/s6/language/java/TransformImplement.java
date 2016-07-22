@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformImplement.java,v 1.14 2015/09/23 17:54:53 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformImplement.java,v 1.15 2016/07/18 23:05:26 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: TransformImplement.java,v $
+ * Revision 1.15  2016/07/18 23:05:26  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.14  2015/09/23 17:54:53  spr
  * Version to handle andriod UI applications.
  *

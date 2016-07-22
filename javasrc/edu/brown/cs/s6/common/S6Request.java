@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/common/S6Request.java,v 1.12 2015/09/23 17:57:47 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/common/S6Request.java,v 1.13 2016/07/18 23:04:44 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: S6Request.java,v $
+ * Revision 1.13  2016/07/18 23:04:44  spr
+ * Updates for cleanup.
+ *
  * Revision 1.12  2015/09/23 17:57:47  spr
  * Updates for Andriod UI and better keysearch.
  *
@@ -209,6 +212,7 @@ interface MethodSignature extends Signature {
    boolean isAbstract();
    String getDeclarationText();
    boolean useExceptions();
+   ClassSignature getDefiningClass();
 }
 
 

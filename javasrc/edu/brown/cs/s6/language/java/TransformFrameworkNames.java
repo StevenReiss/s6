@@ -1,34 +1,34 @@
 /********************************************************************************/
-/*                                                                              */
-/*              TransformFrameworkNames.java                                    */
-/*                                                                              */
-/*      Transform names of class/methods/fields for a framework search          */
-/*                                                                              */
+/*										*/
+/*		TransformFrameworkNames.java					*/
+/*										*/
+/*	Transform names of class/methods/fields for a framework search		*/
+/*										*/
 /********************************************************************************/
-/*      Copyright 2013 Brown University -- Steven P. Reiss                    */
+/*	Copyright 2013 Brown University -- Steven P. Reiss		      */
 /*********************************************************************************
- *  Copyright 2013, Brown University, Providence, RI.                            *
- *                                                                               *
- *                        All Rights Reserved                                    *
- *                                                                               *
- *  Permission to use, copy, modify, and distribute this software and its        *
- *  documentation for any purpose other than its incorporation into a            *
- *  commercial product is hereby granted without fee, provided that the          *
- *  above copyright notice appear in all copies and that both that               *
- *  copyright notice and this permission notice appear in supporting             *
- *  documentation, and that the name of Brown University not be used in          *
- *  advertising or publicity pertaining to distribution of the software          *
- *  without specific, written prior permission.                                  *
- *                                                                               *
- *  BROWN UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS                *
- *  SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND            *
- *  FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT SHALL BROWN UNIVERSITY      *
- *  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY          *
- *  DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,              *
- *  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS               *
- *  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE          *
- *  OF THIS SOFTWARE.                                                            *
- *                                                                               *
+ *  Copyright 2013, Brown University, Providence, RI.				 *
+ *										 *
+ *			  All Rights Reserved					 *
+ *										 *
+ *  Permission to use, copy, modify, and distribute this software and its	 *
+ *  documentation for any purpose other than its incorporation into a		 *
+ *  commercial product is hereby granted without fee, provided that the 	 *
+ *  above copyright notice appear in all copies and that both that		 *
+ *  copyright notice and this permission notice appear in supporting		 *
+ *  documentation, and that the name of Brown University not be used in 	 *
+ *  advertising or publicity pertaining to distribution of the software 	 *
+ *  without specific, written prior permission. 				 *
+ *										 *
+ *  BROWN UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS		 *
+ *  SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND		 *
+ *  FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT SHALL BROWN UNIVERSITY	 *
+ *  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY 	 *
+ *  DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,		 *
+ *  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS		 *
+ *  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 	 *
+ *  OF THIS SOFTWARE.								 *
+ *										 *
  ********************************************************************************/
 
 
@@ -77,26 +77,25 @@ import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Request.ClassSignature;
 
 public class TransformFrameworkNames extends TransformJava implements S6Constants, JavaConstants
 {
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Private Storage                                                         */
-/*                                                                              */
+/*										*/
+/*	Private Storage 							*/
+/*										*/
 /********************************************************************************/
 
-private static AtomicInteger    name_counter = new AtomicInteger();
+private static AtomicInteger	name_counter = new AtomicInteger();
 
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Constructors                                                            */
-/*                                                                              */
+/*										*/
+/*	Constructors								*/
+/*										*/
 /********************************************************************************/
 
 public TransformFrameworkNames(String name)
@@ -107,9 +106,9 @@ public TransformFrameworkNames(String name)
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Package mapping interface                                               */
-/*                                                                              */
+/*										*/
+/*	Package mapping interface						*/
+/*										*/
 /********************************************************************************/
 
 @Override protected Collection<TreeMapper> findPackageMappings(S6SolutionSet sols,
@@ -118,7 +117,7 @@ public TransformFrameworkNames(String name)
    UsageMappings um = getDependencies(cu);
    List<NameMapper> rslt = new ArrayList<NameMapper>();
    List<TreeMapper> finalresult = new ArrayList<TreeMapper>();
-   
+
    Map<S6Request.ClassSignature,List<TypeDeclaration>> worklist =
       new HashMap<S6Request.ClassSignature,List<TypeDeclaration>>();
    Set<TypeDeclaration> done = new HashSet<TypeDeclaration>();
@@ -136,9 +135,9 @@ public TransformFrameworkNames(String name)
 	  }
        }
       if (!fnd) worklist.put(csg,new ArrayList<TypeDeclaration>());
-    }   
+    }
    if (worklist.size() == 0) return finalresult;
-   
+
    for (Object o : cu.types()) {
       if (o instanceof TypeDeclaration) {
 	 TypeDeclaration td = (TypeDeclaration) o;
@@ -153,23 +152,23 @@ public TransformFrameworkNames(String name)
 	  }
        }
     }
-   
+
    for (Map.Entry<S6Request.ClassSignature,List<TypeDeclaration>> ent : worklist.entrySet()) {
       if (ent.getValue().size() == 0) return finalresult;
-    }   
-   List<S6Request.ClassSignature> todos = new LinkedList<S6Request.ClassSignature>(worklist.keySet()); 
+    }
+   List<S6Request.ClassSignature> todos = new LinkedList<S6Request.ClassSignature>(worklist.keySet());
    findClassMappings(todos,worklist,null,rslt,psg,um);
-   
+
    // next, for each result mapping, extend that mappings with fields and methods
    for (NameMapper nm : rslt) {
       List<NameMapper> nrslt = addFieldMappings(nm,sols,sol,cu,psg);
       if (nrslt != null && nrslt.size() > 0) {
-         for (NameMapper nm1 : nrslt) {
-            List<NameMapper> mrslt = addMethodMappings(nm1,sols,sol,cu,psg);
-            if (mrslt != null) {
-               finalresult.addAll(mrslt);
-             }
-          }
+	 for (NameMapper nm1 : nrslt) {
+	    List<NameMapper> mrslt = addMethodMappings(nm1,sols,sol,cu,psg);
+	    if (mrslt != null) {
+	       finalresult.addAll(mrslt);
+	     }
+	  }
        }
     }
    // finally remove those that aren't interconnected and set up to remove unneeded classes
@@ -180,7 +179,7 @@ public TransformFrameworkNames(String name)
 	 findDependentTypes(cu,tm);
        }
     }
-   
+
    return finalresult;
 }
 
@@ -188,9 +187,9 @@ public TransformFrameworkNames(String name)
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Only work for framework search                                          */
-/*                                                                              */
+/*										*/
+/*	Only work for framework search						*/
+/*										*/
 /********************************************************************************/
 
 protected boolean cheS6LocationhodForClass(S6SolutionFlag sols,S6Solution sol,
@@ -210,15 +209,15 @@ protected boolean checkApplyClassForPackage(S6Solution sols,CompilationUnit cu,
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Check initial applicability of a class                                  */
-/*                                                                              */
+/*										*/
+/*	Check initial applicability of a class					*/
+/*										*/
 /********************************************************************************/
 
 private boolean checkApplicable(S6Request.ClassSignature csg,TypeDeclaration td,String pkg)
 {
    if (!JavaAst.checkTypeSignature(td,csg,S6SignatureType.NO_METHODS,pkg)) return false;
-   
+
    Set<ASTNode> used = new HashSet<ASTNode>();
    for (S6Request.FieldSignature fs : csg.getFields()) {
       boolean fnd = false;
@@ -230,7 +229,7 @@ private boolean checkApplicable(S6Request.ClassSignature csg,TypeDeclaration td,
 	    for (Object o : fd.fragments()) {
 	       VariableDeclarationFragment vdf = (VariableDeclarationFragment) o;
 	       if (used.contains(vdf)) continue;
-               // should check for conformable types
+	       // should check for conformable types
 	       if (JavaAst.checkFieldSignature(vdf,fs,S6SignatureType.MODS)) {
 		  fnd = true;
 		  used.add(vdf);
@@ -242,31 +241,31 @@ private boolean checkApplicable(S6Request.ClassSignature csg,TypeDeclaration td,
        }
       if (!fnd) return false;
     }
-   
+
    for (S6Request.MethodSignature ms : csg.getMethods()) {
       boolean fnd = false;
       for (Iterator<?> it = td.bodyDeclarations().iterator(); it.hasNext(); ) {
 	 ASTNode cnod = (ASTNode) it.next();
 	 if (cnod instanceof MethodDeclaration) {
-            if (used.contains(cnod)) continue;
-            MethodDeclaration md = (MethodDeclaration) cnod;
-            // should check for conformable parameters and return
-            
-            if (md.isConstructor()) {
-               if (!ms.getName().equals("<init>")) continue;
-             }
-            else if (ms.getName().equals("<init>")) continue;
-            
-            if (JavaAst.checkMethodSignature(md,ms,S6SignatureType.MODS)) {
-               fnd = true;
-               used.add(cnod);
-               break;
-             }
+	    if (used.contains(cnod)) continue;
+	    MethodDeclaration md = (MethodDeclaration) cnod;
+	    // should check for conformable parameters and return
+	
+	    if (md.isConstructor()) {
+	       if (!ms.getName().equals("<init>")) continue;
+	     }
+	    else if (ms.getName().equals("<init>")) continue;
+	
+	    if (JavaAst.checkMethodSignature(md,ms,S6SignatureType.MODS)) {
+	       fnd = true;
+	       used.add(cnod);
+	       break;
+	     }
 	  }
        }
       if (!fnd) return false;
     }
-   
+
    Type st = td.getSuperclassType();
    if (st != null && csg.getSuperClass() == null && csg.getInterfaces().size() == 0) {
       JcompType jt = JavaAst.getJavaType(st);
@@ -274,16 +273,16 @@ private boolean checkApplicable(S6Request.ClassSignature csg,TypeDeclaration td,
 	 if (!jt.getName().startsWith(pkg) && !jt.isKnownType()) return false;
        }
     }
-   
+
    String txt = null;
    for (String k : csg.getKeywords()) {
       if (txt == null) txt = td.toString().toLowerCase();
       k = k.toLowerCase();
       if (!txt.contains(k)) return false;
     }
-   
+
    // check # fields and candidate methods against signature here
-   
+
    return true;
 }
 
@@ -291,9 +290,9 @@ private boolean checkApplicable(S6Request.ClassSignature csg,TypeDeclaration td,
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Find all possible class mappings to start with                          */
-/*                                                                              */
+/*										*/
+/*	Find all possible class mappings to start with				*/
+/*										*/
 /********************************************************************************/
 
 private void findClassMappings(List<S6Request.ClassSignature> todos,
@@ -314,9 +313,9 @@ private void findClassMappings(List<S6Request.ClassSignature> todos,
        }
       return;
     }
-   
+
    if (done == null) done = new HashMap<TypeDeclaration,String>();
-   
+
    S6Request.ClassSignature workon = todos.remove(0);
    for (TypeDeclaration td : workmap.get(workon)) {
       if (done.containsKey(td)) continue;
@@ -331,13 +330,13 @@ private void findClassMappings(List<S6Request.ClassSignature> todos,
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Extend mapping with fields                                              */
-/*                                                                              */
+/*										*/
+/*	Extend mapping with fields						*/
+/*										*/
 /********************************************************************************/
 
 private List<NameMapper> addFieldMappings(NameMapper nm,S6SolutionSet sols,
-      S6Solution sol,CompilationUnit cu,S6Request.PackageSignature psg) 
+      S6Solution sol,CompilationUnit cu,S6Request.PackageSignature psg)
 {
    List<NameMapper> rslt = new ArrayList<NameMapper>();
    List<S6Request.FieldSignature> fields = new ArrayList<S6Request.FieldSignature>();
@@ -356,14 +355,15 @@ private void computeFieldMappings(NameMapper nm,S6Request.PackageSignature psg,L
       rslt.add(nm);
       return;
     }
-   S6Request.FieldSignature fld = flds.remove(0);
+   List<S6Request.FieldSignature> localflds = new ArrayList<S6Request.FieldSignature>(flds);
+   S6Request.FieldSignature fld = localflds.remove(0);
    S6Request.ClassSignature csg = fld.getDefiningClass();
    String fnm = csg.getName();
    String pkgnm = psg.getName();
    if (fnm.startsWith(pkgnm)) {
       fnm = fnm.substring(pkgnm.length()+1);
     }
-   JcompSymbol sym = nm.findMappedSymbol(fnm); 
+   JcompSymbol sym = nm.findMappedSymbol(fnm);
    TypeDeclaration td = (TypeDeclaration) sym.getDefinitionNode();
    JcompTyper typer = JcompAst.getTyper(td);
    List<JcompSymbol> candidates = new ArrayList<JcompSymbol>();
@@ -372,19 +372,20 @@ private void computeFieldMappings(NameMapper nm,S6Request.PackageSignature psg,L
       int mods = fd.getModifiers();
       if (!checkCompatibleField(fld,jtyp,mods,pkgnm,typer,nm)) continue;
       for (Object o : fd.fragments()) {
-         VariableDeclarationFragment vdf = (VariableDeclarationFragment) o;
-         JcompSymbol fldsym = JcompAst.getDefinition(vdf);
-         if (nm.getMapping().keySet().contains(fldsym)) continue;
-         candidates.add(fldsym);
+	 VariableDeclarationFragment vdf = (VariableDeclarationFragment) o;
+	 JcompSymbol fldsym = JcompAst.getDefinition(vdf);
+	 if (nm.getMapping().keySet().contains(fldsym)) continue;
+	 candidates.add(fldsym);
        }
     }
    if (candidates.isEmpty()) return;
    restrictByName(candidates,fld.getName());
-   
+
    for (JcompSymbol csym : candidates) {
       NameMapper nm1 = new NameMapper(nm);
-      nm1.addMapping(csym,fld.getName());
-      computeFieldMappings(nm1,psg,flds,rslt);
+      if (!csym.getName().equals(fld.getName()))
+	 nm1.addMapping(csym,fld.getName());
+      computeFieldMappings(nm1,psg,localflds,rslt);
     }
 }
 
@@ -402,22 +403,77 @@ private boolean checkCompatibleField(S6Request.FieldSignature fld,
 
 private void restrictByName(List<JcompSymbol> syms,String name)
 {
+   if (syms.size() < 2) return;
+
    boolean exactmatch = false;
    boolean contains = false;
-   
+
    for (JcompSymbol sym : syms) {
       String snm = sym.getName();
       snm = getMatchName(snm);
       if (snm.equals(name)) exactmatch = true;
-      else if (snm.contains(name)) contains = true;
+      else if (nameContains(snm,name)) contains = true;
     }
-   
+
    for (Iterator<JcompSymbol> it = syms.iterator(); it.hasNext(); ) {
       JcompSymbol sym = it.next();
       String snm = getMatchName(sym.getName());
       if (exactmatch && !snm.equals(name)) it.remove();
-      else if (contains && !snm.contains(name)) it.remove();
+      else if (contains && !nameContains(snm,name)) it.remove();
     }
+}
+
+
+private boolean nameContains(String sname,String uname)
+{
+   int len = uname.length();
+   if (len <= 3 || len > 48) return false;
+   sname = sname.toLowerCase();
+
+   int [] breaks = new int[64];
+   int breakct = 0;
+
+   char prev = 0;
+   for (int i = 0; i < len; ++i) {
+      char ch = uname.charAt(i);
+      if (Character.isUpperCase(ch) && Character.isLowerCase(prev)) {
+	 breaks[breakct++] = i;
+       }
+      else if (ch == '_') {
+	 breaks[breakct++] = i;
+	 breaks[breakct++] = i+1;
+       }
+      prev = ch;
+    }
+
+   int mct = 0;
+   int tct = 0;
+   if (breakct > 0) {
+      int lbrk = 0;
+      for (int i = 0; i < breakct; ++i) {
+	 if (breaks[i] - lbrk > 3) {
+	    String snm = uname.substring(lbrk,breaks[i]);
+	    snm = snm.toLowerCase();
+	    if (sname.contains(snm)) ++mct;
+	    ++tct;
+	  }
+	 lbrk = breaks[i];
+       }
+      String snm = uname.substring(lbrk);
+      if (snm.length() > 3) {
+	 snm = snm.toLowerCase();
+	 if (sname.contains(snm)) ++mct;
+	 ++tct;
+       }
+    }
+   else {
+      mct = sname.contains(uname) ? 1 : 0;
+      tct = 1;
+    }
+
+   if (mct == 0 || mct < tct/2) return false;
+
+   return true;
 }
 
 
@@ -425,12 +481,12 @@ private String getMatchName(String snm)
 {
    int idx1 = snm.indexOf("(");
    if (idx1 > 0) snm = snm.substring(0,idx1).trim();
-   
+
    int idx = snm.lastIndexOf(".");
    if (idx > 0) {
       snm = snm.substring(idx+1);
     }
-   
+
    return snm;
 }
 
@@ -445,30 +501,112 @@ private boolean checkCompatibleType(JcompType typ,String target,String pkg,
     }
    JcompType ttype = typer.findType(target);
    if (!ttype.isCompatibleWith(typ)) return false;
-   
+
    return true;
 }
 
 /********************************************************************************/
-/*                                                                              */
-/*      Extend mapping with methods                                             */
-/*                                                                              */
+/*										*/
+/*	Extend mapping with methods						*/
+/*										*/
 /********************************************************************************/
 
 private List<NameMapper> addMethodMappings(NameMapper nm,S6SolutionSet sols,
-      S6Solution sol,CompilationUnit cu,S6Request.PackageSignature psg) 
+      S6Solution sol,CompilationUnit cu,S6Request.PackageSignature psg)
 {
    List<NameMapper> rslt = new ArrayList<NameMapper>();
-   rslt.add(nm);
+   List<S6Request.MethodSignature> mthds = new ArrayList<S6Request.MethodSignature>();
+   for (S6Request.ClassSignature csg : psg.getClasses()) {
+      mthds.addAll(csg.getMethods());
+    }
+   computeMethodMappings(nm,psg,mthds,rslt);
    return rslt;
 }
 
 
 
+private void computeMethodMappings(NameMapper nm,S6Request.PackageSignature psg,
+      List<S6Request.MethodSignature> methods,List<NameMapper> rslt)
+{
+   if (methods.isEmpty()) {
+      rslt.add(nm);
+      return;
+    }
+
+   List<S6Request.MethodSignature> localmethods = new ArrayList<S6Request.MethodSignature>(methods);
+   S6Request.MethodSignature msg = localmethods.remove(0);
+   S6Request.ClassSignature csg = msg.getDefiningClass();
+   String fnm = csg.getName();
+   String pkgnm = psg.getName();
+   if (fnm.startsWith(pkgnm)) {
+      fnm = fnm.substring(pkgnm.length()+1);
+    }
+   JcompSymbol sym = nm.findMappedSymbol(fnm);
+   TypeDeclaration td = (TypeDeclaration) sym.getDefinitionNode();
+   JcompTyper typer = JcompAst.getTyper(td);
+
+   List<JcompSymbol> candidates = new ArrayList<JcompSymbol>();
+   for (MethodDeclaration md : td.getMethods()) {
+      boolean iscnst = msg.getName().equals("<init>");
+      if (iscnst != md.isConstructor()) continue;
+      JcompType jtyp = JcompAst.getJavaType(md);
+      int mods = md.getModifiers();
+      if (checkCompatibleMethod(msg,jtyp,mods,pkgnm,typer,nm)) {
+	 JcompSymbol msym = JcompAst.getDefinition(md);
+	 if (!nm.getMapping().keySet().contains(msym))
+	    candidates.add(msym);
+       }
+    }
+
+   if (candidates.isEmpty()) return;
+   restrictByName(candidates,msg.getName());
+
+   for (JcompSymbol msym : candidates) {
+      NameMapper nm1 = new NameMapper(nm);
+      if (!msym.isConstructorSymbol() && !msym.getName().equals(msg.getName()))
+	 nm1.addMapping(msym,msg.getName());
+      computeMethodMappings(nm1,psg,localmethods,rslt);
+    }
+}
+
+
+
+private boolean checkCompatibleMethod(S6Request.MethodSignature msg,
+      JcompType typ,int mods,String pkg,JcompTyper typer,NameMapper nm)
+{
+   boolean staticfg = (mods & Modifier.STATIC) != 0;
+   if (staticfg != msg.isStatic()) return false;
+   if (!checkCompatibleMethodType(typ,msg,pkg,typer,nm)) return false;
+
+   return true;
+}
+
+
+
+private boolean checkCompatibleMethodType(JcompType typ,S6Request.MethodSignature msg,
+      String pkg,JcompTyper typer,NameMapper nm)
+{
+   List<String> pnames = msg.getParameterTypeNames();
+   List<JcompType> ptypes = typ.getComponents();
+   if (pnames.size() != ptypes.size()) return false;
+   for (int i = 0; i < pnames.size(); ++i) {
+      if (!checkCompatibleType(ptypes.get(i),pnames.get(i),pkg,typer,nm)) return false;
+    }
+   JcompType rtype = typ.getBaseType();
+   if (rtype != null) {
+      String rname = msg.getReturnTypeName();
+      if (!checkCompatibleType(rtype,rname,pkg,typer,nm)) return false;
+    }
+
+   return true;
+}
+
+
+
 /********************************************************************************/
-/*                                                                              */
-/*      Utility methods                                                         */
-/*                                                                              */
+/*										*/
+/*	Utility methods 							*/
+/*										*/
 /********************************************************************************/
 
 static String newName()
@@ -478,9 +616,9 @@ static String newName()
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Dependency information for checking classes chosen are related          */
-/*                                                                              */
+/*										*/
+/*	Dependency information for checking classes chosen are related		*/
+/*										*/
 /********************************************************************************/
 
 private UsageMappings getDependencies(CompilationUnit cu)
@@ -498,7 +636,7 @@ private boolean checkDepends(S6Request.PackageSignature psg,NameMapper nm,UsageM
    Map<JcompSymbol,String> mp = nm.getMapping();
    Map<JcompType,S6Request.ClassSignature> omp = new HashMap<JcompType,S6Request.ClassSignature>();
    Set<JcompType> done = new HashSet<JcompType>();
-   
+
    for (Map.Entry<JcompSymbol,String> ent : mp.entrySet()) {
       JcompSymbol js = ent.getKey();
       JcompType jt = js.getType();
@@ -510,7 +648,7 @@ private boolean checkDepends(S6Request.PackageSignature psg,NameMapper nm,UsageM
 	  }
        }
     }
-   
+
    if (!done.isEmpty()) {
       boolean chng = true;
       while (chng) {
@@ -530,13 +668,13 @@ private boolean checkDepends(S6Request.PackageSignature psg,NameMapper nm,UsageM
     }
    else {
       for (JcompType jt0 : omp.keySet()) {
-         for (JcompType jt1 : um.getReferencesFrom(jt0)) {
-            if (omp.containsKey(jt1)) done.add(jt1);
-          }
+	 for (JcompType jt1 : um.getReferencesFrom(jt0)) {
+	    if (omp.containsKey(jt1)) done.add(jt1);
+	  }
        }
       if (done.size() != omp.size()) return false;
     }
-   
+
    return true;
 }
 
@@ -544,90 +682,90 @@ private boolean checkDepends(S6Request.PackageSignature psg,NameMapper nm,UsageM
 
 
 private static class UsageMappings extends ASTVisitor {
-   
+
    private TypeDeclaration current_class;
    private JcompType current_type;
    private Set<JcompType> relevant_types;
    private Map<JcompType,Set<JcompType>> ref_map;
    private Map<JcompType,Set<JcompType>> deref_map;
-   
+
    UsageMappings(CompilationUnit cu) {
       relevant_types = new HashSet<JcompType>();
       for (Object o : cu.types()) {
-         if (o instanceof TypeDeclaration) {
-            TypeDeclaration td = (TypeDeclaration) o;
-            JcompType jt = JavaAst.getJavaType(td);
-            if (jt != null) relevant_types.add(jt);
-          }
+	 if (o instanceof TypeDeclaration) {
+	    TypeDeclaration td = (TypeDeclaration) o;
+	    JcompType jt = JavaAst.getJavaType(td);
+	    if (jt != null) relevant_types.add(jt);
+	  }
        }
       ref_map = new HashMap<JcompType,Set<JcompType>>();
       deref_map = new HashMap<JcompType,Set<JcompType>>();
       current_type = null;
       current_class = null;
     }
-   
+
    Collection<JcompType> getReferencesFrom(JcompType jt) {
       Collection<JcompType> rslt = ref_map.get(jt);
       if (rslt == null) rslt = new ArrayList<JcompType>();
       return rslt;
     }
-   
+
    @Override public void preVisit(ASTNode n) {
       if (n instanceof TypeDeclaration && current_class == null) {
-         current_class = (TypeDeclaration) n;
-         current_type = JavaAst.getJavaType(n);
+	 current_class = (TypeDeclaration) n;
+	 current_type = JavaAst.getJavaType(n);
        }
     }
-   
+
    @Override public void postVisit(ASTNode n) {
       JcompType jt = JavaAst.getJavaType(n);
       jt = getRelevantType(jt);
       if (jt == null) {
-         JcompSymbol js = JavaAst.getReference(n);
-         if (js != null) {
-            jt = js.getType();
-            jt = getRelevantType(jt);
-          }
+	 JcompSymbol js = JavaAst.getReference(n);
+	 if (js != null) {
+	    jt = js.getType();
+	    jt = getRelevantType(jt);
+	  }
        }
       if (jt != null) addRef(jt);
       if (n == current_class) current_class = null;
     }
-   
+
    private void addRef(JcompType jt) {
       if (current_type == null || jt == null) return;
       if (current_type == jt) return;
       addToMap(ref_map,current_type,jt);
       addToMap(deref_map,jt,current_type);
     }
-   
+
    private JcompType getRelevantType(JcompType jt) {
       if (jt == null) return null;
       while (jt != null && jt.isArrayType()) {
-         jt = jt.getBaseType();
+	 jt = jt.getBaseType();
        }
       if (jt == null) return null;
       if (jt == current_type) return null;
       if (relevant_types.contains(jt)) return jt;
       return jt;
     }
-   
+
    private void addToMap(Map<JcompType,Set<JcompType>> m,JcompType s,JcompType t) {
       Set<JcompType> sjt = m.get(s);
       if (sjt == null) {
-         sjt = new HashSet<JcompType>();
-         m.put(s,sjt);
+	 sjt = new HashSet<JcompType>();
+	 m.put(s,sjt);
        }
       sjt.add(t);
     }
-   
+
 }	// end of inner class UsageMappings
 
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Handle removing types that aren't used                                  */
-/*                                                                              */
+/*										*/
+/*	Handle removing types that aren't used                                  */
+/*										*/
 /********************************************************************************/
 
 private void findDependentTypes(CompilationUnit cu,NameMapper nm)
@@ -635,7 +773,7 @@ private void findDependentTypes(CompilationUnit cu,NameMapper nm)
    DependenceVisitor dv = new DependenceVisitor();
    boolean chng = true;
    Set<JcompType> done = new HashSet<JcompType>();
-   
+
    while (chng) {
       chng = false;
       for (Object o : cu.types()) {
@@ -651,25 +789,25 @@ private void findDependentTypes(CompilationUnit cu,NameMapper nm)
 	  }
        }
     }
-   
+
    nm.addDependentTypes(dv.getTypes());
 }
 
 
 
 private class DependenceVisitor extends ASTVisitor {
-   
+
    Set<JcompType> type_defs;
    private Stack<Boolean> collect_stack;
-   
+
    DependenceVisitor() {
       type_defs = new HashSet<JcompType>();
       collect_stack = new Stack<Boolean>();
       collect_stack.push(Boolean.FALSE);
     }
-   
+
    Collection<JcompType> getTypes()			{ return type_defs; }
-   
+
    @Override public boolean visit(ClassInstanceCreation n) {
       collect_stack.push(Boolean.TRUE);
       return true;
@@ -701,13 +839,13 @@ private class DependenceVisitor extends ASTVisitor {
     }
    @Override public void endVisit(SimpleType n) {
       if (collect_stack.peek()) {
-         JcompType jt = JavaAst.getJavaType(n);
-         if (jt != null && !jt.isKnownType() && jt.isClassType() && !jt.isArrayType()) {
-            type_defs.add(jt);
-          }
+	 JcompType jt = JavaAst.getJavaType(n);
+	 if (jt != null && !jt.isKnownType() && jt.isClassType() && !jt.isArrayType()) {
+	    type_defs.add(jt);
+	  }
        }
     }
-   
+
 }	// end of inner class DependenceVisitor
 
 
@@ -720,12 +858,12 @@ private class DependenceVisitor extends ASTVisitor {
 /********************************************************************************/
 
 private class NameMapper extends TreeMapper {
-   
+
    private String map_name;
    private Map<JcompSymbol,String> sym_mapping;
    private boolean remove_classes;
    private Set<JcompType> dependent_types;
-   
+
    NameMapper(String nm,boolean rmc) {
       map_name = nm;
       remove_classes = rmc;
@@ -733,118 +871,121 @@ private class NameMapper extends TreeMapper {
       dependent_types = null;
       if (rmc) dependent_types = new HashSet<JcompType>();
     }
-   
+
    NameMapper(NameMapper orig) {
       map_name = orig.map_name;
       remove_classes = orig.remove_classes;
       sym_mapping = new HashMap<JcompSymbol,String>(orig.sym_mapping);
-      if (orig.dependent_types != null) 
-         dependent_types = new HashSet<JcompType>(orig.dependent_types);
+      if (orig.dependent_types != null)
+	 dependent_types = new HashSet<JcompType>(orig.dependent_types);
       else dependent_types = null;
     }
-   
+
    @Override protected String getSpecificsName()	{ return map_name; }
-   
+
    void addMapping(JcompSymbol from,String to) {
       sym_mapping.put(from,to);
     }
-   
+
    Map<JcompSymbol,String> getMapping() 	{ return sym_mapping; }
-   
+
    JcompSymbol findMappedSymbol(String nm) {
       for (Map.Entry<JcompSymbol,String> ent : sym_mapping.entrySet()) {
-         if (ent.getValue().equals(nm)) return ent.getKey();
+	 if (ent.getValue().equals(nm)) return ent.getKey();
        }
       return null;
     }
-   
+
    void addDependentTypes(Collection<JcompType> typs) {
       if (dependent_types != null) dependent_types.addAll(typs);
     }
-   
+
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       JcompSymbol js = JavaAst.getDefinition(orig);
       if (js != null) {
-         String newname = sym_mapping.get(js);
-         if (newname == null && js.getName().equals("<init>")) {
-            for (ASTNode p = orig; p != null; p = p.getParent()) {
-               if (p instanceof TypeDeclaration) {
-                  JcompSymbol tjs = JavaAst.getDefinition(p);
-                  newname = sym_mapping.get(tjs);
-                  break;
-                }
-             }
-            
-          }
-         if (newname != null) {
-            rewriteName(orig,rw,newname);
-          }
+	 String newname = sym_mapping.get(js);
+	 if (newname == null && js.getName().equals("<init>")) {
+	    for (ASTNode p = orig; p != null; p = p.getParent()) {
+	       if (p instanceof TypeDeclaration) {
+		  JcompSymbol tjs = JavaAst.getDefinition(p);
+		  newname = sym_mapping.get(tjs);
+		  break;
+		}
+	     }
+	  }
+	 if (newname != null) {
+	    rewriteName(orig,rw,newname);
+	  }
        }
       js = JavaAst.getReference(orig);
+      if (js == null) {
+	 JcompType jt = JavaAst.getJavaType(orig);
+	 if (jt != null) js = jt.getDefinition();
+       }
       if (js != null) {
-         String newname = sym_mapping.get(js);
-         if (newname != null) {
-            rewriteName(orig,rw,newname);
-          }
+	 String newname = sym_mapping.get(js);
+	 if (newname != null) {
+	    rewriteName(orig,rw,newname);
+	  }
        }
       if (orig.getNodeType() == ASTNode.COMPILATION_UNIT && remove_classes) {
-         CompilationUnit cu = (CompilationUnit) orig;
-         ListRewrite lrw = rw.getListRewrite(orig,CompilationUnit.TYPES_PROPERTY);
-         for (Object o : cu.types()) {
-            AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
-            if (keepType(atd)) continue;
-            js = JavaAst.getDefinition(atd);
-            if (js != null) {
-               String newname = sym_mapping.get(js);
-               if (newname == null) lrw.remove(atd,null);
-             }
-          }
+	 CompilationUnit cu = (CompilationUnit) orig;
+	 ListRewrite lrw = rw.getListRewrite(orig,CompilationUnit.TYPES_PROPERTY);
+	 for (Object o : cu.types()) {
+	    AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
+	    if (keepType(atd)) continue;
+	    js = JavaAst.getDefinition(atd);
+	    if (js != null) {
+	       String newname = sym_mapping.get(js);
+	       if (newname == null) lrw.remove(atd,null);
+	     }
+	  }
        }
     }
-   
+
    private boolean keepType(AbstractTypeDeclaration atd) {
       if (atd instanceof EnumDeclaration) return true;
       if (atd instanceof TypeDeclaration) {
-         TypeDeclaration td = (TypeDeclaration) atd;
-         if (dependent_types != null) {
-            JcompType jt = JavaAst.getJavaType(td);
-            if (jt != null && dependent_types.contains(jt)) return true;
-          }
-         if (td.getMethods().length == 0) return true;
-         FieldDeclaration [] fds = td.getFields();
-         if (td.isInterface() && fds.length > 0) return true;
-         else if (td.isInterface()) return true;
-         
-         int stat = 0;
-         int nstat = 0;
-         for (Object o : td.bodyDeclarations()) {
-            BodyDeclaration bd = (BodyDeclaration) o;
-            if (Modifier.isStatic(bd.getModifiers()) || Modifier.isAbstract(bd.getModifiers()))
-               ++stat;
-            else
-               ++nstat;
-          }
-         if (stat > 0 && nstat == 0) return true;
+	 TypeDeclaration td = (TypeDeclaration) atd;
+	 if (dependent_types != null) {
+	    JcompType jt = JavaAst.getJavaType(td);
+	    if (jt != null && dependent_types.contains(jt)) return true;
+	  }
+	 if (td.getMethods().length == 0) return true;
+	 FieldDeclaration [] fds = td.getFields();
+	 if (td.isInterface() && fds.length > 0) return true;
+	 else if (td.isInterface()) return true;
+	
+	 int stat = 0;
+	 int nstat = 0;
+	 for (Object o : td.bodyDeclarations()) {
+	    BodyDeclaration bd = (BodyDeclaration) o;
+	    if (Modifier.isStatic(bd.getModifiers()) || Modifier.isAbstract(bd.getModifiers()))
+	       ++stat;
+	    else
+	       ++nstat;
+	  }
+	 if (stat > 0 && nstat == 0) return true;
        }
       return false;
     }
-   
+
    private void rewriteName(ASTNode nd,ASTRewrite rw,String name) {
       if (nd instanceof SimpleName) {
-         try {
-            rw.set(nd,SimpleName.IDENTIFIER_PROPERTY,name,null);
-          }
-         catch (IllegalArgumentException e) {
-            System.err.println("S6: TRANSFORM NAME: Problem with new name " + name + ": " + e);
-          }
+	 try {
+	    rw.set(nd,SimpleName.IDENTIFIER_PROPERTY,name,null);
+	  }
+	 catch (IllegalArgumentException e) {
+	    System.err.println("S6: TRANSFORM NAME: Problem with new name " + name + ": " + e);
+	  }
        }
     }
-   
+
 }	// end of subclass NameMapper
 
 
 
-}       // end of class TransformFrameworkNames
+}	// end of class TransformFrameworkNames
 
 
 

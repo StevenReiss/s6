@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/solution/SolutionSet.java,v 1.12 2015/09/23 17:58:14 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/solution/SolutionSet.java,v 1.13 2016/07/18 23:05:55 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: SolutionSet.java,v $
+ * Revision 1.13  2016/07/18 23:05:55  spr
+ * Update solutions for ui search.
+ *
  * Revision 1.12  2015/09/23 17:58:14  spr
  * Updates for Andriod UI and better keysearch.
  *

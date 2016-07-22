@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestBase.java,v 1.7 2015/09/23 17:58:07 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestBase.java,v 1.8 2016/07/18 23:05:37 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: RequestBase.java,v $
+ * Revision 1.8  2016/07/18 23:05:37  spr
+ * Update request to contain more info for applications.
+ *
  * Revision 1.7  2015/09/23 17:58:07  spr
  * Updates for Andriod UI and better keysearch.
  *
@@ -114,12 +117,12 @@ protected RequestBase(S6Engine eng,Element xml) throws S6Exception
       Element pelt = IvyXml.getChild(sxml,"PACKAGE");
       Element celt = IvyXml.getChild(sxml,"CLASS");
       Element melt = IvyXml.getChild(sxml,"METHOD");
-      Element felt = IvyXml.getChild(sxml,"FIELD");
+      // Element felt = IvyXml.getChild(sxml,"FIELD");
       Element uelt = IvyXml.getChild(sxml,"UI");
       Element telt = IvyXml.getChild(sxml,"TESTING");
       if (pelt != null) request_signature = new RequestPackage(pelt);
       else if (celt != null) request_signature = new RequestClass(celt);
-      else if (melt != null) request_signature = new RequestMethod(melt);
+      else if (melt != null) request_signature = new RequestMethod(null,melt);
       else if (uelt != null) request_signature = new RequestUIFramework(uelt);
       else if (telt != null) request_signature = new RequestTesting(telt);
       else throw new S6Exception("Illegal signature");
