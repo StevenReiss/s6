@@ -37,6 +37,12 @@
 /*********************************************************************************
  *
  * $Log: TransformFixTryCatch.java,v $
+ * Revision 1.8  2016/07/22 13:31:06  spr
+ * Fixups for framework search.
+ *
+ * Revision 1.7  2016/07/18 23:05:26  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.6  2015/09/23 17:54:53  spr
  * Version to handle andriod UI applications.
  *
@@ -154,6 +160,8 @@ private TreeMapper getTryCatchMapping(ASTNode nd,S6Solution sol)
 
    TryCatchMapper tcm = new TryCatchMapper(tcf);
 
+   if (tcf.getDoRemove()) sol.setFlag(S6SolutionFlag.REMOVE);
+
    return tcm;
 }
 
@@ -172,11 +180,13 @@ private static class FindTryCatchFixes extends ASTVisitor {
    private Set<ASTNode> remove_throws;
    private JcompType exception_type;
    private JcompType runtime_type;
+   private boolean do_remove;
 
    FindTryCatchFixes(ASTNode n) {
       remove_cases = new HashSet<ASTNode>();
       remove_trys = new HashSet<ASTNode>();
       remove_throws = new HashSet<ASTNode>();
+      do_remove = true;
 
       exception_type = JavaAst.getTyper(n).findSystemType("java.lang.Exception");
       runtime_type = JavaAst.getTyper(n).findSystemType("java.lang.RuntimeException");
@@ -192,6 +202,7 @@ private static class FindTryCatchFixes extends ASTVisitor {
    Set<ASTNode> getRemoveCases()			{ return remove_cases; }
    Set<ASTNode> getRemoveTrys() 			{ return remove_trys; }
    Set<ASTNode> getRemoveThrows()			{ return remove_throws; }
+   boolean getDoRemove()				{ return do_remove; }
 
    @Override public boolean visit(MethodDeclaration md) {
       if (md.thrownExceptions().size() > 0 && md.getBody() != null) {
@@ -205,7 +216,10 @@ private static class FindTryCatchFixes extends ASTVisitor {
 		  if (et.isCompatibleWith(jt)) fnd = true;
 		}
 	     }
-	    if (!fnd) remove_throws.add(n);
+	    if (!fnd) {
+	       if (!Modifier.isPrivate(md.getModifiers())) do_remove = false;
+	       remove_throws.add(n);
+	     }
 	  }
 
        }

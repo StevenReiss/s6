@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformStatic.java,v 1.13 2015/09/23 17:54:54 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformStatic.java,v 1.14 2016/07/22 13:31:07 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: TransformStatic.java,v $
+ * Revision 1.14  2016/07/22 13:31:07  spr
+ * Fixups for framework search.
+ *
  * Revision 1.13  2015/09/23 17:54:54  spr
  * Version to handle andriod UI applications.
  *
@@ -138,6 +141,7 @@ public TransformStatic(String name)
    if (!JavaAst.checkMethodSignature(md,ms,S6SignatureType.ALL)) return null;
    if (Modifier.isStatic(md.getModifiers())) return null;
    if (md.isConstructor()) return null;
+   if (!ms.isStatic()) return null;
 
    if (ss.getSearchType() != S6SearchType.METHOD) {
       TypeDeclaration td = null;

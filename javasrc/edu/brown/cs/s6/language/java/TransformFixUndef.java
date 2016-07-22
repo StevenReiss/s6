@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformFixUndef.java,v 1.9 2015/12/23 15:45:10 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformFixUndef.java,v 1.10 2016/07/18 23:05:26 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: TransformFixUndef.java,v $
+ * Revision 1.10  2016/07/18 23:05:26  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.9  2015/12/23 15:45:10  spr
  * Minor fixes.
  *

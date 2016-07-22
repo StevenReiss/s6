@@ -31,11 +31,14 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/KeySearchGithub.java,v 1.6 2015/09/23 17:57:58 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/KeySearchGithub.java,v 1.7 2016/07/18 23:05:04 spr Exp $ */
 
 /*********************************************************************************
  *
  * $Log: KeySearchGithub.java,v $
+ * Revision 1.7  2016/07/18 23:05:04  spr
+ * Keysearch updates for applications, ui search.
+ *
  * Revision 1.6  2015/09/23 17:57:58  spr
  * Updates for Andriod UI and better keysearch.
  *

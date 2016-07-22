@@ -31,12 +31,15 @@ a*  SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND		 *
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/solution/SolutionBase.java,v 1.13 2015/09/23 17:58:14 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/solution/SolutionBase.java,v 1.14 2016/07/18 23:05:54 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: SolutionBase.java,v $
+ * Revision 1.14  2016/07/18 23:05:54  spr
+ * Update solutions for ui search.
+ *
  * Revision 1.13  2015/09/23 17:58:14  spr
  * Updates for Andriod UI and better keysearch.
  *

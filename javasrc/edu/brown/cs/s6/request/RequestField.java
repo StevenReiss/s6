@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestField.java,v 1.2 2015/09/23 17:58:07 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestField.java,v 1.3 2016/07/18 23:05:37 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: RequestField.java,v $
+ * Revision 1.3  2016/07/18 23:05:37  spr
+ * Update request to contain more info for applications.
+ *
  * Revision 1.2  2015/09/23 17:58:07  spr
  * Updates for Andriod UI and better keysearch.
  *

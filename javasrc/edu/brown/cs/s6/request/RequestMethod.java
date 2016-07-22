@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestMethod.java,v 1.8 2015/09/23 17:58:07 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestMethod.java,v 1.9 2016/07/18 23:05:37 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: RequestMethod.java,v $
+ * Revision 1.9  2016/07/18 23:05:37  spr
+ * Update request to contain more info for applications.
+ *
  * Revision 1.8  2015/09/23 17:58:07  spr
  * Updates for Andriod UI and better keysearch.
  *
@@ -99,6 +102,7 @@ private List<String> exception_types;
 private List<String> arg_names;
 private int	modifier_flags;
 private String	method_text;
+private RequestClass for_class;
 
 
 
@@ -109,8 +113,10 @@ private String	method_text;
 /*										*/
 /********************************************************************************/
 
-RequestMethod(Element xml) throws S6Exception
+RequestMethod(RequestClass cls,Element xml) throws S6Exception
 {
+   for_class = cls;
+   
    modifier_flags = IvyXml.getAttrInt(xml,"MODS",0);
    if (modifier_flags == 0) {
       for (int i = 1; i != 0; i = i*2) {
@@ -169,15 +175,17 @@ RequestMethod(Element xml) throws S6Exception
 /*										*/
 /********************************************************************************/
 
-public String getName() 		{ return method_name; }
+public String getName() 		                { return method_name; }
 
-public String getReturnTypeName()	{ return return_type; }
+public String getReturnTypeName()	                { return return_type; }
 
-public List<String> getParameterTypeNames()	{ return arg_types; }
+public List<String> getParameterTypeNames()	        { return arg_types; }
 
-public List<String> getExceptionTypeNames()	{ return exception_types; }
+public List<String> getExceptionTypeNames()	        { return exception_types; }
 
-public List<String> getParameterNames() 	{ return arg_names; }
+public List<String> getParameterNames() 	        { return arg_names; }
+
+public S6Request.ClassSignature getDefiningClass()      { return for_class; }
 
 public boolean isStatic()		{ return Modifier.isStatic(modifier_flags); }
 public boolean isAbstract()		{ return Modifier.isAbstract(modifier_flags); }

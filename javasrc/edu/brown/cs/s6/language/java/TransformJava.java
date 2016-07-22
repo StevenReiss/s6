@@ -31,12 +31,18 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformJava.java,v 1.21 2015/09/23 17:54:53 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformJava.java,v 1.23 2016/07/22 13:31:07 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: TransformJava.java,v $
+ * Revision 1.23  2016/07/22 13:31:07  spr
+ * Fixups for framework search.
+ *
+ * Revision 1.22  2016/07/18 23:05:26  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.21  2015/09/23 17:54:53  spr
  * Version to handle andriod UI applications.
  *
@@ -321,11 +327,13 @@ protected boolean applyPackageTransform(S6SolutionSet solset,S6Solution sol)
       for (Object otd : cu.types()) {
 	 if (!(otd instanceof TypeDeclaration)) continue;
 	 TypeDeclaration td = (TypeDeclaration) otd;
-	 if (!isok) {
-	    isok = JavaAst.checkTypeSignature(td,csg,S6SignatureType.NAME,null);
-	  }
-	 if (!checkApplyClassForPackage(solset,cu,csg,td)) continue;
-	 chng |= applyClassTransform(solset,sol,td,csg);
+	 boolean fg = JavaAst.checkTypeSignature(td,csg,S6SignatureType.NAME,null);
+	 if (fg) {
+            if (!checkApplyClassForPackage(solset,cu,csg,td)) continue;
+            chng |= applyClassTransform(solset,sol,td,csg);
+            isok = true;
+            break;
+          }
        }
       if (!isok) break;
     }
@@ -435,18 +443,20 @@ protected boolean applyClassTransform(S6SolutionSet sols,S6Solution sol,
       boolean isok = false;
       for (MethodDeclaration md : td.getMethods()) {
 	 if (Modifier.isAbstract(md.getModifiers())) continue;
-	 if (!isok) {
-	    isok = JavaAst.checkMethodSignature(md,msg,S6SignatureType.FULL);
-	  }
 	 if (!checkApplyMethodForClass(sols,sol,td,msg,md)) continue;
-	 Collection<TreeMapper> tmaps = findMethodMappings(sols,md,msg,sol);
-	 if (tmaps != null) {
-	    for (TreeMapper tm : tmaps) {
-	       if (!usesTransform(sol,tm.getMapName())) {
-		  chng |= addNewSolution(sols,sol,tm);
-		}
-	     }
-	  }
+         boolean fg =  JavaAst.checkMethodSignature(md,msg,S6SignatureType.FULL);
+         if (fg) {
+            Collection<TreeMapper> tmaps = findMethodMappings(sols,md,msg,sol);
+            if (tmaps != null) {
+               for (TreeMapper tm : tmaps) {
+                  if (!usesTransform(sol,tm.getMapName())) {
+                     chng |= addNewSolution(sols,sol,tm);
+                   }
+                }
+             }
+            isok = true;
+            break;
+          }
        }
       if (!isok) break;
     }
@@ -456,18 +466,20 @@ protected boolean applyClassTransform(S6SolutionSet sols,S6Solution sol,
       for (FieldDeclaration fd : td.getFields()) {
 	 for (Object o : fd.fragments()) {
 	    VariableDeclarationFragment vdf = (VariableDeclarationFragment) o;
-	    if (!isok) {
-	       isok = JavaAst.checkFieldSignature(vdf,fsg,S6SignatureType.FULL);
-	     }
+            boolean fg = JavaAst.checkFieldSignature(vdf,fsg,S6SignatureType.FULL);
 	    if (!checkApplyFieldForClass(sols,td,csg,fsg,vdf)) continue;
-	    Collection<TreeMapper> tmaps = findFieldMappings(sols,vdf,fsg);
-	    if (tmaps != null) {
-	       for (TreeMapper tm : tmaps) {
-		  if (!usesTransform(sol,tm.getMapName())) {
-		     chng |= addNewSolution(sols,sol,tm);
-		   }
-		}
-	     }
+            if (fg) {
+               Collection<TreeMapper> tmaps = findFieldMappings(sols,vdf,fsg);
+               isok = true;
+               if (tmaps != null) {
+                  for (TreeMapper tm : tmaps) {
+                     if (!usesTransform(sol,tm.getMapName())) {
+                        chng |= addNewSolution(sols,sol,tm);
+                      }
+                   }
+                }
+               break;
+             }
 	  }
        }
       if (!isok) break;

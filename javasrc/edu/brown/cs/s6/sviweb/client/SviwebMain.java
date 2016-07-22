@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/sviweb/client/SviwebMain.java,v 1.13 2015/09/23 17:58:16 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/sviweb/client/SviwebMain.java,v 1.14 2016/07/18 23:06:04 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: SviwebMain.java,v $
+ * Revision 1.14  2016/07/18 23:06:04  spr
+ * Update available search engines.
+ *
  * Revision 1.13  2015/09/23 17:58:16  spr
  * Updates for Andriod UI and better keysearch.
  *

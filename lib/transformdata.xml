@@ -67,7 +67,7 @@
 </TRANSFORM>
 
 <TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFixTryCatch'
-	NAME='FixTryCatch' PHASE='NORMAL' REQUIRE='COMPILES' REMOVE='TRUE'>
+	NAME='FixTryCatch' PHASE='NORMAL' REQUIRE='COMPILES'>
    <BEFORE NAME='ChangeThrow' />
    <BEFORE NAME='CleanupTests' />
    <BEFORE NAME='FixUndefVariables' />
@@ -127,8 +127,10 @@
 </TRANSFORM>
 
 <TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformName'
-	NAME='ChangeName' PHASE='NORMAL'>
+	NAME='ChangeName' PHASE='NORMAL' REMOVE='TRUE'
+	SEARCH='METHOD,CLASS,FULLCLASS,PACKAGE,UIFRAMEWORK,ANDROIDUI,TESTCASES'>
    <AFTER SEARCH='TESTCASES' NAME='SetupTesting' />
+   <AFTER SEARCH='APPLICATION' NAME='ChangeFrameworkNames' />
 </TRANSFORM>
 
 <TRANSFORM CLASS='edu.brown.cs.s6.language.java.TransformFrameworkNames'
@@ -231,3 +233,17 @@
 </TRANSFORM>
 
 </TRANSFORMS>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 #
-# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/runner/Make.data,v 1.7 2016/01/14 17:03:46 spr Exp $
+# RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/runner/Make.data,v 1.8 2016/07/18 23:05:47 spr Exp $
 
 #
 # S6:RUNNER -- routines to handle s6 testing

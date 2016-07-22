@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestClass.java,v 1.9 2015/09/23 17:58:07 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/request/RequestClass.java,v 1.10 2016/07/18 23:05:37 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: RequestClass.java,v $
+ * Revision 1.10  2016/07/18 23:05:37  spr
+ * Update request to contain more info for applications.
+ *
  * Revision 1.9  2015/09/23 17:58:07  spr
  * Updates for Andriod UI and better keysearch.
  *
@@ -135,7 +138,7 @@ RequestClass(Element xml) throws S6Exception
 
    known_methods = new ArrayList<S6Request.MethodSignature>();
    for (Element me : IvyXml.children(xml,"METHOD")) {
-      known_methods.add(new RequestMethod(me));
+      known_methods.add(new RequestMethod(this,me));
     }
 
    known_fields = new ArrayList<S6Request.FieldSignature>();

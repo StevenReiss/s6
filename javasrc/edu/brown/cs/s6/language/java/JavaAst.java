@@ -31,12 +31,18 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/JavaAst.java,v 1.16 2015/12/23 15:45:09 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/JavaAst.java,v 1.18 2016/07/22 13:31:06 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: JavaAst.java,v $
+ * Revision 1.18  2016/07/22 13:31:06  spr
+ * Fixups for framework search.
+ *
+ * Revision 1.17  2016/07/18 23:05:25  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.16  2015/12/23 15:45:09  spr
  * Minor fixes.
  *
@@ -283,7 +289,15 @@ private static boolean compareTypes(String nm,ASTNode t)
    if (nm == null && tnm == null) return true;
    else if (nm == null || tnm == null) return false;
 
-   return tnm.equals(nm);
+   if (tnm.equals(nm)) return true;
+   
+   int idx = tnm.indexOf("<");
+   if (idx >= 0) {
+      String xtnm = tnm.substring(0,idx);
+      if (xtnm.equals(nm)) return true;
+    }
+   
+   return false;
 }
 
 
@@ -488,7 +502,8 @@ static boolean checkTypeSignature(AbstractTypeDeclaration td,S6Request.ClassSign
 	     }
 	  }
        }
-      if (!fnd) return false;
+      if (!fnd) 
+         return false;
     }
 
    for (S6Request.FieldSignature fs : cs.getFields()) {
@@ -510,7 +525,8 @@ static boolean checkTypeSignature(AbstractTypeDeclaration td,S6Request.ClassSign
 	    if (fnd) break;
 	  }
        }
-      if (!fnd) return false;
+      if (!fnd) 
+         return false;
     }
 
    if (styp.checkDoesTest()) {
@@ -592,7 +608,8 @@ static boolean checkPackageSignature(CompilationUnit cu,S6Request.PackageSignatu
    List<S6Request.ClassSignature> sgns = new LinkedList<S6Request.ClassSignature>();
    sgns.addAll(ps.getClasses());
 
-   if (!checkPackage(types,sgns,typ,ps.getName())) return false;
+   if (!checkPackage(types,sgns,typ,ps.getName())) 
+      return false;
 
    if (typ.checkUsage()) {
       if (!checkClassUsage(cu,ps)) return false;
@@ -618,6 +635,8 @@ private static boolean checkPackage(List<AbstractTypeDeclaration> typs,
 
    for (AbstractTypeDeclaration td : typs) {
       String tnm = td.getName().getFullyQualifiedName();
+      JcompType jt = JavaAst.getJavaType(td);
+      // tnm = jt.getName();
       if (!tnm.equals(csgn.getName())) continue;
       if (checkTypeSignature(td,csgn,typ,pkg)) {
 	 List<AbstractTypeDeclaration> todo = new ArrayList<AbstractTypeDeclaration>(typs);

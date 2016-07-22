@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/KeySearchOhloh.java,v 1.8 2015/09/23 17:57:59 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/KeySearchOhloh.java,v 1.9 2016/07/18 23:05:04 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: KeySearchOhloh.java,v $
+ * Revision 1.9  2016/07/18 23:05:04  spr
+ * Keysearch updates for applications, ui search.
+ *
  * Revision 1.8  2015/09/23 17:57:59  spr
  * Updates for Andriod UI and better keysearch.
  *

@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/JavaTester.java,v 1.17 2016/01/14 17:03:29 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/JavaTester.java,v 1.18 2016/07/18 23:05:25 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: JavaTester.java,v $
+ * Revision 1.18  2016/07/18 23:05:25  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.17  2016/01/14 17:03:29  spr
  * Fix up testing for android.	Fix bug in addreturn transform.
  *

@@ -31,12 +31,18 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformName.java,v 1.16 2015/09/23 17:54:54 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/TransformName.java,v 1.18 2016/07/22 13:31:07 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: TransformName.java,v $
+ * Revision 1.18  2016/07/22 13:31:07  spr
+ * Fixups for framework search.
+ *
+ * Revision 1.17  2016/07/18 23:05:26  spr
+ * Update transforms for applications and UI.
+ *
  * Revision 1.16  2015/09/23 17:54:54  spr
  * Version to handle andriod UI applications.
  *
@@ -568,10 +574,8 @@ private class DependenceVisitor extends ASTVisitor {
     }
    @Override public boolean visit(QualifiedName n) {
       Name nm = n.getQualifier();
-      SimpleName fld = n.getName();
       JcompType jt = JavaAst.getJavaType(nm);
       boolean fg = (jt != null);
-      // System.err.println("QUAL NAME " + nm + " . " + fld + " " + fg);
       collect_stack.push(fg);
       return true;
     }

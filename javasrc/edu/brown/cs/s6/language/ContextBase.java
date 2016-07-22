@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/ContextBase.java,v 1.4 2015/09/23 17:58:03 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/ContextBase.java,v 1.5 2016/07/18 23:05:16 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: ContextBase.java,v $
+ * Revision 1.5  2016/07/18 23:05:16  spr
+ * Update context to take string arg.
+ *
  * Revision 1.4  2015/09/23 17:58:03  spr
  * Updates for Andriod UI and better keysearch.
  *

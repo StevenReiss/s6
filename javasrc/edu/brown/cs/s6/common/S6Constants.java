@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/common/S6Constants.java,v 1.18 2015/12/23 15:44:32 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/common/S6Constants.java,v 1.19 2016/07/18 23:04:43 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: S6Constants.java,v $
+ * Revision 1.19  2016/07/18 23:04:43  spr
+ * Updates for cleanup.
+ *
  * Revision 1.18  2015/12/23 15:44:32  spr
  * Add S6Resource.java, minor fixes.
  *
