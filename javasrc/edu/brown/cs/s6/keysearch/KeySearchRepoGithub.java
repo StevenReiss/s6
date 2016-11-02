@@ -75,8 +75,7 @@ private static String		github_auth;
 private final static String	S6_CLIENT_ID = "92367cf10da5b70932fa";
 private final static String	S6_CLIENT_SECRET = "53e04859dec97346e3cd9f886b4e847c4d7cc2dc";
 private final static String	S6_FINGERPRINT;
-private static boolean	  use_github_api = false;
-
+private static boolean	  use_github_api = true;
 static {
    S6_FINGERPRINT = "S6_" + Math.round(Math.random()*1000000000);
    getOAuthToken();
@@ -168,13 +167,12 @@ protected boolean isRelevantSource(String src)
     }
    if (projectid != null) q += " repo:" + projectid;
 
-
    try {
       URI uri = null;
       if (oauth_token != null && use_github_api) {
 	 if (lang != null) q += " language:" + langstr;
 	 if (page > 0) q+= "&page=" + (page+1);
-	 // q += "&per_page=100";
+	 q += "&per_page=100";
 	 // q += "&access_token=" + oauth_token.getToken();
 	 uri = new URI(GITHUB_SCHEME,"api.github.com","/search/code",q,null);
        }
@@ -210,13 +208,22 @@ List<URI> getSearchPageResults(URI uri,String cnts)
 {
    if (oauth_token == null || !use_github_api) return super.getSearchPageResults(uri,cnts);
 
-   ArrayList<URI> rslt = new ArrayList<URI>();
+   List<URI> rslt = new ArrayList<URI>();
    try {
-      JSONArray jarr = new JSONArray(cnts);
+      JSONArray jarr = null;
+      if (cnts.startsWith("{")) {
+         JSONObject jobj = new JSONObject(cnts);
+         jarr = jobj.getJSONArray("items");
+       }
+      else if (cnts.startsWith("[")) {
+         jarr = new JSONArray(cnts);
+       }
+      else jarr = new JSONArray();
       for (int i = 0; i < jarr.length(); ++i) {
 	 JSONObject jobj = jarr.getJSONObject(i);
 	 System.err.println("RESULT: " + jobj);
-	 // work with jobj
+         URI uri2 = convertSearchResults(jobj);
+         if (uri2 != null) rslt.add(uri2);
        }
     }
    catch (JSONException e) {
@@ -224,6 +231,23 @@ List<URI> getSearchPageResults(URI uri,String cnts)
     }
 
    return rslt;
+}
+
+
+protected URI convertSearchResults(JSONObject jobj)
+{
+   try {
+      URI uri2 = new URI(jobj.getString("html_url"));
+      return uri2;
+    }
+   catch (URISyntaxException e) {
+      System.err.println("BAD URI: " + e);
+    }
+   catch (JSONException e) {
+      System.err.println("BAD JSON: " + e);
+    }
+   
+   return null;
 }
 
 
@@ -421,15 +445,18 @@ private synchronized static void getOAuthToken()
 
    Object o1 = doGithubAuthenticate(null,"GET",null);
    JSONArray j1 = (JSONArray) o1;
-   // System.err.println("RESULT IS " + j1);
    try {
       for (int i = 0; i < j1.length(); ++i) {
 	 JSONObject key = j1.getJSONObject(i);
+	 System.err.println("RESULT [" + i + "] IS " + key);
 	 OAuthData od = new OAuthData(key);
 	 if (od.isValid()) {
 	    oauth_token = od;
 	    Runtime.getRuntime().addShutdownHook(new OAuthRemover(od));
 	    return;
+	  }
+	 else if (od.shouldRemove()) {
+            doGithubAuthenticate("/authorizations/" + od.getId(),"DELETE",null);
 	  }
        }
     }
@@ -550,6 +577,7 @@ private static class OAuthData {
    private String hash_token;
    private String token_last;
    private String token_url;
+   private String app_name;
 
    OAuthData(JSONObject obj) {
       oauth_id = obj.optString("id");
@@ -560,14 +588,58 @@ private static class OAuthData {
       is_s6token = false;
       JSONObject app = obj.optJSONObject("app");
       if (app == null) return;
-      String appnm = app.optString("name");
-      if (appnm == null || !appnm.equals("S6")) return;
-      if (token_id == null || token_id.equals("")) return;
+      app_name = app.optString("name");
+      if (app_name == null || !app_name.equals("S6")) return;
+      if (token_id != null && token_id.equals("")) token_id = null;
       is_s6token = true;
     }
 
    String getToken()			{ return token_id; }
-   boolean isValid()			{ return is_s6token; }
+   boolean isValid()			{ return is_s6token && token_id != null; }
+   String getId()                       { return oauth_id; }
+   boolean shouldRemove() {
+      return is_s6token && token_id == null && oauth_id != null;
+    }
+   String getAuthId()			{ return oauth_id; }
+   
+   private void saveToken() {
+      if (token_id != null) {
+         try { 
+            FileWriter fw = new FileWriter(TOKEN_FILE,true);
+            fw.write(hash_token);
+            fw.write(",");
+            fw.write(token_id);
+            fw.write("\n");
+            fw.close();
+          }
+         catch (IOException e) { 
+            System.err.println("GITHUB: PROBLEM SAVING TOKEN: " + e);
+          }
+       }
+    }
+   
+   private void loadToken() {
+      if (token_id == null && hash_token != null) {
+         try {
+            BufferedReader fr = new BufferedReader(new FileReader(TOKEN_FILE));
+            for ( ; ; ) {
+               String ln = fr.readLine();
+               if (ln == null) break;
+               int idx = ln.indexOf(",");
+               if (idx < 0) continue;
+               String key = ln.substring(0,idx);
+               if (key.equals(hash_token)) {
+                  token_id = ln.substring(idx+1);
+                  break;
+                }
+             }
+            fr.close();
+          }
+         catch (IOException e) {
+            System.err.println("GITHUB: Problem reading token: " + e);
+          }
+       }
+    }
 
 }	// end of inner class OAuthData
 
@@ -585,7 +657,7 @@ private static class OAuthRemover extends Thread
       auth = javax.xml.bind.DatatypeConverter.printBase64Binary(auth.getBytes());
       github_auth = "Basic " + auth;
       doGithubAuthenticate("/applications/" + S6_CLIENT_ID + "/tokens/" + auth_data.getToken(),
-	    "DELETE",null);
+        	   "DELETE",null);
     }
 
 }	// end of inner class OAuthRemover

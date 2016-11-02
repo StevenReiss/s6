@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/sviweb/client/SviwebMain.java,v 1.14 2016/07/18 23:06:04 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/sviweb/client/SviwebMain.java,v 1.15 2016/11/02 19:00:29 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: SviwebMain.java,v $
+ * Revision 1.15  2016/11/02 19:00:29  spr
+ * Update keysearch for modified github.
+ *
  * Revision 1.14  2016/07/18 23:06:04  spr
  * Update available search engines.
  *
@@ -273,7 +276,8 @@ private Panel createTopRegion()
    remote_type = new ListBox();
    // remote_type.addItem("Google","G");
    // remote_type.addItem("Koders","D");
-   remote_type.addItem("GitHub","T");
+   // remote_type.addItem("GitHub","T");
+   remote_type.addItem("GitHub","Z");
    remote_type.addItem("OpenHub","O");
    // remote_type.addItem("Sourcerer","S");
    // remote_type.addItem("Krugle","K");

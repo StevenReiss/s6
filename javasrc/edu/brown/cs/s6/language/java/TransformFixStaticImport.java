@@ -42,9 +42,11 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Name;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -145,6 +147,8 @@ private static class StaticFinder extends ASTVisitor {
 
    private Set<ASTNode> return_nodes;
    private JcompType outer_type;
+   private String package_name;
+   private Set<String> imported_names;
 
    StaticFinder(ASTNode base) {
       return_nodes = new HashSet<ASTNode>();
@@ -161,6 +165,26 @@ private static class StaticFinder extends ASTVisitor {
 	 if (an instanceof TypeDeclaration) td = (TypeDeclaration) an;
        }
       if (td != null) outer_type = JavaAst.getJavaType(td);
+      
+      package_name = null;
+      imported_names = new HashSet<String>();
+      for (ASTNode an = base; an != null; an = an.getParent()) {
+         if (an instanceof CompilationUnit) {
+            CompilationUnit cu = (CompilationUnit) an;
+            PackageDeclaration pd = cu.getPackage();
+            if (pd != null) {
+               package_name = pd.getName().getFullyQualifiedName();
+             }
+            for (Object o : cu.imports()) {
+               ImportDeclaration id = (ImportDeclaration) o;
+               if (!id.isOnDemand() && !id.isStatic()) {
+                  String nm = id.getName().getFullyQualifiedName();
+                  imported_names.add(nm);
+                }
+             }
+            break;
+          }
+       }
     }
 
    Set<ASTNode> getNames()			{ return return_nodes; }
@@ -194,8 +218,11 @@ private static class StaticFinder extends ASTVisitor {
          if (!js.isTypeSymbol()) return false;
          return false;
        }
+      if (jt.getName().startsWith("java.lang.")) return false;
+      if (package_name != null && jt.getName().startsWith(package_name)) return false;
+      if (imported_names.contains(jt.getName())) return false;
    
-      System.err.println("STATIC IMPORT: Add " + nd + " " + nd.getParent().getParent().getParent());
+      // System.err.println("STATIC IMPORT: Add " + nd + " " + nd.getParent().getParent().getParent());
       return_nodes.add(nd);
       return false;
     }
@@ -222,22 +249,22 @@ private class StaticNameMapper extends TreeMapper {
 
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (fix_names.contains(orig)) {
-	 JcompSymbol js = JavaAst.getReference(orig);
-	 if (js == null) return;
-	 if (orig.getParent() instanceof MethodInvocation) {
-	    MethodInvocation mi = (MethodInvocation) orig.getParent();
-	    if (mi.getName() == orig) {
-	       String nm1 = js.getClassType().getName();
-	       Name xnm = JavaAst.getQualifiedName(rw.getAST(),nm1);
-	       rw.set(mi,MethodInvocation.EXPRESSION_PROPERTY,xnm,null);
-	       return;
-	     }
-	  }
-	 else {
-	    String nm = js.getFullName();
-	    Name xnm = JavaAst.getQualifiedName(rw.getAST(),nm);
-	    rw.replace(orig,xnm,null);
-	  }
+         JcompSymbol js = JavaAst.getReference(orig);
+         if (js == null) return;
+         if (orig.getParent() instanceof MethodInvocation) {
+            MethodInvocation mi = (MethodInvocation) orig.getParent();
+            if (mi.getName() == orig) {
+               String nm1 = js.getClassType().getName();
+               Name xnm = JavaAst.getQualifiedName(rw.getAST(),nm1);
+               rw.set(mi,MethodInvocation.EXPRESSION_PROPERTY,xnm,null);
+               return;
+             }
+          }
+         else {
+            String nm = js.getFullName();
+            Name xnm = JavaAst.getQualifiedName(rw.getAST(),nm);
+            rw.replace(orig,xnm,null);
+          }
        }
     }
 

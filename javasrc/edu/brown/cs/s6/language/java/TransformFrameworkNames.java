@@ -47,22 +47,28 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
+import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.EnumDeclaration;
 import org.eclipse.jdt.core.dom.Expression;
+import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.FieldAccess;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SimpleType;
+import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -553,7 +559,7 @@ private void computeMethodMappings(NameMapper nm,S6Request.PackageSignature psg,
       int mods = md.getModifiers();
       if (checkCompatibleMethod(msg,jtyp,mods,pkgnm,typer,nm)) {
 	 JcompSymbol msym = JcompAst.getDefinition(md);
-	 if (!nm.getMapping().keySet().contains(msym))
+	 if (!nm.isMapped(msym))
 	    candidates.add(msym);
        }
     }
@@ -563,8 +569,10 @@ private void computeMethodMappings(NameMapper nm,S6Request.PackageSignature psg,
 
    for (JcompSymbol msym : candidates) {
       NameMapper nm1 = new NameMapper(nm);
-      if (!msym.isConstructorSymbol() && !msym.getName().equals(msg.getName()))
-	 nm1.addMapping(msym,msg.getName());
+      if (!msym.isConstructorSymbol() && !msym.getName().equals(msg.getName())) {
+         if (msym.isPublic()) nm1.addWrapper(msym,msg.getName());
+	 else nm1.addMapping(msym,msg.getName());
+       }
       computeMethodMappings(nm1,psg,localmethods,rslt);
     }
 }
@@ -861,6 +869,7 @@ private class NameMapper extends TreeMapper {
 
    private String map_name;
    private Map<JcompSymbol,String> sym_mapping;
+   private Map<JcompSymbol,String> sym_wrappers;
    private boolean remove_classes;
    private Set<JcompType> dependent_types;
 
@@ -868,6 +877,7 @@ private class NameMapper extends TreeMapper {
       map_name = nm;
       remove_classes = rmc;
       sym_mapping = new HashMap<JcompSymbol,String>();
+      sym_wrappers = new HashMap<JcompSymbol,String>();
       dependent_types = null;
       if (rmc) dependent_types = new HashSet<JcompType>();
     }
@@ -876,6 +886,7 @@ private class NameMapper extends TreeMapper {
       map_name = orig.map_name;
       remove_classes = orig.remove_classes;
       sym_mapping = new HashMap<JcompSymbol,String>(orig.sym_mapping);
+      sym_wrappers = new HashMap<JcompSymbol,String>(orig.sym_wrappers);
       if (orig.dependent_types != null)
 	 dependent_types = new HashSet<JcompType>(orig.dependent_types);
       else dependent_types = null;
@@ -886,12 +897,25 @@ private class NameMapper extends TreeMapper {
    void addMapping(JcompSymbol from,String to) {
       sym_mapping.put(from,to);
     }
+   
+   void addWrapper(JcompSymbol from,String to) {
+      sym_wrappers.put(from,to);
+    } 
 
    Map<JcompSymbol,String> getMapping() 	{ return sym_mapping; }
+   
+   boolean isMapped(JcompSymbol js) {
+      if (sym_mapping.get(js) != null) return true;
+      if (sym_wrappers.get(js) != null) return true;
+      return false;
+    }
 
    JcompSymbol findMappedSymbol(String nm) {
       for (Map.Entry<JcompSymbol,String> ent : sym_mapping.entrySet()) {
-	 if (ent.getValue().equals(nm)) return ent.getKey();
+         if (ent.getValue().equals(nm)) return ent.getKey();
+       }
+      for (Map.Entry<JcompSymbol,String> ent : sym_wrappers.entrySet()) {
+         if (ent.getValue().equals(nm)) return ent.getKey();
        }
       return null;
     }
@@ -903,43 +927,48 @@ private class NameMapper extends TreeMapper {
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       JcompSymbol js = JavaAst.getDefinition(orig);
       if (js != null) {
-	 String newname = sym_mapping.get(js);
-	 if (newname == null && js.getName().equals("<init>")) {
-	    for (ASTNode p = orig; p != null; p = p.getParent()) {
-	       if (p instanceof TypeDeclaration) {
-		  JcompSymbol tjs = JavaAst.getDefinition(p);
-		  newname = sym_mapping.get(tjs);
-		  break;
-		}
-	     }
-	  }
-	 if (newname != null) {
-	    rewriteName(orig,rw,newname);
-	  }
+         String newname = sym_mapping.get(js);
+         if (newname == null && js.getName().equals("<init>")) {
+            for (ASTNode p = orig; p != null; p = p.getParent()) {
+               if (p instanceof TypeDeclaration) {
+        	  JcompSymbol tjs = JavaAst.getDefinition(p);
+        	  newname = sym_mapping.get(tjs);
+        	  break;
+        	}
+             }
+          }
+         if (newname != null) {
+            rewriteName(orig,rw,newname);
+          }
+         else if (sym_wrappers.get(js) != null) {
+            if (orig instanceof MethodDeclaration)
+            createWrapper(orig,rw);
+          }
+         return;
        }
       js = JavaAst.getReference(orig);
       if (js == null) {
-	 JcompType jt = JavaAst.getJavaType(orig);
-	 if (jt != null) js = jt.getDefinition();
+         JcompType jt = JavaAst.getJavaType(orig);
+         if (jt != null) js = jt.getDefinition();
        }
       if (js != null) {
-	 String newname = sym_mapping.get(js);
-	 if (newname != null) {
-	    rewriteName(orig,rw,newname);
-	  }
+         String newname = sym_mapping.get(js);
+         if (newname != null) {
+            rewriteName(orig,rw,newname);
+          }
        }
       if (orig.getNodeType() == ASTNode.COMPILATION_UNIT && remove_classes) {
-	 CompilationUnit cu = (CompilationUnit) orig;
-	 ListRewrite lrw = rw.getListRewrite(orig,CompilationUnit.TYPES_PROPERTY);
-	 for (Object o : cu.types()) {
-	    AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
-	    if (keepType(atd)) continue;
-	    js = JavaAst.getDefinition(atd);
-	    if (js != null) {
-	       String newname = sym_mapping.get(js);
-	       if (newname == null) lrw.remove(atd,null);
-	     }
-	  }
+         CompilationUnit cu = (CompilationUnit) orig;
+         ListRewrite lrw = rw.getListRewrite(orig,CompilationUnit.TYPES_PROPERTY);
+         for (Object o : cu.types()) {
+            AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
+            if (keepType(atd)) continue;
+            js = JavaAst.getDefinition(atd);
+            if (js != null) {
+               String newname = sym_mapping.get(js);
+               if (newname == null) lrw.remove(atd,null);
+             }
+          }
        }
     }
 
@@ -980,8 +1009,103 @@ private class NameMapper extends TreeMapper {
 	  }
        }
     }
-
+   
+   @SuppressWarnings({"rawtypes", "unchecked" }) 
+   private void createWrapper(ASTNode nd,ASTRewrite rw) {
+      JcompSymbol js = JavaAst.getDefinition(nd);
+      String nm = sym_wrappers.get(js);
+      if (nm == null) return;
+      // won't handle enums or attribute types
+      TypeDeclaration td = null;
+      MethodDeclaration md = null;
+      for (ASTNode n = nd; n != null; n = n.getParent()) {
+         if (n instanceof MethodDeclaration) {
+            md = (MethodDeclaration) n;
+          }
+         if (n instanceof AbstractTypeDeclaration) {
+            td = (TypeDeclaration) n;
+            break;
+          }
+       }
+      if (td == null || md == null) return;
+      AST ast = rw.getAST();
+      MethodDeclaration newmd = (MethodDeclaration) ASTNode.copySubtree(ast,md);
+      SimpleName name = newmd.getName();
+      name.setIdentifier(nm);
+      MethodInvocation mi = ast.newMethodInvocation();
+      mi.setName(JavaAst.getSimpleName(ast,js.getName()));
+      List args = mi.arguments();
+      int idx = 0;
+      List nparmas = newmd.parameters();
+      for (Object param : md.parameters()) {
+         SingleVariableDeclaration svd = (SingleVariableDeclaration) param;
+         String id = svd.getName().getIdentifier();
+         args.add(JavaAst.getSimpleName(ast,id));
+         SingleVariableDeclaration nsvd = (SingleVariableDeclaration) nparmas.get(idx);
+         NameTypeMapper ntm = new NameTypeMapper(sym_mapping,svd,nsvd);
+         svd.accept(ntm);
+         ++idx;
+       }
+      ExpressionStatement estmt = ast.newExpressionStatement(mi);
+      Block b = ast.newBlock();
+      b.statements().add(estmt);
+      newmd.setBody(b);
+      
+      ListRewrite lrw = rw.getListRewrite(td,TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
+      lrw.insertAfter(newmd,md,null);
+    }
+   
 }	// end of subclass NameMapper
+
+
+private static class NameTypeMapper extends ASTVisitor {
+   
+   Map<JcompSymbol,String> name_map;
+   ASTNode new_node;
+   ASTNode old_root;
+   
+   NameTypeMapper(Map<JcompSymbol,String> maps,ASTNode oldroot,ASTNode newroot) {
+      name_map = maps;
+      old_root = oldroot;
+      new_node = newroot;
+    }
+   
+   @Override public void endVisit(SimpleName n) {
+      JcompSymbol js = JcompAst.getDefinition(n);
+      if (js == null) {
+         JcompType jt = JavaAst.getJavaType(n);
+         if (jt != null) {
+            js = jt.getDefinition();
+          }
+       }
+      if (js == null) return;
+      
+      String nm = name_map.get(js);
+      if (nm == null) return;
+      ASTNode onm = findMatch(n);
+      if (onm != null) {
+         SimpleName snm = (SimpleName) onm;
+         snm.setIdentifier(nm);
+       }
+    }
+   
+   private ASTNode findMatch(ASTNode n) {
+      if (n == old_root) return new_node;
+      ASTNode np = n.getParent();
+      StructuralPropertyDescriptor spd = n.getLocationInParent();
+      ASTNode nn = findMatch(np);
+      if (nn == null) return null;
+      if (spd.isChildListProperty()) {
+         List<?> lst = (List<?>) nn.getStructuralProperty(spd);
+         List<?> olst = (List<?>) np.getStructuralProperty(spd);
+         int idx = olst.indexOf(n);
+         return (ASTNode) lst.get(idx);
+       }
+      else {
+         return (ASTNode) nn.getStructuralProperty(spd);
+       }
+    }
+}
 
 
 
