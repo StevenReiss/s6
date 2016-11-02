@@ -47,14 +47,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.concurrent.Future;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
@@ -63,7 +61,6 @@ import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.file.IvyFile;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6SolutionSet;
 import edu.brown.cs.s6.common.S6Source;
 
 
@@ -189,6 +186,56 @@ List<URI> getSearchPageResults(Element jsoup)
     }
    return rslt;
 }
+
+
+@Override protected URI convertSearchResults(JSONObject jobj)
+{
+   try {
+      String fileurl = jobj.getString("html_url");
+      URI fileuri = new URI(fileurl);
+      JSONObject robj = jobj.getJSONObject("repository");
+      String archurl = robj.getString("archive_url");
+      archurl = archurl.replace("{archive_format}","zipball");
+      archurl = archurl.replace("{/ref}","");
+      String zippfx = "/" + robj.getString("full_name");
+      
+      File zipdir = getZipDirectory(zippfx);
+      File dataf = new File(zipdir,"DATA.zip");
+      long dlm = dataf.lastModified();
+      String auth = getAuthorization();
+      URL url = new URL(archurl);
+      InputStream ins = url_cache.getCacheStream(url,auth,dlm);
+      if (ins != null) {
+         URI repouri = new URI("/https://github.com/" + robj.getString("full_name"));
+         storeZipData(fileuri,repouri,zippfx,ins);
+         ins.close();
+       }
+      String path = fileurl;
+      int idx2 = path.indexOf("/blob/");
+      int idx3 = path.indexOf("/",idx2+7);
+      path = path.substring(idx3);
+      URI ruri = new URI("http","GITZIP",zippfx,path);
+      return ruri;
+    }
+   catch (URISyntaxException e) {
+      System.err.println("PROBLEM WITH URI: " + e);
+    }
+   catch (JSONException e) {
+      System.err.println("PROBLEM WITH JSON: " + e);
+      return null;
+    }
+   catch (MalformedURLException e) {
+      System.err.println("PROBLEM WITH URL: " + e);
+    }
+   catch (IOException e) {
+      System.err.println("PROBLEM READING ZIP: " + e);
+    }
+   return null;
+}
+
+
+
+
 
 
 

@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/KeySearchConstants.java,v 1.5 2016/07/18 23:05:04 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/keysearch/KeySearchConstants.java,v 1.6 2016/11/02 19:00:13 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: KeySearchConstants.java,v $
+ * Revision 1.6  2016/11/02 19:00:13  spr
+ * Update keysearch for modified github.
+ *
  * Revision 1.5  2016/07/18 23:05:04  spr
  * Keysearch updates for applications, ui search.
  *
@@ -90,6 +93,8 @@ String CACHE_DATA_FILE = "DATA";
 long CACHE_TIME_OUT = 1000L*60L*60L*24L*365L;
 
 String ZIPCACHE_DIRECTORY = "/ws/volfred/s6/zips";
+String TOKEN_FILE = "/ws/volfred/s6/tokens";
+
 
 int TARGET_RESULTS = 200;
 

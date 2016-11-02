@@ -193,6 +193,8 @@ private void setupPanel()
 
 synchronized private void loadFile()
 {
+   base_file = base_file.getAbsoluteFile();
+
    if (!base_file.exists()) {
       try {
          FileWriter fw = new FileWriter(base_file);
@@ -214,6 +216,7 @@ synchronized private void loadFile()
 
    if (watch_service != null) {
       FileSystem fs = FileSystems.getDefault();
+      System.err.println("LOAD FILE: " + base_file + " " + base_file.getParent());
       Path pth = fs.getPath(base_file.getParent());
       try {
          pth.register(watch_service,StandardWatchEventKinds.ENTRY_MODIFY,

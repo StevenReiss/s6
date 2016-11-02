@@ -31,12 +31,15 @@
  *										 *
  ********************************************************************************/
 
-/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/JavaAst.java,v 1.18 2016/07/22 13:31:06 spr Exp $ */
+/* RCS: $Header: /pro/spr_cvs/pro/s6/javasrc/edu/brown/cs/s6/language/java/JavaAst.java,v 1.19 2016/10/01 01:57:50 spr Exp $ */
 
 
 /*********************************************************************************
  *
  * $Log: JavaAst.java,v $
+ * Revision 1.19  2016/10/01 01:57:50  spr
+ * Fix up transforms for framework search
+ *
  * Revision 1.18  2016/07/22 13:31:06  spr
  * Fixups for framework search.
  *
@@ -635,7 +638,7 @@ private static boolean checkPackage(List<AbstractTypeDeclaration> typs,
 
    for (AbstractTypeDeclaration td : typs) {
       String tnm = td.getName().getFullyQualifiedName();
-      JcompType jt = JavaAst.getJavaType(td);
+      // JcompType jt = JavaAst.getJavaType(td);
       // tnm = jt.getName();
       if (!tnm.equals(csgn.getName())) continue;
       if (checkTypeSignature(td,csgn,typ,pkg)) {

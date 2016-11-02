@@ -37,6 +37,9 @@
 /*********************************************************************************
  *
  * $Log: TransformFixTryCatch.java,v $
+ * Revision 1.9  2016/10/01 01:57:50  spr
+ * Fix up transforms for framework search
+ *
  * Revision 1.8  2016/07/22 13:31:06  spr
  * Fixups for framework search.
  *
@@ -206,22 +209,23 @@ private static class FindTryCatchFixes extends ASTVisitor {
 
    @Override public boolean visit(MethodDeclaration md) {
       if (md.thrownExceptions().size() > 0 && md.getBody() != null) {
-	 Set<JcompType> excs = JavaAst.findExceptions(md.getBody());
-	 for (Object o : md.thrownExceptions()) {
-	    Name n = (Name) o;
-	    JcompType jt = JavaAst.getJavaType(n);
-	    boolean fnd = false;
-	    if (jt != null) {
-	       for (JcompType et : excs) {
-		  if (et.isCompatibleWith(jt)) fnd = true;
-		}
-	     }
-	    if (!fnd) {
-	       if (!Modifier.isPrivate(md.getModifiers())) do_remove = false;
-	       remove_throws.add(n);
-	     }
-	  }
-
+         if (!Modifier.isPublic(md.getModifiers())) {
+            Set<JcompType> excs = JavaAst.findExceptions(md.getBody());
+            for (Object o : md.thrownExceptions()) {
+               Name n = (Name) o;
+               JcompType jt = JavaAst.getJavaType(n);
+               boolean fnd = false;
+               if (jt != null) {
+                  for (JcompType et : excs) {
+                     if (et.isCompatibleWith(jt)) fnd = true;
+                   }
+                }
+               if (!fnd) {
+                  if (!Modifier.isPrivate(md.getModifiers())) do_remove = false;
+                  remove_throws.add(n);
+                }
+             }
+          }
        }
       return true;
     }
@@ -231,30 +235,30 @@ private static class FindTryCatchFixes extends ASTVisitor {
       Set<ASTNode> rems = new HashSet<ASTNode>();
       int ctr = 0;
       for (Object o : n.catchClauses()) {
-	 CatchClause cc = (CatchClause) o;
-	 SingleVariableDeclaration svd = cc.getException();
-	 Type t = svd.getType();
-	 JcompType jt = JavaAst.getJavaType(t);
-	 if (jt == null) continue;
-	 ++ctr;
-	 if (!jt.isCompatibleWith(exception_type)) continue;
-	 if (jt.isCompatibleWith(runtime_type)) continue;
-	 if (jt.equals(exception_type)) continue;
-	 if (jt.isUnknown()) continue;
-
-	 boolean fnd = false;
-	 for (JcompType jt1 : excs) {
-	    if (jt1.isCompatibleWith(jt)) fnd = true;
-	  }
-	 if (!fnd) rems.add(cc);
+         CatchClause cc = (CatchClause) o;
+         SingleVariableDeclaration svd = cc.getException();
+         Type t = svd.getType();
+         JcompType jt = JavaAst.getJavaType(t);
+         if (jt == null) continue;
+         ++ctr;
+         if (!jt.isCompatibleWith(exception_type)) continue;
+         if (jt.isCompatibleWith(runtime_type)) continue;
+         if (jt.equals(exception_type)) continue;
+         if (jt.isUnknown()) continue;
+   
+         boolean fnd = false;
+         for (JcompType jt1 : excs) {
+            if (jt1.isCompatibleWith(jt)) fnd = true;
+          }
+         if (!fnd) rems.add(cc);
        }
       if (rems.size() > 0) {
-	 if (rems.size() == ctr && n.getFinally() == null) {
-	    remove_trys.add(n);
-	  }
-	 else remove_cases.addAll(rems);
+         if (rems.size() == ctr && n.getFinally() == null) {
+            remove_trys.add(n);
+          }
+         else remove_cases.addAll(rems);
        }
-
+   
       return true;
     }
 }	// end of inner class FindTryCatchFixes
