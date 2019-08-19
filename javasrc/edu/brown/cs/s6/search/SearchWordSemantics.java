@@ -131,9 +131,9 @@ SearchWordSemantics(String text)
 {
    ast_root = null;
    if (text != null) {
-      ASTParser parser = ASTParser.newParser(AST.JLS4);
-      Map<?,?> options = JavaCore.getOptions();
-      JavaCore.setComplianceOptions(JavaCore.VERSION_1_6,options);
+      ASTParser parser = ASTParser.newParser(AST.JLS8);
+      Map<String,String> options = JavaCore.getOptions();
+      JavaCore.setComplianceOptions(JavaCore.VERSION_1_8,options);
       parser.setCompilerOptions(options);
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
       parser.setSource(text.toCharArray());
@@ -299,27 +299,27 @@ private static class SignatureVisitor extends ASTVisitor {
       if (t == null) return;
       String s = null;
       if (t.isPrimitiveType()) {
-	 s = getPrimitiveType((PrimitiveType) t);
+         s = getPrimitiveType((PrimitiveType) t);
        }
       else if (t.isArrayType()) {
-	 ArrayType at = (ArrayType) t;
-	 for (int i = 0; i < at.getDimensions(); ++i) buf.append("[");
-	 appendType(buf,at.getComponentType());
+         ArrayType at = (ArrayType) t;
+         for (int i = 0; i < at.getDimensions(); ++i) buf.append("[");
+         appendType(buf,at.getElementType());
        }
       else if (t.isParameterizedType()) {
-	 ParameterizedType pt = (ParameterizedType) t;
-	 appendType(buf,pt.getType());
+         ParameterizedType pt = (ParameterizedType) t;
+         appendType(buf,pt.getType());
        }
       else if (t.isQualifiedType()) {
-	 QualifiedType qt = (QualifiedType) t;
-	 s = getObjectType(qt.getQualifier().toString() + "." + qt.getName().getIdentifier());
+         QualifiedType qt = (QualifiedType) t;
+         s = getObjectType(qt.getQualifier().toString() + "." + qt.getName().getIdentifier());
        }
       else if (t.isSimpleType()) {
-	 SimpleType st = (SimpleType) t;
-	 s = getObjectType(st.getName().getFullyQualifiedName());
+         SimpleType st = (SimpleType) t;
+         s = getObjectType(st.getName().getFullyQualifiedName());
        }
       else if (t.isWildcardType()) {
-	 s = WILDCARD_TYPE;
+         s = WILDCARD_TYPE;
        }
       if (s != null) buf.append(s);
     }

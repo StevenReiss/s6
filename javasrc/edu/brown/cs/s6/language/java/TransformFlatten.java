@@ -103,6 +103,7 @@ import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.SwitchStatement;
 import org.eclipse.jdt.core.dom.SynchronizedStatement;
 import org.eclipse.jdt.core.dom.TryStatement;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.WhileStatement;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
@@ -255,55 +256,56 @@ private class FlattenMapper extends TreeMapper {
    
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (orig != change_method) return;
-      Map<String,Name> ths = new HashMap<String,Name>();
+      Map<String,Type> ths = new HashMap<>();
       Block blk = ((MethodDeclaration) orig).getBody();
       List<?> stmts = blk.statements();
       ListRewrite lrw = rw.getListRewrite(blk,Block.STATEMENTS_PROPERTY);
-
+      
       for (int idx = 0; idx < stmts.size(); ++idx) {
-	 Statement st = (Statement) stmts.get(idx);
-	 if (!remove_blocks.contains(st)) continue;
-	 ListRewrite sls = null;
-	 switch (st.getNodeType()) {
-	    case ASTNode.BLOCK :
-	       sls = rw.getListRewrite(st,Block.STATEMENTS_PROPERTY);
-	       break;
-	    case ASTNode.SYNCHRONIZED_STATEMENT :
-	       sls = rw.getListRewrite(((SynchronizedStatement) st).getBody(),Block.STATEMENTS_PROPERTY);
-	       break;
-	    case ASTNode.TRY_STATEMENT :
-	       TryStatement tst = (TryStatement) st;
-	       if (tst.getFinally() != null) break;
-	       for (Iterator<?> it1 = tst.catchClauses().iterator(); it1.hasNext(); ) {
-		  CatchClause cc = (CatchClause) it1.next();
-		  SingleVariableDeclaration svd = cc.getException();
-		  JcompType jt = JavaAst.getJavaType(svd);
-		  if (jt != null) {
-		     Name qnm = JavaAst.getQualifiedName(orig.getAST(),jt.getName());
-		     ths.put(jt.getName(),qnm);
-		   }
-		  else {
-		     System.err.println("FAILED TO GET EXCEPTION FROM " + cc);
-		   }
-		}
-	       sls = rw.getListRewrite(tst.getBody(),Block.STATEMENTS_PROPERTY);
-	       break;
-	  }
-	 if (sls == null) continue;
-	 List<?> nsts = sls.getOriginalList();
-	 ASTNode tgt = null;
-	 if (nsts.size() > 0) {
-	    tgt = sls.createCopyTarget((ASTNode) nsts.get(0),(ASTNode) nsts.get(nsts.size()-1));
-	    lrw.insertAfter(tgt,st,null);
-	  }
-	 rw.remove(st,null);
+         Statement st = (Statement) stmts.get(idx);
+         if (!remove_blocks.contains(st)) continue;
+         ListRewrite sls = null;
+         switch (st.getNodeType()) {
+            case ASTNode.BLOCK :
+               sls = rw.getListRewrite(st,Block.STATEMENTS_PROPERTY);
+               break;
+            case ASTNode.SYNCHRONIZED_STATEMENT :
+               sls = rw.getListRewrite(((SynchronizedStatement) st).getBody(),Block.STATEMENTS_PROPERTY);
+               break;
+            case ASTNode.TRY_STATEMENT :
+               TryStatement tst = (TryStatement) st;
+               if (tst.getFinally() != null) break;
+               for (Iterator<?> it1 = tst.catchClauses().iterator(); it1.hasNext(); ) {
+                  CatchClause cc = (CatchClause) it1.next();
+                  SingleVariableDeclaration svd = cc.getException();
+                  JcompType jt = JavaAst.getJavaType(svd);
+                  if (jt != null) {
+                     Name qnm = JavaAst.getQualifiedName(orig.getAST(),jt.getName());
+                     Type qt = orig.getAST().newSimpleType(qnm);
+                     ths.put(jt.getName(),qt);
+                   }
+                  else {
+                     System.err.println("FAILED TO GET EXCEPTION FROM " + cc);
+                   }
+                }
+               sls = rw.getListRewrite(tst.getBody(),Block.STATEMENTS_PROPERTY);
+               break;
+          }
+         if (sls == null) continue;
+         List<?> nsts = sls.getOriginalList();
+         ASTNode tgt = null;
+         if (nsts.size() > 0) {
+            tgt = sls.createCopyTarget((ASTNode) nsts.get(0),(ASTNode) nsts.get(nsts.size()-1));
+            lrw.insertAfter(tgt,st,null);
+          }
+         rw.remove(st,null);
        }
-
+   
       if (ths.size() > 0) {
-	 ListRewrite elr = rw.getListRewrite(orig,MethodDeclaration.THROWN_EXCEPTIONS_PROPERTY);
-	 for (Name nm : ths.values()) {
-	    elr.insertLast(nm,null);
-	  }
+         ListRewrite elr = rw.getListRewrite(orig,MethodDeclaration.THROWN_EXCEPTION_TYPES_PROPERTY);
+         for (Type nm : ths.values()) {
+            elr.insertLast(nm,null);
+          }
        }
     }
 

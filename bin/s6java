@@ -20,7 +20,7 @@ else
    setenv CLASSPATH $BROWN_S6_S6/lib/s6.jar:$BROWN_S6_IVY/lib/ivy.jar:$BROWN_S6_IVY/lib/jikesbt.jar:
 endif
 
-setenv SUISEPATH $BROWN_S6_S6/lib/jsyntaxpane.jar:$BROWN_S6_IVY/lib/asm5.jar:$BROWN_S6_S6/public/batik-1.7/batik.jar:
+setenv SUISEPATH $BROWN_S6_S6/lib/jsyntaxpane.jar:$BROWN_S6_IVY/lib/asm6.jar:$BROWN_S6_S6/public/batik-1.10/batik-1.10.jar:
 setenv ADDPATH $BROWN_S6_S6/lib/json.jar:$BROWN_S6_S6/lib/jtar-1.1.jar:$BROWN_S6_S6/lib/jsoup.jar:
 
 

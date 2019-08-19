@@ -277,8 +277,9 @@ private Panel createTopRegion()
    // remote_type.addItem("Google","G");
    // remote_type.addItem("Koders","D");
    // remote_type.addItem("GitHub","T");
+   remote_type.addItem("SearchCode","C");
    remote_type.addItem("GitHub","Z");
-   remote_type.addItem("OpenHub","O");
+   // remote_type.addItem("OpenHub","O");
    // remote_type.addItem("Sourcerer","S");
    // remote_type.addItem("Krugle","K");
    remote_type.addItem("Hunter","H");
@@ -531,6 +532,7 @@ private void addLookin(Element req)
       if (v.indexOf("X") >= 0) req.setAttribute("CODEEX","TRUE");
       if (v.indexOf("H") >= 0) req.setAttribute("HUNTER","TRUE");
       if (v.indexOf("Z") >= 0) req.setAttribute("GITZIP","TRUE");
+      if (v.indexOf("C") >= 0) req.setAttribute("SEARCHCODE","TRUE");
     }
 }
 

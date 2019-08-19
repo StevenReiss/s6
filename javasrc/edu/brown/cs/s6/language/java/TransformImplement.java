@@ -161,7 +161,7 @@ public TransformImplement(String name)
 
    if (sup != null && known) {
       JcompType jt = JavaAst.getJavaType(sup);
-      if (jt != null && jt.isKnownType()) sup = null;
+      if (jt != null && jt.isBinaryType()) sup = null;
     }
    
    if (sup == null && ints.size() == 0) return false;
@@ -240,7 +240,7 @@ private class ImplementMapper extends TreeMapper {
          JcompType jt = JavaAst.getJavaType(st);
          String supnm = class_signature.getSuperClass();
          if (!jt.getName().equals(supnm)) {
-            if (jt == null || !jt.isKnownType() || !allow_known) {
+            if (jt == null || !jt.isBinaryType() || !allow_known) {
                rw.set(otd,TypeDeclaration.SUPERCLASS_TYPE_PROPERTY,null,null);
                chng = true;
              }

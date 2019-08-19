@@ -53,11 +53,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 
 class KeySearchGoogleGithub extends KeySearchBase
@@ -185,7 +185,7 @@ protected void queueSpecificSolution(S6SolutionSet ss,String src,Queue<Future<Bo
 
 
 
-protected S6Source createPackageSource(String id,int priority)
+protected CoseSource createPackageSource(String id,int priority)
 {
    return new GoogleGithubSource(id,id,priority);
 }
@@ -204,7 +204,7 @@ protected void queuePackageSolutions(S6SolutionSet ss,String id,Queue<Future<Boo
 
 
 
-protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,S6Source src,Set<String> pkgs,Queue<Future<Boolean>> wq)
+protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,CoseSource src,Set<String> pkgs,Queue<Future<Boolean>> wq)
 {
    boolean chng = false;
 
@@ -501,7 +501,7 @@ private class LoadSolution implements Runnable {
       GoogleGithubSource ks = new GoogleGithubSource(for_item,txt,item_index);
       KeySearchBase.getSolutions(solution_set,txt,ks,package_fragment);
    
-      if (package_fragment != null && solution_set.getScopeType() != S6ScopeType.FILE) {
+      if (package_fragment != null && solution_set.getScopeType() != CoseScopeType.FILE) {
          int idx = for_item.lastIndexOf("/");
          String furl = for_item.substring(0,idx);
          FileScanner fs = new FileScanner(for_item);
@@ -642,7 +642,7 @@ private class PackageScanSolution implements Runnable {
 /*										*/
 /********************************************************************************/
 
-private static class GoogleGithubSource extends KeySearchSource implements S6Source {
+private static class GoogleGithubSource extends KeySearchSource implements CoseSource {
 
    private String base_link;
    private String base_path;

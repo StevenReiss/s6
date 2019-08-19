@@ -80,10 +80,14 @@ package edu.brown.cs.s6.common;
 
 import java.util.Collection;
 
+import edu.brown.cs.cose.cosecommon.CoseResource;
+import edu.brown.cs.cose.cosecommon.CoseSource;
+import edu.brown.cs.cose.cosecommon.CoseConstants.CoseResultType;
+
 
 public interface S6Fragment extends S6Constants {
 
-   S6FragmentType getFragmentType();
+   CoseResultType getFragmentType();
    S6Request.Search getSearchRequest();
 
    String getKeyText();
@@ -100,12 +104,12 @@ public interface S6Fragment extends S6Constants {
 
    boolean fixDependencies(S6SolutionSet ss,S6Solution sol);
 
-   S6SolutionFlag checkTestCases(S6Request.Search r,S6Source src);
+   S6SolutionFlag checkTestCases(S6Request.Search r,CoseSource src);
 
    Collection<S6Fragment> getFragments(S6SearchType typ);
    Collection<S6Fragment> getFileFragments();
    Collection<String> getPackages();
-   Collection<S6Resource> getResources();
+   Collection<CoseResource> getResources();
    
    String getBasePackage();
    boolean addPackage(String pkg);
@@ -121,7 +125,12 @@ public interface S6Fragment extends S6Constants {
 
    void addInnerFragment(S6Fragment f);
    
-   void addResource(S6Resource resource);
+   void addResource(CoseResource resource);
+
+
+
+
+
 
 }	// end of interface S6Language
 

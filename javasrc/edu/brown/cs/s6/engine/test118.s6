@@ -1,0 +1,22 @@
+<SEARCH FORMAT='NONE' SEARCHCODE='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD DOUBLE='true' MODS='0'>
+    <NAME>readFile</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String read(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='USERCODE'>
+    <CODE/>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS>
+<KEYWORD><![CDATA[*readLine]]></KEYWORD>
+<KEYWORD><![CDATA[*BufferedReader]]></KEYWORD>
+<KEYWORD><![CDATA[*FileReader]]></KEYWORD>
+<KEYWORD><![CDATA[*close]]></KEYWORD>
+<KEYWORD><![CDATA[*printStackTrace]]></KEYWORD>
+<KEYWORD><![CDATA[StringBuffer]]></KEYWORD>
+</KEYWORDS></SEARCH>
+

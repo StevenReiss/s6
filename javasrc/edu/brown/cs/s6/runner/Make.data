@@ -10,6 +10,8 @@ PACKAGE=runner
 
 
 SFILES=\
+	RunnerAndroid.java \
+	RunnerPencilHierData.java \
 	RunnerResourceBundle.java \
 	RunnerS6HierData.java \
 	RunnerSwingShow.java \
@@ -17,10 +19,8 @@ SFILES=\
 	RunnerSwingModels.java \
 	RunnerTestCase.java \
 	RunnerTest.java \
-	RunnerAndroid.java \
 	RunnerAndroidMatcher.java \
 	RunnerPencilXMLParser.java \
-	RunnerPencilHierData.java \
 	RunnerAssert.java \
 
 

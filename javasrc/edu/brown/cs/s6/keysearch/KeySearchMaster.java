@@ -50,18 +50,19 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.regex.*;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseConstants;
+import edu.brown.cs.cose.cosecommon.CoseResource;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6KeySearch;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6Resource;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
-public class KeySearchMaster implements KeySearchConstants, S6KeySearch, S6Constants
+public class KeySearchMaster implements KeySearchConstants, S6KeySearch, S6Constants, CoseConstants 
 {
 
 
@@ -74,7 +75,7 @@ public class KeySearchMaster implements KeySearchConstants, S6KeySearch, S6Const
 private List<KeySearchRepo>	search_repos;
 private KeySearchQueue		work_queue;
 private S6SolutionSet		solution_set;
-private Map<S6Source,Map<String,Set<String>>> package_items;
+private Map<CoseSource,Map<String,Set<String>>> package_items;
 
 private static final Set<String> RESOURCE_EXTENSIONS;
 
@@ -129,6 +130,9 @@ public KeySearchMaster(S6SolutionSet sol)
 	 case GITZIP :
 	    next = new KeySearchRepoGitZip(sr);
 	    break;
+         case SEARCHCODE :
+            next = new KeySearchRepoSearchCode(sr);
+            break;
 	 default :
 	    System.err.println("Search engine " + loc + " no longer supported");
 	    break;
@@ -139,7 +143,7 @@ public KeySearchMaster(S6SolutionSet sol)
       // search_repos.add(new KeySearchRepoGithub(sr));
     }
    work_queue = new KeySearchQueue();
-   package_items = new HashMap<S6Source,Map<String,Set<String>>>();
+   package_items = new HashMap<>();
 }
 
 
@@ -280,7 +284,7 @@ private class FragmentBuilder implements Runnable {
    @Override public void run() {
       String txt = for_repo.getSourcePage(initial_uri);
       if (txt == null) return;
-      S6Source src = for_repo.createSource(initial_uri,txt,result_index);
+      CoseSource src = for_repo.createSource(initial_uri,txt,result_index);
       if (src == null) return;
       S6Fragment pfrag = null;
       switch (solution_set.getSearchType()) {
@@ -314,7 +318,7 @@ private class FragmentBuilder implements Runnable {
 /*										*/
 /********************************************************************************/
 
-private void addSolutions(String code,S6Source source)
+private void addSolutions(String code,CoseSource source)
 {
    if (source != null && !solution_set.useSource(source)) return;
 
@@ -337,11 +341,11 @@ private void addSolutions(String code,S6Source source)
 /*										*/
 /********************************************************************************/
 
-void addPackageSolutions(KeySearchRepo repo,S6Fragment pfrag,S6Source source,String code)
+void addPackageSolutions(KeySearchRepo repo,S6Fragment pfrag,CoseSource source,String code)
 {
    if (code == null) return;
 
-   if (solution_set.getRequest().getScopeType() == S6ScopeType.FILE) {
+   if (solution_set.getRequest().getScopeType() == CoseScopeType.FILE) {
       addPackageSolution(code,source,source,pfrag);
       solution_set.addInitialSolution(pfrag,source);
       return;
@@ -382,7 +386,7 @@ void addPackageSolutions(KeySearchRepo repo,S6Fragment pfrag,S6Source source,Str
 
 
 
-private void addPackageSolution(String code,S6Source source,S6Source lclsrc,S6Fragment pfrag)
+private void addPackageSolution(String code,CoseSource source,CoseSource lclsrc,S6Fragment pfrag)
 {
    String pkg = findPackageName(code);
    synchronized (package_items) {
@@ -416,14 +420,14 @@ private void addPackageSolution(String code,S6Source source,S6Source lclsrc,S6Fr
 /*										*/
 /********************************************************************************/
 
-private void addInitialAndroidSolutions(KeySearchRepo repo,S6Source src,String code)
+private void addInitialAndroidSolutions(KeySearchRepo repo,CoseSource src,String code)
 {
    System.err.println("MANIFEST START: " + src.getDisplayName());
    findAndroidManifest(repo,src);
 }
 
 
-private void addAndroidSolutions(KeySearchRepo repo,S6Fragment pfrag,S6Source source,String code)
+private void addAndroidSolutions(KeySearchRepo repo,S6Fragment pfrag,CoseSource source,String code)
 {
    if (source == null || source.getDisplayName() == null) {
       System.err.println("BAD SOURCE " + source);
@@ -485,7 +489,7 @@ private String cleanAndroidManifest(String code)
 }
 
 
-private void addManifestClasses(KeySearchRepo repo,S6Fragment pfrag,S6Source src,String code)
+private void addManifestClasses(KeySearchRepo repo,S6Fragment pfrag,CoseSource src,String code)
 {
    KeySearchQueue subwaits = new KeySearchQueue();
 
@@ -546,7 +550,7 @@ private void addManifestClasses(KeySearchRepo repo,S6Fragment pfrag,S6Source src
 
 
 
-private void loadAndroidClass(KeySearchRepo repo,S6Fragment pfrag,S6Source src,KeySearchQueue subwaits,
+private void loadAndroidClass(KeySearchRepo repo,S6Fragment pfrag,CoseSource src,KeySearchQueue subwaits,
       String pkg,String cls)
 {
    String lpkg = pkg;
@@ -569,11 +573,11 @@ private class AndroidResourceLoader implements Runnable {
 
    private KeySearchRepo for_repo;
    private S6Fragment package_fragment;
-   private S6Source for_source;
+   private CoseSource for_source;
    private KeySearchQueue sub_waits;
    private URI load_uri;
 
-   AndroidResourceLoader(KeySearchRepo repo,S6Fragment pfrag,S6Source src,int page,KeySearchQueue subwaits) {
+   AndroidResourceLoader(KeySearchRepo repo,S6Fragment pfrag,CoseSource src,int page,KeySearchQueue subwaits) {
       for_repo = repo;
       package_fragment = pfrag;
       for_source = src;
@@ -595,7 +599,7 @@ private class AndroidResourceLoader implements Runnable {
 
    private void loadByDirectory() {
       if (load_uri == null) load_uri = for_repo.getURIForPath(for_source,"res");
-      S6Source nsrc = for_repo.createSource(load_uri,null,0);
+      CoseSource nsrc = for_repo.createSource(load_uri,null,0);
       String sfx = nsrc.getDisplayName();
       int idx1 = sfx.lastIndexOf("/");
       if (idx1 > 0) sfx = sfx.substring(idx1+1);
@@ -629,7 +633,7 @@ private class AndroidResourceLoader implements Runnable {
    }
 
 
-   private boolean loadResourceData(S6Source nsrc,ByteArrayOutputStream ots)
+   private boolean loadResourceData(CoseSource nsrc,ByteArrayOutputStream ots)
    {
       byte [] cnts = null;
       if (ots != null) cnts = ots.toByteArray();
@@ -675,7 +679,7 @@ private class AndroidResourceLoader implements Runnable {
 private class AndroidClassLoader implements Runnable {
 
    private KeySearchRepo for_repo;
-   private S6Source manifest_source;
+   private CoseSource manifest_source;
    private S6Fragment package_fragment;
    private String package_name;
    private String class_name;
@@ -683,7 +687,7 @@ private class AndroidClassLoader implements Runnable {
    private int page_number;
    private KeySearchQueue sub_waits;
 
-   AndroidClassLoader(KeySearchRepo repo,S6Source src,String pkg,String cls,S6Fragment pfrag,
+   AndroidClassLoader(KeySearchRepo repo,CoseSource src,String pkg,String cls,S6Fragment pfrag,
          KeySearchQueue subwaits) {
       for_repo = repo;
       manifest_source = src;
@@ -741,7 +745,7 @@ private class AndroidClassLoader implements Runnable {
       if (oldpath == null) return true;
       if (newpath.startsWith(basepath) && !oldpath.startsWith(basepath)) return true;
       if (newpath.length() < oldpath.length()) return true;
-
+   
       return false;
    }
 
@@ -749,7 +753,7 @@ private class AndroidClassLoader implements Runnable {
 
 
 
-private void findAndroidManifest(KeySearchRepo repo,S6Source src)
+private void findAndroidManifest(KeySearchRepo repo,CoseSource src)
 {
    List<String> keys = new ArrayList<String>();
    keys.add("manifest");
@@ -762,14 +766,14 @@ private void findAndroidManifest(KeySearchRepo repo,S6Source src)
    String rslts = repo.getResultPage(uri);
    List<URI> uris = repo.getSearchPageResults(uri,rslts);
 
-   Map<S6Source,String> usesrc = new HashMap<S6Source,String>();
+   Map<CoseSource,String> usesrc = new HashMap<>();
    for (URI u : uris) {
       String code = repo.getSourcePage(u);
-      S6Source nsrc = repo.createSource(u,code,0);
+      CoseSource nsrc = repo.createSource(u,code,0);
       checkUseManifest(nsrc,code,usesrc);
     }
-   for (Map.Entry<S6Source,String> ent : usesrc.entrySet()) {
-      S6Source nsrc = ent.getKey();
+   for (Map.Entry<CoseSource,String> ent : usesrc.entrySet()) {
+      CoseSource nsrc = ent.getKey();
       String  code = ent.getValue();
       if (code == null) continue;
       S6Fragment nfrag = solution_set.getEngine().createPackageFragment(solution_set.getRequest());
@@ -778,7 +782,7 @@ private void findAndroidManifest(KeySearchRepo repo,S6Source src)
 }
 
 
-private void checkUseManifest(S6Source nsrc,String ncode,Map<S6Source,String> osrcs)
+private void checkUseManifest(CoseSource nsrc,String ncode,Map<CoseSource,String> osrcs)
 {
    if (nsrc == null) return;
 
@@ -787,8 +791,8 @@ private void checkUseManifest(S6Source nsrc,String ncode,Map<S6Source,String> os
    int nidx1 = ns1.lastIndexOf("/");
    String ns2 = ns1.substring(0,nidx1);
 
-   for (Iterator<S6Source> it = osrcs.keySet().iterator(); it.hasNext(); ) {
-      S6Source osrc = it.next();
+   for (Iterator<CoseSource> it = osrcs.keySet().iterator(); it.hasNext(); ) {
+      CoseSource osrc = it.next();
       String os1 = osrc.getDisplayName();
       int oidx1 = os1.lastIndexOf("/");
       String os2 = os1.substring(0,oidx1);
@@ -816,12 +820,12 @@ private class ScanPackageSearchResults implements Runnable {
    private KeySearchRepo for_repo;
    private String package_name;
    private String project_id;
-   private S6Source package_source;
+   private CoseSource package_source;
    private S6Fragment package_fragment;
    private int page_number;
    private KeySearchQueue package_queue;
 
-   ScanPackageSearchResults(KeySearchRepo repo,String pkg,S6Source pkgsrc,
+   ScanPackageSearchResults(KeySearchRepo repo,String pkg,CoseSource pkgsrc,
          S6Fragment pkgfrag,KeySearchQueue pkgq) {
       for_repo = repo;
       project_id = pkgsrc.getProjectId();
@@ -858,10 +862,10 @@ private class LoadPackageResult implements Runnable {
    private URI page_uri;
    private String package_name;
    private S6Fragment package_fragment;
-   private S6Source package_source;
+   private CoseSource package_source;
 
    LoadPackageResult(KeySearchRepo repo,URI uri,String pkg,S6Fragment pkgfrag,
-         S6Source pkgsrc) {
+         CoseSource pkgsrc) {
       for_repo = repo;
       page_uri = uri;
       package_name = pkg;
@@ -872,10 +876,10 @@ private class LoadPackageResult implements Runnable {
    @Override public void run() {
       String code = for_repo.getSourcePage(page_uri);
       if (code == null) return;
-      S6Source src = for_repo.createSource(page_uri,code,0);
+      CoseSource src = for_repo.createSource(page_uri,code,0);
       String pkg = findPackageName(code);
       if (!pkg.equals(package_name)) return;
-      if (solution_set.getScopeType() == S6ScopeType.PACKAGE_UI) {
+      if (solution_set.getScopeType() == CoseScopeType.PACKAGE_UI) {
          String ext = findExtendsName(code);
          boolean isui = false;
          if (ext != null) {
@@ -909,11 +913,11 @@ private class FinishPackageTask implements Callable<Boolean> {
 
    private KeySearchRepo for_repo;
    private KeySearchQueue package_queue;
-   private S6Source package_source;
+   private CoseSource package_source;
    private S6Fragment package_fragment;
    private int retry_count;
 
-   FinishPackageTask(KeySearchRepo repo,S6Fragment pkgfrag,S6Source pkgsrc,KeySearchQueue pkgq) {
+   FinishPackageTask(KeySearchRepo repo,S6Fragment pkgfrag,CoseSource pkgsrc,KeySearchQueue pkgq) {
       for_repo = repo;
       package_queue = pkgq;
       package_source = pkgsrc;
@@ -1079,7 +1083,7 @@ static String findExtendsName(String text)
 /*										*/
 /********************************************************************************/
 
-private static class AndroidResource implements S6Resource {
+private static class AndroidResource implements CoseResource {
 
    private String path_name;
    private byte [] file_contents;

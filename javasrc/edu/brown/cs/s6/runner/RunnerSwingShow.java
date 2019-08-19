@@ -781,7 +781,7 @@ private void appendOutput(String s)
    Document d = event_area.getDocument();
    try {
       d.insertString(d.getLength(),s,null);
-      Rectangle r = event_area.modelToView(d.getLength());
+      Rectangle r = event_area.modelToView2D(d.getLength()).getBounds();
       if (r != null) {
 	 event_area.scrollRectToVisible(r);
        }

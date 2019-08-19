@@ -78,6 +78,8 @@ package edu.brown.cs.s6.common;
 import java.util.Collection;
 import java.util.Set;
 
+import edu.brown.cs.cose.cosecommon.CoseResult;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 
 
@@ -88,7 +90,8 @@ public interface S6Language extends S6Constants {
 boolean applyTransforms(S6SolutionSet solset,S6Solution sol,S6TransformType phase);
 
 
-S6Fragment createFileFragment(String text,S6Source src,S6Request.Search sr);
+S6Fragment createFileFragment(String text,CoseSource src,S6Request.Search sr);
+S6Fragment createCoseFragment(CoseResult cr,S6Request.Search sr);
 S6Fragment createPackageFragment(S6Request.Search sr);
 Set<String> getRelatedProjects(S6Fragment src);
 Set<String> getUsedProjects(S6Fragment src);

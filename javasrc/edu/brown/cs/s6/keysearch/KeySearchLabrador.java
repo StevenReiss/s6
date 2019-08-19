@@ -89,13 +89,13 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.concurrent.Future;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.file.IvyFile;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 
 class KeySearchLabrador extends KeySearchBase {
@@ -189,13 +189,13 @@ protected void queueSpecificSolution(S6SolutionSet ss,String src,Queue<Future<Bo
 }
 
 
-protected S6Source createPackageSource(String id,int priority)
+protected CoseSource createPackageSource(String id,int priority)
 {
    return new LabradorSource(id,id,priority);
 }
 
 
-protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,S6Source src,Set<String> pkgs,Queue<Future<Boolean>> wq)
+protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,CoseSource src,Set<String> pkgs,Queue<Future<Boolean>> wq)
 {
    boolean chng = false;
 
@@ -246,7 +246,7 @@ protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,S6Source src,Set<
 
 protected void queuePackageSolutions(S6SolutionSet ss,String id,Queue<Future<Boolean>> wq,S6Fragment pf,int priority) throws S6Exception
 {
-   if (ss.getScopeType() == S6ScopeType.FILE) {
+   if (ss.getScopeType() == CoseScopeType.FILE) {
       LoadFile ls = new LoadFile(ss,id,priority,pf);
       Future<Boolean> fb = ss.getEngine().executeTask(S6TaskType.IO,ls);
       synchronized (wq) {
@@ -395,7 +395,7 @@ private static class LoadFile implements Runnable {
 /*										*/
 /********************************************************************************/
 
-private static class LabradorSource extends KeySearchSource implements S6Source {
+private static class LabradorSource extends KeySearchSource implements CoseSource {
 
    private String file_name;
 

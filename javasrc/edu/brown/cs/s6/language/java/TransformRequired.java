@@ -243,11 +243,11 @@ private class RequireWalk extends ASTVisitor {
    @Override public void postVisit(ASTNode n) {
       JcompSymbol js = JavaAst.getReference(n);
       if (js != null) {
-	 if (js.isMethodSymbol() || js.isConstructorSymbol() ||
-	       js.isFieldSymbol()) {
-	    if (!js.isKnown())
-	       has_change |= required_items.add(js);
-	  }
+         if (js.isMethodSymbol() || js.isConstructorSymbol() ||
+               js.isFieldSymbol()) {
+            if (!js.isBinarySymbol())
+               has_change |= required_items.add(js);
+          }
        }
     }
 

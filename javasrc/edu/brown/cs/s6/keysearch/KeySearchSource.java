@@ -57,14 +57,14 @@
 package edu.brown.cs.s6.keysearch;
 
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.S6Factory;
 import edu.brown.cs.s6.common.S6License;
-import edu.brown.cs.s6.common.S6Source;
 
 
 
 
-abstract class KeySearchSource implements S6Source {
+abstract class KeySearchSource implements CoseSource {
 
 
 /********************************************************************************/
@@ -122,6 +122,10 @@ abstract public String getName();
 abstract public String getDisplayName();
 
 public String getPathName()                     { return getDisplayName(); }
+
+public int getOffset()                          { return 0; }
+public int getLength()                          { return 0; }
+public CoseSource getBaseSource()               { return null; }
 
 
 

@@ -112,6 +112,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.WildcardType;
 import org.w3c.dom.Element;
 
+import edu.brown.cs.ivy.jcomp.JcompAst;
 import edu.brown.cs.ivy.jcomp.JcompType;
 import edu.brown.cs.ivy.jcomp.JcompTyper;
 import edu.brown.cs.ivy.xml.IvyXml;
@@ -211,7 +212,7 @@ void checkMethodSignature(S6Request.Check creq,IvyXmlWriter xw) throws S6Excepti
 
    StreamTokenizer stok = getTokenizer(txt);
 
-   AST ast = AST.newAST(AST.JLS4);
+   AST ast = AST.newAST(AST.JLS8);
    MethodDeclaration md = ast.newMethodDeclaration();
 
    parseModifiers(stok,md);
@@ -692,7 +693,7 @@ void checkClassNames(S6Request.Check creq,boolean mult,IvyXmlWriter xw)
 {
    String txt = creq.getUserInput("NAME");
 
-   AST ast = AST.newAST(AST.JLS4);
+   AST ast = AST.newAST(AST.JLS8);
    StreamTokenizer tok = getTokenizer(txt);
    StringBuffer buf = new StringBuffer();
 
@@ -865,7 +866,9 @@ private void parseArguments(StreamTokenizer stok,MethodDeclaration md) throws S6
        }
       else throw new S6Exception("Expected agrument name");
       SingleVariableDeclaration svd = md.getAST().newSingleVariableDeclaration();
-      svd.setExtraDimensions(arrct);
+      for (int i = 0; i < arrct; ++i) {
+         svd.extraDimensions().add(md.getAST().newDimension());
+      }
       svd.setName(JavaAst.getSimpleName(md.getAST(),anm));
       svd.setType(typ);
       md.parameters().add(svd);
@@ -885,7 +888,8 @@ private void parseExceptions(StreamTokenizer stok,MethodDeclaration md) throws S
       Type typ = parseType(stok,md.getAST());
       String str = typ.toString();
       Name nm = JavaAst.getQualifiedName(md.getAST(),str);
-      md.thrownExceptions().add(nm);
+      Type tnm = md.getAST().newSimpleType(nm);
+      md.thrownExceptionTypes().add(tnm);
       if (!checkNextToken(stok,',')) break;
     }
 }
@@ -1157,10 +1161,11 @@ private void generateMethodSignature(MethodDeclaration md,IvyXmlWriter xw)
       nbuf.append(svd.getName().getIdentifier());
     }
    StringBuffer ebuf = new StringBuffer();
-   for (Iterator<?> it = md.thrownExceptions().iterator(); it.hasNext(); ) {
-      Name nm = (Name) it.next();
+   for (Iterator<?> it = md.thrownExceptionTypes().iterator(); it.hasNext(); ) {
+      Type tnm = (Type) it.next();
       if (ebuf.length() > 0) ebuf.append(",");
-      ebuf.append(nm.getFullyQualifiedName());
+      JcompType jty = JcompAst.getJavaType(tnm);
+      ebuf.append(jty.getName());
     }
 
    xw.begin("SIGNATURE");
@@ -1402,7 +1407,7 @@ private Value parseTypedValue(StreamTokenizer stok,String typ) throws S6Exceptio
 	    buf.append(" ");
 	  }
 	 else if (ttyp == StreamTokenizer.TT_NUMBER) {
-	    Double db = new Double(stok.nval);
+	    Double db = Double.valueOf(stok.nval);
 	    if (db.doubleValue() == db.longValue()) {
 	       buf.append(db.longValue());
 	     }

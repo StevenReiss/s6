@@ -68,10 +68,8 @@ import java.util.concurrent.Future;
 import java.nio.charset.Charset;
 import java.net.URI;
 
-
-
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.S6Constants;
-import edu.brown.cs.s6.common.S6Source;
 
 
 
@@ -119,10 +117,10 @@ class KeySearchClassData {
    
    URI class_uri;
    String class_path;
-   S6Source class_source;
+   CoseSource class_source;
    String class_code;
    
-   KeySearchClassData(URI u,String p,S6Source src,String cd) {
+   KeySearchClassData(URI u,String p,CoseSource src,String cd) {
       class_uri = u;
       class_path = p;
       class_source = src;
@@ -131,7 +129,7 @@ class KeySearchClassData {
    
    URI getURI()                         { return class_uri; }
    String getPath()                     { return class_path; }
-   S6Source getSource()                 { return class_source; }
+   CoseSource getSource()               { return class_source; }
    String getCode()                     { return class_code; }
    
 }       // end of inner class KeySearchClassData

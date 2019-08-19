@@ -45,9 +45,9 @@ import java.util.concurrent.Semaphore;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6Source;
 
 
 
@@ -102,7 +102,7 @@ String getAuthorization()			{ return null; }
 
 abstract URI getURIForSearch(List<String> keywords,S6SearchLanguage lang,String projectid,int page);
 
-abstract S6Source createSource(URI uri,String text,int idx);
+abstract CoseSource createSource(URI uri,String text,int idx);
 
 
 
@@ -214,16 +214,16 @@ String getRawFileContents(URI uri,Element jsoup) { return null; }
 /*										*/
 /********************************************************************************/
 
-abstract URI getURIForPath(S6Source source,String path);
+abstract URI getURIForPath(CoseSource source,String path);
 
-List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src)
+List<URI> getDirectoryContentsURIs(URI baseuri,CoseSource src)
 {
    return null;
 }
 
 
 
-List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src,String cnts)
+List<URI> getDirectoryContentsURIs(URI baseuri,CoseSource src,String cnts)
 {
    if (cnts == null) return new ArrayList<URI>();
 
@@ -233,7 +233,7 @@ List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src,String cnts)
 }
 
 
-List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src,Element jsoup)
+List<URI> getDirectoryContentsURIs(URI baseuri,CoseSource src,Element jsoup)
 {
    return new ArrayList<URI>();
 }
@@ -263,7 +263,7 @@ boolean getClassesInPackage(String pkg,String project,int page,List<URI> rslt)
 
 
 
-KeySearchClassData getPackageClassResult(S6Source base,String pkg,String cls,int page)
+KeySearchClassData getPackageClassResult(CoseSource base,String pkg,String cls,int page)
 {
    List<String> keys = new ArrayList<String>();
    keys.add("package " + pkg);
@@ -278,12 +278,12 @@ KeySearchClassData getPackageClassResult(S6Source base,String pkg,String cls,int
    
    URI besturi = null;
    String bestpath = null;
-   S6Source bestsrc = null;
+   CoseSource bestsrc = null;
    String bestcode = null;
    
    for (URI u : uris) {
       String code = getSourcePage(u);
-      S6Source nsrc = createSource(u,code,0);
+      CoseSource nsrc = createSource(u,code,0);
       String npkg = KeySearchMaster.findPackageName(code);
       if (npkg == null || !npkg.equals(pkg)) continue;
       String ncls = KeySearchMaster.findClassName(code);

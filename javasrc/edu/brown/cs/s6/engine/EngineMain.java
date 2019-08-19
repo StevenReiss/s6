@@ -119,6 +119,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -141,10 +142,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.xml.bind.DatatypeConverter;
-
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseResult;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.ivy.xml.IvyXmlReader;
@@ -155,13 +156,11 @@ import edu.brown.cs.s6.common.S6Engine;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Factory;
 import edu.brown.cs.s6.common.S6Fragment;
-import edu.brown.cs.s6.common.S6KeySearch;
 import edu.brown.cs.s6.common.S6Language;
 import edu.brown.cs.s6.common.S6License;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 import edu.brown.cs.s6.common.S6TestCase;
 import edu.brown.cs.s6.common.S6TestResults;
 
@@ -192,7 +191,6 @@ public static void main(String [] args)
 /********************************************************************************/
 
 private S6Factory	s6_factory;
-private S6KeySearch	key_searcher;
 private boolean 	run_server;
 private boolean 	force_run;
 private int		num_request;
@@ -243,7 +241,6 @@ public EngineMain(String [] args)
    scanArgs(args);
 
    s6_factory = S6Factory.createS6Factory();
-   key_searcher = null;
    s6_language = s6_factory.createLanguage(this,language_name);
    if (user_path != null) s6_language.setPath(user_path);
    if (project_name != null) s6_language.setProject(project_name);
@@ -358,6 +355,10 @@ void start()
       catch (S6Exception e) {
 	 System.err.println("S6: ENGINE: Problem with request " + base_request + ": " + e);
        }
+      catch (Throwable t) {
+         System.err.println("S6: ENGINE: Internal problem with request " + base_request);
+         t.printStackTrace();
+       }
       finally {
 	 try {
 	    if (xr != null) xr.close();
@@ -376,9 +377,14 @@ void start()
 /*										*/
 /********************************************************************************/
 
-public boolean doDebug()			{ return do_debug; }
+@Override public boolean doDebug()              { return do_debug; }
 
-public S6Factory getFactory()                   { return s6_factory; }
+@Override public int getNumberOfSearchThreads()
+{
+   return num_thread;
+}
+
+public S6Factory getFactory()			{ return s6_factory; }
 
 
 /********************************************************************************/
@@ -387,7 +393,7 @@ public S6Factory getFactory()                   { return s6_factory; }
 /*										*/
 /********************************************************************************/
 
-public String handleSearchRequest(Element xml) throws S6Exception
+@Override public String handleSearchRequest(Element xml) throws S6Exception
 {
    if (xml == null) return null;
 
@@ -395,8 +401,7 @@ public String handleSearchRequest(Element xml) throws S6Exception
 
    S6SolutionSet ss = s6_factory.createSolutionSet(sr);
 
-   key_searcher = s6_factory.createKeySearch(ss);
-   key_searcher.getInitialSolutions(ss);
+   s6_factory.getInitialSolutions(ss);
 
    if (ss.getSearchType() == S6SearchType.TESTCASES) {
       for (S6Solution s : ss.getSolutions()) {
@@ -494,7 +499,7 @@ private void outputSolutionCount(S6SolutionSet ss,String when)
 /*										*/
 /********************************************************************************/
 
-public String handleCheckRequest(Element xml) throws S6Exception
+@Override public String handleCheckRequest(Element xml) throws S6Exception
 {
    if (xml == null) return null;
 
@@ -698,25 +703,32 @@ public String handleUserReply(Element xml) throws S6Exception
 /*										*/
 /********************************************************************************/
 
-public S6Fragment createFileFragment(String text,S6Source src,S6Request.Search sreq)
+@Override public S6Fragment createFragment(CoseResult cr,S6Request.Search sreq)
+{
+   return s6_language.createCoseFragment(cr,sreq);
+}
+
+
+
+@Override public S6Fragment createFileFragment(String text,CoseSource src,S6Request.Search sreq)
 {
    return s6_language.createFileFragment(text,src,sreq);
 }
 
 
-public Set<String> getRelatedProjects(S6Fragment src)
+@Override public Set<String> getRelatedProjects(S6Fragment src)
 {
    return s6_language.getRelatedProjects(src);
 }
 
 
-public Set<String> getUsedProjects(S6Fragment src)
+@Override public Set<String> getUsedProjects(S6Fragment src)
 {
    return s6_language.getUsedProjects(src);
 }
 
 
-public S6Fragment createPackageFragment(S6Request.Search sr)
+@Override public S6Fragment createPackageFragment(S6Request.Search sr)
 {
    return s6_language.createPackageFragment(sr);
 }
@@ -730,7 +742,7 @@ public S6Fragment createPackageFragment(S6Request.Search sr)
 /*										*/
 /********************************************************************************/
 
-public Future<Boolean> executeTask(S6TaskType tt,Callable<Boolean> c)
+@Override public Future<Boolean> executeTask(S6TaskType tt,Callable<Boolean> c)
 {
    startPool();
 
@@ -748,7 +760,7 @@ public Future<Boolean> executeTask(S6TaskType tt,Callable<Boolean> c)
 }
 
 
-public Future<Boolean> executeTask(S6TaskType tt,Runnable r)
+@Override public Future<Boolean> executeTask(S6TaskType tt,Runnable r)
 {
    startPool();
 
@@ -789,7 +801,7 @@ private synchronized String getPoolThreadName()
 
 
 
-public boolean waitForAll(Queue<Future<Boolean>> waitq)
+@Override public boolean waitForAll(Queue<Future<Boolean>> waitq)
 {
    boolean rslt = false;
 
@@ -883,6 +895,14 @@ private boolean checkViable(S6SolutionSet ss,S6Solution s,S6TransformType tt)
 {
    if (s.checkFlag(S6SolutionFlag.REMOVE)) return false;
 
+   List<String> rq = ss.getRequest().getRequiredWords();
+   if (rq != null && rq.size() > 0) {
+      String s3 = s.getFragment().getText();
+      for (String rwd : rq) {
+	 if (!s3.contains(rwd)) return false;
+       }
+    }
+
    S6Fragment f = s.getFragment();
    if (tt == S6TransformType.INITIAL) {
       return f.checkInitial(ss.getRequest().getSignature());
@@ -891,7 +911,7 @@ private boolean checkViable(S6SolutionSet ss,S6Solution s,S6TransformType tt)
    S6SignatureType chk = S6SignatureType.FULL;
    switch (ss.getSearchType()) {
       case PACKAGE :
-      case APPLICATION : 
+      case APPLICATION :
 	 chk = S6SignatureType.PACKAGE_FULL;
 	 break;
       case UIFRAMEWORK :
@@ -935,27 +955,27 @@ private class TransformSolution implements Callable<Boolean> {
 
    public Boolean call() {
       boolean chng = false;
-
+   
       for_solution.resolve();
-
+   
       chng = s6_language.applyTransforms(solution_set,for_solution,transform_type);
-
+   
       // for (S6Transform s6 : s6_language.getTransforms()) {
-	 // if (s6.isUsedFor(transform_type)) {
-	    // chng |= s6.findTransforms(solution_set,for_solution);
-	  // }
+         // if (s6.isUsedFor(transform_type)) {
+            // chng |= s6.findTransforms(solution_set,for_solution);
+          // }
        // }
-
+   
       if (!checkViable(solution_set,for_solution,transform_type)) {
-	 for_solution.clearResolve();
-	 solution_set.remove(for_solution);
+         for_solution.clearResolve();
+         solution_set.remove(for_solution);
        }
-
+   
       if (solution_set.checkClearResolve())
-	 for_solution.clearResolve();
-
+         for_solution.clearResolve();
+   
       for_solution = null;
-
+   
       return chng;
     }
 
@@ -1029,23 +1049,23 @@ private class DependWorker implements Runnable {
       S6Fragment f = for_solution.getFragment();
       f.makeLocal(solution_set);		// does a resolve
       f.resolveFragment();
-
+   
       if (!f.checkSignature(solution_set.getRequest().getSignature(),S6SignatureType.FULL)) {
-	 for_solution.clearResolve();
-	 solution_set.remove(for_solution);
-	 return;
+         for_solution.clearResolve();
+         solution_set.remove(for_solution);
+         return;
        }
-
+   
       if (!f.fixDependencies(solution_set,for_solution)) {
-	 for_solution.setFlag(S6SolutionFlag.DEPEND_FAIL);
-	 f.clearResolve();
+         for_solution.setFlag(S6SolutionFlag.DEPEND_FAIL);
+         for_solution.clearResolve();
        }
       else {
-	 for_solution.setFlag(S6SolutionFlag.DEPEND_PASS);
+         for_solution.setFlag(S6SolutionFlag.DEPEND_PASS);
        }
-
+   
       if (solution_set.checkClearResolve()) for_solution.clearResolve();
-
+   
       for_solution = null;
     }
 
@@ -1122,23 +1142,25 @@ private class TestWorker implements Runnable {
    public void run() {
       S6Fragment f = for_solution.getFragment();
       for_solution.resolve();
-
+   
       if (do_debug) {
-	 System.err.println("TEST " + f.getText());
-	 System.err.println("SOURCE: " + for_solution.getSource().getName());
+         System.err.println("TEST " + f.getText());
+         System.err.println("SOURCE: " + for_solution.getSource().getName());
        }
-
+   
       S6SolutionFlag sf = f.checkTestCases(solution_set.getRequest(),for_solution.getSource());
-      if (sf == S6SolutionFlag.PASS && do_debug)
-	 System.err.println("TEST PASSED");
-
+      if (do_debug) {
+         if (sf == S6SolutionFlag.PASS) System.err.println("TEST PASSED");
+         else System.err.println("TEST FAILED");
+       }
+   
       for_solution.clearFlag(S6SolutionFlag.FAIL);
       for_solution.clearFlag(S6SolutionFlag.PASS);
       for_solution.clearFlag(S6SolutionFlag.USER);
       for_solution.setFlag(sf);
-
+   
       if (solution_set.checkClearResolve()) for_solution.clearResolve();
-
+   
       for_solution = null;
     }
 
@@ -1217,7 +1239,7 @@ private String handleUserFeedback(S6SolutionSet ss)
 	 xw.cdataElement("VALUE",uv);
 	 if (jarf != null) {
 	    try {
-	       String d = DatatypeConverter.printBase64Binary(jarf);
+	       String d = Base64.getEncoder().encodeToString(jarf);
 	       xw.textElement("RUNJAR",d);
 	     }
 	    catch (IllegalArgumentException e) { }
@@ -1397,10 +1419,11 @@ private class EngineServer extends Thread {
 	 if (ec.isAlive() && ec.isActive()) ++ct;
 	 else it.remove();
        }
-      if (ct < num_connect)
+      if (ct < num_connect) {
 	 System.err.println("S6: ENGINE: Reconnecting to firewall " + (num_connect-ct));
-      for (int i = ct; i < num_connect; ++i) {
-	 setupFirewallClient();
+	 for (int i = ct; i < num_connect; ++i) {
+	    setupFirewallClient();
+	  }
        }
     }
 

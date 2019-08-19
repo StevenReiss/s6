@@ -87,12 +87,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 class KeySearchGoogle extends KeySearchBase {
 
@@ -187,7 +187,7 @@ protected void queuePackageSolutions(S6SolutionSet ss,String id,Queue<Future<Boo
    
 }
 
-protected S6Source createPackageSource(String id,int priority)
+protected CoseSource createPackageSource(String id,int priority)
 {
    return new GoogleSource(id,null,null,null,priority);
 }
@@ -449,7 +449,7 @@ private static class ItemParser {
 /*										*/
 /********************************************************************************/
 
-private static class GoogleSource extends KeySearchSource implements S6Source {
+private static class GoogleSource extends KeySearchSource implements CoseSource {
 
    private String file_name;
    private String google_key;

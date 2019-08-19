@@ -170,32 +170,32 @@ private class StaticMapper extends TreeMapper {
       FieldDeclaration fd = null;
       VariableDeclarationStatement vds = null;
       if (vdf.getParent() instanceof FieldDeclaration) {
-	 fd = (FieldDeclaration) vdf.getParent();
-	 jt = JavaAst.getJavaType(fd.getType());
+         fd = (FieldDeclaration) vdf.getParent();
+         jt = JavaAst.getJavaType(fd.getType());
        }
       else if (vdf.getParent() instanceof VariableDeclarationStatement) {
-	 vds = (VariableDeclarationStatement) vdf.getParent();
-	 jt = JavaAst.getJavaType(vds.getType());
+         vds = (VariableDeclarationStatement) vdf.getParent();
+         jt = JavaAst.getJavaType(vds.getType());
        }
       if (jt == null) return;
       Expression ex = vdf.getInitializer();
       AST ast = rw.getAST();
       Expression newex = null;
       Type newty = null;
-      if (jt.isUnknown()) {
-	 JcompTyper typer = JavaAst.getTyper(orig);
-	 JcompType otyp = typer.findSystemType("java.lang.Object");
-	 Name nm = JavaAst.getQualifiedName(ast,"java.lang.Object");
-	 newty = ast.newSimpleType(nm);
-	 newex = otyp.createNonNullValue(ast);
+      if (jt.isCompiledType()) {
+         JcompTyper typer = JavaAst.getTyper(orig);
+         JcompType otyp = typer.findSystemType("java.lang.Object");
+         Name nm = JavaAst.getQualifiedName(ast,"java.lang.Object");
+         newty = ast.newSimpleType(nm);
+         newex = otyp.createNonNullValue(ast);
        }
       else {
-	 newex = jt.createDefaultValue(ast);
+         newex = jt.createDefaultValue(ast);
        }
-
+   
       if (newty != null) {
-	 if (fd != null) rw.replace(fd.getType(),newty,null);
-	 else if (vds != null) rw.replace(vds.getType(),newty,null);
+         if (fd != null) rw.replace(fd.getType(),newty,null);
+         else if (vds != null) rw.replace(vds.getType(),newty,null);
        }
       if (newex != null) rw.replace(ex,newex,null);
     }

@@ -118,19 +118,20 @@ import org.jsoup.nodes.*;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.parser.ParserDelegator;
 
+import edu.brown.cs.cose.cosecommon.CoseConstants;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6KeySearch;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 
 import java.util.List;
 import java.util.ArrayList;
 
-abstract public class KeySearchBase implements S6KeySearch, S6Constants, KeySearchConstants {
+abstract public class KeySearchBase implements S6KeySearch, S6Constants, CoseConstants, KeySearchConstants {
 
 
 
@@ -267,7 +268,7 @@ protected void buildPackageFragment(S6SolutionSet ss,String id,String key,Queue<
       if (!used.add(key)) return;
     }
    S6Fragment pfrag = ss.getEngine().createPackageFragment(ss.getRequest());
-   S6Source psrc = createPackageSource(id,priority);
+   CoseSource psrc = createPackageSource(id,priority);
    if (psrc == null) return;
 
    Queue<Future<Boolean>> subwaits = new LinkedList<Future<Boolean>>();
@@ -293,10 +294,10 @@ private class PkgTask implements Callable<Boolean> {
    private S6SolutionSet solution_set;
    private Queue<Future<Boolean>> wait_queue;
    private Queue<Future<Boolean>> master_queue;
-   private S6Source package_source;
+   private CoseSource package_source;
    private S6Fragment package_fragment;
 
-   PkgTask(S6SolutionSet ss,S6Fragment pf,S6Source ps,Queue<Future<Boolean>> wq,
+   PkgTask(S6SolutionSet ss,S6Fragment pf,CoseSource ps,Queue<Future<Boolean>> wq,
 	      Queue<Future<Boolean>> mq) {
       solution_set = ss;
       wait_queue = wq;
@@ -325,7 +326,7 @@ private class PkgTask implements Callable<Boolean> {
    
       // here is were we extend the solution to include other packages
       Set<String> pkgs = null;
-      if (solution_set.getScopeType() == S6ScopeType.SYSTEM) {
+      if (solution_set.getScopeType() == CoseScopeType.SYSTEM) {
          pkgs = solution_set.getEngine().getRelatedProjects(package_fragment);
        }
       if (pkgs != null) {
@@ -356,13 +357,13 @@ private class PkgTask implements Callable<Boolean> {
 protected abstract void queuePackageSolutions(S6SolutionSet ss,String id,
       Queue<Future<Boolean>> waitfors,S6Fragment pfrag,int priority) throws S6Exception;
 
-protected S6Source createPackageSource(String id,int priority)
+protected CoseSource createPackageSource(String id,int priority)
 {
    return null;
 }
 
 
-protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,S6Source src,Set<String> pkgs,Queue<Future<Boolean>> wq)
+protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,CoseSource src,Set<String> pkgs,Queue<Future<Boolean>> wq)
 {
    return false;
 }
@@ -431,7 +432,7 @@ private void newQueuePackageSolutions(S6SolutionSet ss,URI id,Queue<Future<Boole
 }
 
 
-private boolean newAddPackages(S6SolutionSet ss,S6Fragment frag,S6Source src,
+private boolean newAddPackages(S6SolutionSet ss,S6Fragment frag,CoseSource src,
       Set<String> pkgs,Queue<Future<Boolean>> wq)
 {
    boolean chng = false;
@@ -607,10 +608,10 @@ private class LoadSolution implements Runnable {
    public void run() {
       String txt = loadFile(for_item);
       if (txt == null) return;
-      S6Source src = createSource(for_item,txt,item_index);
+      CoseSource src = createSource(for_item,txt,item_index);
       getSolutions(solution_set,txt,src,package_fragment);
    
-      if (package_fragment != null && solution_set.getScopeType() != S6ScopeType.FILE) {
+      if (package_fragment != null && solution_set.getScopeType() != CoseScopeType.FILE) {
          for (URI pkguri : getURIsForPackage(for_item,txt)) {
             if (pkguri.equals(for_item)) continue;
             String rs = loadFile(pkguri);
@@ -649,7 +650,7 @@ protected FilePageScanner getFilePageScanner(String cnts,URI uri)
 
 
 
-protected S6Source createSource(URI baseuri,String text,int idx)	{ return null; }
+protected CoseSource createSource(URI baseuri,String text,int idx)	{ return null; }
 
 protected URI getFileContentsURI(URI base)
 {
@@ -863,7 +864,7 @@ protected boolean checkIfForced(URI uri)
 /*										*/
 /********************************************************************************/
 
-protected static void getSolutions(S6SolutionSet ss,String code,S6Source src,S6Fragment pkg)
+protected static void getSolutions(S6SolutionSet ss,String code,CoseSource src,S6Fragment pkg)
 {
    if (src != null && !ss.useSource(src) && pkg == null) return;
 

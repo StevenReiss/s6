@@ -92,6 +92,8 @@ import java.util.concurrent.Future;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseResult;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.ivy.xml.IvyXmlReaderThread;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
@@ -103,7 +105,6 @@ import edu.brown.cs.s6.common.S6FileLocation;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Language;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6Source;
 
 
 
@@ -415,9 +416,14 @@ public Future<Boolean> executeTask(S6TaskType tt,Runnable r)
 
 
 
-public S6Fragment createFileFragment(String text,S6Source src,S6Request.Search rq)
+public S6Fragment createFileFragment(String text,CoseSource src,S6Request.Search rq)
 {
    return s6_language.createFileFragment(text,src,rq);
+}
+
+public S6Fragment createFragment(CoseResult cr,S6Request.Search rq)
+{
+   return s6_language.createCoseFragment(cr,rq);
 }
 
 
@@ -458,6 +464,7 @@ public boolean waitForAll(Queue<Future<Boolean>> waitq)
    return false;
 }
 
+public int getNumberOfSearchThreads()           { return 4; }
 
 public boolean doDebug()			{ return false; }
 
@@ -631,7 +638,7 @@ private class FinderFile {
 /*										*/
 /********************************************************************************/
 
-private static class FinderSource implements S6Source {
+private static class FinderSource implements CoseSource {
 
    private String file_name;
 
@@ -645,6 +652,9 @@ private static class FinderSource implements S6Source {
    public String getLicenseUid()			{ return null; }
    public double getScore()				{ return 1; }
    public String getProjectId()                         { return null; }
+   public int getOffset()                               { return 0; }
+   public int getLength()                               { return 0; }
+   public CoseSource getBaseSource()                    { return null; }
 
 }	// end of subclass FinderSource
 

@@ -62,6 +62,7 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseRequest;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Exception;
@@ -69,7 +70,7 @@ import edu.brown.cs.s6.common.S6Request;
 
 
 
-class RequestKeywordSet implements S6Request.KeywordSet, S6Constants, RequestConstants {
+class RequestKeywordSet implements S6Request.KeywordSet, S6Constants, RequestConstants, CoseRequest.CoseKeywordSet {
 
 
 
@@ -82,7 +83,7 @@ class RequestKeywordSet implements S6Request.KeywordSet, S6Constants, RequestCon
 
 private List<String> keyword_list;
 private S6SearchLanguage search_language;
-
+private List<String> required_words;
 
 
 /********************************************************************************/
@@ -94,10 +95,16 @@ private S6SearchLanguage search_language;
 RequestKeywordSet(Element xml) throws S6Exception
 {
    keyword_list = new ArrayList<String>();
+   required_words = null;
    search_language = IvyXml.getAttrEnum(xml,"LANGUAGE",S6SearchLanguage.JAVA);
 
    for (Element e : IvyXml.elementsByTag(xml,"KEYWORD")) {
       String k = IvyXml.getText(e);
+      if (k.startsWith("*")) {
+         k = k.substring(1);
+         if (required_words == null) required_words = new ArrayList<String>();
+         required_words.add(k);
+       }
       keyword_list.add(k);
     }
 
@@ -113,9 +120,11 @@ RequestKeywordSet(Element xml) throws S6Exception
 /*										*/
 /********************************************************************************/
 
-@Override public List<String> getWords()	{ return keyword_list; }
+@Override public List<String> getWords()	        { return keyword_list; }
 
-@Override public S6SearchLanguage getLanguage() { return search_language; }
+@Override public S6SearchLanguage getLanguage()         { return search_language; }
+
+@Override public List<String> getRequiredWords()        { return required_words; }
 
 
 

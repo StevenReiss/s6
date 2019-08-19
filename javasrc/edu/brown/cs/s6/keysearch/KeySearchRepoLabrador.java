@@ -36,7 +36,7 @@
 package edu.brown.cs.s6.keysearch;
 
 import edu.brown.cs.s6.common.*;
-
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.file.*;
 
@@ -178,7 +178,7 @@ List<URI> getSearchPageResults(URI uri,String cnts)
 
 
 
-@Override URI getURIForPath(S6Source src,String path)
+@Override URI getURIForPath(CoseSource src,String path)
 {
    if (!(src instanceof LabradorSource)) return null;
    try {
@@ -193,7 +193,7 @@ List<URI> getSearchPageResults(URI uri,String cnts)
 
 
 
-@Override S6Source createSource(URI uri,String cnts,int idx)
+@Override CoseSource createSource(URI uri,String cnts,int idx)
 {
    return new LabradorSource(uri.toString(),cnts,idx);
 }
@@ -213,7 +213,7 @@ List<URI> getSearchPageResults(URI uri,String cnts)
 /*										*/
 /********************************************************************************/
 
-private static class LabradorSource extends KeySearchSource implements S6Source {
+private static class LabradorSource extends KeySearchSource implements CoseSource {
    
    private String file_name;
    

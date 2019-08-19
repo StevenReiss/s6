@@ -46,9 +46,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6Source;
 
 
 
@@ -155,7 +155,7 @@ KeySearchRepoCodeExchange(S6Request.Search sr)
 
 
 
-@Override URI getURIForPath(S6Source src,String path)
+@Override URI getURIForPath(CoseSource src,String path)
 {
    // method body goes here
 
@@ -199,7 +199,7 @@ KeySearchRepoCodeExchange(S6Request.Search sr)
 }
 
 
-@Override List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src,String cnts)
+@Override List<URI> getDirectoryContentsURIs(URI baseuri,CoseSource src,String cnts)
 {
    return null;
 }
@@ -239,14 +239,14 @@ KeySearchRepoCodeExchange(S6Request.Search sr)
 /*                                                                              */
 /********************************************************************************/
 
-@Override S6Source createSource(URI uri,String cnts,int idx)
+@Override CoseSource createSource(URI uri,String cnts,int idx)
 {
    return new CodeExSource(uri.toString(),cnts,idx);
 }
 
 
 
-private static class CodeExSource extends KeySearchSource implements S6Source {
+private static class CodeExSource extends KeySearchSource implements CoseSource {
 
    private String base_link;
    

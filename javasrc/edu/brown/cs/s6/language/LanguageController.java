@@ -47,12 +47,14 @@ import java.util.Set;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseConstants;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
 import edu.brown.cs.s6.common.S6Transform;
 
-class LanguageController implements LanguageConstants
+class LanguageController implements LanguageConstants, CoseConstants
+
 {
 
 
@@ -154,7 +156,7 @@ private static class TransformData {
    private String class_name;
    private EnumSet<S6TransformType> use_types;
    private EnumSet<S6SearchType> search_types;
-   private EnumSet<S6ScopeType> scope_types;
+   private EnumSet<CoseScopeType> scope_types;
    private Set<TransformReference> comes_before;
    private Set<TransformReference> comes_after;
    private EnumSet<S6SolutionFlag> require_flags;
@@ -168,7 +170,7 @@ private static class TransformData {
       class_name = IvyXml.getAttrString(xml,"CLASS");
       use_types = IvyXml.getAttrEnumSet(xml,"PHASE",S6TransformType.class,true);
       search_types = IvyXml.getAttrEnumSet(xml,"SEARCH",S6SearchType.class,true);
-      scope_types = IvyXml.getAttrEnumSet(xml,"SCOPE",S6ScopeType.class,true);
+      scope_types = IvyXml.getAttrEnumSet(xml,"SCOPE",CoseScopeType.class,true);
       require_flags = IvyXml.getAttrEnumSet(xml,"REQUIRE",S6SolutionFlag.class,false);
       multiple_allowed = IvyXml.getAttrBool(xml,"MULTIPLE",true);
       remove_previous = IvyXml.getAttrBool(xml,"REMOVE");

@@ -1,4 +1,5 @@
-/********************************************************************************/ /*										   */
+/********************************************************************************/
+/*										*/
 /*		FragmentJava.java						*/
 /*										*/
 /*	Basic implementation of java code fragment				*/
@@ -151,6 +152,8 @@ import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
+import edu.brown.cs.cose.cosecommon.CoseConstants.CoseResultType;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
 import edu.brown.cs.s6.common.S6Constants;
@@ -158,13 +161,12 @@ import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 import edu.brown.cs.s6.common.S6TestResults;
 import edu.brown.cs.s6.language.FragmentBase;
 import edu.brown.cs.s6.language.TextDelta;
 
 
-abstract class FragmentJava extends FragmentBase implements S6Constants, JavaConstants {
+abstract class FragmentJava extends FragmentBase implements S6Constants, JavaConstants, JavaFragment {
 
 
 
@@ -226,11 +228,11 @@ private void initialize()
 /*										*/
 /********************************************************************************/
 
-static FragmentJava createFileFragment(LanguageJava lj,String text,S6Source src,S6Request.Search sr)
+static FragmentJava createFileFragment(LanguageJava lj,String text,CoseSource src,S6Request.Search sr)
 {
    if (text == null) return null;
 
-   CompilationUnit cu = parseSourceFile(text);
+   CompilationUnit cu = JavaAst.parseSourceFile(text);
    if (cu == null) return null;
 
    FileFragment ff = new FileFragment(lj,sr,cu,text);
@@ -243,19 +245,7 @@ static FragmentJava createFileFragment(LanguageJava lj,String text,S6Source src,
 
 
 
-static CompilationUnit parseSourceFile(String text)
-{
-   ASTParser parser = ASTParser.newParser(AST.JLS4);
-   parser.setKind(ASTParser.K_COMPILATION_UNIT);
-   Map<?,?> options = JavaCore.getOptions();
-   JavaCore.setComplianceOptions(JavaCore.VERSION_1_7,options);
-   parser.setCompilerOptions(options);
-   parser.setSource(text.toCharArray());
 
-   CompilationUnit cu = (CompilationUnit) parser.createAST(null);
-
-   return cu;
-}
 
 
 
@@ -318,9 +308,9 @@ public String getKeyText()
 
 
 
-abstract ASTNode getAstNode();
+@Override abstract public ASTNode getAstNode();
 abstract ASTNode checkAstNode();
-abstract protected String getSourceText();
+@Override abstract public String getOriginalText();
 
 protected FragmentJava getJavaParent()
 {
@@ -335,24 +325,24 @@ protected LanguageJava getJavaBase()
 
 
 FragmentJava cloneFragment(ASTNode n)					{ return null; }
-FragmentJava cloneFragment(ASTRewrite rw,ITrackedNodePosition pos)	{ return null; }
-FragmentJava cloneFragment(String newtext)				{ return null; }
+@Override public FragmentJava cloneFragment(ASTRewrite rw,ITrackedNodePosition pos)	{ return null; }
+@Override public FragmentJava cloneFragment(String newtext)				{ return null; }
 
 void saveAst()						{ }
 
-JavaAstClassName getClassNamer()
+@Override public JavaAstClassName getClassNamer()
 {
    return class_namer;
 }
 
 
-boolean getUseConstructor()				{ return use_constructor; }
+@Override public boolean getUseConstructor()	        { return use_constructor; }
 
-Collection<JcompType> getImportTypes()			{ return import_set; }
+@Override public Collection<JcompType> getImportTypes() { return import_set; }
 
 
 
-String getLocalText()
+@Override public String getLocalText()
 {
    ASTNode n = checkAstNode();
    if (n != null) return n.toString();
@@ -373,7 +363,7 @@ String getLocalText()
 /*										*/
 /********************************************************************************/
 
-Iterable<ASTNode> getHelpers()				{ return helper_order; }
+@Override public Iterable<ASTNode> getHelpers()	{ return helper_order; }
 
 boolean addHelper(ASTNode n)
 {
@@ -446,9 +436,9 @@ public synchronized void resolveFragment()
 
 public void clearResolve()
 {
-   ASTNode n = getAstNode();
-
-   clearResolvedData(n);
+   ASTNode n = checkAstNode();
+   if (n != null)
+      clearResolvedData(n);
 }
 
 
@@ -488,7 +478,7 @@ private static class ClearAll extends ASTVisitor {
 /*										*/
 /********************************************************************************/
 
-public S6SolutionFlag checkTestCases(S6Request.Search r,S6Source src)
+public S6SolutionFlag checkTestCases(S6Request.Search r,CoseSource src)
 {
    JavaTester mt = getJavaBase().createTester(r,this,src);
    S6TestResults trslt = mt.run();
@@ -523,7 +513,7 @@ public void makeLocal(S6SolutionSet ss)
 
 
 
-void fixupAst()
+@Override public void fixupAst()
 {
    ASTNode n = getAstNode();
    while (n != null) {
@@ -611,18 +601,18 @@ private static class FindVisitor extends ASTVisitor {
 
    @Override public boolean visit(TypeDeclaration n) {
       switch (search_type) {
-         case METHOD :
-            return true;
-         case CLASS :
-         case FULLCLASS :
-         case UIFRAMEWORK :
-         case ANDROIDUI :
-         case PACKAGE :
-         case APPLICATION :
-            break;
-         case TESTCASES :
-            is_test = false;
-            break;
+	 case METHOD :
+	    return true;
+	 case CLASS :
+	 case FULLCLASS :
+	 case UIFRAMEWORK :
+	 case ANDROIDUI :
+	 case PACKAGE :
+	 case APPLICATION :
+	    break;
+	 case TESTCASES :
+	    is_test = false;
+	    break;
        }
       if (n.isInterface()) return false;
       found_fragments.add(new ClassFragment(parent_fragment,n,search_type == S6SearchType.FULLCLASS));
@@ -639,21 +629,21 @@ private static class FindVisitor extends ASTVisitor {
 
    @Override public boolean visit(MethodDeclaration n) {
       if (n.getBody() == null) return false;
-   
+
       switch (search_type) {
-         case METHOD :
-            break;
-         case CLASS :
-         case FULLCLASS :
-         case UIFRAMEWORK :
-         case PACKAGE :
-         case ANDROIDUI :
-         case APPLICATION :
-            return false;
-         case TESTCASES :
-            if (n.getName().getIdentifier().startsWith("test")) is_test = true;
-            if (is_test) return false;
-            return true;
+	 case METHOD :
+	    break;
+	 case CLASS :
+	 case FULLCLASS :
+	 case UIFRAMEWORK :
+	 case PACKAGE :
+	 case ANDROIDUI :
+	 case APPLICATION :
+	    return false;
+	 case TESTCASES :
+	    if (n.getName().getIdentifier().startsWith("test")) is_test = true;
+	    if (is_test) return false;
+	    return true;
        }
       found_fragments.add(new MethodFragment(parent_fragment,n));
       return false;
@@ -691,7 +681,7 @@ private static class FindVisitor extends ASTVisitor {
 /*										*/
 /********************************************************************************/
 
-protected void handleUserSource(S6SolutionSet ss)
+protected void handleUserSource(S6SolutionSet ss)       // never used
 {
    S6Request.Context ctx = ss.getRequest().getUserContext();
    if (ctx == null) return;
@@ -699,7 +689,7 @@ protected void handleUserSource(S6SolutionSet ss)
    String src = jctx.getSourceFile();
    if (src == null) return;
 
-   CompilationUnit cu = FragmentJava.parseSourceFile(src);
+   CompilationUnit cu = JavaAst.parseSourceFile(src);
    if (cu == null) return;
    AbstractTypeDeclaration st = null;
 
@@ -791,27 +781,27 @@ private static class PackageFragment extends FragmentJava {
       used_packages = new HashSet<String>();
       base_package = null;
       for (S6Fragment ff : par.getFileFragments()) {
-         file_fragments.add((FileFragment) ff);
+	 file_fragments.add((FileFragment) ff);
        }
       if (cu != null) {
-         PackageDeclaration pd = cu.getPackage();
-         if (pd != null) {
-            String nm = pd.getName().getFullyQualifiedName();
-            base_package = nm;
-            used_packages.add(nm);
-          }
+	 PackageDeclaration pd = cu.getPackage();
+	 if (pd != null) {
+	    String nm = pd.getName().getFullyQualifiedName();
+	    base_package = nm;
+	    used_packages.add(nm);
+	  }
        }
     }
 
-   public S6FragmentType getFragmentType()	{ return S6FragmentType.PACKAGE; }
+   public CoseResultType getFragmentType()	{ return CoseResultType.PACKAGE; }
 
    ASTNode checkAstNode()			{ return root_node; }
-   ASTNode getAstNode() {
+   @Override public ASTNode getAstNode() {
       buildRoot();
       return root_node;
     }
 
-   protected String getSourceText() {
+   @Override public String getOriginalText() {
       buildRoot();
       return source_text;
     }
@@ -833,11 +823,11 @@ private static class PackageFragment extends FragmentJava {
 
    public synchronized void addInnerFragment(S6Fragment sf) {
       if (sf instanceof FileFragment) {
-         FileFragment ff = (FileFragment) sf;
-         file_fragments.add(ff);
-         root_node = null;
-         ASTNode rn = ff.getAstNode();
-         if (rn != null) JavaAst.setKeep(rn,false);
+	 FileFragment ff = (FileFragment) sf;
+	 file_fragments.add(ff);
+	 root_node = null;
+	 ASTNode rn = ff.getAstNode();
+	 if (rn != null) JavaAst.setKeep(rn,false);
        }
     }
 
@@ -860,42 +850,42 @@ private static class PackageFragment extends FragmentJava {
    private void buildRoot() {
       if (root_node != null) return;
       if (file_fragments.size() == 0) return;
-   
+
       FileSorter fs = new FileSorter(file_fragments);
       file_fragments = fs.sort();
-   
+
       for (FileFragment ff : file_fragments) {
-         CompilationUnit fn = (CompilationUnit) ff.getAstNode();
-         if (root_node == null) {
-            AST nast = AST.newAST(AST.JLS4);
-            root_node = (CompilationUnit) ASTNode.copySubtree(nast,fn);
-            // root_node = fn;
-          }
-         else root_node = mergeIntoAst(root_node,fn,used_packages);
+	 CompilationUnit fn = (CompilationUnit) ff.getAstNode();
+	 if (root_node == null) {
+	    AST nast = AST.newAST(AST.JLS8);
+	    root_node = (CompilationUnit) ASTNode.copySubtree(nast,fn);
+	    // root_node = fn;
+	  }
+	 else root_node = mergeIntoAst(root_node,fn,used_packages);
        }
       if (used_packages.size() == 0) {
-         PackageDeclaration pd = root_node.getPackage();
-         if (pd != null) {
-            String pnm = pd.getName().getFullyQualifiedName();
-            base_package = pnm;
-            used_packages.add(pnm);
-          }
+	 PackageDeclaration pd = root_node.getPackage();
+	 if (pd != null) {
+	    String pnm = pd.getName().getFullyQualifiedName();
+	    base_package = pnm;
+	    used_packages.add(pnm);
+	  }
        }
       source_text = root_node.toString();
-      ASTParser parser = ASTParser.newParser(AST.JLS4);
+      ASTParser parser = ASTParser.newParser(AST.JLS8);
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
-      Map<?,?> options = JavaCore.getOptions();
+      Map<String,String> options = JavaCore.getOptions();
       JavaCore.setComplianceOptions(JavaCore.VERSION_1_7,options);
       parser.setCompilerOptions(options);
       parser.setSource(source_text.toCharArray());
       root_node = (CompilationUnit) parser.createAST(null);
     }
 
-   FragmentJava cloneFragment(ASTRewrite rw,ITrackedNodePosition pos) {
+   @Override public FragmentJava cloneFragment(ASTRewrite rw,ITrackedNodePosition pos) {
       return new ClonedPackageFragment(this,rw,pos);
     }
 
-   FragmentJava cloneFragment(String newtext) {
+   @Override public FragmentJava cloneFragment(String newtext) {
       return new ClonedPackageFragment(this,newtext);
    }
 
@@ -1050,28 +1040,28 @@ private class FileSorter {
       List<FileFragment> rslt = new ArrayList<FileFragment>();
       Set<FileFragment> done = new HashSet<FileFragment>();
       while (rslt.size() < base_list.size()) {
-         boolean chng = false;
-         FileFragment fst = null;
-         for (FileFragment ff : base_list) {
-            if (done.contains(ff)) continue;
-            if (fst == null) fst = ff;
-            boolean allok = true;
-            List<FileFragment> rqs = depend_names.get(ff);
-            if (rqs != null) {
-               for (FileFragment xf : rqs) {
-        	  if (!done.contains(xf)) allok = false;
-        	}
-             }
-            if (allok) {
-               rslt.add(ff);
-               done.add(ff);
-               chng = true;
-             }
-          }
-         if (!chng) {
-            rslt.add(fst);
-            done.add(fst);
-          }
+	 boolean chng = false;
+	 FileFragment fst = null;
+	 for (FileFragment ff : base_list) {
+	    if (done.contains(ff)) continue;
+	    if (fst == null) fst = ff;
+	    boolean allok = true;
+	    List<FileFragment> rqs = depend_names.get(ff);
+	    if (rqs != null) {
+	       for (FileFragment xf : rqs) {
+		  if (!done.contains(xf)) allok = false;
+		}
+	     }
+	    if (allok) {
+	       rslt.add(ff);
+	       done.add(ff);
+	       chng = true;
+	     }
+	  }
+	 if (!chng) {
+	    rslt.add(fst);
+	    done.add(fst);
+	  }
        }
       return rslt;
     }
@@ -1201,7 +1191,7 @@ private static class NameChecker extends ASTVisitor {
    @Override public boolean visit(QualifiedName n) {
       JcompType jt = JavaAst.getJavaType(n);
       if (jt == null) return true;
-      if (!name_checks.contains(jt)) return true;
+      if (!name_checks.contains(jt.getName())) return true;
       return false;
     }
 
@@ -1248,13 +1238,13 @@ private static class ClonedPackageFragment extends PackageFragment {
 
    ClonedPackageFragment(PackageFragment n,ASTRewrite rw,ITrackedNodePosition pos) {
       super(n,null);
-      package_delta = new FragmentDelta(S6FragmentType.PACKAGE,n,rw,pos);
+      package_delta = new FragmentDelta(CoseResultType.PACKAGE,n,rw,pos);
       setIsolated(true);
     }
 
    ClonedPackageFragment(PackageFragment n,String newtext) {
       super(n,null);
-      package_delta = new FragmentDelta(S6FragmentType.PACKAGE,n,newtext);
+      package_delta = new FragmentDelta(CoseResultType.PACKAGE,n,newtext);
       setIsolated(true);
     }
 
@@ -1263,11 +1253,11 @@ private static class ClonedPackageFragment extends PackageFragment {
       root_node = null;
     }
 
-   @Override protected String getSourceText() {
+   @Override public String getOriginalText() {
       return package_delta.getSourceText();
     }
 
-   @Override synchronized ASTNode getAstNode() {
+   @Override public synchronized ASTNode getAstNode() {
       if (root_node == null) {
 	 root_node = (CompilationUnit) package_delta.getAstNode();
 	 JavaAst.setSearchRequest(root_node.getRoot(),getSearchRequest());
@@ -1302,11 +1292,11 @@ private static class FileFragment extends FragmentJava {
       orig_text = text;
     }
 
-   public S6FragmentType getFragmentType()	{ return S6FragmentType.FILE; }
+   public CoseResultType getFragmentType()	{ return CoseResultType.FILE; }
 
    ASTNode checkAstNode()			{ return ast_node; }
-   ASTNode getAstNode() 			{ return ast_node; }
-   protected String getSourceText()		{ return orig_text; }
+   @Override public ASTNode getAstNode() 	{ return ast_node; }
+   @Override public String getOriginalText()	{ return orig_text; }
 
    public synchronized void resolveFragment() {
       super.resolveFragment();
@@ -1335,10 +1325,10 @@ private static class ClassFragment extends FragmentJava {
       full_class = full;
     }
 
-   public S6FragmentType getFragmentType()	{ return S6FragmentType.CLASS; }
+   public CoseResultType getFragmentType()	{ return CoseResultType.CLASS; }
 
    ASTNode checkAstNode()			{ return ast_node; }
-   ASTNode getAstNode() 			{ return ast_node; }
+   @Override public ASTNode getAstNode() 	{ return ast_node; }
 
    void saveAst()				{ }
 
@@ -1357,97 +1347,97 @@ private static class ClassFragment extends FragmentJava {
 
    @Override public boolean fixDependencies(S6SolutionSet ss,S6Solution sol) {
       JavaDepends jd = new JavaDepends(ss,sol,ast_node);
-
+   
       S6Request.ClassSignature csg = ss.getRequest().getSignature().getClassSignature();
       for (Iterator<?> it = ast_node.bodyDeclarations().iterator(); it.hasNext(); ) {
-	 BodyDeclaration bd = (BodyDeclaration) it.next();
-	 if (full_class) {
-	    if (Modifier.isPublic(bd.getModifiers()) || Modifier.isProtected(bd.getModifiers())) {
-	       jd.addDeclaration(bd);
-	     }
-	  }
-	 else if (bd instanceof MethodDeclaration) {
-	    MethodDeclaration md = (MethodDeclaration) bd;
-	    boolean used = false;
-	    for (S6Request.MethodSignature msg : csg.getMethods()) {
-	       if (JavaAst.checkMethodSignature(md,msg,S6SignatureType.FULL)) {
-		  jd.addDeclaration(md);
-		  used = true;
-		  break;
-		}
-	     }
-	    if (!used && csg.includeTestCases()) {
-	       if (md.getBody() != null && md.getBody().statements().size() > 0) {
-		  if (md.getName().getIdentifier().startsWith("test")) {
-		     jd.addDeclaration(bd);
-		   }
-		  else {
-		     for (Object o : md.modifiers()) {
-			IExtendedModifier am = (IExtendedModifier) o;
-			if (am.isAnnotation()) {
-			   Annotation aa = (Annotation) am;
-			   String fqn = aa.getTypeName().getFullyQualifiedName();
-			   if (fqn.startsWith("org.junit.")) {
-			      jd.addDeclaration(bd);
-			      break;
-			    }
-			 }
-		      }
-		   }
-		}
-	     }
-
-	  }
+         BodyDeclaration bd = (BodyDeclaration) it.next();
+         if (full_class) {
+            if (Modifier.isPublic(bd.getModifiers()) || Modifier.isProtected(bd.getModifiers())) {
+               jd.addDeclaration(bd);
+             }
+          }
+         else if (bd instanceof MethodDeclaration) {
+            MethodDeclaration md = (MethodDeclaration) bd;
+            boolean used = false;
+            for (S6Request.MethodSignature msg : csg.getMethods()) {
+               if (JavaAst.checkMethodSignature(md,msg,S6SignatureType.FULL)) {
+        	  jd.addDeclaration(md);
+        	  used = true;
+        	  break;
+        	}
+             }
+            if (!used && csg.includeTestCases()) {
+               if (md.getBody() != null && md.getBody().statements().size() > 0) {
+        	  if (md.getName().getIdentifier().startsWith("test")) {
+        	     jd.addDeclaration(bd);
+        	   }
+        	  else {
+        	     for (Object o : md.modifiers()) {
+        		IExtendedModifier am = (IExtendedModifier) o;
+        		if (am.isAnnotation()) {
+        		   Annotation aa = (Annotation) am;
+        		   String fqn = aa.getTypeName().getFullyQualifiedName();
+        		   if (fqn.startsWith("org.junit.")) {
+        		      jd.addDeclaration(bd);
+        		      break;
+        		    }
+        		 }
+        	      }
+        	   }
+        	}
+             }
+   
+          }
        }
       if (!jd.findDependencies()) return false;
-
+   
       Collection<BodyDeclaration> uses = jd.getDeclarations();
       boolean chng = false;
       int usect = 0;
       ASTRewrite rw = ASTRewrite.create(ast_node.getAST());
       ITrackedNodePosition basepos = rw.track(ast_node);
       ListRewrite lrw = null;
-
+   
       for (Iterator<?> it = ast_node.bodyDeclarations().iterator(); it.hasNext(); ) {
-	 BodyDeclaration bd = (BodyDeclaration) it.next();
-	 if (!uses.contains(bd)) {
-	    if (lrw == null) {
-	       lrw = rw.getListRewrite(ast_node,ast_node.getBodyDeclarationsProperty());
-	     }
-	    lrw.remove(bd,null);
-	    // it.remove();
-	    chng = true;
-	  }
-	 else {
-	    uses.remove(bd);
-	    ++usect;
-	  }
+         BodyDeclaration bd = (BodyDeclaration) it.next();
+         if (!uses.contains(bd)) {
+            if (lrw == null) {
+               lrw = rw.getListRewrite(ast_node,ast_node.getBodyDeclarationsProperty());
+             }
+            lrw.remove(bd,null);
+            // it.remove();
+            chng = true;
+          }
+         else {
+            uses.remove(bd);
+            ++usect;
+          }
        }
       uses.remove(ast_node);
       usect += uses.size();
-
+   
       if (chng && usect == 0) {
-	 // System.err.println("DEPEND REMOVED ALL = false");
-	 return false;
+         // System.err.println("DEPEND REMOVED ALL = false");
+         return false;
        }
-
+   
       ClassFragment rsltfrag = this;
-
+   
       if (lrw != null) {
-	 rsltfrag = (ClassFragment) cloneFragment(rw,basepos);
-	 sol.updateFragment(rsltfrag);
+         rsltfrag = (ClassFragment) cloneFragment(rw,basepos);
+         sol.updateFragment(rsltfrag);
        }
-
+   
       for (BodyDeclaration bd : uses) {
-	 rsltfrag.addHelper(bd);
+         rsltfrag.addHelper(bd);
        }
-
+   
       rsltfrag.saveAst();
-
+   
       rsltfrag.use_constructor = false; // set only if we need something outside of the class
-
+   
       rsltfrag.import_set = jd.getImportTypes();
-
+   
       return true;
    }
 
@@ -1457,12 +1447,12 @@ private static class ClassFragment extends FragmentJava {
       return cf;
     }
 
-   FragmentJava cloneFragment(ASTRewrite rw,ITrackedNodePosition pos) {
+   @Override public FragmentJava cloneFragment(ASTRewrite rw,ITrackedNodePosition pos) {
       return new ClonedClassFragment(this,rw,pos,full_class);
     }
 
-   protected String getSourceText() {
-      return getJavaParent().getSourceText();
+   @Override public String getOriginalText() {
+      return getJavaParent().getOriginalText();
     }
 
    protected void localIsolate() {
@@ -1490,7 +1480,7 @@ private static class ClonedClassFragment extends ClassFragment {
 
    ClonedClassFragment(ClassFragment n,ASTRewrite rw,ITrackedNodePosition pos,boolean full) {
       super(n.getJavaParent(),null,full);
-      class_delta = new FragmentDelta(S6FragmentType.CLASS,n,rw,pos);
+      class_delta = new FragmentDelta(CoseResultType.CLASS,n,rw,pos);
       setIsolated(true);
       save_ast = false;
     }
@@ -1498,16 +1488,16 @@ private static class ClonedClassFragment extends ClassFragment {
    public void clearResolve() {
       clearResolvedData(ast_node);
       if (!save_ast)
-         ast_node = null;
+	 ast_node = null;
     }
 
    @Override void saveAst()				{ save_ast = true; }
 
-   protected String getSourceText() {
+   @Override public String getOriginalText() {
       return class_delta.getSourceText();
     }
 
-   synchronized ASTNode getAstNode() {
+   @Override public synchronized ASTNode getAstNode() {
       if (ast_node == null) {
          ast_node = (AbstractTypeDeclaration) class_delta.getAstNode();
          if (ast_node != null) {
@@ -1543,10 +1533,10 @@ private static class MethodFragment extends FragmentJava {
       ast_node = md;
     }
 
-   public S6FragmentType getFragmentType()	{ return S6FragmentType.METHOD; }
+   public CoseResultType getFragmentType()	{ return CoseResultType.METHOD; }
 
    ASTNode checkAstNode()			{ return ast_node; }
-   ASTNode getAstNode() 			{ return ast_node; }
+   @Override public ASTNode getAstNode() 	{ return ast_node; }
 
    public boolean checkSignature(S6Request.Signature rsg,S6SignatureType styp) {
       S6Request.MethodSignature ms = rsg.getMethodSignature();
@@ -1573,12 +1563,12 @@ private static class MethodFragment extends FragmentJava {
       return mf;
     }
 
-   FragmentJava cloneFragment(ASTRewrite rw,ITrackedNodePosition pos) {
+   @Override public FragmentJava cloneFragment(ASTRewrite rw,ITrackedNodePosition pos) {
       return new ClonedMethodFragment(this,rw,pos);
     }
 
-   protected String getSourceText() {
-      return getJavaParent().getSourceText();
+   @Override public String getOriginalText() {
+      return getJavaParent().getOriginalText();
     }
 
    protected void localIsolate() {
@@ -1605,36 +1595,36 @@ private static class ClonedMethodFragment extends MethodFragment {
 
    ClonedMethodFragment(MethodFragment n,ASTRewrite rw,ITrackedNodePosition pos) {
       super(n.getJavaParent(),null);
-      method_delta = new FragmentDelta(S6FragmentType.METHOD,n,rw,pos);
+      method_delta = new FragmentDelta(CoseResultType.METHOD,n,rw,pos);
       setIsolated(true);
     }
 
-   public void clearResolve() {
-      clearResolvedData(ast_node);
+   @Override public void clearResolve() {
+      super.clearResolve();
       ast_node = null;
     }
 
-   protected String getSourceText() {
+   @Override public String getOriginalText() {
       return method_delta.getSourceText();
     }
 
    @SuppressWarnings("unchecked")
-   synchronized ASTNode getAstNode() {
+   @Override public synchronized ASTNode getAstNode() {
       if (ast_node == null) {
-	 ast_node = (MethodDeclaration) method_delta.getAstNode();
-	 if (context_fragments != null && context_fragments.size() > 0) {
-	    ASTNode p = ast_node;
-	    while (p != null && !(p instanceof AbstractTypeDeclaration)) p = p.getParent();
-	    if (p == null) return null;
-	    AbstractTypeDeclaration atd = (AbstractTypeDeclaration) p;
-	    List<ASTNode> decls = atd.bodyDeclarations();
-	    for (ASTNode n : context_fragments) {
-	       ASTNode nbd = ASTNode.copySubtree(ast_node.getAST(),n);
-	       decls.add(nbd);
-	     }
-	  }
-	 if (ast_node != null) JavaAst.setSearchRequest(ast_node.getRoot(),getSearchRequest());
-	 else System.err.println("NULL AST NODE");
+         ast_node = (MethodDeclaration) method_delta.getAstNode();
+         if (context_fragments != null && context_fragments.size() > 0) {
+            ASTNode p = ast_node;
+            while (p != null && !(p instanceof AbstractTypeDeclaration)) p = p.getParent();
+            if (p == null) return null;
+            AbstractTypeDeclaration atd = (AbstractTypeDeclaration) p;
+            List<ASTNode> decls = atd.bodyDeclarations();
+            for (ASTNode n : context_fragments) {
+               ASTNode nbd = ASTNode.copySubtree(ast_node.getAST(),n);
+               decls.add(nbd);
+             }
+          }
+         if (ast_node != null) JavaAst.setSearchRequest(ast_node.getRoot(),getSearchRequest());
+         else System.err.println("NULL AST NODE");
        }
       return ast_node;
     }
@@ -1659,7 +1649,7 @@ private static class ClonedMethodFragment extends MethodFragment {
 
 private static class FragmentDelta {
 
-   private S6FragmentType fragment_type;
+   private CoseResultType fragment_type;
    private ASTRewrite use_rewrite;
    private TextEdit text_edit;
    private ITrackedNodePosition node_position;
@@ -1669,7 +1659,7 @@ private static class FragmentDelta {
    private String saved_text;
    private TextDelta text_delta;
 
-   FragmentDelta(S6FragmentType typ,FragmentJava n,ASTRewrite rw,ITrackedNodePosition pos) {
+   FragmentDelta(CoseResultType typ,FragmentJava n,ASTRewrite rw,ITrackedNodePosition pos) {
       fragment_type = typ;
       from_fragment = n;
       use_rewrite = rw;
@@ -1682,7 +1672,7 @@ private static class FragmentDelta {
       getSourceText();
     }
 
-   FragmentDelta(S6FragmentType typ,FragmentJava par,String newtext) {
+   FragmentDelta(CoseResultType typ,FragmentJava par,String newtext) {
       fragment_type = typ;
       from_fragment = par;
       use_rewrite = null;
@@ -1693,19 +1683,19 @@ private static class FragmentDelta {
       text_delta = null;
       saved_text = null;
       if (use_deltas) {
-	 String origtext = par.getSourceText();
-	 text_delta = TextDelta.getDelta(newtext,origtext);
-	 String ntxt = text_delta.apply(origtext);
-	 if (!ntxt.equals(newtext)) {
-	    System.err.println("BAD DELTA");
-	  }
+         String origtext = par.getOriginalText();
+         text_delta = TextDelta.getDelta(newtext,origtext);
+         String ntxt = text_delta.apply(origtext);
+         if (!ntxt.equals(newtext)) {
+            System.err.println("BAD DELTA");
+          }
        }
       else saved_text = newtext;
     }
 
    protected synchronized String getSourceText() {
       if (saved_text == null && text_delta == null) {
-         String origtext = from_fragment.getSourceText();
+         String origtext = from_fragment.getOriginalText();
          Document d = new Document(origtext);
    
          if (text_edit == null) {
@@ -1770,7 +1760,7 @@ private static class FragmentDelta {
          return newtext;
        }
       if (saved_text == null && text_delta != null) {
-         String origtext = from_fragment.getSourceText();
+         String origtext = from_fragment.getOriginalText();
          return text_delta.apply(origtext);
        }
    
@@ -1781,9 +1771,9 @@ private static class FragmentDelta {
 
    ASTNode getAstNode() {
       String txt = getSourceText();
-      ASTParser parser = ASTParser.newParser(AST.JLS4);
+      ASTParser parser = ASTParser.newParser(AST.JLS8);
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
-      Map<?,?> options = JavaCore.getOptions();
+      Map<String,String> options = JavaCore.getOptions();
       JavaCore.setComplianceOptions(JavaCore.VERSION_1_7,options);
       parser.setCompilerOptions(options);
       parser.setSource(txt.toCharArray());
@@ -1792,10 +1782,10 @@ private static class FragmentDelta {
       PositionFinder pf = new PositionFinder(fragment_type,node_start,node_length);
       cu.accept(pf);
       if (pf.getAstNode() == null) {
-         System.err.println("FRAGMENT: COULDN'T FIND AST NODE: " + node_start + " " + node_length + " " + txt);
-         cu.accept(pf);
+	 System.err.println("FRAGMENT: COULDN'T FIND AST NODE: " + node_start + " " + node_length + " " + txt);
+	 cu.accept(pf);
        }
-   
+
       return pf.getAstNode();
     }
 
@@ -1813,12 +1803,12 @@ private static class FragmentDelta {
 
 private static class PositionFinder extends ASTVisitor {
 
-   private S6FragmentType fragment_type;
+   private CoseResultType fragment_type;
    private ASTNode found_node;
    private int start_pos;
    private int node_len;
 
-   PositionFinder(S6FragmentType st,int pos,int len) {
+   PositionFinder(CoseResultType st,int pos,int len) {
       fragment_type = st;
       start_pos = pos;
       node_len = len;
@@ -1828,21 +1818,21 @@ private static class PositionFinder extends ASTVisitor {
    ASTNode getAstNode() 		{ return found_node; }
 
    @Override public boolean visit(MethodDeclaration n) {
-      if (fragment_type != S6FragmentType.METHOD) return false;
+      if (fragment_type != CoseResultType.METHOD) return false;
       if (n.getBody() == null) return false;
       checkNode(n);
       return false;
     }
 
    @Override public boolean visit(TypeDeclaration n) {
-      if (fragment_type != S6FragmentType.CLASS) return true;
+      if (fragment_type != CoseResultType.CLASS) return true;
       if (n.isInterface()) return false;
       checkNode(n);
       return true;
     }
 
    @Override public boolean visit(CompilationUnit n) {
-      if (fragment_type != S6FragmentType.PACKAGE) return true;
+      if (fragment_type != CoseResultType.PACKAGE) return true;
       checkNode(n);
       return false;
     }

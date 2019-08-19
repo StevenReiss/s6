@@ -1,8 +1,8 @@
 /********************************************************************************/
 /*                                                                              */
-/*              KeySearchMasterTest.java                                        */
+/*              JavaFileFragment.java                                           */
 /*                                                                              */
-/*      description of class                                                    */
+/*      Basic implementation of a File fragment based on COSE                   */
 /*                                                                              */
 /********************************************************************************/
 /*      Copyright 2013 Brown University -- Steven P. Reiss                    */
@@ -33,20 +33,14 @@
 
 
 
-package edu.brown.cs.s6.keysearch;
+package edu.brown.cs.s6.language.java;
 
-import org.junit.*;
+import edu.brown.cs.cose.cosecommon.CoseResult;
+import edu.brown.cs.s6.common.S6Language;
+import edu.brown.cs.s6.common.S6Request;
 
-public class KeySearchMasterTest
+class JavaFileFragment extends JavaCoseFragment
 {
-
-
-/********************************************************************************/
-/*                                                                              */
-/*      Private Storage                                                         */
-/*                                                                              */
-/********************************************************************************/
-
 
 
 /********************************************************************************/
@@ -55,38 +49,16 @@ public class KeySearchMasterTest
 /*                                                                              */
 /********************************************************************************/
 
-
-
-
-
-
-/*
- * Default Constrcutor for test class edu.brown.cs.s6.keysearch.KeySearchMasterTest
- */
-
-public  KeySearchMasterTest()
+JavaFileFragment(S6Language lj,S6Request.Search rqst,CoseResult rslt) 
 {
-   
-   
+   super(lj,rqst,rslt);
 }
 
 
-
-
-/*
- * Test case for edu.brown.cs.s6.keysearch.KeySearchMaster.addManifestClasses(KeySearchRepo,S6Fragment,S6Source,String)
- */
-
-@Test public void test_addManifestClasses_1()
-{
-   // insert test code here
-}
-
-
-}       // end of class KeySearchMasterTest
+}       // end of class JavaFileFragment
 
 
 
 
-/* end of KeySearchMasterTest.java */
+/* end of JavaFileFragment.java */
 

@@ -350,7 +350,7 @@ private class DependenceVisitor extends ASTVisitor {
    @Override public void endVisit(SimpleType n) {
       if (collect_stack.peek()) {
 	 JcompType jt = JavaAst.getJavaType(n);
-	 if (jt != null && !jt.isKnownType() && jt.isClassType() && !jt.isArrayType()) {
+	 if (jt != null && !jt.isBinaryType() && jt.isClassType() && !jt.isArrayType()) {
 	    type_defs.add(jt);
 	  }
        }
@@ -359,7 +359,7 @@ private class DependenceVisitor extends ASTVisitor {
    @Override public void endVisit(SimpleName n) {
       if (collect_stack.peek()) {
 	 JcompType jt = JavaAst.getJavaType(n);
-	 if (jt != null && !jt.isKnownType() && jt.isClassType() && !jt.isArrayType()) {
+	 if (jt != null && !jt.isBinaryType() && jt.isClassType() && !jt.isArrayType()) {
 	    type_defs.add(jt);
 	  }
        }
@@ -446,22 +446,17 @@ private static Set<StructuralPropertyDescriptor> delete_froms;
 static {
    delete_froms = new HashSet<StructuralPropertyDescriptor>();
    delete_froms.add(Block.STATEMENTS_PROPERTY);
-   delete_froms.add(MethodDeclaration.THROWN_EXCEPTIONS_PROPERTY);
+   delete_froms.add(MethodDeclaration.THROWN_EXCEPTION_TYPES_PROPERTY);
    delete_froms.add(MethodDeclaration.MODIFIERS2_PROPERTY);
    delete_froms.add(FieldDeclaration.MODIFIERS2_PROPERTY);
    delete_froms.add(FieldDeclaration.FRAGMENTS_PROPERTY);
    delete_froms.add(TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-   delete_froms.add(TypeDeclaration.SUPER_INTERFACES_PROPERTY);
    delete_froms.add(TypeDeclaration.SUPER_INTERFACE_TYPES_PROPERTY);
-   delete_froms.add(TypeDeclaration.SUPERCLASS_PROPERTY);
    delete_froms.add(TypeDeclaration.SUPERCLASS_TYPE_PROPERTY);
    delete_froms.add(TypeDeclaration.MODIFIERS2_PROPERTY);
    delete_froms.add(CompilationUnit.IMPORTS_PROPERTY);
    delete_froms.add(CompilationUnit.TYPES_PROPERTY);
 }
-
-
-final static String MATCH_STR = "getString(R.string.user_mayorships_activity_title,mStateHolder.getUsername())";
 
 
 private static class UndefFinder extends ASTVisitor {
@@ -514,87 +509,82 @@ private static class UndefFinder extends ASTVisitor {
 	 ignore_undef = false;
 	 force_undef = false;
        }
-      if (MATCH_STR != null && n.toString().contains(MATCH_STR)) {
-	 System.err.println("CHECK " + n);
-       }
     }
 
    @Override public void postVisit(ASTNode node) {
       JcompType jt = JavaAst.getExprType(node);
       if (jt != null && jt.isErrorType() && !has_undef) {
-         if (do_debug) System.err.println("SET UNDEF ETYPE " + jt);
-         has_undef = true;
+	 has_undef = true;
        }
       if (jt != null && undef_types.contains(jt) && !has_undef) {
-         if (do_debug) System.err.println("SET UNDEF TYPE " + jt);
-         has_undef = true;
+	 has_undef = true;
        }
-   
+
       JcompSymbol jd = JavaAst.getDefinition(node);
       JcompSymbol js = JavaAst.getReference(node);
       if (jd == null && js != null && undef_syms.contains(js)) {
-         if (do_debug) System.err.println("UNDEF NAME " + js.getName());
-         // has_undef = true;
-         force_undef = true;
+	 if (do_debug) System.err.println("UNDEF NAME " + js.getName());
+	 // has_undef = true;
+	 force_undef = true;
        }
       if (node instanceof Expression) {
-         if (ignore_undef)
-            has_undef = false;
+	 if (ignore_undef)
+	    has_undef = false;
        }
       else {
-         has_undef |= force_undef;
-         force_undef = false;
-         ignore_undef = false;
+	 has_undef |= force_undef;
+	 force_undef = false;
+	 ignore_undef = false;
        }
       if (force_undef) {
-         if (do_debug) System.err.println("SET UNDEF FORCE");
-         has_undef = true;
+	 if (do_debug) System.err.println("SET UNDEF FORCE");
+	 has_undef = true;
        }
       force_undef |= has_undef;
-   
+
       if (do_debug) System.err.println("UDF: " + has_undef + " " + ignore_undef + " " + force_undef +
-            " " + node);
-   
+	    " " + node);
+
       if (has_undef) {
-         if (jd != null) {
-            if (undef_syms.add(jd)) {
-               if (do_debug) System.err.println("MAKE UNDEF " + jd + " " + jd.hashCode());
-               has_changed = true;
-             }
-            if (do_package && jd.isTypeSymbol()) {
-               if (undef_types.add(jd.getType())) {
-        	  has_changed = true;
-        	  if (do_debug) System.err.println("MAKE TUNDEF " + jd + " " + jd.hashCode());
-        	}
-             }
-          }
-         if (do_debug) System.err.println("CHECK REMOVE " + jd + " " + return_undef + " :: " + node);
-   
-         if (!return_undef && JavaAst.checkHasReturn(node))
-            return_undef = true;
-   
-         StructuralPropertyDescriptor spd = node.getLocationInParent();
-         if (delete_froms.contains(spd)) {
-            if (undef_items.add(node)) {
-               if (do_debug) System.err.println("REMOVE " + node);
-               has_changed = true;
-             }
-            ASTNode par = node.getParent();
-            switch (par.getNodeType()) {
-               case ASTNode.TYPE_DECLARATION :
-               case ASTNode.METHOD_DECLARATION :
-        	  return_undef = false;
-        	  has_undef = false;
-        	  force_undef = false;
-        	  break;
-               default :
-        	  has_undef = return_undef;
-        	  force_undef = false;
-        	  break;
-             }
-          }
+	 if (jd != null) {
+	    if (undef_syms.add(jd)) {
+	       if (do_debug) System.err.println("MAKE UNDEF " + jd + " " + jd.hashCode());
+	       has_changed = true;
+	     }
+	    if (do_package && jd.isTypeSymbol()) {
+	       if (undef_types.add(jd.getType())) {
+		  has_changed = true;
+		  if (do_debug) System.err.println("MAKE TUNDEF " + jd + " " + jd.hashCode());
+		}
+	     }
+	  }
+	 if (do_debug) System.err.println("CHECK REMOVE " + jd + " " + return_undef + " :: " + node);
+
+	 if (!return_undef && JavaAst.checkHasReturn(node))
+	    return_undef = true;
+
+	 StructuralPropertyDescriptor spd = node.getLocationInParent();
+	 if (delete_froms.contains(spd)) {
+	    if (undef_items.add(node)) {
+	       if (do_debug) System.err.println("REMOVE " + node);
+	       has_changed = true;
+	     }
+	    ASTNode par = node.getParent();
+	    switch (par.getNodeType()) {
+	       case ASTNode.TYPE_DECLARATION :
+	       case ASTNode.METHOD_DECLARATION :
+		  return_undef = false;
+		  has_undef = false;
+		  force_undef = false;
+		  break;
+	       default :
+		  has_undef = return_undef;
+		  force_undef = false;
+		  break;
+	     }
+	  }
        }
-   
+
       force_undef |= undef_stack.pop();
       return_undef |= undef_stack.pop();
       has_undef |= undef_stack.pop();
@@ -624,7 +614,7 @@ private static class UndefFinder extends ASTVisitor {
       safeVisit(md.getReturnType2());
       safeVisit(md.getName());
       safeVisit(md.parameters());
-      safeVisit(md.thrownExceptions());
+      safeVisit(md.thrownExceptionTypes());
       boolean fg = has_undef;
       safeVisit(md.getBody());
       fg = (!fg && has_undef);
@@ -749,27 +739,27 @@ private static class UndefFinder extends ASTVisitor {
       JcompSymbol js = JavaAst.getDefinition(vdf);
       if (js == null) return;
       if (js.getType().isUndefined())
-         has_undef = true;
+	 has_undef = true;
       if (!js.isFieldSymbol()) return;
-      if (!js.isUsed() && !js.isKnown()) {
-         if (js.isStatic() || js.isPrivate()) {
-            has_undef = true;
-            if (do_debug) System.err.println("SET UNDEF UNUSED " + js);
-          }
+      if (!js.isUsed() && !js.isBinarySymbol()) {
+	 if (js.isStatic() || js.isPrivate()) {
+	    has_undef = true;
+	    if (do_debug) System.err.println("SET UNDEF UNUSED " + js);
+	  }
        }
-      else if (!js.isRead() && !js.isKnown()) {
-         Expression exp = vdf.getInitializer();
-         if (exp != null) {
-            if (exp.getNodeType() == ASTNode.METHOD_INVOCATION) return;
-            if (exp.getNodeType() == ASTNode.CLASS_INSTANCE_CREATION) return;
-          }
-         if (do_android) return;
-         if (js.isStatic() || js.isPrivate()) {
-            if (js.getName().equals("serialVersionUID")) return;
-            // System.err.println("FIELD " + js + " NOT READ");
-            has_undef = true;
-            if (do_debug) System.err.println("SET UNDEF UNREAD " + js);
-          }
+      else if (!js.isRead() && !js.isBinarySymbol()) {
+	 Expression exp = vdf.getInitializer();
+	 if (exp != null) {
+	    if (exp.getNodeType() == ASTNode.METHOD_INVOCATION) return;
+	    if (exp.getNodeType() == ASTNode.CLASS_INSTANCE_CREATION) return;
+	  }
+	 if (do_android) return;
+	 if (js.isStatic() || js.isPrivate()) {
+	    if (js.getName().equals("serialVersionUID")) return;
+	    // System.err.println("FIELD " + js + " NOT READ");
+	    has_undef = true;
+	    if (do_debug) System.err.println("SET UNDEF UNREAD " + js);
+	  }
        }
     }
 

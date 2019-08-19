@@ -83,7 +83,7 @@
 
 package edu.brown.cs.s6.common;
 
-
+import edu.brown.cs.cose.cosecommon.CoseConstants;
 import java.util.Collection;
 import java.util.List;
 
@@ -92,7 +92,7 @@ import org.w3c.dom.Element;
 
 import java.util.Set;
 
-public interface S6Request extends S6Constants {
+public interface S6Request extends S6Constants, CoseConstants {
 
 
 public S6Engine getEngine();
@@ -110,10 +110,10 @@ public boolean doDebug();
 
 
 
-interface Search extends S6Request {
+interface Search extends S6Request { 
    public S6SearchType getSearchType();
    
-   public S6ScopeType getScopeType();
+   public CoseScopeType getScopeType();
 
    public Collection<KeywordSet> getKeywordSets();
 
@@ -130,6 +130,8 @@ interface Search extends S6Request {
    public S6Contracts getContracts();
 
    public S6FormatType getFormatType();
+   
+   public List<String> getRequiredWords();
 }
 
 
@@ -232,6 +234,7 @@ interface Tests {
 interface KeywordSet {
    List<String> getWords();
    S6SearchLanguage getLanguage();
+   List<String> getRequiredWords();
 }
 
 

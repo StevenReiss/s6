@@ -96,12 +96,12 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.concurrent.atomic.AtomicLong;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 import edu.brown.cs.s6.common.S6TestResults;
 import edu.brown.cs.s6.common.S6Transform;
 
@@ -120,7 +120,7 @@ private S6Fragment base_node;
 private S6Fragment current_node;
 private S6Fragment parent_node;
 private List<S6Transform.Memo> transform_set;
-private S6Source for_source;
+private CoseSource for_source;
 private EnumSet<S6SolutionFlag> flag_set;
 private String	source_encoding;
 private String formatted_code;
@@ -138,7 +138,7 @@ private static AtomicLong soln_counter = new AtomicLong(0);
 /*										*/
 /********************************************************************************/
 
-SolutionBase(S6Fragment n,S6Source src)
+SolutionBase(S6Fragment n,CoseSource src)
 {
    base_node = n;
    current_node = base_node;
@@ -156,7 +156,7 @@ SolutionBase(S6Fragment n,S6Source src)
 
 
 private SolutionBase(S6Fragment b,S6Fragment p,S6Fragment n,List<S6Transform.Memo> ot,
-			S6Transform.Memo t,S6Source src,double score)
+			S6Transform.Memo t,CoseSource src,double score)
 {
    base_node = b;
    current_node = n;
@@ -196,7 +196,7 @@ public boolean checkFlag(S6SolutionFlag fg)		{ return flag_set.contains(fg); }
 public void setFlag(S6SolutionFlag fg)			{ flag_set.add(fg); }
 public void clearFlag(S6SolutionFlag fg)		{ flag_set.remove(fg); }
 
-public S6Source getSource()				{ return for_source; }
+public CoseSource getSource()				{ return for_source; }
 
 public String	getEncoding()				{ return source_encoding; }
 

@@ -276,7 +276,7 @@ private boolean checkApplicable(S6Request.ClassSignature csg,TypeDeclaration td,
    if (st != null && csg.getSuperClass() == null && csg.getInterfaces().size() == 0) {
       JcompType jt = JavaAst.getJavaType(st);
       if (jt != null) {
-	 if (!jt.getName().startsWith(pkg) && !jt.isKnownType()) return false;
+	 if (!jt.getName().startsWith(pkg) && !jt.isBinaryType()) return false;
        }
     }
 
@@ -847,10 +847,10 @@ private class DependenceVisitor extends ASTVisitor {
     }
    @Override public void endVisit(SimpleType n) {
       if (collect_stack.peek()) {
-	 JcompType jt = JavaAst.getJavaType(n);
-	 if (jt != null && !jt.isKnownType() && jt.isClassType() && !jt.isArrayType()) {
-	    type_defs.add(jt);
-	  }
+         JcompType jt = JavaAst.getJavaType(n);
+         if (jt != null && !jt.isBinaryType() && jt.isClassType() && !jt.isArrayType()) {
+            type_defs.add(jt);
+          }
        }
     }
 

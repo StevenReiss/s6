@@ -78,7 +78,7 @@ class RequestContracts implements S6Contracts {
 /*										*/
 /********************************************************************************/
 
-private RequestSearch for_search;
+private S6Request.Signature use_signature;
 private List<Specification> spec_list;
 
 
@@ -89,9 +89,9 @@ private List<Specification> spec_list;
 /*										*/
 /********************************************************************************/
 
-RequestContracts(RequestSearch rs,Element xml)
+RequestContracts(S6Request.Signature sgn,Element xml)
 {
-   for_search = rs;
+   use_signature = sgn;
 
    spec_list = new ArrayList<Specification>();
    if (xml != null) {
@@ -149,8 +149,7 @@ private class Specification implements S6Contracts.Contract {
    public String getMethod()			{ return contract_method; }
 
    public List<String> getParameterNames() {
-      S6Request.Signature rs = for_search.getSignature();
-      S6Request.MethodSignature ms = rs.getMethod(contract_method);
+      S6Request.MethodSignature ms = use_signature.getMethod(contract_method);
       return ms.getParameterNames();
     }
 

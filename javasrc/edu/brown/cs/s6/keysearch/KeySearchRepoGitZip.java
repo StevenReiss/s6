@@ -57,11 +57,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.file.IvyFile;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6Source;
 
 
 
@@ -103,7 +103,7 @@ KeySearchRepoGitZip(S6Request.Search sr)
 }
 
 
-@Override S6Source createSource(URI uri,String cnts,int idx)
+@Override CoseSource createSource(URI uri,String cnts,int idx)
 {
    return new GitZipSource(uri.toString(),cnts,idx);
 }
@@ -246,7 +246,7 @@ List<URI> getSearchPageResults(Element jsoup)
 /*										*/
 /********************************************************************************/
 
-@Override URI getURIForPath(S6Source src,String path)
+@Override URI getURIForPath(CoseSource src,String path)
 {
    // generate URI using the zip file
    String b1 = src.getDisplayName();
@@ -280,7 +280,7 @@ URI getURIFromSourceString(String source)
 }
 
 
-@Override List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src)
+@Override List<URI> getDirectoryContentsURIs(URI baseuri,CoseSource src)
 {
    List<URI> rslt = null;
    String path = baseuri.getFragment();
@@ -397,7 +397,7 @@ boolean getClassesInPackage(String pkg,String project,int page,List<URI> rslt)
 }
 
 
-KeySearchClassData getPackageClassResult(S6Source base,String pkg,String cls,int page)
+KeySearchClassData getPackageClassResult(CoseSource base,String pkg,String cls,int page)
 {
    KeySearchClassData rslt = null;
    String zid = null;
@@ -440,7 +440,7 @@ KeySearchClassData getPackageClassResult(S6Source base,String pkg,String cls,int
 		}
 	       ins.close();
 	       String code = getString(baos);
-	       S6Source rsrc = createSource(ruri,code,0);
+	       CoseSource rsrc = createSource(ruri,code,0);
 	       rslt = new KeySearchClassData(ruri,path,rsrc,code);
 	       break;
 	     }
@@ -641,7 +641,7 @@ private File getZipDirectory(String id)
 /*										*/
 /********************************************************************************/
 
-private static class GitZipSource extends KeySearchSource implements S6Source {
+private static class GitZipSource extends KeySearchSource implements CoseSource {
 
    private String base_link;
    private String base_path;

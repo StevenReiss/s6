@@ -73,6 +73,8 @@ class S6FactoryImpl extends S6Factory implements S6Constants {
 /*										*/
 /********************************************************************************/
 
+private boolean use_cose = true;
+
 private static S6FactoryImpl   default_factory = null;
 
 
@@ -85,6 +87,7 @@ private static S6FactoryImpl   default_factory = null;
 
 private S6FactoryImpl()
 {
+   use_cose = true;
 }
 
 
@@ -114,6 +117,7 @@ synchronized static S6Factory getDefaultFactory()
 
 public S6Request.Search createSearchRequest(S6Engine eng,Element xml) throws S6Exception
 {
+   if (use_cose) return new edu.brown.cs.s6.request.RequestCose(eng,xml);
    return new edu.brown.cs.s6.request.RequestSearch(eng,xml);
 }
 
@@ -139,13 +143,17 @@ public S6Request.Format createFormatRequest(S6Engine eng,Element xml) throws S6E
 /*										*/
 /********************************************************************************/
 
-public S6KeySearch createKeySearch(S6SolutionSet ss)
+public void getInitialSolutions(S6SolutionSet ss) throws S6Exception
 {
-   if (ss.getRequest().getSearchType() == S6SearchType.ANDROIDUI) {
-      return new edu.brown.cs.s6.keysearch.KeySearchMaster(ss);
+   if (ss.getRequest() instanceof S6KeySearch) {
+      S6KeySearch cose = (S6KeySearch) ss.getRequest();
+      cose.getInitialSolutions(ss);
     }
-   return new edu.brown.cs.s6.keysearch.KeySearchMaster(ss);
-   // return edu.brown.cs.s6.keysearch.KeySearchBase.createKeySearch(ss);
+   else {
+      S6KeySearch ks = new edu.brown.cs.s6.keysearch.KeySearchMaster(ss);
+      ks.getInitialSolutions(ss);
+    }
+
 }
 
 
@@ -185,6 +193,11 @@ public S6Language createLanguage(S6Engine se,String name)
 public S6License createLicenseManager()
 {
    return edu.brown.cs.s6.license.LicenseManager.getLicenseManager();
+}
+
+public boolean useCose()                
+{
+   return use_cose;
 }
 
 

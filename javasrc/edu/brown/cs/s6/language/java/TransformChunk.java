@@ -405,10 +405,16 @@ private void checkSoln(String base,Set<ChunkStmt> used,Set<ChunkVar> vars,List<J
       if (rv != null && !rv.isReturn()) {
 	 for (Iterator<?> it = b.statements().iterator(); it.hasNext(); ) {
 	    Statement st = (Statement) it.next();
-	    if (st.getNodeType() == ASTNode.RETURN_STATEMENT && !used.contains(st)) {
-	       ReturnStatement rst = (ReturnStatement) st;
-	       Expression rex = rst.getExpression();
-	       if (rex != null && rex.toString().equals(rv.getName())) return;
+	    if (st.getNodeType() == ASTNode.RETURN_STATEMENT) {
+               boolean fnd = false;
+               for (ChunkStmt cs :used) {
+                  if (cs.getSource() == st) fnd = true;
+                }
+               if (!fnd) {
+                  ReturnStatement rst = (ReturnStatement) st;
+                  Expression rex = rst.getExpression();
+                  if (rex != null && rex.toString().equals(rv.getName())) return;
+                }
 	     }
 	  }
        }
@@ -801,102 +807,102 @@ private class ChunkSoln extends TreeMapper {
 
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (orig != method_decl) return;
-
+   
       MethodDeclaration nmd = (MethodDeclaration) orig;
       AST ast = nmd.getAST();
-
+   
       ASTNode par = orig.getParent();
       ListRewrite clrw = null;
       if (par instanceof AbstractTypeDeclaration) {
-	 AbstractTypeDeclaration atd = (AbstractTypeDeclaration) par;
-	 clrw = rw.getListRewrite(atd,atd.getBodyDeclarationsProperty());
+         AbstractTypeDeclaration atd = (AbstractTypeDeclaration) par;
+         clrw = rw.getListRewrite(atd,atd.getBodyDeclarationsProperty());
        }
       else if (par instanceof AnonymousClassDeclaration) {
-	 AnonymousClassDeclaration atd = (AnonymousClassDeclaration) par;
-	 clrw = rw.getListRewrite(atd,AnonymousClassDeclaration.BODY_DECLARATIONS_PROPERTY);
+         AnonymousClassDeclaration atd = (AnonymousClassDeclaration) par;
+         clrw = rw.getListRewrite(atd,AnonymousClassDeclaration.BODY_DECLARATIONS_PROPERTY);
        }
       if (clrw != null) {
-	 MethodDeclaration toinsert = (MethodDeclaration) rw.createCopyTarget(orig);
-	 clrw.insertAfter(toinsert,orig,null);
+         MethodDeclaration toinsert = (MethodDeclaration) rw.createCopyTarget(orig);
+         clrw.insertAfter(toinsert,orig,null);
        }
-
+   
       Statement lstmt = null;		// last used statement
-
+   
       ListRewrite lrw = rw.getListRewrite(nmd.getBody(),Block.STATEMENTS_PROPERTY);
       for (Iterator<?> it = nmd.getBody().statements().iterator(); it.hasNext(); ) {
-	 Statement s = (Statement) it.next();
-	 if (!use_statements.contains(s)) {
-	    lrw.remove(s,null);
-	  }
-	 else lstmt = s;
+         Statement s = (Statement) it.next();
+         if (!use_statements.contains(s)) {
+            lrw.remove(s,null);
+          }
+         else lstmt = s;
        }
-
+   
       if (!return_var.isReturn()) {
-	 ReturnFixer rf = new ReturnFixer(return_var,rw);
-	 nmd.accept(rf);
-	 nmd.getBody().statements();
-
-	 if (lstmt == null || !(lstmt instanceof ReturnStatement)) {
-	    ReturnStatement rs = ast.newReturnStatement();
-	    JcompSymbol js = return_var.getSymbol();
-	    Name nm = JavaAst.getQualifiedName(ast,js.getName());
-	    rs.setExpression(nm);
-	    lrw.insertLast(rs,null);
-	  }
+         ReturnFixer rf = new ReturnFixer(return_var,rw);
+         nmd.accept(rf);
+         nmd.getBody().statements();
+   
+         if (lstmt == null || !(lstmt instanceof ReturnStatement)) {
+            ReturnStatement rs = ast.newReturnStatement();
+            JcompSymbol js = return_var.getSymbol();
+            Name nm = JavaAst.getQualifiedName(ast,js.getName());
+            rs.setExpression(nm);
+            lrw.insertLast(rs,null);
+          }
        }
-
+   
       // ensure we have all needed declarations
       Set<JcompSymbol> needdecl = new HashSet<JcompSymbol>();
       for (int i = 0; i < param_vars.length; ++i) used_vars.remove(param_vars[i]);
       for (ChunkVar cv : used_vars) {
-	 ASTNode fd = cv.getDeclaration();
-	 while (fd != null && fd.getParent() != block_node) fd = fd.getParent();
-	 if (fd == null || !use_statements.contains(fd)) needdecl.add(cv.getSymbol());
+         ASTNode fd = cv.getDeclaration();
+         while (fd != null && fd.getParent() != block_node) fd = fd.getParent();
+         if (fd == null || !use_statements.contains(fd)) needdecl.add(cv.getSymbol());
        }
-
+   
       // check if decl for return var is nested and fix if so
       if (!return_var.isReturn() && return_var.isNested()) {
-	 JcompSymbol rs = return_var.getSymbol();
-	 needdecl.add(rs);
-	 ASTNode decl = return_var.getDeclaration();
-	 while (!(decl instanceof VariableDeclarationFragment)) decl = decl.getParent();
-	 VariableDeclarationFragment vdf = (VariableDeclarationFragment) decl;
-	 Assignment as = null;
-	 if (vdf.getInitializer() != null) {
-	    as = ast.newAssignment();
-	    as.setLeftHandSide(JavaAst.getSimpleName(ast,rs.getName()));
-	    as.setRightHandSide((Expression) rw.createCopyTarget(vdf.getInitializer()));
-	  }
-
-	 ASTNode vpar = vdf.getParent();
-	 if (vpar instanceof VariableDeclarationStatement) {
-	    Statement sas = null;
-	    if (as != null) sas = ast.newExpressionStatement(as);
-	    VariableDeclarationStatement vds = (VariableDeclarationStatement) vpar;
-	    if (vds.fragments().size() == 1) {
-	       if (sas == null) rw.remove(vds,null);
-	       else rw.replace(vds,sas,null);
-	     }
-	    else {
-	       if (sas != null) {
-		  ListRewrite vlrw = rw.getListRewrite(vds.getParent(),
-							  (ChildListPropertyDescriptor) vds.getLocationInParent());
-		  vlrw.insertAfter(sas,vds,null);
-		}
-	       rw.remove(vdf,null);
-	     }
-	  }
-	 else if (vpar instanceof VariableDeclarationExpression) {
-	    VariableDeclarationExpression vde = (VariableDeclarationExpression) vpar;
-	    rw.replace(vde,as,null);
-	  }
+         JcompSymbol rs = return_var.getSymbol();
+         needdecl.add(rs);
+         ASTNode decl = return_var.getDeclaration();
+         while (!(decl instanceof VariableDeclarationFragment)) decl = decl.getParent();
+         VariableDeclarationFragment vdf = (VariableDeclarationFragment) decl;
+         Assignment as = null;
+         if (vdf.getInitializer() != null) {
+            as = ast.newAssignment();
+            as.setLeftHandSide(JavaAst.getSimpleName(ast,rs.getName()));
+            as.setRightHandSide((Expression) rw.createCopyTarget(vdf.getInitializer()));
+          }
+   
+         ASTNode vpar = vdf.getParent();
+         if (vpar instanceof VariableDeclarationStatement) {
+            Statement sas = null;
+            if (as != null) sas = ast.newExpressionStatement(as);
+            VariableDeclarationStatement vds = (VariableDeclarationStatement) vpar;
+            if (vds.fragments().size() == 1) {
+               if (sas == null) rw.remove(vds,null);
+               else rw.replace(vds,sas,null);
+             }
+            else {
+               if (sas != null) {
+        	  ListRewrite vlrw = rw.getListRewrite(vds.getParent(),
+        						  (ChildListPropertyDescriptor) vds.getLocationInParent());
+        	  vlrw.insertAfter(sas,vds,null);
+        	}
+               rw.remove(vdf,null);
+             }
+          }
+         else if (vpar instanceof VariableDeclarationExpression) {
+            VariableDeclarationExpression vde = (VariableDeclarationExpression) vpar;
+            rw.replace(vde,as,null);
+          }
        }
-
+   
       for (JcompSymbol js : needdecl) {
-	 Statement dst = js.createDeclaration(ast);
-	 lrw.insertFirst(dst,null);
+         Statement dst = js.createDeclaration(ast);
+         lrw.insertFirst(dst,null);
        }
-
+   
       // fix up method signature
       JcompType jt = return_var.getType();
       Type t = jt.createAstNode(ast);
@@ -906,19 +912,19 @@ private class ChunkSoln extends TreeMapper {
       ListRewrite plr = rw.getListRewrite(nmd,MethodDeclaration.PARAMETERS_PROPERTY);
       List<?> plst = plr.getOriginalList();
       if (plst.size() > 0) {
-	 plr.createMoveTarget((ASTNode) plst.get(0),(ASTNode) plst.get(plst.size()-1),null,null);
+         plr.createMoveTarget((ASTNode) plst.get(0),(ASTNode) plst.get(plst.size()-1),null,null);
        }
       for (ChunkVar cv : param_vars) {
-	 try {
-	    SingleVariableDeclaration svd = ast.newSingleVariableDeclaration();
-	    SimpleName nm = JavaAst.getSimpleName(ast,cv.getName());
-	    svd.setName(nm);
-	    svd.setType(cv.getType().createAstNode(ast));
-	    plr.insertLast(svd,null);
-	  }
-	 catch (IllegalArgumentException e) {
-	    System.err.println("BAD NAME GIVEN FOR CHUNK: " + cv + " " + cv.getName());
-	  }
+         try {
+            SingleVariableDeclaration svd = ast.newSingleVariableDeclaration();
+            SimpleName nm = JavaAst.getSimpleName(ast,cv.getName());
+            svd.setName(nm);
+            svd.setType(cv.getType().createAstNode(ast));
+            plr.insertLast(svd,null);
+          }
+         catch (IllegalArgumentException e) {
+            System.err.println("BAD NAME GIVEN FOR CHUNK: " + cv + " " + cv.getName());
+          }
        }
     }
 

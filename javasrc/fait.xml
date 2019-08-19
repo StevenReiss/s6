@@ -1,0 +1,16 @@
+<FAIT>
+   <PACKAGE NAME='org.apache.batik' />
+   <PACKAGE NAME='org.apache.batik.swing' />
+   <PACKAGE NAME='org.apache.batik.swing.svg' />
+   <PACKAGE NAME='org.eclipse.text' />
+   <PACKAGE NAME='org.apache.xmlgraphics' />
+   <PACKAGE NAME='javax.imageio' />
+   <PACKAGE NAME='com.sun.imageio' />
+   <PACKAGE NAME='javax.swing.text' />
+   <PACKAGE NAME='javax.swing.text' />
+   <PACKAGE NAME='org.eclipse.jface' />
+   <PACKAGE NAME='org.eclipse.jdt' />
+   <PACKAGE NAME='org.eclipse.core' />
+   <PACKAGE NAME='jsyntaxpane' />
+</FAIT>
+

@@ -87,7 +87,7 @@ public TransformFixVariables(String name)
       S6Request.ClassSignature csg,S6Solution sol)
 {
    if (!JavaAst.checkTypeSignature(td,csg,S6SignatureType.FULL,null)) return null;
-   
+
    return findMapping(td);
 }
 
@@ -121,21 +121,21 @@ private List<TreeMapper> findMapping(ASTNode n)
    List<TreeMapper> rslt = new ArrayList<TreeMapper>();
    TreeMapper tm = new VarFixup(fix,false);
    rslt.add(tm);
-   
+
    boolean needed = false;
    for (ASTNode an : fix) {
       if (an instanceof VariableDeclarationFragment) {
-         VariableDeclarationFragment vdf = (VariableDeclarationFragment) an;
-         JcompSymbol def = JavaAst.getDefinition(vdf.getName());
-         JcompType jt = def.getType();
-         if (!jt.isAbstract() && !jt.isPrimitiveType()) needed = true;
+	 VariableDeclarationFragment vdf = (VariableDeclarationFragment) an;
+	 JcompSymbol def = JavaAst.getDefinition(vdf.getName());
+	 JcompType jt = def.getType();
+	 if (!jt.isAbstract() && !jt.isPrimitiveType()) needed = true;
        }
     }
    if (needed) {
       tm = new VarFixup(fix,true);
       rslt.add(tm);
     }
-   
+
    return rslt;
 }
 
@@ -228,17 +228,18 @@ private class VarFixup extends TreeMapper {
 
    @Override void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (fix_defs.contains(orig)) {
-         if (orig instanceof VariableDeclarationFragment) {
-            VariableDeclarationFragment vdf = (VariableDeclarationFragment) orig;
-            JcompSymbol def = JavaAst.getDefinition(vdf.getName());
-            JcompType jt = def.getType();
-            Expression ex = null;
-            if (non_null && !jt.isAbstract()) 
-               ex = jt.createNonNullValue(rw.getAST());
-            else 
-               ex = jt.createDefaultValue(rw.getAST());
-            rw.set(orig,VariableDeclarationFragment.INITIALIZER_PROPERTY,ex,null);
-          }
+	 if (orig instanceof VariableDeclarationFragment) {
+	    VariableDeclarationFragment vdf = (VariableDeclarationFragment) orig;
+	    JcompSymbol def = JavaAst.getDefinition(vdf.getName());
+	    if (def == null) return;
+	    JcompType jt = def.getType();
+	    Expression ex = null;
+	    if (non_null && !jt.isAbstract())
+	       ex = jt.createNonNullValue(rw.getAST());
+	    else
+	       ex = jt.createDefaultValue(rw.getAST());
+	    rw.set(orig,VariableDeclarationFragment.INITIALIZER_PROPERTY,ex,null);
+	  }
        }
     }
 

@@ -298,36 +298,36 @@ private class DependCheck extends ASTVisitor {
    @Override public void postVisit(ASTNode n) {
       JcompSymbol js = JavaAst.getReference(n);
       if (js == null || defined_syms.contains(js)) return;
-      if (js.isKnown()) return;
+      if (js.isBinarySymbol()) return;
       ASTNode an = js.getDefinitionNode();
       if (an == null) return;
       if (an instanceof TypeDeclaration) {
-	 String fnm = js.getFullName();
-	 if (!fnm.contains("$")) return;
+         String fnm = js.getFullName();
+         if (!fnm.contains("$")) return;
        }
       if (js.isConstructorSymbol()) {
-	 if (is_static) return;
-	 JcompType jt = js.getClassType();
-	 JcompType jt1 = class_splitter.getBaseType();
-	 if (jt != jt1) {
-	    if (jt.getName().contains("$")) {
-	       while (an != null && an.getNodeType() != ASTNode.TYPE_DECLARATION) {
-		  an = an.getParent();
-		}
-	       js = JavaAst.getDefinition(an);
-	       String fnm = js.getFullName();
-	       if (!fnm.contains("$")) return;
-	     }
-	  }
+         if (is_static) return;
+         JcompType jt = js.getClassType();
+         JcompType jt1 = class_splitter.getBaseType();
+         if (jt != jt1) {
+            if (jt.getName().contains("$")) {
+               while (an != null && an.getNodeType() != ASTNode.TYPE_DECLARATION) {
+        	  an = an.getParent();
+        	}
+               js = JavaAst.getDefinition(an);
+               String fnm = js.getFullName();
+               if (!fnm.contains("$")) return;
+             }
+          }
        }
       if (an instanceof BodyDeclaration) {
-	 BodyDeclaration bd = (BodyDeclaration) an;
-	 ASTNode xn = bd;
-	 while (xn != null && xn.getNodeType() != ASTNode.TYPE_DECLARATION) {
-	    xn = xn.getParent();
-	  }
-	 if (xn == null || xn != class_splitter.getTypeDeclaration()) return;
-	 if (class_splitter.addToMove(bd)) has_changed = true;
+         BodyDeclaration bd = (BodyDeclaration) an;
+         ASTNode xn = bd;
+         while (xn != null && xn.getNodeType() != ASTNode.TYPE_DECLARATION) {
+            xn = xn.getParent();
+          }
+         if (xn == null || xn != class_splitter.getTypeDeclaration()) return;
+         if (class_splitter.addToMove(bd)) has_changed = true;
        }
     }
 

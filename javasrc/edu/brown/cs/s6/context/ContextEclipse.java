@@ -113,7 +113,7 @@ Collection<String> getProjects()
    if (current_workspace == null) return null;
 
    List<String> rslt = new ArrayList<String>();
-   
+
    File [] fls = current_workspace.listFiles();
    if (fls != null) {
       for (File f : fls) {

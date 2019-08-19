@@ -223,7 +223,7 @@ public TransformExtraParameters(String name)
 	    if (nvd == svd) continue;
 	    if (used.contains(nvd)) continue;
 	    JcompType t2 = JavaAst.getJavaType(nvd);
-	    if (compatibleParams(t1,t2)) {
+	    if (t2 != null && compatibleParams(t1,t2)) {
 	       used.add(nvd);
 	       fnd = true;
 	       break;
@@ -256,9 +256,11 @@ public TransformExtraParameters(String name)
 	 JavaAst.checkIfRecursive(md)) {
       for (String ptyp : ms.getParameterTypeNames()) {
 	 JcompType t1 = jt.findSystemType(ptyp);
+	 if (t1 == null) continue;
 	 for (Iterator <?> it = md.parameters().iterator(); it.hasNext(); ) {
 	    SingleVariableDeclaration svd = (SingleVariableDeclaration) it.next();
 	    JcompType t2 = JavaAst.getJavaType(svd);
+	    if (t2 == null) continue;
 	    if (compatibleParams(t1,t2)) {
 	       addCallSolutions(md,ms,svd,elims,arrays,solns);
 	     }
@@ -284,6 +286,8 @@ public TransformExtraParameters(String name)
 
 private boolean compatibleParams(JcompType tgt,JcompType act)
 {
+   if (act == null || tgt == null) return false;
+
    if (act.isCompatibleWith(tgt)) return true;
    if (tgt.isCompatibleWith(act)) {
       if (tgt.isArrayType() && tgt.getBaseType().isNumericType()) return true;
@@ -534,6 +538,7 @@ private class ElimParam extends TreeMapper {
       return param_decl.getName().getIdentifier();
    }
 
+   @SuppressWarnings("unchecked")
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (orig == param_decl) {
 	 rw.remove(orig,null);
@@ -553,7 +558,9 @@ private class ElimParam extends TreeMapper {
 	 if (new_value.getParent() != null)
 	    new_value = (Expression) rw.createCopyTarget(new_value);
 	 vdf.setInitializer(new_value);
-	 vdf.setExtraDimensions(param_decl.getExtraDimensions());
+	 for (Object o : param_decl.extraDimensions()) {
+	    vdf.extraDimensions().add(o);
+	  }
 	 VariableDeclarationStatement vds = ast.newVariableDeclarationStatement(vdf);
 	 vds.setType((Type) rw.createCopyTarget(param_decl.getType()));
 	 ListRewrite lrw = rw.getListRewrite(bdy,Block.STATEMENTS_PROPERTY);
@@ -579,12 +586,16 @@ private class StubParam extends TreeMapper {
    private MethodDeclaration for_method;
    private S6Request.MethodSignature using_signature;
    private String new_name;
-
+   private JcompTyper use_typer;
 
    StubParam(MethodDeclaration md,S6Request.MethodSignature sgn,SingleVariableDeclaration keep,
 	 List<SingleVariableDeclaration> repl,
 	 List<Expression> vals) {
       for_method = md;
+      use_typer = JavaAst.getTyper(md);
+      if (use_typer == null) {
+	 System.err.println("TYPER UNDEFINED FOR " + md);
+       }
       using_signature = sgn;
       keep_decl = keep;
       replace_decls = new ArrayList<SingleVariableDeclaration>(repl);
@@ -604,8 +615,7 @@ private class StubParam extends TreeMapper {
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (orig == for_method) {
 	 AST ast = rw.getAST();
-	 JcompTyper jt = JavaAst.getTyper(for_method);
-	
+
 	 MethodDeclaration mdcopy = (MethodDeclaration) ASTNode.copySubtree(ast,orig);
 	 if (new_name != null) {
 	    SimpleName sn = JavaAst.getSimpleName(ast,new_name);
@@ -613,10 +623,10 @@ private class StubParam extends TreeMapper {
 	  }
 	 ListRewrite lrw = rw.getListRewrite(orig.getParent(),(ChildListPropertyDescriptor) orig.getLocationInParent());
 	 lrw.insertAfter(mdcopy,orig,null);
-	
+
 	 String ret = using_signature.getReturnTypeName();
-	 JcompType rtyp = jt.findSystemType(ret);
-	
+	 JcompType rtyp = use_typer.findSystemType(ret);
+
 	 if (new_name == null) {
 	    rw.set(orig,MethodDeclaration.NAME_PROPERTY,JavaAst.getSimpleName(ast,using_signature.getName()),null);
 	  }

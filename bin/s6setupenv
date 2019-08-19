@@ -112,7 +112,7 @@ endif
 
 set xxx = `echo $CLASSPATH | fgrep asm.\\.jar`
 if ( "X$xxx" == X ) then
-   set asm = $BROWN_S6_IVY/lib/asm5.jar
+   set asm = $BROWN_S6_IVY/lib/asm6.jar
    setenv CLASSPATH "${CLASSPATH}:$asm"
 endif
 
@@ -132,6 +132,12 @@ set xxx = `echo $CLASSPATH | fgrep batik`
 if ( "X$xxx" == X ) then
    set batik = $BROWN_S6_S6/lib/batik.jar
    setenv CLASSPATH "${CLASSPATH}:$batik"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep xml-apis-ext`
+if ( "X$xxx" == X ) then
+   set xmlext = $BROWN_S6_S6/lib/xml-apis-ext.jar
+   setenv CLASSPATH "${CLASSPATH}:$xmlext"
 endif
 
 set xxx = `echo $CLASSPATH | fgrep GLIPS`
@@ -174,6 +180,12 @@ set xxx = `echo $CLASSPATH | fgrep jtar`
 if ( "X$xxx" == X ) then
    set jtar = $BROWN_S6_S6/lib/jtar-1.1.jar
    setenv CLASSPATH "${CLASSPATH}:$jtar"
+endif
+
+set xxx = `echo $CLASSPATH | fgrep cose`
+if ( "X$xxx" == X ) then
+   set cose = $BROWN_S6_S6/lib/cose.jar
+   setenv CLASSPATH "${CLASSPATH}:$cose"
 endif
 
 if ($?LD_LIBRARY_PATH == 0) then

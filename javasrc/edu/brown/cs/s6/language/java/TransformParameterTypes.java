@@ -128,7 +128,7 @@ public TransformParameterTypes(String name)
 
 @Override protected TreeMapper findMethodMapping(S6SolutionSet ss,MethodDeclaration md,
 						    S6Request.MethodSignature ms,
-                                                    S6Solution sol)
+						    S6Solution sol)
 {
    if (JavaAst.checkMethodSignature(md,ms,S6SignatureType.PARAMETERS)) return null;
 
@@ -148,7 +148,7 @@ public TransformParameterTypes(String name)
       SingleVariableDeclaration svd = (SingleVariableDeclaration) mdtyp.get(i);
       JcompSymbol js = JavaAst.getDefinition(svd);
       if (js == null) {
-	 System.err.println("EMPTY DEFINITION FOR " + svd);
+	 // System.err.println("EMPTY DEFINITION FOR " + svd);
 	 return null;
        }
       JcompType t1 = js.getType();
@@ -180,7 +180,7 @@ private class ParameterTypeMapper extends TreeMapper {
    private Map<SingleVariableDeclaration,JcompType> change_map;
 
    ParameterTypeMapper(String whom,MethodDeclaration md,
-        		       Map<SingleVariableDeclaration,JcompType> ch) {
+			       Map<SingleVariableDeclaration,JcompType> ch) {
       for_whom = whom;
       change_map = ch;
     }

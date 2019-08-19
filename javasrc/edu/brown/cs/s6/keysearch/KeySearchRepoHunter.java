@@ -35,6 +35,7 @@
 
 package edu.brown.cs.s6.keysearch;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.*;
 
 import java.io.ByteArrayInputStream;
@@ -206,7 +207,7 @@ KeySearchRepoHunter(S6Request.Search sr)
 
 
 
-@Override URI getURIForPath(S6Source src,String path)
+@Override URI getURIForPath(CoseSource src,String path)
 {
    // method body goes here
 
@@ -260,7 +261,7 @@ KeySearchRepoHunter(S6Request.Search sr)
 
 
 
-@Override List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src,String cnts)
+@Override List<URI> getDirectoryContentsURIs(URI baseuri,CoseSource src,String cnts)
 {
    return null;
 }
@@ -318,7 +319,7 @@ KeySearchRepoHunter(S6Request.Search sr)
 /*										*/
 /********************************************************************************/
 
-@Override S6Source createSource(URI uri,String cnts,int idx)
+@Override CoseSource createSource(URI uri,String cnts,int idx)
 {
    // want to include the extra files in the source object
    return new HunterSource(uri.toString(),cnts,idx);
@@ -327,7 +328,7 @@ KeySearchRepoHunter(S6Request.Search sr)
 
 
 
-private static class HunterSource extends KeySearchSource implements S6Source {
+private static class HunterSource extends KeySearchSource implements CoseSource {
 
    private String base_link;
    private String base_path;

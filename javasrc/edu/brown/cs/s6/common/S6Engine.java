@@ -79,20 +79,26 @@ import java.util.concurrent.Future;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseResult;
+import edu.brown.cs.cose.cosecommon.CoseSource;
+
 
 
 public interface S6Engine extends S6Constants {
 
 
 boolean doDebug();
+int getNumberOfSearchThreads();
 
 String handleSearchRequest(Element xml) throws S6Exception;
 String handleCheckRequest(Element xml) throws S6Exception;
 
-S6Fragment createFileFragment(String text,S6Source src,S6Request.Search sr);
+S6Fragment createFileFragment(String text,CoseSource src,S6Request.Search sr);
 Set<String> getRelatedProjects(S6Fragment src);
 Set<String> getUsedProjects(S6Fragment src);
 S6Fragment createPackageFragment(S6Request.Search sr);
+
+S6Fragment createFragment(CoseResult cr,S6Request.Search req);
 
 Future<Boolean> executeTask(S6TaskType tt,Callable<Boolean> c);
 Future<Boolean> executeTask(S6TaskType tt,Runnable r);

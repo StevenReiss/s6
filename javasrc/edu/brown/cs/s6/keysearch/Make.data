@@ -28,6 +28,7 @@ SFILES=\
 	KeySearchRepoHunter.java \
 	KeySearchRepoLabrador.java \
 	KeySearchRepoOpenHub.java \
+	KeySearchRepoSearchCode.java \
 	KeySearchSet.java \
 	KeySearchSource.java \
 	KeySearchSourcerer.java \

@@ -71,13 +71,15 @@ abstract public S6Request.Search createSearchRequest(S6Engine eng,Element xml) t
 abstract public S6Request.Check createCheckRequest(S6Engine eng,Element xml) throws S6Exception;
 abstract public S6Request.Format createFormatRequest(S6Engine eng,Element xml) throws S6Exception;
 
-abstract public S6KeySearch createKeySearch(S6SolutionSet ss);
+abstract public void getInitialSolutions(S6SolutionSet ss) throws S6Exception;
 
 abstract public S6SolutionSet createSolutionSet(S6Request.Search rq);
 
 abstract public S6Language createLanguage(S6Engine eng,String name);
 
 abstract public S6License createLicenseManager();
+
+abstract public boolean useCose();
 
 
 

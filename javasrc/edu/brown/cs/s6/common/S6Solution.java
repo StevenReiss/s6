@@ -82,6 +82,7 @@ package edu.brown.cs.s6.common;
 
 import java.util.Collection;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 
 
@@ -103,7 +104,7 @@ boolean checkFlag(S6SolutionFlag fg);
 void setFlag(S6SolutionFlag fg);
 void clearFlag(S6SolutionFlag fg);
 
-S6Source getSource();
+CoseSource getSource();
 String getEncoding();
 
 void resolve();

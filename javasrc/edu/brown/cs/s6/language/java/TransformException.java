@@ -99,6 +99,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.ThrowStatement;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
@@ -161,15 +162,15 @@ public TransformException(String name)
       if (!fnd) return null;
     }
 
-   if (md.thrownExceptions().size() == ms.getExceptionTypeNames().size()) {
+   if (md.thrownExceptionTypes().size() == ms.getExceptionTypeNames().size()) {
       // is this code necessary and will it work wrt context-based exceptions
       boolean ok = true;
       for (String enm : ms.getExceptionTypeNames()) {
 	 JcompType t1 = typr.findSystemType(enm);
 	 if (t1 == null) return null;
 	 boolean fnd = false;
-	 for (Iterator<?> it = md.thrownExceptions().iterator(); it.hasNext(); ) {
-	    Name n = (Name) it.next();
+	 for (Iterator<?> it = md.thrownExceptionTypes().iterator(); it.hasNext(); ) {
+	    Type n = (Type) it.next();
 	    JcompType t2 = JavaAst.getJavaType(n);
 	    if (t2 == t1) fnd = true;
 	  }
@@ -187,8 +188,8 @@ public TransformException(String name)
    for (MethodDeclaration mdc : ef.getMethodsCalled()) {
       if (mdc == md) continue;
       exmap.addExceptionType(mdc,null);
-      for (Object o : mdc.thrownExceptions()) {
-         Name n = (Name) o;
+      for (Object o : mdc.thrownExceptionTypes()) {
+         Type n = (Type) o;
          JcompType t2 = JavaAst.getJavaType(n);
          boolean fnd = false;
          for (String enm : ms.getExceptionTypeNames()) {
@@ -238,7 +239,7 @@ private class ExceptionFinder extends ASTVisitor
             ASTNode an = js.getDefinitionNode();
             if (an.getNodeType() == ASTNode.METHOD_DECLARATION) {
                MethodDeclaration md = (MethodDeclaration) an;
-               if (md.thrownExceptions().size() > 0) found_calls.add(md);
+               if (md.thrownExceptionTypes().size() > 0) found_calls.add(md);
              }
           }
        }
@@ -253,7 +254,7 @@ private class ExceptionFinder extends ASTVisitor
                ASTNode an = js.getDefinitionNode();
                if (an.getNodeType() == ASTNode.METHOD_DECLARATION) {
                   MethodDeclaration md = (MethodDeclaration) an;
-                  if (md.thrownExceptions().size() > 0) found_calls.add(md);
+                  if (md.thrownExceptionTypes().size() > 0) found_calls.add(md);
                 }
              }
           }
@@ -301,8 +302,8 @@ private class ExceptionMapper extends TreeMapper {
       if (ljt == null) return;
    
       MethodDeclaration nmd = (MethodDeclaration) orig;
-      ListRewrite lrw = rw.getListRewrite(orig,MethodDeclaration.THROWN_EXCEPTIONS_PROPERTY);
-      List<?> exl = nmd.thrownExceptions();
+      ListRewrite lrw = rw.getListRewrite(orig,MethodDeclaration.THROWN_EXCEPTION_TYPES_PROPERTY);
+      List<?> exl = nmd.thrownExceptionTypes();
       for (Iterator<?> it = exl.iterator(); it.hasNext(); ) {
          ASTNode n = (ASTNode) it.next();
          lrw.remove(n,null);
