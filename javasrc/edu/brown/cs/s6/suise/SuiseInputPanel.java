@@ -65,15 +65,15 @@ import org.apache.batik.swing.JSVGCanvas;
 import org.w3c.dom.Element;
 // import fr.itris.glips.svgeditor.Editor;
 
+import edu.brown.cs.cose.cosecommon.CoseConstants;
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.file.IvyFile;
 import edu.brown.cs.ivy.swing.SwingGridPanel;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Constants.S6Location;
-import edu.brown.cs.s6.common.S6Constants.S6ScopeType;
 
 
-class SuiseInputPanel extends JFrame implements SuiseConstants
+class SuiseInputPanel extends JFrame implements SuiseConstants, CoseConstants
 {
 
 
@@ -85,7 +85,7 @@ class SuiseInputPanel extends JFrame implements SuiseConstants
 
 private SuiseMain       suise_main;
 private JTextField      keyword_field;
-private JComboBox<S6ScopeType> scope_field;
+private JComboBox<CoseScopeType> scope_field;
 private JComboBox<S6Location> source_field;
 private JCheckBox       android_field;
 private JButton         search_button;
@@ -161,9 +161,9 @@ private void setupPanel()
 
    SwingGridPanel toppnl = new SwingGridPanel();
    keyword_field = toppnl.addTextField("Keywords:",null,48,null,new KeywordListener());
-   scope_field = toppnl.addChoice("Search Scope:",S6Constants.S6ScopeType.FILE,null);
+   scope_field = toppnl.addChoice("Search Scope:",CoseConstants.CoseScopeType.FILE,null);
    android_field = toppnl.addBoolean("Android Interface:",false,null);
-   source_field = toppnl.addChoice("Search From",S6Constants.S6Location.GITHUB,null);
+   source_field = toppnl.addChoice("Search From",S6Constants.S6Location.SEARCHCODE,null);
    file_field = toppnl.addFileField("Image File:",
          base_file.getPath(),JFileChooser.FILES_ONLY,
          new SvgFilter(),

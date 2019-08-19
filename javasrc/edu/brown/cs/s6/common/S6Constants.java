@@ -183,21 +183,11 @@ enum S6SearchType {
 
 
 
-enum S6FragmentType {
-   FILE,
-   CLASS,
-   METHOD,
-   PACKAGE
-};
 
 
 
-enum S6ScopeType {
-   FILE,		// only look at given file
-   PACKAGE,		// look at all files in package of given file
-   PACKAGE_UI,          // all files in package relevant to the UI
-   SYSTEM		// consider all files in package and related packages
-}
+
+
 
 enum S6TestType {
    USERCODE,		// user provides a complete test case
@@ -235,6 +225,7 @@ enum S6Location {
    HUNTER,
    CODEEX,
    GITZIP,
+   SEARCHCODE,
 };
 
 

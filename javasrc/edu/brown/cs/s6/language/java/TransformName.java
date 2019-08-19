@@ -371,7 +371,7 @@ protected TreeMapper findClassMapping(S6SolutionSet sols,TypeDeclaration td,
    List<S6Request.ClassSignature> todos = new LinkedList<S6Request.ClassSignature>(worklist.keySet());
 
    addMappings(todos,worklist,null,rslt,psg,um);
-   System.err.println("NAME MAPPING RESULT INITIAL SIZE = " + rslt.size());
+   // System.err.println("NAME MAPPING RESULT INITIAL SIZE = " + rslt.size());
    if (rslt.size() > 1000) rslt.clear();
 
    // need to limit the set of mappings
@@ -419,19 +419,19 @@ private boolean checkApplicable(S6Request.ClassSignature csg,TypeDeclaration td,
        }
       if (!fnd) return false;
     }
-   
+
    for (S6Request.MethodSignature ms : csg.getMethods()) {
       boolean fnd = false;
       for (Iterator<?> it = td.bodyDeclarations().iterator(); it.hasNext(); ) {
 	 ASTNode cnod = (ASTNode) it.next();
 	 if (cnod instanceof MethodDeclaration) {
-            if (used.contains(cnod)) continue;
-            MethodDeclaration md = (MethodDeclaration) cnod;
-            if (JavaAst.checkMethodSignature(md,ms,S6SignatureType.MODS)) {
-               fnd = true;
-               used.add(cnod);
-               break;
-             }
+	    if (used.contains(cnod)) continue;
+	    MethodDeclaration md = (MethodDeclaration) cnod;
+	    if (JavaAst.checkMethodSignature(md,ms,S6SignatureType.MODS)) {
+	       fnd = true;
+	       used.add(cnod);
+	       break;
+	     }
 	  }
        }
       if (!fnd) return false;
@@ -441,7 +441,7 @@ private boolean checkApplicable(S6Request.ClassSignature csg,TypeDeclaration td,
    if (st != null && csg.getSuperClass() == null && csg.getInterfaces().size() == 0) {
       JcompType jt = JavaAst.getJavaType(st);
       if (jt != null) {
-	 if (!jt.getName().startsWith(pkg) && !jt.isKnownType()) return false;
+	 if (!jt.getName().startsWith(pkg) && !jt.isBinaryType()) return false;
        }
     }
 
@@ -587,10 +587,10 @@ private class DependenceVisitor extends ASTVisitor {
 
    @Override public void endVisit(SimpleType n) {
       if (collect_stack.peek()) {
-	 JcompType jt = JavaAst.getJavaType(n);
-	 if (jt != null && !jt.isKnownType() && jt.isClassType() && !jt.isArrayType()) {
-	    type_defs.add(jt);
-	  }
+         JcompType jt = JavaAst.getJavaType(n);
+         if (jt != null && !jt.isBinaryType() && jt.isClassType() && !jt.isArrayType()) {
+            type_defs.add(jt);
+          }
        }
     }
 
@@ -657,11 +657,11 @@ private static class UsageMappings extends ASTVisitor {
    UsageMappings(CompilationUnit cu) {
       relevant_types = new HashSet<JcompType>();
       for (Object o : cu.types()) {
-         if (o instanceof TypeDeclaration) {
-            TypeDeclaration td = (TypeDeclaration) o;
-            JcompType jt = JavaAst.getJavaType(td);
-            if (jt != null) relevant_types.add(jt);
-          }
+	 if (o instanceof TypeDeclaration) {
+	    TypeDeclaration td = (TypeDeclaration) o;
+	    JcompType jt = JavaAst.getJavaType(td);
+	    if (jt != null) relevant_types.add(jt);
+	  }
        }
       ref_map = new HashMap<JcompType,Set<JcompType>>();
       deref_map = new HashMap<JcompType,Set<JcompType>>();

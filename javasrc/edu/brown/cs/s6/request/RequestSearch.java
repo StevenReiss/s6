@@ -94,6 +94,7 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseConstants;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Contracts;
 import edu.brown.cs.s6.common.S6Engine;
@@ -104,7 +105,7 @@ import edu.brown.cs.s6.common.S6Security;
 
 import java.util.Set;
 
-public class RequestSearch extends RequestBase implements S6Request.Search {
+public class RequestSearch extends RequestBase implements S6Request.Search, CoseConstants {
 
 
 
@@ -122,7 +123,8 @@ private RequestSources source_set;
 private RequestSecurity security_holder;
 private RequestContracts contract_holder;
 private S6FormatType format_type;
-private S6ScopeType scope_type;
+private CoseScopeType scope_type;
+private List<String>     required_keywords;
 
 
 private static EnumSet<S6Location> REMOTE_DEFAULT_SET =
@@ -179,7 +181,9 @@ public S6Contracts getContracts()		{ return contract_holder; }
 
 public S6FormatType getFormatType()		{ return format_type; }
 
-public S6ScopeType getScopeType()		{ return scope_type; }
+public CoseScopeType getScopeType()		{ return scope_type; }
+
+public List<String> getRequiredWords()          { return required_keywords; }
 
 public String getPackage()
 {
@@ -206,29 +210,32 @@ private void loadRequest(Element xml) throws S6Exception
    search_type = IvyXml.getAttrEnum(xml,"WHAT",S6SearchType.METHOD);
 
    format_type = IvyXml.getAttrEnum(xml,"FORMAT",S6FormatType.NONE);
-
+   
    switch (search_type) {
       case METHOD :
       case CLASS :
       case FULLCLASS :
       case TESTCASES :
-	 scope_type = S6ScopeType.FILE;
+	 scope_type = CoseScopeType.FILE;
 	 break;
       case UIFRAMEWORK :
       case ANDROIDUI :
-	 scope_type = S6ScopeType.PACKAGE_UI;
+	 scope_type = CoseScopeType.PACKAGE_UI;
 	 break;
       case PACKAGE :
       case APPLICATION :
-	 scope_type = S6ScopeType.SYSTEM;
+	 scope_type = CoseScopeType.SYSTEM;
 	 break;
     }
    scope_type = IvyXml.getAttrEnum(xml,"SCOPE",scope_type);
 
    keyword_sets = new ArrayList<KeywordSet>();
+   required_keywords = new ArrayList<String>();
    for (Element kws : IvyXml.elementsByTag(xml,"KEYWORDS")) {
       RequestKeywordSet rks = new RequestKeywordSet(kws);
       keyword_sets.add(rks);
+      List<String> rq = rks.getRequiredWords();
+      if (rq != null) required_keywords.addAll(rq);
     }
 
    Element tsts = IvyXml.getElementByTag(xml,"TESTS");
@@ -271,7 +278,7 @@ private void loadRequest(Element xml) throws S6Exception
    security_holder = new RequestSecurity(secy);
 
    Element cntr = IvyXml.getElementByTag(xml,"CONTRACTS");
-   contract_holder = new RequestContracts(this,cntr);
+   contract_holder = new RequestContracts(getSignature(),cntr);
 
    boolean hasremote = false;
    for (S6Location loc : S6Location.values()) {

@@ -187,7 +187,7 @@ private static class NameFixer extends ASTVisitor {
       JcompTyper typr = JavaAst.getTyper(qn);
       JcompType jt = JavaAst.getExprType(qn);
       if (jt == null) return false;
-      if (jt.isErrorType() || jt.isUnknown()) {
+      if (jt.isErrorType() || jt.isCompiledType()) {
          if (solution_set.getSearchType() == S6SearchType.ANDROIDUI) {
             if (qn.getFullyQualifiedName().startsWith("R.")) return false;
           }
@@ -206,14 +206,14 @@ private static class NameFixer extends ASTVisitor {
       JcompTyper typr = JavaAst.getTyper(qn);
       JcompType jt = JavaAst.getExprType(qn);
       if (jt == null) return false;
-      if (jt.isErrorType() || jt.isUnknown()) {
-	 String tnm = qn.getName().getIdentifier();
-	 JcompType njt = typr.findType(tnm);
-	 if (njt != null && !njt.isErrorType() && !njt.isUnknown()) {
-	    remove_qualifiers.add(qn);
-	  }
+      if (jt.isErrorType() || jt.isCompiledType()) {
+         String tnm = qn.getName().getIdentifier();
+         JcompType njt = typr.findType(tnm);
+         if (njt != null && !njt.isErrorType() && !njt.isCompiledType()) {
+            remove_qualifiers.add(qn);
+          }
        }
-
+   
       return false;
    }
 

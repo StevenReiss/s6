@@ -96,9 +96,9 @@ import org.eclipse.jdt.core.dom.CatchClause;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.ThrowStatement;
 import org.eclipse.jdt.core.dom.TryStatement;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 
 import edu.brown.cs.ivy.jcomp.JcompType;
@@ -147,8 +147,8 @@ public TransformThrow(String name)
    if (jt == null) return null;
 
    JcompType rtyp = null;
-   for (Iterator<?> it = md.thrownExceptions().iterator(); it.hasNext(); ) {
-      Name nm = (Name) it.next();
+   for (Iterator<?> it = md.thrownExceptionTypes().iterator(); it.hasNext(); ) {
+      Type nm = (Type) it.next();
       rtyp = JavaAst.getJavaType(nm);
       if (rtyp != null) break;
     }
@@ -196,8 +196,8 @@ private static class ThrowVisitor extends ASTVisitor {
 
    public boolean visit(MethodDeclaration md) {
       int ln = catch_items.size();
-      for (Iterator<?> it = md.thrownExceptions().iterator(); it.hasNext(); ) {
-	 Name nm = (Name) it.next();
+      for (Iterator<?> it = md.thrownExceptionTypes().iterator(); it.hasNext(); ) {
+	 Type nm = (Type) it.next();
 	 JcompType jt = JavaAst.getJavaType(nm);
 	 if (jt != null) catch_items.push(jt);
        }

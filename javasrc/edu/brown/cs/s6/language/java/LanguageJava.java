@@ -120,6 +120,8 @@ import org.eclipse.jdt.core.dom.ImportDeclaration;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.StructuralPropertyDescriptor;
 
+import edu.brown.cs.cose.cosecommon.CoseResult;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.jcomp.JcompControl;
 import edu.brown.cs.ivy.jcomp.JcompExtendedSource;
 import edu.brown.cs.ivy.jcomp.JcompProject;
@@ -135,7 +137,6 @@ import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 import edu.brown.cs.s6.language.LanguageBase;
 
 
@@ -179,9 +180,15 @@ public LanguageJava()
 /*										*/
 /********************************************************************************/
 
-public S6Fragment createFileFragment(String text,S6Source src,S6Request.Search sreq)
+public S6Fragment createFileFragment(String text,CoseSource src,S6Request.Search sreq)
 {
    return FragmentJava.createFileFragment(this,text,src,sreq);
+}
+
+
+public S6Fragment createCoseFragment(CoseResult cr,S6Request.Search sreq)
+{
+   return JavaCoseFragment.createCoseFragment(cr,this,sreq);
 }
 
 
@@ -194,7 +201,7 @@ public S6Fragment createPackageFragment(S6Request.Search sr)
 
 public Set<String> getRelatedProjects(S6Fragment sfj)
 {
-   FragmentJava fj = (FragmentJava) sfj;
+   JavaFragment fj = (JavaFragment) sfj;
    Set<String> rslt = new HashSet<String>();
    CompilationUnit cu = (CompilationUnit) fj.getAstNode();
    PackageDeclaration pd = cu.getPackage();
@@ -320,7 +327,7 @@ JavaContext getContext(S6Request sreq)
 /*										*/
 /********************************************************************************/
 
-void resolveFragment(FragmentJava frag)
+void resolveFragment(JavaFragment frag)
 {
    List<JcompSource> srcs = new ArrayList<JcompSource>();
    Iterable<S6Fragment> frags = frag.getFileFragments();
@@ -368,20 +375,21 @@ void resolveFragment(FragmentJava frag)
 			    Thread.currentThread() + " " + t);
       t.printStackTrace();
       System.err.println("FRAGMENT: " + frag);
+      if (proj != null) jcomp_main.freeProject(proj);
     }
 }
 
 
 private static class FragmentSource implements JcompExtendedSource {
 
-   private FragmentJava for_fragment;
+   private JavaFragment for_fragment;
 
    FragmentSource(S6Fragment fj) {
-      for_fragment = (FragmentJava) fj;
+      for_fragment = (JavaFragment) fj;
     }
 
    @Override public String getFileContents() {
-      return for_fragment.getSourceText();
+      return for_fragment.getOriginalText();
     }
 
    @Override public String getFileName() {
@@ -440,7 +448,7 @@ public void resolveAll(Iterable<S6Fragment> files)
 public Collection<S6FileLocation> findAll(Iterable<S6Fragment> files,S6Fragment f,
 					     int startoffset,int endoffset,boolean defs)
 {
-   FragmentJava fj = (FragmentJava) f;
+   JavaFragment fj = (JavaFragment) f;
    ASTNode root = fj.getAstNode();
    ASTNode n = findActualNode(root,startoffset,endoffset);
 
@@ -452,7 +460,7 @@ public Collection<S6FileLocation> findAll(Iterable<S6Fragment> files,S6Fragment 
 
    LocationFinder lf = new LocationFinder(js,defs);
    for (S6Fragment sf : files) {
-      FragmentJava sfj = (FragmentJava) sf;
+      JavaFragment sfj = (JavaFragment) sf;
       ASTNode sn = sfj.getAstNode();
       sn.accept(lf);
     }
@@ -558,7 +566,7 @@ private static class Location implements S6FileLocation {
 /*										*/
 /********************************************************************************/
 
-JavaTester createTester(S6Request.Search r,FragmentJava frag,S6Source src)
+JavaTester createTester(S6Request.Search r,JavaFragment frag,CoseSource src)
 {
    JavaContext ctx = getContext(r);
 
@@ -704,7 +712,7 @@ public @Override void finish(S6Request.Search rq)
 
 public @Override void listDefinitions(S6Fragment sf,String file,IvyXmlWriter xw)
 {
-   FragmentJava fj = (FragmentJava) sf;
+   JavaFragment fj = (JavaFragment) sf;
    DefFinder df = new DefFinder(xw,file);
    ASTNode root = fj.getAstNode();
    root.accept(df);
@@ -762,7 +770,7 @@ private static class DefFinder extends ASTVisitor implements S6Constants {
 	 xml_writer.field("StartOffset",dn.getStartPosition());
 	 xml_writer.field("EndOffset",dn.getStartPosition() + dn.getLength());
        }
-      if (js.isKnown()) xml_writer.field("Source","JavaSystem");
+      if (js.isBinarySymbol()) xml_writer.field("Source","JavaSystem");
       else xml_writer.field("Source","UserSource");
       xml_writer.field("File",file_name);
       xml_writer.end("Item");

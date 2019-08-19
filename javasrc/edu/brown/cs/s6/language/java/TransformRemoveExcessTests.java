@@ -407,7 +407,7 @@ private class NodeMarker extends ASTVisitor {
       if (js == null) return;
       if (relevant_syms.contains(js)) has_needed = true;
       else if (js.getDefinitionNode() != null) has_unneeded = true;
-      else if (!js.isKnown()) has_unneeded = true;
+      else if (!js.isBinarySymbol()) has_unneeded = true;
       else has_other = true;
     }
 

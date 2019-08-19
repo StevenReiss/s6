@@ -161,7 +161,7 @@ public TransformContext(String name)
 @Override protected Collection<TreeMapper> findMethodMappings(S6SolutionSet ss,
 								 MethodDeclaration md,
 								 S6Request.MethodSignature ms,
-                                                                 S6Solution sol)
+								 S6Solution sol)
 {
    List<String> mstyp = ms.getParameterTypeNames();
    List<?> mdtyp = md.parameters();
@@ -239,7 +239,7 @@ private class ContextChecker {
    private void checkContextType(JcompType typ) {
       // check if parameter type (typ) can match context type (context_type)
       if (!typ.isClassType()) return;
-      if (typ.isKnownType()) return;
+      if (typ.isBinaryType()) return;
    
       MemberData md = getItemsUsed(typ,for_method,java_typer);
    
@@ -555,7 +555,7 @@ private static class MemberInstance {
 	 Expression e = (Expression) it.next();
 	 atys.add(JavaAst.getExprType(e));
        }
-      member_type = JcompType.createMethodType(null,atys,false);
+      member_type = JcompType.createMethodType(null,atys,false,null);
       member_type = typer.fixJavaType(member_type);
       member_name = id;
     }

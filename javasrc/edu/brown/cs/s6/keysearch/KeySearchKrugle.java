@@ -95,11 +95,11 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.Future;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 
 class KeySearchKrugle extends KeySearchBase {
@@ -190,7 +190,7 @@ protected void queueSpecificSolution(S6SolutionSet ss,String src,Queue<Future<Bo
 }
 
 
-protected S6Source createPackageSource(String id,int priority)
+protected CoseSource createPackageSource(String id,int priority)
 {
     return new KrugleSource(id,null,priority);
 }
@@ -205,7 +205,7 @@ protected void queuePackageSolutions(S6SolutionSet ss,String id,Queue<Future<Boo
     }
 }
 
-protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,S6Source src,Set<String> pkgs,Queue<Future<Boolean>> wq)
+protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,CoseSource src,Set<String> pkgs,Queue<Future<Boolean>> wq)
 {
     boolean chng = false;
 
@@ -645,7 +645,7 @@ private class PackageScanSolution implements Runnable {
 /*										*/
 /********************************************************************************/
 
-private static class KrugleSource extends KeySearchSource implements S6Source {
+private static class KrugleSource extends KeySearchSource implements CoseSource {
 
    private String source_key;
    KrugleSource(String key,String code,int idx) {

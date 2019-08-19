@@ -208,11 +208,11 @@ private static class FindTryCatchFixes extends ASTVisitor {
    boolean getDoRemove()				{ return do_remove; }
 
    @Override public boolean visit(MethodDeclaration md) {
-      if (md.thrownExceptions().size() > 0 && md.getBody() != null) {
+      if (md.thrownExceptionTypes().size() > 0 && md.getBody() != null) {
          if (!Modifier.isPublic(md.getModifiers())) {
             Set<JcompType> excs = JavaAst.findExceptions(md.getBody());
-            for (Object o : md.thrownExceptions()) {
-               Name n = (Name) o;
+            for (Object o : md.thrownExceptionTypes()) {
+               Type n = (Type) o;
                JcompType jt = JavaAst.getJavaType(n);
                boolean fnd = false;
                if (jt != null) {
@@ -244,7 +244,7 @@ private static class FindTryCatchFixes extends ASTVisitor {
          if (!jt.isCompatibleWith(exception_type)) continue;
          if (jt.isCompatibleWith(runtime_type)) continue;
          if (jt.equals(exception_type)) continue;
-         if (jt.isUnknown()) continue;
+         if (jt.isCompiledType()) continue;
    
          boolean fnd = false;
          for (JcompType jt1 : excs) {
@@ -289,47 +289,47 @@ private class TryCatchMapper extends TreeMapper {
 
    @Override void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (orig instanceof TryStatement) {
-	 TryStatement ts = (TryStatement) orig;
-	 if (remove_trys.contains(orig)) {
-	    ASTNode n1 = rw.createCopyTarget(ts.getBody());
-	    rw.replace(ts,n1,null);
-	    Block rslt = ts.getBody();
-	    List<?> rstmts = rslt.statements();
-	    if (rstmts.size() > 0) {
-	       Statement laststmt = (Statement) rstmts.get(rstmts.size()-1);
-	       if (laststmt instanceof ReturnStatement) {
-		  if (ts.getParent() instanceof Block) {
-		     Block blk = (Block) ts.getParent();
-		     List<?> stmts = blk.statements();
-		     int idx = stmts.indexOf(orig);
-		     if (idx != stmts.size()-1) {
-			ListRewrite lrw = rw.getListRewrite(blk,Block.STATEMENTS_PROPERTY);
-			for (int i = stmts.size()-1; i > idx; --i) {
-			   ASTNode rmst = (ASTNode) stmts.get(i);
-			   lrw.remove(rmst,null);
-			 }
-		      }
-		   }
-		}
-	     }
-	  }
-	 else {
-	    boolean fix = false;
-	    for (Object o : ts.catchClauses()) {
-	       if (remove_catches.contains(o)) fix = true;
-	     }
-	    if (!fix) return;
-	    ListRewrite lrw = rw.getListRewrite(ts,TryStatement.CATCH_CLAUSES_PROPERTY);
-	    for (Object o : ts.catchClauses()) {
-	       if (remove_catches.contains(o)) lrw.remove((ASTNode) o,null);
-	     }
-	  }
+         TryStatement ts = (TryStatement) orig;
+         if (remove_trys.contains(orig)) {
+            ASTNode n1 = rw.createCopyTarget(ts.getBody());
+            rw.replace(ts,n1,null);
+            Block rslt = ts.getBody();
+            List<?> rstmts = rslt.statements();
+            if (rstmts.size() > 0) {
+               Statement laststmt = (Statement) rstmts.get(rstmts.size()-1);
+               if (laststmt instanceof ReturnStatement) {
+        	  if (ts.getParent() instanceof Block) {
+        	     Block blk = (Block) ts.getParent();
+        	     List<?> stmts = blk.statements();
+        	     int idx = stmts.indexOf(orig);
+        	     if (idx != stmts.size()-1) {
+        		ListRewrite lrw = rw.getListRewrite(blk,Block.STATEMENTS_PROPERTY);
+        		for (int i = stmts.size()-1; i > idx; --i) {
+        		   ASTNode rmst = (ASTNode) stmts.get(i);
+        		   lrw.remove(rmst,null);
+        		 }
+        	      }
+        	   }
+        	}
+             }
+          }
+         else {
+            boolean fix = false;
+            for (Object o : ts.catchClauses()) {
+               if (remove_catches.contains(o)) fix = true;
+             }
+            if (!fix) return;
+            ListRewrite lrw = rw.getListRewrite(ts,TryStatement.CATCH_CLAUSES_PROPERTY);
+            for (Object o : ts.catchClauses()) {
+               if (remove_catches.contains(o)) lrw.remove((ASTNode) o,null);
+             }
+          }
        }
       else if (orig instanceof MethodDeclaration) {
-	 MethodDeclaration md = (MethodDeclaration) orig;
-	 for (Object o : md.thrownExceptions()) {
-	    if (remove_throws.contains(o)) rw.remove((ASTNode) o,null);
-	  }
+         MethodDeclaration md = (MethodDeclaration) orig;
+         for (Object o : md.thrownExceptionTypes()) {
+            if (remove_throws.contains(o)) rw.remove((ASTNode) o,null);
+          }
        }
     }
 

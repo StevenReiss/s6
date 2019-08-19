@@ -81,6 +81,8 @@ package edu.brown.cs.s6.language;
 import java.util.Collection;
 import java.util.Set;
 
+import edu.brown.cs.cose.cosecommon.CoseResult;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Engine;
@@ -91,7 +93,6 @@ import edu.brown.cs.s6.common.S6Language;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 import edu.brown.cs.s6.language.java.LanguageJava;
 
 
@@ -205,7 +206,10 @@ abstract public void formatCode(S6Request.Search req,S6SolutionSet ss) throws S6
 /*										*/
 /********************************************************************************/
 
-abstract public S6Fragment createFileFragment(String text,S6Source src,S6Request.Search sr);
+abstract public S6Fragment createFileFragment(String text,CoseSource src,S6Request.Search sr);
+
+abstract public S6Fragment createCoseFragment(CoseResult cr,S6Request.Search sr);
+
 abstract public S6Fragment createPackageFragment(S6Request.Search sr);
 abstract public Set<String> getRelatedProjects(S6Fragment src);
 abstract public Set<String> getUsedProjects(S6Fragment src);

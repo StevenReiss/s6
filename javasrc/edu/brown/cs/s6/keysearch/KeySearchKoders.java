@@ -83,12 +83,12 @@ import java.util.concurrent.Future;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 
 class KeySearchKoders extends KeySearchBase {
@@ -179,7 +179,7 @@ protected void queueSpecificSolution(S6SolutionSet ss,String src,Queue<Future<Bo
 
 
 
-protected S6Source createPackageSource(String id,int priority)
+protected CoseSource createPackageSource(String id,int priority)
 {
    return new KoderSource(id,id,null,null,priority);
 }
@@ -198,7 +198,7 @@ protected void queuePackageSolutions(S6SolutionSet ss,String id,Queue<Future<Boo
 
 
 
-protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,S6Source src,Set<String> pkgs,Queue<Future<Boolean>> wq)
+protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,CoseSource src,Set<String> pkgs,Queue<Future<Boolean>> wq)
 {
    boolean chng = false;
 
@@ -499,10 +499,11 @@ private class PackageScanSolution implements Runnable {
 /*										*/
 /********************************************************************************/
 
-private static class KoderSource extends KeySearchSource implements S6Source {
+private static class KoderSource extends KeySearchSource implements CoseSource {
 
    private String base_link;
    private String base_path;
+   
    KoderSource(String base,String path,Map<String,String> rel,String code,int idx) {
       super(code,idx);
       base_link = base;

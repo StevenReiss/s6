@@ -98,6 +98,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Engine;
@@ -105,7 +106,6 @@ import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 
 public class SolutionSet implements S6SolutionSet, SolutionConstants, S6Constants {
@@ -122,6 +122,7 @@ public class SolutionSet implements S6SolutionSet, SolutionConstants, S6Constant
 private S6Request.Search	for_request;
 private Map<String,S6Solution>	solution_set;
 private Set<String>		used_sources;
+private Set<String>             file_sources;
 private Set<String>		all_solutions;
 private int			num_removed;
 private MessageDigest		md5_digest;
@@ -141,12 +142,13 @@ private boolean                 test_fixup;
 public SolutionSet(S6Request.Search r)
 {
    for_request = r;
-   solution_set = new HashMap<String,S6Solution>();
-   used_sources = new HashSet<String>();
-   all_solutions = new HashSet<String>();
+   solution_set = new HashMap<>();
+   used_sources = new HashSet<>();
+   file_sources = new HashSet<>();
+   all_solutions = new HashSet<>();
    num_removed = 0;
-   stat_values = new HashMap<String,Counter>();
-   excess_solutions = new PriorityQueue<S6Solution>(100,new ScoreComparator());
+   stat_values = new HashMap<>();
+   excess_solutions = new PriorityQueue<>(100,new ScoreComparator());
 
    md5_digest = null;
    try {
@@ -166,12 +168,12 @@ public SolutionSet(S6Request.Search r)
 
 public S6SearchType getSearchType()		{ return for_request.getSearchType(); }
 
-public S6ScopeType getScopeType()		{ return for_request.getScopeType(); }
+public CoseScopeType getScopeType()		{ return for_request.getScopeType(); }
 public S6Request.Search getRequest()		{ return for_request; }
 public S6Engine getEngine()			{ return for_request.getEngine(); }
 
 public int getSolutionCount()			{ return solution_set.size(); }
-public int getSourceCount()			{ return used_sources.size(); }
+public int getSourceCount()			{ return file_sources.size(); }
 
 public int getNumberRemoved()			{ return num_removed; }
 
@@ -222,7 +224,7 @@ public boolean doDebug()			{ return for_request.doDebug(); }
 /*										*/
 /********************************************************************************/
 
-public S6Solution addInitialSolution(S6Fragment n,S6Source src)
+public S6Solution addInitialSolution(S6Fragment n,CoseSource src)
 {
    if (n == null) return null;
    
@@ -236,7 +238,12 @@ public S6Solution addInitialSolution(S6Fragment n,S6Source src)
    S6Solution rslt = null;
    
    synchronized (this) {
-      if (src != null) used_sources.add(src.getName());
+      if (src != null) {
+         used_sources.add(src.getName());
+         CoseSource fsrc = src;
+         if (src.getBaseSource() != null) fsrc = src.getBaseSource();
+         file_sources.add(fsrc.getName());
+       }
       rslt = add(sb);
     }
    
@@ -252,7 +259,7 @@ public S6Solution addInitialSolution(S6Fragment n,S6Source src)
 /*										*/
 /********************************************************************************/
 
-public synchronized boolean useSource(S6Source src)
+public synchronized boolean useSource(CoseSource src)
 {
    String name = src.getName();
 
@@ -261,7 +268,11 @@ public synchronized boolean useSource(S6Source src)
    if (used_sources.size() > S6_MAX_SOURCES) return false;
 
    if (!used_sources.add(name)) return false;
-
+   
+   CoseSource fsrc = src;
+   if (src.getBaseSource() != null) fsrc = src.getBaseSource();
+   file_sources.add(fsrc.getName());
+   
    return true;
 }
 
@@ -452,7 +463,8 @@ public void output(IvyXmlWriter xw)
 
    xw.begin("SOURCES");
    xw.field("COUNT",used_sources.size());
-   for (String s : used_sources) {
+   xw.field("FILECOUNT",file_sources.size());
+   for (String s : file_sources) {
       xw.textElement("SOURCE",s);
     }
    xw.end("SOURCES");

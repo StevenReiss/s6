@@ -227,7 +227,7 @@ boolean findDependencies()
 	 System.err.println();
        }
       System.err.println("SOURCE: " + base_solution.getSource().getName() + " " +
-			    base_solution.getScore());
+			    base_solution.getScore()); 
 
       if (use_class) System.err.println("WORK ON CLASS " + base_type);
       else if (use_package) System.err.println("WORK ON PACKAGE " + package_unit);
@@ -241,8 +241,10 @@ boolean findDependencies()
    boolean rslt = checkDependencies(check_types,check_defs);
 
    if (rslt && check_defs.hasError()) {
-      if (solution_set.doDebug()) System.err.println("S6: ERRORS found during successful dependency check");
-      check_defs.printErrors();
+      if (solution_set.doDebug()) {
+	 System.err.println("S6: ERRORS found during successful dependency check");
+	 check_defs.printErrors();
+       }
       rslt = false;
     }
 
@@ -403,7 +405,7 @@ private class CheckTypes extends ASTVisitor {
 	    import_types.remove(jt);
 	  }
 	 else if (pkg != null && jt.getName().startsWith(pkg)) {
-	    if (jt.isKnownType()) {
+	    if (jt.isBinaryType()) {
 	       import_types.remove(jt);
 	     }
 	    else {
@@ -467,60 +469,60 @@ private class CheckDefs extends ASTVisitor {
       boolean goon = true;
       JcompSymbol js = JavaAst.getDefinition(n);
       if (js != null) {
-         // System.err.println("DEF " + js.getName() + " " + n);
-         defined_names.add(js);
+	 // System.err.println("DEF " + js.getName() + " " + n);
+	 defined_names.add(js);
        }
       js = JavaAst.getReference(n);
       if (js != null) {
-         ref_names.add(js);
-         // System.err.println("REF " + js.getName());
+	 ref_names.add(js);
+	 // System.err.println("REF " + js.getName());
        }
       JcompType jt = JavaAst.getExprType(n);
       if (jt != null && jt.isErrorType()) {
-         boolean err = true;
-         if (solution_set.getSearchType() == S6SearchType.ANDROIDUI) {
-            if (n instanceof QualifiedName) {
-               String qn = ((QualifiedName) n).getFullyQualifiedName();
-               if (qn.startsWith("R.") || qn.contains(".R.")) {
-        	  err = false;
-        	  goon = false;
-        	}
-             }
-            else if (n instanceof SimpleName) {
-               if (((SimpleName) n).getIdentifier().equals("R")) err = false;
-               if (((SimpleName) n).getIdentifier().equals("edit_contact"))
-        	  System.err.println("CHECK EDIT_CONTACT");
-             }
-            else if (n instanceof MethodInvocation) {
-               MethodInvocation mi = (MethodInvocation) n;
-               boolean argerr = false;
-               for (Object o : mi.arguments()) {
-        	  ASTNode n1 = (ASTNode) o;
-        	  JcompType argtyp = JavaAst.getExprType(n1);
-        	  if (argtyp != null && argtyp.isErrorType()) argerr = true;
-        	}
-               if (argerr)
-        	  err = false;
-             }
-            else if (n instanceof ConditionalExpression) {
-               ConditionalExpression cexp = (ConditionalExpression) n;
-               boolean argerr = false;
-               JcompType t1 = JavaAst.getExprType(cexp.getThenExpression());
-               if (t1 != null && t1.isErrorType()) argerr = true;
-               t1 = JavaAst.getExprType(cexp.getElseExpression());
-               if (t1 != null && t1.isErrorType()) argerr = true;
-               if (argerr) err = false;
-             }
-            else {
-               System.err.println("ANDROID ERROR: " + n);
-             }
-          }
-         if (err) {
-            error_nodes.add(n);
-            have_error = true;
-          }
+	 boolean err = true;
+	 if (solution_set.getSearchType() == S6SearchType.ANDROIDUI) {
+	    if (n instanceof QualifiedName) {
+	       String qn = ((QualifiedName) n).getFullyQualifiedName();
+	       if (qn.startsWith("R.") || qn.contains(".R.")) {
+		  err = false;
+		  goon = false;
+		}
+	     }
+	    else if (n instanceof SimpleName) {
+	       if (((SimpleName) n).getIdentifier().equals("R")) err = false;
+	       if (((SimpleName) n).getIdentifier().equals("edit_contact"))
+		  System.err.println("CHECK EDIT_CONTACT");
+	     }
+	    else if (n instanceof MethodInvocation) {
+	       MethodInvocation mi = (MethodInvocation) n;
+	       boolean argerr = false;
+	       for (Object o : mi.arguments()) {
+		  ASTNode n1 = (ASTNode) o;
+		  JcompType argtyp = JavaAst.getExprType(n1);
+		  if (argtyp != null && argtyp.isErrorType()) argerr = true;
+		}
+	       if (argerr)
+		  err = false;
+	     }
+	    else if (n instanceof ConditionalExpression) {
+	       ConditionalExpression cexp = (ConditionalExpression) n;
+	       boolean argerr = false;
+	       JcompType t1 = JavaAst.getExprType(cexp.getThenExpression());
+	       if (t1 != null && t1.isErrorType()) argerr = true;
+	       t1 = JavaAst.getExprType(cexp.getElseExpression());
+	       if (t1 != null && t1.isErrorType()) argerr = true;
+	       if (argerr) err = false;
+	     }
+	    else {
+	       System.err.println("ANDROID ERROR: " + n);
+	     }
+	  }
+	 if (err) {
+	    error_nodes.add(n);
+	    have_error = true;
+	  }
        }
-   
+
       return goon;
     }
 
@@ -555,7 +557,7 @@ private class CheckDefs extends ASTVisitor {
 	       if (solution_set.doDebug()) System.err.println("ADD DEF " + dn);
 	     }
 	  }
-	 else if (!rs.isKnown()) {
+	 else if (!rs.isBinarySymbol()) {
 	    if (solution_set.doDebug()) System.err.println("DEF NOT FOUND " + rs.getName());
 	  }
        }

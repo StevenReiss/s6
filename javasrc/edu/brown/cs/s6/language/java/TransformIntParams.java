@@ -140,7 +140,7 @@ public TransformIntParams(String name)
       SingleVariableDeclaration svd = (SingleVariableDeclaration) mdtyp.get(i);
       JcompSymbol js = JavaAst.getDefinition(svd);
       if (js == null) {
-	 System.err.println("EMPTY DEFINITION FOR " + svd);
+	 // System.err.println("EMPTY DEFINITION FOR " + svd);
 	 return null;
        }
       JcompType t1 = js.getType();
@@ -195,7 +195,7 @@ private class NumericTypeMapper extends TreeMapper {
    private String and_const;
 
    NumericTypeMapper(String whom,MethodDeclaration md,
-			SingleVariableDeclaration var,JcompType tt,boolean signed) {
+        		SingleVariableDeclaration var,JcompType tt,boolean signed) {
       for_whom = whom;
       change_method = md;
       new_type = tt;
@@ -204,17 +204,20 @@ private class NumericTypeMapper extends TreeMapper {
       new_name = "s6__" + old_name;
       and_const = null;
       if (!signed) {
-	 if (tt.getName().equals("int")) and_const = "0xffffffff";
-	 else if (tt.getName().equals("short") || tt.getName().equals("char")) and_const = "0xffff";
-	 else if (tt.getName().equals("byte")) and_const = "0xff";
-	 JcompSymbol js = JavaAst.getDefinition(var);
-	 JcompType t1 = js.getType();
-	 if (t1.getName().equals("long")) and_const += "L";
+         if (tt.getName().equals("int")) and_const = "0xffffffff";
+         else if (tt.getName().equals("short") || tt.getName().equals("char")) and_const = "0xffff";
+         else if (tt.getName().equals("byte")) and_const = "0xff";
+         JcompSymbol js = JavaAst.getDefinition(var);
+         if (js != null) {
+            JcompType t1 = js.getType();
+            if (t1.getName().equals("long")) and_const += "L";
+          }
        }
     }
 
    @Override protected String getSpecificsName()   { return for_whom; }
 
+   @SuppressWarnings("unchecked")
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (orig == change_method.getBody()) {
 	 AST ast = orig.getAST();
@@ -234,7 +237,7 @@ private class NumericTypeMapper extends TreeMapper {
 	 Type t = for_variable.getType();
 	 t = (Type) rw.createCopyTarget(t);
 	 vds.setType(t);
-	 vdf.setExtraDimensions(for_variable.getExtraDimensions());
+	 vdf.extraDimensions().addAll(for_variable.extraDimensions());
 	 ListRewrite lrw = rw.getListRewrite(orig,Block.STATEMENTS_PROPERTY);
 	 lrw.insertFirst(vds,null);
        }

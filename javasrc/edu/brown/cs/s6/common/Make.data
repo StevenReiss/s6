@@ -18,14 +18,15 @@ SFILES=\
 	S6Factory.java \
 	S6FactoryImpl.java \
 	S6FileLocation.java \
+	S6Fragment.java \
+	S6KeySearch.java \
 	S6Language.java \
 	S6License.java \
-	S6KeySearch.java \
 	S6Request.java \
 	S6Resource.java \
 	S6Security.java \
 	S6Solution.java \
-	S6Source.java \
+	S6SolutionSet.java \
 	S6TestCase.java \
 	S6TestResults.java \
 	S6Transform.java\

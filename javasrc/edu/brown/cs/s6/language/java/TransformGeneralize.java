@@ -176,7 +176,7 @@ public TransformGeneralize(String name)
 /********************************************************************************/
 
 private void findPotentialMatches(MethodDeclaration md,S6Request.MethodSignature ms,
-				     FragmentJava fj,
+				     JavaFragment fj,
 				     Map<JcompType,JcompType> potmaps)
 {
    List<String> mstyp = ms.getParameterTypeNames();
@@ -199,11 +199,11 @@ private void findPotentialMatches(MethodDeclaration md,S6Request.MethodSignature
       if (t0.isPrimitiveType() || t1.isPrimitiveType()) return;
       if (t1.isArrayType() && !t0.isArrayType()) return;
       if (!t1.isCompatibleWith(t0)) {
-	 if (t1.isClassType() && t0.isClassType() && t0.isKnownType() &&
-		!t1.isKnownType() && checkNoInternals(fj.getAstNode(),svd)) ;
+	 if (t1.isClassType() && t0.isClassType() && t0.isBinaryType() &&
+		!t1.isBinaryType() && checkNoInternals(fj.getAstNode(),svd)) ;
 	 else return;
        }
-      if (t1.isKnownType()) continue;
+      if (t1.isBinaryType()) continue;
       newtyp.put(t1,t0);
     }
 

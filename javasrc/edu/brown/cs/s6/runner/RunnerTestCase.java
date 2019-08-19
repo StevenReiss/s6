@@ -134,10 +134,10 @@ public static void assertNotEquals(String msg,double exp,double act,double delta
 {
    if (Double.isInfinite(exp)) {
       if ((exp == act))
-	 failNotEquals(msg, new Double(exp), new Double(act));
+	 failNotEquals(msg,Double.valueOf(exp),Double.valueOf(act));
     }
    else if (!(Math.abs(exp-act) > delta))
-      failNotEquals(msg, new Double(exp), new Double(act));
+      failNotEquals(msg,Double.valueOf(exp),Double.valueOf(act));
 }
 
 
@@ -146,46 +146,46 @@ public static void assertNotEquals(String msg,float exp,float act,float delta)
 {
    if (Float.isInfinite(exp)) {
       if ((exp == act))
-	 failNotEquals(msg, new Float(exp), new Float(act));
+	 failNotEquals(msg,Float.valueOf(exp),Float.valueOf(act));
     }
    else if (!(Math.abs(exp-act) > delta))
-      failNotEquals(msg, new Float(exp), new Float(act));
+      failNotEquals(msg,Float.valueOf(exp),Float.valueOf(act));
 }
 
 
 public static void assertNotEquals(String msg,long exp,long act)
 {
-   assertNotEquals(msg,new Long(exp),new Long(act));
+   assertNotEquals(msg,Long.valueOf(exp),Long.valueOf(act));
 }
 
 
 public static void assertNotEquals(String msg,boolean exp,boolean act)
 {
-   assertNotEquals(msg,new Boolean(exp),new Boolean(act));
+   assertNotEquals(msg,Boolean.valueOf(exp),Boolean.valueOf(act));
 }
 
 
 public static void assertNotEquals(String msg,byte exp,byte act)
 {
-   assertNotEquals(msg,new Byte(exp),new Byte(act));
+   assertNotEquals(msg,Byte.valueOf(exp),Byte.valueOf(act));
 }
 
 
 public static void assertNotEquals(String msg,char exp,char act)
 {
-   assertNotEquals(msg,new Character(exp),new Character(act));
+   assertNotEquals(msg,Character.valueOf(exp),Character.valueOf(act));
 }
 
 
 public static void assertNotEquals(String msg,short exp,short act)
 {
-   assertNotEquals(msg,new Short(exp),new Short(act));
+   assertNotEquals(msg,Short.valueOf(exp),Short.valueOf(act));
 }
 
 
 public static void assertNotEquals(String msg,int exp,int act)
 {
-   assertNotEquals(msg,new Integer(exp),new Integer(act));
+   assertNotEquals(msg,Integer.valueOf(exp),Integer.valueOf(act));
 }
 
 private static void failNotEquals(String msg,Object e,Object a)

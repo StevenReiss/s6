@@ -50,6 +50,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,7 +63,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
-import javax.xml.bind.DatatypeConverter;
 
 import org.w3c.dom.Element;
 
@@ -256,7 +256,7 @@ private class SearchResult implements Comparable<SearchResult>, ActionListener {
       String src = IvyXml.getAttrString(x1,"SRC");
       int idx = src.indexOf(",");
       src = src.substring(idx+1);
-      byte [] img = DatatypeConverter.parseBase64Binary(src);
+      byte [] img = Base64.getDecoder().decode(src);
       ByteArrayInputStream bas = new ByteArrayInputStream(img);
       try {
          user_image = ImageIO.read(bas);
@@ -275,7 +275,9 @@ private class SearchResult implements Comparable<SearchResult>, ActionListener {
          catch (NumberFormatException e) { }
        }
       String jtx = IvyXml.getTextElement(xml,"RUNJAR");
-      if (jtx != null) jar_runner = DatatypeConverter.parseBase64Binary(jtx);
+      if (jtx != null) {
+         jar_runner = Base64.getDecoder().decode(jtx);
+       }
       else jar_runner = null;
     }
 

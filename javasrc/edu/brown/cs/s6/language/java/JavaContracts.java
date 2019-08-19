@@ -115,7 +115,7 @@ class JavaContracts implements S6Constants, JavaConstants {
 private File		contract_root;
 
 private S6Contracts	contract_set;
-private FragmentJava	base_fragment;
+private JavaFragment	base_fragment;
 private Map<ASTNode,ASTNode> contract_nodes;
 
 private static String JML_PAT = "(/\\*\\*\\s*\\*\\s*@jml\\s([^*]|(\\*+[^*/]))*\\*/)";
@@ -144,7 +144,7 @@ JavaContracts() throws S6Exception
 
 
 
-JavaContracts(S6Contracts cs,FragmentJava jf)
+JavaContracts(S6Contracts cs,JavaFragment jf)
 {
    contract_root = null;
    base_fragment = jf;
@@ -493,10 +493,10 @@ private class ContractAdder extends ASTVisitor {
       String nm = md.getName().getIdentifier();
       Javadoc jdoc = findContracts(nm,md);
       if (jdoc != null) {
-	 Javadoc jdold = md.getJavadoc();
-	 md.setJavadoc(jdoc);
-	 if (contract_nodes == null) contract_nodes = new HashMap<ASTNode,ASTNode>();
-	 contract_nodes.put(jdoc,jdold);
+         Javadoc jdold = md.getJavadoc();
+         md.setJavadoc(jdoc);
+         if (contract_nodes == null) contract_nodes = new HashMap<ASTNode,ASTNode>();
+         contract_nodes.put(jdoc,jdold);
        }
       return false;
     }

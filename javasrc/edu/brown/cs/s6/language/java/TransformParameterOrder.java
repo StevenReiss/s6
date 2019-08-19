@@ -127,7 +127,7 @@ public TransformParameterOrder(String name)
 
 @Override protected Collection<TreeMapper> findMethodMappings(S6SolutionSet ss,MethodDeclaration md,
 								  S6Request.MethodSignature ms,
-                                                                  S6Solution sol)
+								  S6Solution sol)
 {
    if (JavaAst.checkMethodSignature(md,ms,S6SignatureType.PARAMETERS)) return null;
    if (!JavaAst.checkMethodSignature(md,ms,S6SignatureType.RETURN_EXCEPTIONS)) return null;
@@ -170,6 +170,7 @@ private void findOrders(int idx,JcompTyper jt,List<String> mstyp,List<?> mdtyp,
       SingleVariableDeclaration svd = (SingleVariableDeclaration) it.next();
       if (curorder != null && curorder.contains(svd)) continue;
       JcompSymbol js = JavaAst.getDefinition(svd);
+      if (js == null) return;
       JcompType t1 = js.getType();
       if (t1 == null) return;
       if (!t0.isCompatibleWith(t1)) continue;

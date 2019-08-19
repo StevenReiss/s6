@@ -80,11 +80,11 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLEditorKit;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -185,7 +185,7 @@ KeySearchGithub()
 }
 
 
-@Override protected S6Source createSource(URI baseuri,String code,int idx)
+@Override protected CoseSource createSource(URI baseuri,String code,int idx)
 {
    return new GithubSource(baseuri.toString(),code,idx);
 }
@@ -383,7 +383,7 @@ protected boolean isRelevantSoure(String src)
 
 
 
-protected S6Source createPackageSource(String id,int priority)
+protected CoseSource createPackageSource(String id,int priority)
 {
    return new GithubSource(id,id,priority);
 }
@@ -402,7 +402,7 @@ protected void queuePackageSolutions(S6SolutionSet ss,String id,Queue<Future<Boo
 
 
 
-protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,S6Source src,Set<String> pkgs,Queue<Future<Boolean>> wq)
+protected boolean addPackages(S6SolutionSet ss,S6Fragment frag,CoseSource src,Set<String> pkgs,Queue<Future<Boolean>> wq)
 {
    boolean chng = false;
 
@@ -620,7 +620,7 @@ protected class LoadSolution implements Runnable {
       GithubSource ks = new GithubSource(for_item,txt,item_index);
       KeySearchBase.getSolutions(solution_set,txt,ks,package_fragment);
    
-      if (package_fragment != null && solution_set.getScopeType() != S6ScopeType.FILE) {
+      if (package_fragment != null && solution_set.getScopeType() != CoseScopeType.FILE) {
          int idx = for_item.lastIndexOf("/");
          String furl = for_item.substring(0,idx);
          FileScanner fs = new FileScanner(for_item);
@@ -762,7 +762,7 @@ private class PackageScanSolution implements Runnable {
 /*										*/
 /********************************************************************************/
 
-private static class GithubSource extends KeySearchSource implements S6Source {
+private static class GithubSource extends KeySearchSource implements CoseSource {
 
    private String base_link;
    private String base_path;

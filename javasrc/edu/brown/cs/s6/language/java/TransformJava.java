@@ -149,6 +149,7 @@ import org.eclipse.jdt.core.dom.rewrite.ITrackedNodePosition;
 
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
+import edu.brown.cs.cose.cosecommon.CoseConstants.CoseResultType;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
@@ -224,7 +225,7 @@ protected final void addPreviousTransforms(S6SolutionSet solset,Iterable<S6Solut
 	 if (ss.getParentFragment() != null) done.add(ss.getParentFragment());
 	 done.add(ss.getBaseFragment());
        }
-      else if (!(fg instanceof FragmentJava)) done.add(fg);
+      else if (!(fg instanceof JavaFragment)) done.add(fg);
     }
 }
 
@@ -234,7 +235,7 @@ protected final void removeNonMethods(Iterable<S6Solution> sols,Set<S6Fragment> 
 {
    for (S6Solution ss : sols) {
       S6Fragment fg = ss.getFragment();
-      if (fg.getFragmentType() != S6FragmentType.METHOD) done.add(fg);
+      if (fg.getFragmentType() != CoseResultType.METHOD) done.add(fg);
     }
 }
 
@@ -308,7 +309,7 @@ protected boolean applyFileTransform(S6SolutionSet solset,S6Solution sol)	{ retu
 
 protected boolean applyPackageTransform(S6SolutionSet solset,S6Solution sol)
 {
-   FragmentJava f = (FragmentJava) sol.getFragment();
+   JavaFragment f = (JavaFragment) sol.getFragment();
    S6Request.Search sr = solset.getRequest();
    S6Request.PackageSignature psg = (S6Request.PackageSignature) sr.getSignature();
    CompilationUnit cu = (CompilationUnit) f.getAstNode();
@@ -378,7 +379,7 @@ protected boolean checkApplyClassForPackage(S6SolutionSet sols,CompilationUnit c
 
 protected boolean applyMethodTransform(S6SolutionSet solset,S6Solution sol)
 {
-   FragmentJava f = (FragmentJava) sol.getFragment();
+   JavaFragment f = (JavaFragment) sol.getFragment();
    S6Request.Search sr = solset.getRequest();
    S6Request.MethodSignature ms = sr.getSignature().getMethodSignature();
    if (ms == null) return false;
@@ -601,8 +602,8 @@ protected TreeMapper findFieldMapping(S6SolutionSet solset,
 
 protected boolean addNewSolution(S6SolutionSet sols,S6Solution sol,TreeMapper tmap)
 {
-   FragmentJava f = (FragmentJava) sol.getFragment();
-   FragmentJava nf1 = null;
+   JavaFragment f = (JavaFragment) sol.getFragment();
+   JavaFragment nf1 = null;
 
    if (usesTransform(sol,tmap.getMapName())) {
       return false;
@@ -611,6 +612,7 @@ protected boolean addNewSolution(S6SolutionSet sols,S6Solution sol,TreeMapper tm
    JavaMemo memo = tmap.getMapMemo(f,getName());
    if (memo.getNewText() == null) {
       nf1 = f.cloneFragment(memo.getRewrite(),memo.getPosition());
+      // System.err.println("RESULT: " + nf1.getText());
       memo.clear();
     }
    else {
@@ -699,8 +701,8 @@ private static class TreeCopy {
    private ASTNode new_base;
 
    TreeCopy(ASTNode base) {
-      new_ast = AST.newAST(AST.JLS4);
-      old_base = base;
+      new_ast = AST.newAST(AST.JLS8);
+      old_base = base; 
       new_base = null;
     }
 
@@ -824,32 +826,32 @@ protected abstract class TreeMapper {
 
    abstract void rewriteTree(ASTNode orig,ASTRewrite rw);
 
-   JavaMemo getMapMemo(FragmentJava fj,String nm) {
+   JavaMemo getMapMemo(JavaFragment fj,String nm) {
       if (saved_memo == null) {
-	 ASTNode base = fj.getAstNode();
-	 try {
-	    TreeRewrite tr = new TreeRewrite(base,this);
-	    base.getRoot().accept(tr);
-	    saved_memo = tr.createMemo(nm);
-	  }
-	 catch (IllegalArgumentException e) {
-	    // try again
-	    TreeRewrite tr = new TreeRewrite(base,this);
-	    base.getRoot().accept(tr);
-	    saved_memo = tr.createMemo(nm);
-	  }
+         ASTNode base = fj.getAstNode();
+         try {
+            TreeRewrite tr = new TreeRewrite(base,this);
+            base.getRoot().accept(tr);
+            saved_memo = tr.createMemo(nm);
+          }
+         catch (IllegalArgumentException e) {
+            // try again
+            TreeRewrite tr = new TreeRewrite(base,this);
+            base.getRoot().accept(tr);
+            saved_memo = tr.createMemo(nm);
+          }
        }
       return saved_memo;
     }
 
-    void createTextMemo(FragmentJava f,String nm) {
-       FragmentJava nf1 = null;
+    void createTextMemo(JavaFragment f,String nm) {
+       JavaFragment nf1 = null;
        JavaMemo memo = getMapMemo(f,nm);
        if (memo.getNewText() != null) return;
        nf1 = f.cloneFragment(memo.getRewrite(),memo.getPosition());
        memo.clear();
        if (nf1 == null) return;
-       saved_memo = new JavaMemo(getMapName(),nm,nf1.getSourceText());
+       saved_memo = new JavaMemo(getMapName(),nm,nf1.getOriginalText());
      }
 
 }	// end of subinterface TreeMapper
@@ -948,7 +950,7 @@ boolean checkComformable(JcompType cur,JcompType tgt,S6SolutionSet ss,
    else  if (tgt.isClassType() && cur.isClassType() && checkNoInternals(md,svd)) {
       if (ss.getSearchType() == S6SearchType.METHOD) {
 	 if (cur.isCompatibleWith(tgt)) return true;
-	 else if (!cur.isKnownType()) return true;
+	 else if (!cur.isBinaryType()) return true;
        }
       else {
 	 // restrict this to useful cases in some way

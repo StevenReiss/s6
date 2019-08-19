@@ -43,8 +43,8 @@ import java.util.List;
 import java.util.Map;
 import java.io.ByteArrayOutputStream;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6Source;
 
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
@@ -154,7 +154,7 @@ KeySearchRepoOpenHub(S6Request.Search sr)
 
 
 
-@Override S6Source createSource(URI uri,String cnts,int idx)
+@Override CoseSource createSource(URI uri,String cnts,int idx)
 {
    String proj = project_map.remove(uri);
    String path = path_map.remove(uri);
@@ -242,7 +242,7 @@ private String getParam(String url,String id)
 /*										*/
 /********************************************************************************/
 
-@Override URI getURIForPath(S6Source src,String path)
+@Override URI getURIForPath(CoseSource src,String path)
 {
    if (!(src instanceof OpenHubSource)) return null;
 
@@ -266,7 +266,7 @@ private String getParam(String url,String id)
 }
 
 
-@Override List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src,Element jsoup)
+@Override List<URI> getDirectoryContentsURIs(URI baseuri,CoseSource src,Element jsoup)
 {
    // TODO: OpenHub doesn't seem to index or provide access to .png and other binary files
    // as part of their repository.
@@ -364,7 +364,7 @@ private String getParam(String url,String id)
 /*										*/
 /********************************************************************************/
 
-private static class OpenHubSource extends KeySearchSource implements S6Source {
+private static class OpenHubSource extends KeySearchSource implements CoseSource {
 
    private String base_link;
    private String base_path;

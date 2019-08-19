@@ -391,10 +391,10 @@ static CompilationUnit parseSourceFile(String text)
 {
    if (text == null) return null;
 
-   ASTParser parser = ASTParser.newParser(AST.JLS4);
+   ASTParser parser = ASTParser.newParser(AST.JLS8);
    parser.setKind(ASTParser.K_COMPILATION_UNIT);
-   Map<?,?> options = JavaCore.getOptions();
-   JavaCore.setComplianceOptions(JavaCore.VERSION_1_7,options);
+   Map<String,String> options = JavaCore.getOptions();
+   JavaCore.setComplianceOptions(JavaCore.VERSION_1_8,options);
    parser.setCompilerOptions(options);
    parser.setSource(text.toCharArray());
 
@@ -853,22 +853,22 @@ private static class TestCheck extends ASTVisitor {
 
    private boolean isStandardName(String nm) {
       for (int i = 0; i < STD_PREFIX.length; ++i) {
-	 if (nm.startsWith(STD_PREFIX[i])) return true;
+         if (nm.startsWith(STD_PREFIX[i])) return true;
        }
       return false;
     }
 
    private String getTypeName(Type t) {
       String tnm = null;
-      if (t.isArrayType()) t = ((ArrayType) t).getComponentType();
+      if (t.isArrayType()) t = ((ArrayType) t).getElementType();
       if (t.isParameterizedType()) t = ((ParameterizedType) t).getType();
       if (t.isPrimitiveType()) ;
       else if (t.isUnionType() || t.isWildcardType()) ;
       else if (t.isSimpleType()) tnm = ((SimpleType) t).getName().getFullyQualifiedName();
       else if (t.isQualifiedType()) {
-	 QualifiedType qt = (QualifiedType) t;
-	 tnm = getTypeName(qt.getQualifier());
-	 if (tnm != null) tnm += "." + qt.getName().getFullyQualifiedName();
+         QualifiedType qt = (QualifiedType) t;
+         tnm = getTypeName(qt.getQualifier());
+         if (tnm != null) tnm += "." + qt.getName().getFullyQualifiedName();
        }
       return tnm;
     }
@@ -877,12 +877,12 @@ private static class TestCheck extends ASTVisitor {
       if (import_type.get(nm) != null) return true;
       if (class_names.contains(nm)) return true;
       for (String s : import_check) {
-	 String cls = s + "." + nm;
-	 try {
-	    Class<?> c = Class.forName(cls);
-	    if (c != null) return true;
-	  }
-	 catch (Throwable e) { }
+         String cls = s + "." + nm;
+         try {
+            Class<?> c = Class.forName(cls);
+            if (c != null) return true;
+          }
+         catch (Throwable e) { }
        }
       return false;
     }

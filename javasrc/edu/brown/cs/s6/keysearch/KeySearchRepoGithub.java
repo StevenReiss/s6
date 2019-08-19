@@ -35,6 +35,7 @@
 
 package edu.brown.cs.s6.keysearch;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.file.IvyFile;
 import edu.brown.cs.s6.common.*;
 
@@ -75,7 +76,8 @@ private static String		github_auth;
 private final static String	S6_CLIENT_ID = "92367cf10da5b70932fa";
 private final static String	S6_CLIENT_SECRET = "53e04859dec97346e3cd9f886b4e847c4d7cc2dc";
 private final static String	S6_FINGERPRINT;
-private static boolean	  use_github_api = true;
+
+private static boolean		use_github_api = true;
 static {
    S6_FINGERPRINT = "S6_" + Math.round(Math.random()*1000000000);
    getOAuthToken();
@@ -191,7 +193,7 @@ protected boolean isRelevantSource(String src)
 
 
 
-@Override S6Source createSource(URI uri,String cnts,int idx)
+@Override CoseSource createSource(URI uri,String cnts,int idx)
 {
    return new GithubSource(uri.toString(),cnts,idx);
 }
@@ -212,18 +214,18 @@ List<URI> getSearchPageResults(URI uri,String cnts)
    try {
       JSONArray jarr = null;
       if (cnts.startsWith("{")) {
-         JSONObject jobj = new JSONObject(cnts);
-         jarr = jobj.getJSONArray("items");
+	 JSONObject jobj = new JSONObject(cnts);
+	 jarr = jobj.getJSONArray("items");
        }
       else if (cnts.startsWith("[")) {
-         jarr = new JSONArray(cnts);
+	 jarr = new JSONArray(cnts);
        }
       else jarr = new JSONArray();
       for (int i = 0; i < jarr.length(); ++i) {
 	 JSONObject jobj = jarr.getJSONObject(i);
 	 System.err.println("RESULT: " + jobj);
-         URI uri2 = convertSearchResults(jobj);
-         if (uri2 != null) rslt.add(uri2);
+	 URI uri2 = convertSearchResults(jobj);
+	 if (uri2 != null) rslt.add(uri2);
        }
     }
    catch (JSONException e) {
@@ -246,7 +248,7 @@ protected URI convertSearchResults(JSONObject jobj)
    catch (JSONException e) {
       System.err.println("BAD JSON: " + e);
     }
-   
+
    return null;
 }
 
@@ -292,7 +294,7 @@ List<URI> getSearchPageResults(Element jsoup)
 /*										*/
 /********************************************************************************/
 
-@Override URI getURIForPath(S6Source src,String path)
+@Override URI getURIForPath(CoseSource src,String path)
 {
    if (!(src instanceof GithubSource)) return null;
 
@@ -314,7 +316,7 @@ List<URI> getSearchPageResults(Element jsoup)
 }
 
 
-@Override List<URI> getDirectoryContentsURIs(URI baseuri,S6Source src,Element jsoup)
+@Override List<URI> getDirectoryContentsURIs(URI baseuri,CoseSource src,Element jsoup)
 {
    List<URI> rslt = new ArrayList<URI>();
 
@@ -374,7 +376,7 @@ List<URI> getSearchPageResults(Element jsoup)
 /*										*/
 /********************************************************************************/
 
-private static class GithubSource extends KeySearchSource implements S6Source {
+private static class GithubSource extends KeySearchSource implements CoseSource {
 
    private String base_link;
    private String base_path;
@@ -418,8 +420,8 @@ private static class GithubSource extends KeySearchSource implements S6Source {
       String spath = base_path;
       int idx1 = spath.indexOf("/blob/");
       if (idx1 > 0) {
-         int idx2 = spath.indexOf("/",idx1+7);
-         spath = spath.substring(idx2); 	// skip /blob/<key>/ :: path remoaint
+	 int idx2 = spath.indexOf("/",idx1+7);
+	 spath = spath.substring(idx2); 	// skip /blob/<key>/ :: path remoaint
        }
       return spath;
     }
@@ -456,7 +458,7 @@ private synchronized static void getOAuthToken()
 	    return;
 	  }
 	 else if (od.shouldRemove()) {
-            doGithubAuthenticate("/authorizations/" + od.getId(),"DELETE",null);
+	    doGithubAuthenticate("/authorizations/" + od.getId(),"DELETE",null);
 	  }
        }
     }
@@ -492,7 +494,7 @@ private static String loadGithubUserInfo()
 	 if (ln.length() == 0) continue;
 	 if (ln.startsWith("#") || ln.startsWith("%")) continue;
 	 fr.close();
-	 return javax.xml.bind.DatatypeConverter.printBase64Binary(ln.getBytes());
+	 return Base64.getEncoder().encodeToString(ln.getBytes());
        }
       fr.close();
     }
@@ -596,48 +598,48 @@ private static class OAuthData {
 
    String getToken()			{ return token_id; }
    boolean isValid()			{ return is_s6token && token_id != null; }
-   String getId()                       { return oauth_id; }
+   String getId()			{ return oauth_id; }
    boolean shouldRemove() {
       return is_s6token && token_id == null && oauth_id != null;
     }
    String getAuthId()			{ return oauth_id; }
-   
+
    private void saveToken() {
       if (token_id != null) {
-         try { 
-            FileWriter fw = new FileWriter(TOKEN_FILE,true);
-            fw.write(hash_token);
-            fw.write(",");
-            fw.write(token_id);
-            fw.write("\n");
-            fw.close();
-          }
-         catch (IOException e) { 
-            System.err.println("GITHUB: PROBLEM SAVING TOKEN: " + e);
-          }
+	 try {
+	    FileWriter fw = new FileWriter(TOKEN_FILE,true);
+	    fw.write(hash_token);
+	    fw.write(",");
+	    fw.write(token_id);
+	    fw.write("\n");
+	    fw.close();
+	  }
+	 catch (IOException e) {
+	    System.err.println("GITHUB: PROBLEM SAVING TOKEN: " + e);
+	  }
        }
     }
-   
+
    private void loadToken() {
       if (token_id == null && hash_token != null) {
-         try {
-            BufferedReader fr = new BufferedReader(new FileReader(TOKEN_FILE));
-            for ( ; ; ) {
-               String ln = fr.readLine();
-               if (ln == null) break;
-               int idx = ln.indexOf(",");
-               if (idx < 0) continue;
-               String key = ln.substring(0,idx);
-               if (key.equals(hash_token)) {
-                  token_id = ln.substring(idx+1);
-                  break;
-                }
-             }
-            fr.close();
-          }
-         catch (IOException e) {
-            System.err.println("GITHUB: Problem reading token: " + e);
-          }
+	 try {
+	    BufferedReader fr = new BufferedReader(new FileReader(TOKEN_FILE));
+	    for ( ; ; ) {
+	       String ln = fr.readLine();
+	       if (ln == null) break;
+	       int idx = ln.indexOf(",");
+	       if (idx < 0) continue;
+	       String key = ln.substring(0,idx);
+	       if (key.equals(hash_token)) {
+		  token_id = ln.substring(idx+1);
+		  break;
+		}
+	     }
+	    fr.close();
+	  }
+	 catch (IOException e) {
+	    System.err.println("GITHUB: Problem reading token: " + e);
+	  }
        }
     }
 
@@ -654,10 +656,10 @@ private static class OAuthRemover extends Thread
 
    @Override public void run() {
       String auth = S6_CLIENT_ID + ":" +S6_CLIENT_SECRET;
-      auth = javax.xml.bind.DatatypeConverter.printBase64Binary(auth.getBytes());
+      auth = Base64.getEncoder().encodeToString(auth.getBytes());
       github_auth = "Basic " + auth;
       doGithubAuthenticate("/applications/" + S6_CLIENT_ID + "/tokens/" + auth_data.getToken(),
-        	   "DELETE",null);
+		   "DELETE",null);
     }
 
 }	// end of inner class OAuthRemover

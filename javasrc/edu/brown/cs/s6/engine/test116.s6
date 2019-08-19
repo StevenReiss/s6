@@ -1,0 +1,37 @@
+<SEARCH FORMAT='NONE' SEARCHCODE='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD DOUBLE='true' MODS='0'>
+    <NAME>power</NAME>
+    <RETURN>double</RETURN>
+    <ARGS>double,double</ARGS>
+    <ARGNAMES>a1,a2</ARGNAMES>
+    <TEXT>double power(double a1,double a2)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='power' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[1.0]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[0.0]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[1.0]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='power' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[4.0]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[3.0]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[64.0]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS><KEYWORD><![CDATA[power]]></KEYWORD></KEYWORDS></SEARCH>
+

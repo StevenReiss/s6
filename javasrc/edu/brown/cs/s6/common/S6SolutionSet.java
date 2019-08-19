@@ -75,20 +75,22 @@ package edu.brown.cs.s6.common;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.brown.cs.cose.cosecommon.CoseConstants;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 
 
 
-public interface S6SolutionSet extends S6Constants, Iterable<S6Solution> {
+public interface S6SolutionSet extends S6Constants, CoseConstants, Iterable<S6Solution> {
 
-boolean useSource(S6Source src);
+boolean useSource(CoseSource src);
 
 S6SearchType getSearchType();
-S6ScopeType getScopeType();
+CoseScopeType getScopeType();
 S6Request.Search getRequest();
 S6Engine getEngine();
 
-S6Solution addInitialSolution(S6Fragment n,S6Source src);
+S6Solution addInitialSolution(S6Fragment n,CoseSource src);
 
 S6Solution add(S6Solution s);
 void remove(S6Solution s);

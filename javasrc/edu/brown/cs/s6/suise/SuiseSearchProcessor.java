@@ -197,17 +197,21 @@ private void outputSource(IvyXmlWriter xw)
       case "LOCAL" :
          xw.field("LOCAL",true);
          break;
-      default :
-      case "KODERS" :
-      case "OHLOH" :
-      case "GOOGLE" :
-         xw.field("REMOTE",true);
-         xw.field("OHLOH",true);
-         break;
       case "GITHUB" :
       case "GOOGIT" :
-         xw.field("GITHUB",true);
+      case "GITZIP" :
+         xw.field("GITZIP",true);
          break;
+      default :
+      case "SEARCHCODE" :
+         xw.field("SEARCHCODE",true);
+         break;
+      case "HUNTER" :
+         xw.field("HUNTER",true);
+         break;
+       case "CODEEX" :
+          xw.field("CODEEX",true);
+          break;
       case "SOURCERER" :
          xw.field("SOURCERER",true);
          break;

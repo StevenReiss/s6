@@ -149,7 +149,7 @@ public TransformFixReturn(String name)
 
 @Override protected boolean applyMethodTransform(S6SolutionSet solset,S6Solution sol)
 {
-   FragmentJava f = (FragmentJava) sol.getFragment();
+   JavaFragment f = (JavaFragment) sol.getFragment();
    S6Request.Search sr = solset.getRequest();
    S6Request.MethodSignature ms = sr.getSignature().getMethodSignature();
    if (ms == null) return false;
@@ -324,7 +324,8 @@ private class ReturnValueMapper extends TreeMapper {
 
    private void rewriteStringMap(ReturnStatement rst,String fct,ASTRewrite rw) {
       MethodInvocation mi = rst.getAST().newMethodInvocation();
-      Expression old = (Expression) rw.createCopyTarget(rst.getExpression());
+      Expression ex1 = rst.getExpression();
+      Expression old = (Expression) rw.createCopyTarget(ex1);
       mi.setName(JavaAst.getSimpleName(rst.getAST(),fct));
       ParenthesizedExpression pe = rst.getAST().newParenthesizedExpression();
       pe.setExpression(old);

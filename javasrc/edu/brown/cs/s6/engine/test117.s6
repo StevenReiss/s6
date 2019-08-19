@@ -1,0 +1,25 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0'>
+    <NAME>abssort</NAME>
+    <RETURN>void</RETURN>
+    <ARGS>java.util.List</ARGS>
+    <ARGNAMES>l</ARGNAMES>
+    <TEXT>java.util.List sort(java.util.List l)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='USERCODE'>
+    <CODE><![CDATA[List<Integer> l = new ArrayList<Integer>();
+l.add(1); l.add(-3); l.add(5); l.add(2);
+abssort(l);
+assert(l.get(0).equals(1)); assert(l.get(1).equals(2));]]></CODE>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT />
+<KEYWORDS>
+<KEYWORD><![CDATA[list]]></KEYWORD>
+<KEYWORD><![CDATA[sort]]></KEYWORD>
+<KEYWORD><![CDATA[absolute]]></KEYWORD>
+<KEYWORD><![CDATA[value]]></KEYWORD>
+<KEYWORD><![CDATA[integer]]></KEYWORD>
+</KEYWORDS>
+</SEARCH>
+

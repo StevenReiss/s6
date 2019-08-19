@@ -173,18 +173,18 @@ private class ReturnNeededFinder extends ASTVisitor {
       if (t == null) return;
       String rnm = JavaAst.getJavaTypeName(t);
       if (rnm.equals("void")) return;
-
+   
       Block b = md.getBody();
       if (b == null) return;
-
+   
       boolean needreturn = false;
       if (b.statements().size() == 0) needreturn = true;
       else {
-	 ASTNode last = (ASTNode) b.statements().get(b.statements().size()-1);
-	 if (!JavaAst.checkCanReturn(last)) needreturn = true;
+         ASTNode last = (ASTNode) b.statements().get(b.statements().size()-1);
+         if (!JavaAst.checkCanReturn(last)) needreturn = true;
        }
       if (!needreturn) return;
-
+   
       return_methods.add(md);
     }
 

@@ -124,10 +124,11 @@ protected boolean checkApplyMethodForClass(S6SolutionSet ss,S6Solution sol,
 
 private TreeMapper getOverridesMapping(ASTNode nd,S6Solution sol)
 {
-   ASTNode rnd = nd.getRoot();
-   
    OverrideFinder ef = new OverrideFinder();
-   rnd.accept(ef);
+   
+   // ASTNode rnd = nd.getRoot();
+   // rnd.accept(ef);
+   nd.accept(ef);
    Set<ASTNode> fixes = ef.getNames();
    if (fixes == null || fixes.size() == 0) return null;
    

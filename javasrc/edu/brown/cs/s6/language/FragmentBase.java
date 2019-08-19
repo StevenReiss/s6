@@ -65,6 +65,8 @@ package edu.brown.cs.s6.language;
 
 import java.util.Collection;
 
+import edu.brown.cs.cose.cosecommon.CoseResource;
+import edu.brown.cs.cose.cosecommon.CoseConstants.CoseResultType;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
@@ -73,7 +75,6 @@ import edu.brown.cs.s6.common.S6SolutionSet;
 import edu.brown.cs.s6.common.S6TestResults;
 
 
-import edu.brown.cs.s6.common.S6Resource;
 import java.util.HashSet;
 
 abstract public class FragmentBase implements S6Fragment, S6Constants, LanguageConstants {
@@ -92,7 +93,7 @@ protected LanguageBase          language_base;
 private S6TestResults           test_results;
 private S6Request.Search        search_request;
 private boolean                 is_isolated;
-private Collection<S6Resource> resource_set;
+private Collection<CoseResource> resource_set;
 
 
 
@@ -144,18 +145,18 @@ protected void setTestResults(S6TestResults trslt)
    test_results = trslt;
 }
 
-@Override public void addResource(S6Resource rsrc)
+@Override public void addResource(CoseResource rsrc)
 {
-   if (resource_set == null) resource_set = new HashSet<S6Resource>();
+   if (resource_set == null) resource_set = new HashSet<>();
    resource_set.add(rsrc);
 }
 
-@Override public Collection<S6Resource> getResources()
+@Override public Collection<CoseResource> getResources()
 {
-   Collection<S6Resource> rslt = null;
+   Collection<CoseResource> rslt = null;
    if (parent_fragment != null) rslt = parent_fragment.getResources();
    if (resource_set != null) {
-      if (rslt == null) rslt = new HashSet<S6Resource>();
+      if (rslt == null) rslt = new HashSet<>();
       rslt.addAll(resource_set);
     }
    return rslt;
@@ -247,7 +248,7 @@ public abstract void resolveFragment();
 
 public abstract int getCodeComplexity();
 
-public abstract S6FragmentType getFragmentType();
+public abstract CoseResultType getFragmentType();
 
 public abstract String getText();
 

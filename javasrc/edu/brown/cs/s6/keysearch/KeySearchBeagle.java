@@ -73,12 +73,12 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 import java.util.concurrent.Future;
 
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
 import edu.brown.cs.s6.common.S6SolutionSet;
-import edu.brown.cs.s6.common.S6Source;
 
 
 class KeySearchBeagle extends KeySearchBase {
@@ -262,7 +262,7 @@ private static class LoadFile implements Runnable {
 /*										*/
 /********************************************************************************/
 
-private static class BeagleSource extends KeySearchSource implements S6Source {
+private static class BeagleSource extends KeySearchSource implements CoseSource {
 
    private String file_name;
 

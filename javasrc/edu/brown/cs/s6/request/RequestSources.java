@@ -130,7 +130,7 @@ boolean useSource(String src)
 
 
 
-Iterable<String> getSpecificSources()
+Set<String> getSpecificSources()
 {
    return include_set;
 }

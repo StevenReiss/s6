@@ -131,9 +131,10 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Element;
 import edu.brown.cs.ivy.xml.*;
-
+import edu.brown.cs.cose.cosecommon.CoseResource;
+import edu.brown.cs.cose.cosecommon.CoseSource;
 import edu.brown.cs.ivy.jcomp.JcompAst;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
@@ -141,8 +142,6 @@ import edu.brown.cs.ivy.jcomp.JcompTyper;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6Resource;
-import edu.brown.cs.s6.common.S6Source;
 
 
 
@@ -156,14 +155,14 @@ abstract class JavaAst extends JcompAst implements S6Constants, JavaConstants {
 /*										*/
 /********************************************************************************/
 
-static S6Source getS6Source(ASTNode n)
+static CoseSource getS6Source(ASTNode n)
 {
-   return (S6Source) n.getProperty(PROP_S6_JAVA_SOURCE);
+   return (CoseSource) n.getProperty(PROP_S6_JAVA_SOURCE);
 }
 
 
 
-static void setS6Source(ASTNode n,S6Source s)
+static void setS6Source(ASTNode n,CoseSource s)
 {
    n.setProperty(PROP_JAVA_SOURCE,s);
 }
@@ -254,7 +253,7 @@ static boolean checkMethodSignature(MethodDeclaration md,S6Request.MethodSignatu
 
    if (styp.checkExceptions() && ms.useExceptions()) {
       List<String> enms = ms.getExceptionTypeNames();
-      List<?> els = md.thrownExceptions();
+      List<?> els = md.thrownExceptionTypes();
       if (enms.size() != els.size()) return false;
       int i = 0;
       for (Iterator<?> it = els.iterator(); it.hasNext(); ) {
@@ -293,13 +292,13 @@ private static boolean compareTypes(String nm,ASTNode t)
    else if (nm == null || tnm == null) return false;
 
    if (tnm.equals(nm)) return true;
-   
+
    int idx = tnm.indexOf("<");
    if (idx >= 0) {
       String xtnm = tnm.substring(0,idx);
       if (xtnm.equals(nm)) return true;
     }
-   
+
    return false;
 }
 
@@ -365,9 +364,9 @@ static boolean checkTypeSignature(AbstractTypeDeclaration td,S6Request.ClassSign
       TypeDeclaration ttd = (TypeDeclaration) td;
       if (!cs.isInterface() && ttd.isInterface()) return false;
       else if (cs.isInterface()) {
-         if (!ttd.isInterface() && !Modifier.isAbstract(ttd.getModifiers())) {
-            return false;
-          }
+	 if (!ttd.isInterface() && !Modifier.isAbstract(ttd.getModifiers())) {
+	    return false;
+	  }
        }
     }
 
@@ -505,8 +504,8 @@ static boolean checkTypeSignature(AbstractTypeDeclaration td,S6Request.ClassSign
 	     }
 	  }
        }
-      if (!fnd) 
-         return false;
+      if (!fnd)
+	 return false;
     }
 
    for (S6Request.FieldSignature fs : cs.getFields()) {
@@ -528,8 +527,8 @@ static boolean checkTypeSignature(AbstractTypeDeclaration td,S6Request.ClassSign
 	    if (fnd) break;
 	  }
        }
-      if (!fnd) 
-         return false;
+      if (!fnd)
+	 return false;
     }
 
    if (styp.checkDoesTest()) {
@@ -611,7 +610,7 @@ static boolean checkPackageSignature(CompilationUnit cu,S6Request.PackageSignatu
    List<S6Request.ClassSignature> sgns = new LinkedList<S6Request.ClassSignature>();
    sgns.addAll(ps.getClasses());
 
-   if (!checkPackage(types,sgns,typ,ps.getName())) 
+   if (!checkPackage(types,sgns,typ,ps.getName()))
       return false;
 
    if (typ.checkUsage()) {
@@ -694,19 +693,19 @@ private static class UsageVisitor extends ASTVisitor {
    @Override public void postVisit(ASTNode n) {
       JcompSymbol js = getReference(n);
       if (js != null) {
-	 JcompType jt = js.getType();
-	 if (jt != null && jt.isClassType() && !jt.isKnownType() && jt != current_type) {
-	    String cnm = jt.getName();
-	    if (package_name != null) {
-	       if (cnm.startsWith(package_name)) {
-		  int idx = cnm.lastIndexOf(".");
-		  cnm = cnm.substring(idx+1);
-		}
-	     }
-	    int idx1 = cnm.indexOf("$");
-	    if (idx1 >= 0) cnm = cnm.substring(0,idx1);
-	    items_used.add(cnm);
-	  }
+         JcompType jt = js.getType();
+         if (jt != null && jt.isClassType() && !jt.isBinaryType() && jt != current_type) {
+            String cnm = jt.getName();
+            if (package_name != null) {
+               if (cnm.startsWith(package_name)) {
+        	  int idx = cnm.lastIndexOf(".");
+        	  cnm = cnm.substring(idx+1);
+        	}
+             }
+            int idx1 = cnm.indexOf("$");
+            if (idx1 >= 0) cnm = cnm.substring(0,idx1);
+            items_used.add(cnm);
+          }
        }
       if (n == current_class) current_class = null;
     }
@@ -728,7 +727,7 @@ static boolean checkUITypes(CompilationUnit cu,S6Request.UISignature us,S6Fragme
    cu.accept(uuv);
 
    if (frag != null && frag.getResources() != null) {
-      for (S6Resource rsrc : frag.getResources()) {
+      for (CoseResource rsrc : frag.getResources()) {
 	 if (rsrc.getPathName().endsWith(".xml") &&
 	       rsrc.getPathName().contains("layout")) {
 	    byte [] cnts = rsrc.getContents();
@@ -862,14 +861,14 @@ private static class UIUsageVisitor extends ASTVisitor {
    private void addType(JcompType jt) {
       if (jt == null) return;
       if (!jt.isClassType()) return;
-      if (!jt.isKnownType()) return;
+      if (!jt.isBinaryType()) return;
       String nm = jt.getName();
       if (items_used.contains(nm)) return;
       items_used.add(nm);
       addType(jt.getSuperType());
       if (jt.getInterfaces() != null) {
-	 for (JcompType jt1 : jt.getInterfaces()) addType(jt1);
-	 for (JcompType jt1 : jt.getInterfaces()) addType(jt1);
+         for (JcompType jt1 : jt.getInterfaces()) addType(jt1);
+         for (JcompType jt1 : jt.getInterfaces()) addType(jt1);
        }
     }
 

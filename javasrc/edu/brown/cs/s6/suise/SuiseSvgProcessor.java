@@ -1,34 +1,34 @@
 /********************************************************************************/
-/*										*/
-/*		SuiseSvgProcessor.java						*/
-/*										*/
-/*	Convert SVG diagram into a search request				*/
-/*										*/
+/*                                                                              */
+/*              SuiseSvgProcessor.java                                          */
+/*                                                                              */
+/*      Convert SVG diagram into a search request                               */
+/*                                                                              */
 /********************************************************************************/
-/*	Copyright 2013 Brown University -- Steven P. Reiss		      */
+/*      Copyright 2013 Brown University -- Steven P. Reiss                    */
 /*********************************************************************************
- *  Copyright 2013, Brown University, Providence, RI.				 *
- *										 *
- *			  All Rights Reserved					 *
- *										 *
- *  Permission to use, copy, modify, and distribute this software and its	 *
- *  documentation for any purpose other than its incorporation into a		 *
- *  commercial product is hereby granted without fee, provided that the 	 *
- *  above copyright notice appear in all copies and that both that		 *
- *  copyright notice and this permission notice appear in supporting		 *
- *  documentation, and that the name of Brown University not be used in 	 *
- *  advertising or publicity pertaining to distribution of the software 	 *
- *  without specific, written prior permission. 				 *
- *										 *
- *  BROWN UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS		 *
- *  SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND		 *
- *  FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT SHALL BROWN UNIVERSITY	 *
- *  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY 	 *
- *  DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,		 *
- *  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS		 *
- *  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 	 *
- *  OF THIS SOFTWARE.								 *
- *										 *
+ *  Copyright 2013, Brown University, Providence, RI.                            *
+ *                                                                               *
+ *                        All Rights Reserved                                    *
+ *                                                                               *
+ *  Permission to use, copy, modify, and distribute this software and its        *
+ *  documentation for any purpose other than its incorporation into a            *
+ *  commercial product is hereby granted without fee, provided that the          *
+ *  above copyright notice appear in all copies and that both that               *
+ *  copyright notice and this permission notice appear in supporting             *
+ *  documentation, and that the name of Brown University not be used in          *
+ *  advertising or publicity pertaining to distribution of the software          *
+ *  without specific, written prior permission.                                  *
+ *                                                                               *
+ *  BROWN UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS                *
+ *  SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND            *
+ *  FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT SHALL BROWN UNIVERSITY      *
+ *  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY          *
+ *  DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,              *
+ *  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS               *
+ *  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE          *
+ *  OF THIS SOFTWARE.                                                            *
+ *                                                                               *
  ********************************************************************************/
 
 
@@ -57,8 +57,8 @@ import org.apache.batik.bridge.DocumentLoader;
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.bridge.UserAgent;
 import org.apache.batik.bridge.UserAgentAdapter;
-import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
-import org.apache.batik.dom.svg.SVGOMDocument;
+import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
+import org.apache.batik.anim.dom.SVGOMDocument;
 import org.apache.batik.gvt.CanvasGraphicsNode;
 import org.apache.batik.gvt.CompositeShapePainter;
 import org.apache.batik.gvt.FillShapePainter;
@@ -69,7 +69,7 @@ import org.apache.batik.gvt.RasterImageNode;
 import org.apache.batik.gvt.ShapeNode;
 import org.apache.batik.gvt.ShapePainter;
 import org.apache.batik.gvt.StrokeShapePainter;
-import org.apache.batik.gvt.TextNode;
+import org.apache.batik.bridge.TextNode;
 import org.apache.batik.util.XMLResourceDescriptor;
 
 
@@ -79,9 +79,9 @@ class SuiseSvgProcessor implements SuiseConstants
 
 
 /********************************************************************************/
-/*										*/
-/*	Private Storage 							*/
-/*										*/
+/*                                                                              */
+/*      Private Storage                                                         */
+/*                                                                              */
 /********************************************************************************/
 
 private Map<String,SuiseRawComponent> comp_map;
@@ -90,9 +90,9 @@ private double          text_height;
 
 
 /********************************************************************************/
-/*										*/
-/*	Constructors								*/
-/*										*/
+/*                                                                              */
+/*      Constructors                                                            */
+/*                                                                              */
 /********************************************************************************/
 
 SuiseSvgProcessor()
@@ -104,24 +104,24 @@ SuiseSvgProcessor()
 
 
 /********************************************************************************/
-/*										*/
-/*	Methods to set the svg								*/
-/*										*/
+/*                                                                              */
+/*      Methods to set the svg                                                          */
+/*                                                                              */
 /********************************************************************************/
 
 synchronized SuiseRawComponent setSvg(String uri)
 {
    comp_map.clear();
    text_height = 0;
-   
+
    if (!loadSvg(uri)) return null;
    if (comp_map.size() == 0) return null;
-   
+
    SuiseRawComponent root = buildHierarchy();
-  
+
    if (root == null) return null;
    root.setIsGroup(false);
-   
+
    mergeTexts();
    findChoices(root);
    findOptions(root);
@@ -132,9 +132,9 @@ synchronized SuiseRawComponent setSvg(String uri)
    findSliders(root);
    findDrawingArea(root);
    fixInputRegions(root);
-   
+
    findAdjacencies(root,root);
-   
+
    return root;
 }
 
@@ -143,17 +143,18 @@ synchronized SuiseRawComponent setSvg(String uri)
 private boolean loadSvg(String uri)
 {
    SVGOMDocument doc = null;
-   
+
    try {
       String parser = XMLResourceDescriptor.getXMLParserClassName();
       SAXSVGDocumentFactory df = new SAXSVGDocumentFactory(parser);
       doc = (SVGOMDocument) df.createSVGDocument(uri);
+      // doc = df.createSVGDocument(uri);
     }
    catch (IOException ex) {
       return false;
     }
    if (doc == null) return false;
-   
+
    UserAgent agt = new UserAgentAdapter();
    DocumentLoader ldr = new DocumentLoader(agt);
    BridgeContext ctx = new BridgeContext(agt,ldr);
@@ -161,7 +162,7 @@ private boolean loadSvg(String uri)
    GVTBuilder bldr = new GVTBuilder();
    GraphicsNode rootgn = bldr.build(ctx,doc);
    visitTree(rootgn);
-   
+
    return true;
 }
 
@@ -199,7 +200,7 @@ private void visitTree(GraphicsNode root)
          comp_map.put(comp.getId(),comp);
        }
     }
-   
+
 }
 
 
@@ -216,12 +217,12 @@ private SuiseRawComponent visitShape(ShapeNode sn)
    double stroke = getStrokeWidth(sn.getShapePainter());
    SuiseRawComponent comp = new SuiseRawComponent(r2.getWidth(),r2.getHeight(),
          r2.getX(),r2.getY());
-   
+
    if (filled) comp.setIsInput(true);
    else if (stroke >= 2) {
       if (r2.getWidth() < 300 && r2.getHeight() < 36)
          comp.setIsButton(true);
-    }   
+    }
    Shape sh = sn.getShape();
    System.err.println("SHAPE IS " + sh + " " + r2);
    int sides = 0;
@@ -242,17 +243,17 @@ private SuiseRawComponent visitShape(ShapeNode sn)
       else if (v == 2) isuser = true;
       else {
          if (typs > 0 && typs != 3) iscircle = false;
-         typs = Math.max(typs,v); 
+         typs = Math.max(typs,v);
          if (!isOutside(coords,r2)) {
             iscircle = false;
             isuser = true;
           }
-       }      
+       }
       ++sides;
       pi.next();
     }
    if (!isclsd && sides >= 6) isuser = true;
-   
+
    System.err.println("NUM SIDES = " + sides + " " + isuser + " " + iscircle + " " + isclsd + " " + typs);
    if (sides == 2 || r2.getHeight() < 3 || r2.getWidth() < 3) {
       comp.setIsLine(true);
@@ -273,7 +274,7 @@ private SuiseRawComponent visitShape(ShapeNode sn)
       if (!(sh instanceof RoundRectangle2D))
          comp.setIsButton(true);
     }
-   
+
    return comp;
 }
 
@@ -282,7 +283,7 @@ private boolean isOutside(double [] coords,Rectangle2D bnds)
 {
    double d0 = Math.max(bnds.getWidth(),bnds.getHeight());
    double d = Math.min(3,d0/4);
-   
+
    for (int i = 0; i < 4; i += 2) {
       if (coords[i] == 0 && coords[i+1] == 0) break;
       double x0 = Math.abs(coords[i]-bnds.getX());
@@ -292,7 +293,7 @@ private boolean isOutside(double [] coords,Rectangle2D bnds)
       double y1 = Math.abs(coords[i+1]-(bnds.getY() + bnds.getHeight()));
       if (Math.min(y0,y1) < d) return true;
     }
-   
+
    return false;
 }
 
@@ -301,7 +302,7 @@ private boolean isOutside(double [] coords,Rectangle2D bnds)
 private boolean getIsFilled(ShapePainter ptr)
 {
    boolean filled = false;
-   
+
    if (ptr instanceof CompositeShapePainter) {
       CompositeShapePainter csp = (CompositeShapePainter) ptr;
       for (int i = 0; i < csp.getShapePainterCount(); ++i) {
@@ -313,12 +314,12 @@ private boolean getIsFilled(ShapePainter ptr)
       Paint pt = fsp.getPaint();
       if (pt instanceof Color) {
          Color c = (Color) pt;
-         int sat = c.getRed() + c.getGreen() + c.getBlue(); 
+         int sat = c.getRed() + c.getGreen() + c.getBlue();
          if (sat < 750) filled = true;
        }
       else if (pt != null) filled = true;
     }
-   
+
    return filled;
 }
 
@@ -327,7 +328,7 @@ private boolean getIsFilled(ShapePainter ptr)
 private double getStrokeWidth(ShapePainter ptr)
 {
    double width = 0;
-   
+
    if (ptr instanceof CompositeShapePainter) {
       CompositeShapePainter csp = (CompositeShapePainter) ptr;
       for (int i = 0; i < csp.getShapePainterCount(); ++i) {
@@ -342,7 +343,7 @@ private double getStrokeWidth(ShapePainter ptr)
          width = bstk.getLineWidth();
        }
     }
-   
+
    return width;
 }
 
@@ -359,30 +360,30 @@ private SuiseRawComponent visitText(TextNode tn)
 {
    Rectangle2D r2 = tn.getBounds();
    if (r2.getHeight() < 2 || r2.getWidth() < 2) return null;
-   
+
    String txt = tn.getText();
    if (txt == null || txt.length() == 0) return null;
-   
+
    System.err.println("TEXT IS '" + txt + "' " + r2 + " " +
          tn.getPrimitiveBounds() + " " + tn.getSensitiveBounds() + " " +
          tn.getGeometryBounds() + " " + tn.getGlobalTransform() + " " + tn.getTransform());
-   
+
    SuiseRawComponent comp = new SuiseRawComponent(r2.getWidth(),r2.getHeight(),
          r2.getX(),r2.getY());
-   
+
    if (txt.length() == 1 && r2.getHeight() > 20 && r2.getWidth() > 10) {
       comp.setIsSymbol(true);
       return comp;
     }
    int ct = tn.getTextRuns().size();
-   
+
    comp.setText(txt);
    comp.setIsText(true);
    if (ct > 1) comp.setIsMultiline(true);
-   
+
    if (text_height == 0) text_height = r2.getHeight();
    else text_height = Math.min(text_height,r2.getHeight());
-   
+
    return comp;
 }
 
@@ -399,7 +400,7 @@ private SuiseRawComponent buildHierarchy()
 {
    List<SuiseRawComponent> elts = new ArrayList<SuiseRawComponent>(comp_map.values());
    Set<SuiseRawComponent> roots = new HashSet<SuiseRawComponent>(elts);
-   
+
    // build a complete hierarchy
    for (int i = 0; i < elts.size(); ++i) {
       SuiseRawComponent ci = elts.get(i);
@@ -412,7 +413,7 @@ private SuiseRawComponent buildHierarchy()
           }
        }
     }
-   
+
     // remove children of children
    for (int i = 0; i < elts.size(); ++i) {
       List<SuiseRawComponent> children = elts.get(i).getChildren();
@@ -425,7 +426,7 @@ private SuiseRawComponent buildHierarchy()
          if (del) it.remove();
        }
     }
-   
+
    // put everything inside a container if needed
    elts = new ArrayList<SuiseRawComponent>(roots);
    if (elts.size() > 1) {
@@ -453,7 +454,7 @@ private SuiseRawComponent buildHierarchy()
       elts.clear();
       elts.add(u0);
     }
-   
+
    return elts.get(0);
 }
 
@@ -485,7 +486,7 @@ private void mergeTexts()
       double d3 = c.getX() + c.getWidth() - (ccmp.getX() + ccmp.getWidth());
       double d4 = ccmp.getY() - c.getY();
       double d5 = c.getY() + c.getHeight() - (ccmp.getY() + ccmp.getHeight());
-      
+
       if (d0 < 25 && d1 < 20 && !ccmp.isMultiline()) {
          c.setIsButton(true);
        }
@@ -496,7 +497,7 @@ private void mergeTexts()
          c.setIsInput(true);
          c.setIsButton(false);
          if (Math.abs(d4-d5) > 15) c.setIsMultiline(true);
-         else if (c.getHeight() > 3*Math.max(12,ccmp.getHeight())) 
+         else if (c.getHeight() > 3*Math.max(12,ccmp.getHeight()))
             c.setIsMultiline(true);
          else if (c.getText().matches("[*]+")) {
             c.setIsPassword(true);
@@ -528,7 +529,7 @@ private void findChoices(SuiseRawComponent c)
        }
       else if (cc.isSymbol() && d1 - d0 < 20) {
          ++scnt;
-       } 
+       }
       else ++ocnt;
     }
    if (tcnt == 1 && scnt > 0 && ocnt == 0) {
@@ -543,7 +544,7 @@ private void findChoices(SuiseRawComponent c)
 
 
 
-private void findOptions(SuiseRawComponent c) 
+private void findOptions(SuiseRawComponent c)
 {
    List<SuiseRawComponent> chld = c.getChildren();
    Map<SuiseRawComponent,SuiseRawComponent> fnd = new HashMap<SuiseRawComponent,SuiseRawComponent>();
@@ -554,7 +555,7 @@ private void findOptions(SuiseRawComponent c)
          if (tc != null) fnd.put(cc,tc);
        }
     }
-   
+
    for (Map.Entry<SuiseRawComponent,SuiseRawComponent> ent : fnd.entrySet()) {
       SuiseRawComponent icn = ent.getKey();
       SuiseRawComponent txt = ent.getValue();
@@ -630,7 +631,7 @@ private void findTablesAndLists(SuiseRawComponent c)
     }
    if (bad > 0) return;
    if (hlin == 0 && vlin == 0 && tcnt == 0) return;
-   
+
    if (hlin > 0 && vlin > 0) {
       c.setIsTable(true);
       c.setIsButton(false);
@@ -650,7 +651,7 @@ private void findTablesAndLists(SuiseRawComponent c)
             c.setIsInput(true);
             c.setIsMultiline(true);
           }
-       } 
+       }
       else if (nfull == 0) {
          c.setIsList(true);
          c.setIsMultiline(true);
@@ -663,7 +664,7 @@ private void findTablesAndLists(SuiseRawComponent c)
          c.setIsButton(false);
        }
     }
-   
+
    for (SuiseRawComponent cc : del) {
       c.getChildren().remove(cc);
       comp_map.remove(cc.getId());
@@ -680,7 +681,7 @@ private void fixInputRegions(SuiseRawComponent c)
       if (cc.isText()) ;
       else if (!ignoreItem(cc)) ++octr;
     }
-   
+
    if (c.isInput()) {
       if (octr > 0) {
          c.setIsInput(false);
@@ -714,7 +715,7 @@ private int findScrollbars(SuiseRawComponent c)
       dx = 1;
       dy = 0;
     }
-   
+
    for (SuiseRawComponent cc : c.getChildren()) {
       xctr += findScrollbars(cc);
       if (cc.isSymbol()) {
@@ -725,12 +726,12 @@ private int findScrollbars(SuiseRawComponent c)
        }
       else if (cc.isText()) ++xctr;
     }
-   
+
    if (dx+dy != 0 && tctr > 0 && bctr > 0 && xctr == 0) {
       c.setIsScrollBar(true);
       clearChildren(c);
     }
-   
+
    return xctr;
 }
 
@@ -740,7 +741,7 @@ private void findSpinners(SuiseRawComponent c,SuiseRawComponent par)
 {
    int sctr = 0;
    boolean other = false;
-   
+
    for (SuiseRawComponent cc : c.getChildren()) {
       if (cc.isSymbol()) {
          ++sctr;
@@ -750,13 +751,13 @@ private void findSpinners(SuiseRawComponent c,SuiseRawComponent par)
          findSpinners(cc,c);
        }
     }
-   
+
    double x0 = c.getX();
    double x1 = c.getX() + c.getWidth();
    double y0 = c.getY();
    double y1 = y0 + c.getHeight()/2;
    double y2 = y0 + c.getHeight();
-   
+
    if (!other && sctr == 2 && c.getWidth() < 10 && c.getHeight() < 20 && par != null) {
       clearChildren(c);
       c.setIsScrollBar(false);
@@ -805,7 +806,7 @@ private void findMenuBars(SuiseRawComponent c)
       else if (cc.isButton() || cc.isSymbol()) ++nsym;
       else if (cc.isInput()) ++nbad;
     }
-   
+
    if (c.getWidth() > 100 && c.getHeight() < 30) {
       if (ntext > 2 && nsym == 0 && nbad == 0) {
          c.setIsMenuBar(true);
@@ -837,15 +838,15 @@ private void findSliders(SuiseRawComponent p)
        }
       else if (c.isSymbol()) ++scnt;
     }
-   
+
    if (base.isEmpty() || scnt == 0) return;
-   
+
    for (SuiseRawComponent b : base) {
       double bx0 = b.getX();
       double by0 = b.getY();
       double bx1 = bx0 + b.getWidth();
       double by1 = by0 + b.getHeight();
-      
+
       List<SuiseRawComponent> elts = new ArrayList<SuiseRawComponent>();
       boolean havesym = false;
       for (SuiseRawComponent c : chld) {
@@ -860,10 +861,10 @@ private void findSliders(SuiseRawComponent p)
              }
           }
          else if (c.isLine() && c.getWidth() < 5 && c.getHeight() < 10) {
-            if (x0 >= bx0-2 && x0 <= bx1+2 && 
+            if (x0 >= bx0-2 && x0 <= bx1+2 &&
                   ((y1 >= by0 && y0 < by0) || (y0 <= by1 && y1 >= by1))) {
                elts.add(c);
-             }     
+             }
           }
          else if (c.isSymbol() && x0 >= bx0 && x1 <= bx1 && y0 <= by1 && y1 >= by0) {
             havesym = true;
@@ -879,7 +880,7 @@ private void findSliders(SuiseRawComponent p)
             comp_map.remove(c.getId());
             chld.remove(c);
           }
-         comp_map.remove(b);
+         comp_map.remove(b.getId());
          chld.remove(b);
          SuiseRawComponent nc = new SuiseRawComponent(bx0,by0,bx1-bx0,by1-by0);
          comp_map.put(nc.getId(),nc);
@@ -912,8 +913,8 @@ private int findDrawingArea(SuiseRawComponent c)
          c.setIsButton(true);
        }
     }
-   
-   
+
+
    return icnt;
 }
 
@@ -935,16 +936,16 @@ private void clearChildren(SuiseRawComponent c)
 private void findAdjacencies(SuiseRawComponent par,SuiseRawComponent gpar)
 {
    if (!gpar.hasChildren()) return;
-   
+
    double x0 = par.getX();
    double x1 = par.getX() + par.getWidth();
    double y0 = par.getY();
    double y1 = par.getY() + par.getHeight();
-   
+
    for (SuiseRawComponent c : gpar.getChildren()) {
       if (c.isGroup()) findAdjacencies(par,c);
       else findAdjacencies(c,c);
-      
+
       if (ignoreItem(c)) continue;
       double cx0 = c.getX();
       double cx1 = c.getX() + c.getWidth();
@@ -955,9 +956,9 @@ private void findAdjacencies(SuiseRawComponent par,SuiseRawComponent gpar)
       if (cy0 - y0 < 10) c.setTopAnchor(par);
       if (y1 - cy1 < 10) c.setBottomAnchor(par);
     }
-   
+
    List<SuiseRawComponent> lvs = getAllLeaves(par,null);
-   
+
    for (SuiseRawComponent c : gpar.getChildren()) {
       if (ignoreItem(c)) continue;
       findTopAnchor(c,lvs);
@@ -981,14 +982,14 @@ private boolean ignoreItem(SuiseRawComponent c)
 private List<SuiseRawComponent> getAllLeaves(SuiseRawComponent n,List<SuiseRawComponent> r)
 {
    if (r == null) r = new ArrayList<SuiseRawComponent>();
-   
+
    if (n.hasChildren()) {
       for (SuiseRawComponent c : n.getChildren()) {
          getAllLeaves(c,r);
        }
     }
    else if (!ignoreItem(n)) r.add(n);
-   
+
    return r;
 }
 
@@ -997,11 +998,11 @@ private List<SuiseRawComponent> getAllLeaves(SuiseRawComponent n,List<SuiseRawCo
 private void findTopAnchor(SuiseRawComponent c,List<SuiseRawComponent> cands)
 {
    if (c.getTopAnchor() != null) return;
-   
+
    double x0 = c.getX();
    double x1 = x0 + c.getWidth();
    double y0 = c.getY();
-   
+
    for (SuiseRawComponent n : cands) {
       double nx0 = n.getX();
       double nx1 = nx0 + n.getWidth();
@@ -1021,12 +1022,12 @@ private void findTopAnchor(SuiseRawComponent c,List<SuiseRawComponent> cands)
 private void findBottomAnchor(SuiseRawComponent c,List<SuiseRawComponent> cands)
 {
    if (c.getBottomAnchor() != null) return;
-   
+
    double x0 = c.getX();
    double x1 = x0 + c.getWidth();
    double y0 = c.getY();
    double y1 = y0 + c.getHeight();
-   
+
    for (SuiseRawComponent n : cands) {
       double nx0 = n.getX();
       double nx1 = nx0 + n.getWidth();
@@ -1045,11 +1046,11 @@ private void findBottomAnchor(SuiseRawComponent c,List<SuiseRawComponent> cands)
 private void findLeftAnchor(SuiseRawComponent c,List<SuiseRawComponent> cands)
 {
    if (c.getLeftAnchor() != null) return;
-   
+
    double x0 = c.getX();
    double y0 = c.getY();
    double y1 = y0 + c.getHeight();
-   
+
    for (SuiseRawComponent n : cands) {
       double nx0 = n.getX();
       double nx1 = nx0 + n.getWidth();
@@ -1069,12 +1070,12 @@ private void findLeftAnchor(SuiseRawComponent c,List<SuiseRawComponent> cands)
 private void findRightAnchor(SuiseRawComponent c,List<SuiseRawComponent> cands)
 {
    if (c.getRightAnchor() != null) return;
-   
+
    double x0 = c.getX();
    double x1 = x0 + c.getWidth();
    double y0 = c.getY();
    double y1 = y0 + c.getHeight();
-   
+
    for (SuiseRawComponent n : cands) {
       double nx0 = n.getX();
       double ny0 = n.getY();
@@ -1090,7 +1091,7 @@ private void findRightAnchor(SuiseRawComponent c,List<SuiseRawComponent> cands)
 
 
 
-}	// end of class SuiseSvgProcessor
+}       // end of class SuiseSvgProcessor
 
 
 
