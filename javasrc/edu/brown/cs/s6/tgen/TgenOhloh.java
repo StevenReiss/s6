@@ -54,7 +54,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import edu.brown.cs.ivy.exec.IvyExec;
-import edu.brown.cs.s6.keysearch.KeySearchCache;
+import edu.brown.cs.cose.keysearch.KeySearchCache;
 
 
 class TgenOhloh implements TgenConstants

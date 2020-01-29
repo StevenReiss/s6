@@ -14,6 +14,7 @@ SFILES=\
 	LanguageBase.java \
 	LanguageConstants.java \
 	LanguageController.java \
+	LanguageCoseFragment.java \
 	FragmentBase.java \
 	TextDelta.java \
 	TextDelta0.java \

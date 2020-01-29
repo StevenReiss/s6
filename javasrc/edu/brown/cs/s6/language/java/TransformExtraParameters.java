@@ -485,14 +485,18 @@ private class ValueFinder extends ASTVisitor {
 
    public void endVisit(SwitchStatement v) {
       if (JavaAst.getReference(v.getExpression()) == match_value) {
-	 for (Iterator<?> it = v.statements().iterator(); it.hasNext(); ) {
-	    Statement s = (Statement) it.next();
-	    if (s instanceof SwitchCase) {
-	       SwitchCase sc = (SwitchCase) s;
-	       Expression ex = sc.getExpression();
-	       if (ex != null) value_exprs.add(ex);
-	     }
-	  }
+         for (Iterator<?> it = v.statements().iterator(); it.hasNext(); ) {
+            Statement s = (Statement) it.next();
+            if (s instanceof SwitchCase) {
+               SwitchCase sc = (SwitchCase) s;
+               for (Object o : sc.expressions()) {
+                  Expression ex = (Expression) o;
+                  if (ex != null) value_exprs.add(ex);
+                }
+               // Expression ex = sc.getExpression();
+               // if (ex != null) value_exprs.add(ex);
+             }
+          }
        }
     }
 

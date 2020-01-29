@@ -1,0 +1,51 @@
+<SEARCH FORMAT='NONE' REMOTE='TRUE' SEARCHCODE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD INT='true' MODS='0'>
+    <NAME>ed</NAME>
+    <RETURN>int</RETURN>
+    <ARGS>java.lang.String,java.lang.String</ARGS>
+    <ARGNAMES>a1,a2</ARGNAMES>
+    <TEXT>int ed(java.lang.String a1,java.lang.String a2)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='ed' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[0]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_2' TYPE='CALLS'>
+    <CALL METHOD='ed' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[adc]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[1]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+  <TESTCASE NAME='SVIWEB_3' TYPE='CALLS'>
+    <CALL METHOD='ed' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[abc]]></VALUE>
+      </INPUT>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[ade]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[2]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS><KEYWORD><![CDATA[string]]></KEYWORD><KEYWORD><![CDATA[difference]]></KEYWORD><KEYWORD><![CDATA[edit]]></KEYWORD><KEYWORD><![CDATA[distance]]></KEYWORD></KEYWORDS>
+</SEARCH>
+

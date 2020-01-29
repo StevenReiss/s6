@@ -330,11 +330,11 @@ protected boolean applyPackageTransform(S6SolutionSet solset,S6Solution sol)
 	 TypeDeclaration td = (TypeDeclaration) otd;
 	 boolean fg = JavaAst.checkTypeSignature(td,csg,S6SignatureType.NAME,null);
 	 if (fg) {
-            if (!checkApplyClassForPackage(solset,cu,csg,td)) continue;
-            chng |= applyClassTransform(solset,sol,td,csg);
-            isok = true;
-            break;
-          }
+	    if (!checkApplyClassForPackage(solset,cu,csg,td)) continue;
+	    chng |= applyClassTransform(solset,sol,td,csg);
+	    isok = true;
+	    break;
+	  }
        }
       if (!isok) break;
     }
@@ -445,19 +445,19 @@ protected boolean applyClassTransform(S6SolutionSet sols,S6Solution sol,
       for (MethodDeclaration md : td.getMethods()) {
 	 if (Modifier.isAbstract(md.getModifiers())) continue;
 	 if (!checkApplyMethodForClass(sols,sol,td,msg,md)) continue;
-         boolean fg =  JavaAst.checkMethodSignature(md,msg,S6SignatureType.FULL);
-         if (fg) {
-            Collection<TreeMapper> tmaps = findMethodMappings(sols,md,msg,sol);
-            if (tmaps != null) {
-               for (TreeMapper tm : tmaps) {
-                  if (!usesTransform(sol,tm.getMapName())) {
-                     chng |= addNewSolution(sols,sol,tm);
-                   }
-                }
-             }
-            isok = true;
-            break;
-          }
+	 boolean fg =  JavaAst.checkMethodSignature(md,msg,S6SignatureType.FULL);
+	 if (fg) {
+	    Collection<TreeMapper> tmaps = findMethodMappings(sols,md,msg,sol);
+	    if (tmaps != null) {
+	       for (TreeMapper tm : tmaps) {
+		  if (!usesTransform(sol,tm.getMapName())) {
+		     chng |= addNewSolution(sols,sol,tm);
+		   }
+		}
+	     }
+	    isok = true;
+	    break;
+	  }
        }
       if (!isok) break;
     }
@@ -467,20 +467,20 @@ protected boolean applyClassTransform(S6SolutionSet sols,S6Solution sol,
       for (FieldDeclaration fd : td.getFields()) {
 	 for (Object o : fd.fragments()) {
 	    VariableDeclarationFragment vdf = (VariableDeclarationFragment) o;
-            boolean fg = JavaAst.checkFieldSignature(vdf,fsg,S6SignatureType.FULL);
+	    boolean fg = JavaAst.checkFieldSignature(vdf,fsg,S6SignatureType.FULL);
 	    if (!checkApplyFieldForClass(sols,td,csg,fsg,vdf)) continue;
-            if (fg) {
-               Collection<TreeMapper> tmaps = findFieldMappings(sols,vdf,fsg);
-               isok = true;
-               if (tmaps != null) {
-                  for (TreeMapper tm : tmaps) {
-                     if (!usesTransform(sol,tm.getMapName())) {
-                        chng |= addNewSolution(sols,sol,tm);
-                      }
-                   }
-                }
-               break;
-             }
+	    if (fg) {
+	       Collection<TreeMapper> tmaps = findFieldMappings(sols,vdf,fsg);
+	       isok = true;
+	       if (tmaps != null) {
+		  for (TreeMapper tm : tmaps) {
+		     if (!usesTransform(sol,tm.getMapName())) {
+			chng |= addNewSolution(sols,sol,tm);
+		      }
+		   }
+		}
+	       break;
+	     }
 	  }
        }
       if (!isok) break;
@@ -701,8 +701,8 @@ private static class TreeCopy {
    private ASTNode new_base;
 
    TreeCopy(ASTNode base) {
-      new_ast = AST.newAST(AST.JLS8);
-      old_base = base; 
+      new_ast = AST.newAST(AST.JLS12,true);
+      old_base = base;
       new_base = null;
     }
 
@@ -828,18 +828,18 @@ protected abstract class TreeMapper {
 
    JavaMemo getMapMemo(JavaFragment fj,String nm) {
       if (saved_memo == null) {
-         ASTNode base = fj.getAstNode();
-         try {
-            TreeRewrite tr = new TreeRewrite(base,this);
-            base.getRoot().accept(tr);
-            saved_memo = tr.createMemo(nm);
-          }
-         catch (IllegalArgumentException e) {
-            // try again
-            TreeRewrite tr = new TreeRewrite(base,this);
-            base.getRoot().accept(tr);
-            saved_memo = tr.createMemo(nm);
-          }
+	 ASTNode base = fj.getAstNode();
+	 try {
+	    TreeRewrite tr = new TreeRewrite(base,this);
+	    base.getRoot().accept(tr);
+	    saved_memo = tr.createMemo(nm);
+	  }
+	 catch (IllegalArgumentException e) {
+	    // try again
+	    TreeRewrite tr = new TreeRewrite(base,this);
+	    base.getRoot().accept(tr);
+	    saved_memo = tr.createMemo(nm);
+	  }
        }
       return saved_memo;
     }

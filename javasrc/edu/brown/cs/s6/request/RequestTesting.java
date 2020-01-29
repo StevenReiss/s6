@@ -41,6 +41,7 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSignature;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Request;
@@ -132,14 +133,25 @@ class TestingClass extends RequestSignature implements S6Request.ClassSignature 
     }
    
    @Override public String getName()            { return testclass_name; }
+   
    @Override public List<S6Request.MethodSignature> getMethods() {
-      List<S6Request.MethodSignature> rslt = new ArrayList<S6Request.MethodSignature>();
+      List<S6Request.MethodSignature> rslt = new ArrayList<>();
       // rslt.add(test_method);
       return rslt;
     }
+   @Override public List<CoseSignature.CoseMethodSignature> getCoseMethods() {
+      List<CoseSignature.CoseMethodSignature> rslt = new ArrayList<>();
+      // rslt.add(test_method);
+      return rslt;
+    }
+   
    @Override public List<S6Request.FieldSignature> getFields() {
       return Collections.emptyList(); 
     }
+   @Override public List<CoseSignature.CoseFieldSignature> getCoseFields() {
+      return Collections.emptyList(); 
+    }
+   
    @Override public boolean isInterface()       { return false; }
    @Override public boolean isMain()            { return false; }
    @Override public String getSuperClass()      { return null; }

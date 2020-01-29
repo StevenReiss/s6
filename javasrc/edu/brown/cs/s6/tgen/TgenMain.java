@@ -52,10 +52,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
 import org.eclipse.jdt.core.dom.Annotation;
@@ -391,14 +388,7 @@ static CompilationUnit parseSourceFile(String text)
 {
    if (text == null) return null;
 
-   ASTParser parser = ASTParser.newParser(AST.JLS8);
-   parser.setKind(ASTParser.K_COMPILATION_UNIT);
-   Map<String,String> options = JavaCore.getOptions();
-   JavaCore.setComplianceOptions(JavaCore.VERSION_1_8,options);
-   parser.setCompilerOptions(options);
-   parser.setSource(text.toCharArray());
-
-   CompilationUnit cu = (CompilationUnit) parser.createAST(null);
+   CompilationUnit cu = JcompAst.parseSourceFile(text);
 
    return cu;
 }

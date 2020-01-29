@@ -76,6 +76,7 @@ import java.util.zip.ZipFile;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSignature;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Exception;
 import edu.brown.cs.s6.common.S6Request;
@@ -155,6 +156,12 @@ RequestUIFramework(Element xml) throws S6Exception
 @Override public String getName()				{ return package_name; }
 
 @Override public List<S6Request.ClassSignature> getClasses()	{ return base_classes; }
+
+@Override public List<CoseSignature.CoseClassSignature> getCoseClasses()
+{ 
+   return new ArrayList<>(base_classes);
+}
+
 
 
 

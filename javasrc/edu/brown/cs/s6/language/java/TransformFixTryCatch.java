@@ -156,6 +156,8 @@ protected boolean checkApplyMethodForClass(S6SolutionSet ss,S6Solution sol,
 
 private TreeMapper getTryCatchMapping(ASTNode nd,S6Solution sol)
 {
+   if (JavaAst.getTyper(nd) == null) return null;
+
    FindTryCatchFixes tcf = new FindTryCatchFixes(nd);
 
    nd.accept(tcf);
@@ -209,23 +211,23 @@ private static class FindTryCatchFixes extends ASTVisitor {
 
    @Override public boolean visit(MethodDeclaration md) {
       if (md.thrownExceptionTypes().size() > 0 && md.getBody() != null) {
-         if (!Modifier.isPublic(md.getModifiers())) {
-            Set<JcompType> excs = JavaAst.findExceptions(md.getBody());
-            for (Object o : md.thrownExceptionTypes()) {
-               Type n = (Type) o;
-               JcompType jt = JavaAst.getJavaType(n);
-               boolean fnd = false;
-               if (jt != null) {
-                  for (JcompType et : excs) {
-                     if (et.isCompatibleWith(jt)) fnd = true;
-                   }
-                }
-               if (!fnd) {
-                  if (!Modifier.isPrivate(md.getModifiers())) do_remove = false;
-                  remove_throws.add(n);
-                }
-             }
-          }
+	 if (!Modifier.isPublic(md.getModifiers())) {
+	    Set<JcompType> excs = JavaAst.findExceptions(md.getBody());
+	    for (Object o : md.thrownExceptionTypes()) {
+	       Type n = (Type) o;
+	       JcompType jt = JavaAst.getJavaType(n);
+	       boolean fnd = false;
+	       if (jt != null) {
+		  for (JcompType et : excs) {
+		     if (et.isCompatibleWith(jt)) fnd = true;
+		   }
+		}
+	       if (!fnd) {
+		  if (!Modifier.isPrivate(md.getModifiers())) do_remove = false;
+		  remove_throws.add(n);
+		}
+	     }
+	  }
        }
       return true;
     }
@@ -235,30 +237,30 @@ private static class FindTryCatchFixes extends ASTVisitor {
       Set<ASTNode> rems = new HashSet<ASTNode>();
       int ctr = 0;
       for (Object o : n.catchClauses()) {
-         CatchClause cc = (CatchClause) o;
-         SingleVariableDeclaration svd = cc.getException();
-         Type t = svd.getType();
-         JcompType jt = JavaAst.getJavaType(t);
-         if (jt == null) continue;
-         ++ctr;
-         if (!jt.isCompatibleWith(exception_type)) continue;
-         if (jt.isCompatibleWith(runtime_type)) continue;
-         if (jt.equals(exception_type)) continue;
-         if (jt.isCompiledType()) continue;
-   
-         boolean fnd = false;
-         for (JcompType jt1 : excs) {
-            if (jt1.isCompatibleWith(jt)) fnd = true;
-          }
-         if (!fnd) rems.add(cc);
+	 CatchClause cc = (CatchClause) o;
+	 SingleVariableDeclaration svd = cc.getException();
+	 Type t = svd.getType();
+	 JcompType jt = JavaAst.getJavaType(t);
+	 if (jt == null) continue;
+	 ++ctr;
+	 if (!jt.isCompatibleWith(exception_type)) continue;
+	 if (jt.isCompatibleWith(runtime_type)) continue;
+	 if (jt.equals(exception_type)) continue;
+	 if (jt.isCompiledType()) continue;
+
+	 boolean fnd = false;
+	 for (JcompType jt1 : excs) {
+	    if (jt1.isCompatibleWith(jt)) fnd = true;
+	  }
+	 if (!fnd) rems.add(cc);
        }
       if (rems.size() > 0) {
-         if (rems.size() == ctr && n.getFinally() == null) {
-            remove_trys.add(n);
-          }
-         else remove_cases.addAll(rems);
+	 if (rems.size() == ctr && n.getFinally() == null) {
+	    remove_trys.add(n);
+	  }
+	 else remove_cases.addAll(rems);
        }
-   
+
       return true;
     }
 }	// end of inner class FindTryCatchFixes
@@ -289,47 +291,47 @@ private class TryCatchMapper extends TreeMapper {
 
    @Override void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (orig instanceof TryStatement) {
-         TryStatement ts = (TryStatement) orig;
-         if (remove_trys.contains(orig)) {
-            ASTNode n1 = rw.createCopyTarget(ts.getBody());
-            rw.replace(ts,n1,null);
-            Block rslt = ts.getBody();
-            List<?> rstmts = rslt.statements();
-            if (rstmts.size() > 0) {
-               Statement laststmt = (Statement) rstmts.get(rstmts.size()-1);
-               if (laststmt instanceof ReturnStatement) {
-        	  if (ts.getParent() instanceof Block) {
-        	     Block blk = (Block) ts.getParent();
-        	     List<?> stmts = blk.statements();
-        	     int idx = stmts.indexOf(orig);
-        	     if (idx != stmts.size()-1) {
-        		ListRewrite lrw = rw.getListRewrite(blk,Block.STATEMENTS_PROPERTY);
-        		for (int i = stmts.size()-1; i > idx; --i) {
-        		   ASTNode rmst = (ASTNode) stmts.get(i);
-        		   lrw.remove(rmst,null);
-        		 }
-        	      }
-        	   }
-        	}
-             }
-          }
-         else {
-            boolean fix = false;
-            for (Object o : ts.catchClauses()) {
-               if (remove_catches.contains(o)) fix = true;
-             }
-            if (!fix) return;
-            ListRewrite lrw = rw.getListRewrite(ts,TryStatement.CATCH_CLAUSES_PROPERTY);
-            for (Object o : ts.catchClauses()) {
-               if (remove_catches.contains(o)) lrw.remove((ASTNode) o,null);
-             }
-          }
+	 TryStatement ts = (TryStatement) orig;
+	 if (remove_trys.contains(orig)) {
+	    ASTNode n1 = rw.createCopyTarget(ts.getBody());
+	    rw.replace(ts,n1,null);
+	    Block rslt = ts.getBody();
+	    List<?> rstmts = rslt.statements();
+	    if (rstmts.size() > 0) {
+	       Statement laststmt = (Statement) rstmts.get(rstmts.size()-1);
+	       if (laststmt instanceof ReturnStatement) {
+		  if (ts.getParent() instanceof Block) {
+		     Block blk = (Block) ts.getParent();
+		     List<?> stmts = blk.statements();
+		     int idx = stmts.indexOf(orig);
+		     if (idx != stmts.size()-1) {
+			ListRewrite lrw = rw.getListRewrite(blk,Block.STATEMENTS_PROPERTY);
+			for (int i = stmts.size()-1; i > idx; --i) {
+			   ASTNode rmst = (ASTNode) stmts.get(i);
+			   lrw.remove(rmst,null);
+			 }
+		      }
+		   }
+		}
+	     }
+	  }
+	 else {
+	    boolean fix = false;
+	    for (Object o : ts.catchClauses()) {
+	       if (remove_catches.contains(o)) fix = true;
+	     }
+	    if (!fix) return;
+	    ListRewrite lrw = rw.getListRewrite(ts,TryStatement.CATCH_CLAUSES_PROPERTY);
+	    for (Object o : ts.catchClauses()) {
+	       if (remove_catches.contains(o)) lrw.remove((ASTNode) o,null);
+	     }
+	  }
        }
       else if (orig instanceof MethodDeclaration) {
-         MethodDeclaration md = (MethodDeclaration) orig;
-         for (Object o : md.thrownExceptionTypes()) {
-            if (remove_throws.contains(o)) rw.remove((ASTNode) o,null);
-          }
+	 MethodDeclaration md = (MethodDeclaration) orig;
+	 for (Object o : md.thrownExceptionTypes()) {
+	    if (remove_throws.contains(o)) rw.remove((ASTNode) o,null);
+	  }
        }
     }
 

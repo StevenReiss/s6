@@ -189,6 +189,7 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
 
 
 
+
 /********************************************************************************/
 /*                                                                              */
 /*      Search method                                                           */

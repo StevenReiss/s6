@@ -84,6 +84,8 @@
 package edu.brown.cs.s6.common;
 
 import edu.brown.cs.cose.cosecommon.CoseConstants;
+import edu.brown.cs.cose.cosecommon.CoseSignature;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -92,7 +94,7 @@ import org.w3c.dom.Element;
 
 import java.util.Set;
 
-public interface S6Request extends S6Constants, CoseConstants {
+public interface S6Request extends S6Constants, CoseConstants  {
 
 
 public S6Engine getEngine();
@@ -159,12 +161,12 @@ interface Signature {
 }
 
 
-interface PackageSignature extends Signature {
+interface PackageSignature extends Signature, CoseSignature.CosePackageSignature {
    List<ClassSignature> getClasses();
 }
 
 
-interface ClassSignature extends Signature {
+interface ClassSignature extends Signature, CoseSignature.CoseClassSignature {
    List<MethodSignature> getMethods();
    List<FieldSignature> getFields();
    boolean isInterface();
@@ -205,7 +207,7 @@ interface TestingSignature extends Signature {
    
 }
 
-interface MethodSignature extends Signature {
+interface MethodSignature extends Signature, CoseSignature.CoseMethodSignature {
    String getReturnTypeName();
    List<String> getParameterTypeNames();
    List<String> getExceptionTypeNames();
@@ -218,7 +220,7 @@ interface MethodSignature extends Signature {
 }
 
 
-interface FieldSignature extends Signature {
+interface FieldSignature extends Signature, CoseSignature.CoseFieldSignature {
    ClassSignature getDefiningClass();
    String getTypeName();
    boolean isStatic();

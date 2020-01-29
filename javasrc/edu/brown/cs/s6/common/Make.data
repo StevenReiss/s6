@@ -29,6 +29,6 @@ SFILES=\
 	S6SolutionSet.java \
 	S6TestCase.java \
 	S6TestResults.java \
-	S6Transform.java\
+	S6Transform.java \
 
 

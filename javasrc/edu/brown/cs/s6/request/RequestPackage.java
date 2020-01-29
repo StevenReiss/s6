@@ -56,6 +56,7 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSignature;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Exception;
@@ -108,6 +109,12 @@ public List<S6Request.ClassSignature> getClasses()
 {
    return known_classes;
 }
+
+public List<CoseSignature.CoseClassSignature> getCoseClasses()
+{
+   return new ArrayList<>(known_classes);
+}
+
 
 
 public S6Request.MethodSignature getMethod(String name)

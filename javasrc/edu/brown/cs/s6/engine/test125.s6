@@ -1,0 +1,24 @@
+<SEARCH WHAT='METHOD' FORMAT='NONE' LOCAL='TRUE' REMOTE='TRUE' SEARCHCODE='TRUE'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>stem</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String stem(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='stem' OP='EQL'>
+      <INPUT TYPE='STRING'>
+	<VALUE><![CDATA[stories]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[story]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS>
+<SOURCES>
+<SOURCE>SRCCOD:https://searchcode.com/codesearch/raw/132544854/?132544854&amp;latin&amp;Noun.java&amp;/src/latin</SOURCE>
+</SOURCES>
+<SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS><KEYWORD><![CDATA[word]]></KEYWORD><KEYWORD><![CDATA[stem]]></KEYWORD><KEYWORD><![CDATA[plural]]></KEYWORD></KEYWORDS></SEARCH>

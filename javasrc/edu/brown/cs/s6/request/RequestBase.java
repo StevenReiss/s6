@@ -75,6 +75,7 @@ import java.util.StringTokenizer;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSignature;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Engine;
@@ -144,6 +145,7 @@ protected RequestBase(S6Engine eng,Element xml) throws S6Exception
 public S6Engine getEngine()			{ return using_engine; }
 
 public S6Request.Signature getSignature()	{ return request_signature; }
+public CoseSignature getCoseSignature()         { return request_signature; }
 
 public S6Request.Context getUserContext()	{ return user_context; }
 

@@ -212,7 +212,7 @@ void checkMethodSignature(S6Request.Check creq,IvyXmlWriter xw) throws S6Excepti
 
    StreamTokenizer stok = getTokenizer(txt);
 
-   AST ast = AST.newAST(AST.JLS8);
+   AST ast = AST.newAST(AST.JLS12,true);
    MethodDeclaration md = ast.newMethodDeclaration();
 
    parseModifiers(stok,md);
@@ -693,7 +693,7 @@ void checkClassNames(S6Request.Check creq,boolean mult,IvyXmlWriter xw)
 {
    String txt = creq.getUserInput("NAME");
 
-   AST ast = AST.newAST(AST.JLS8);
+   AST ast = AST.newAST(AST.JLS12,true);
    StreamTokenizer tok = getTokenizer(txt);
    StringBuffer buf = new StringBuffer();
 
@@ -867,7 +867,7 @@ private void parseArguments(StreamTokenizer stok,MethodDeclaration md) throws S6
       else throw new S6Exception("Expected agrument name");
       SingleVariableDeclaration svd = md.getAST().newSingleVariableDeclaration();
       for (int i = 0; i < arrct; ++i) {
-         svd.extraDimensions().add(md.getAST().newDimension());
+	 svd.extraDimensions().add(md.getAST().newDimension());
       }
       svd.setName(JavaAst.getSimpleName(md.getAST(),anm));
       svd.setType(typ);

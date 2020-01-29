@@ -1350,9 +1350,12 @@ private String codeString(S6TestCase.CallArg ca)
 	 buf.append("\"");
 	 for (int i = 0; i < s.length(); ++i) {
 	    char c = s.charAt(i);
-	    if (c == '"') buf.append("\\");
-	    // handle escapes
-	    buf.append(c);
+            if (c == '\n') buf.append("\\n");
+            else if (c == '\t') buf.append("\\t");
+            else {
+               if (c == '"') buf.append("\\");
+               buf.append(c);
+             }
 	  }
 	 buf.append("\"");
 	 r = buf.toString();
