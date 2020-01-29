@@ -1,0 +1,40 @@
+<SEARCH FORMAT='NONE' LOCAL='false' REMOTE='true' SEARCHCODE='true' WHAT='METHOD'>
+  <SIGNATURE>
+    <METHOD BOOLEAN='true' MODS='0'>
+      <NAME>validatePhone</NAME>
+      <RETURN>boolean</RETURN>
+      <ARGS>java.lang.String</ARGS>
+      <ARGNAMES>a1</ARGNAMES>
+      <TEXT>boolean validatePhone(java.lang.String a1)</TEXT>
+    </METHOD>
+  </SIGNATURE>
+  <TESTS>
+    <TESTCASE NAME='TEST_1' TYPE='CALLS'>
+      <CALL METHOD='validatePhone' OP='=='>
+	<INPUT>
+	  <VALUE><![CDATA[1-401-555-5555]]></VALUE>
+	</INPUT>
+	<OUTPUT>
+	  <VALUE><![CDATA[true]]></VALUE>
+	</OUTPUT>
+      </CALL>
+    </TESTCASE>
+    <TESTCASE NAME='TEST_2' TYPE='CALLS'>
+      <CALL METHOD='validatePhone' OP='=='>
+	<INPUT>
+	  <VALUE><![CDATA[garbage]]></VALUE>
+	</INPUT>
+	<OUTPUT>
+	  <VALUE><![CDATA[false]]></VALUE>
+	</OUTPUT>
+      </CALL>
+    </TESTCASE>
+  </TESTS>
+  <KEYWORDS>
+    <KEYWORD><![CDATA[phone]]></KEYWORD>
+    <KEYWORD><![CDATA[number]]></KEYWORD>
+    <KEYWORD><![CDATA[validation]]></KEYWORD>
+  </KEYWORDS>
+  <CONTEXT FILE='/gpfs/main/research/s6/tmp/files/s6data3457233542785010160.data' />
+</SEARCH>
+

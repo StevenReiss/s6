@@ -81,6 +81,7 @@ import java.util.StringTokenizer;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSignature;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Exception;
@@ -175,10 +176,21 @@ private void addInterfaces(String s)
 /********************************************************************************/
 
 public String getName() 				{ return class_name; }
-
+ 
 public List<S6Request.MethodSignature> getMethods()	{ return known_methods; }
 
+public List<CoseSignature.CoseMethodSignature> getCoseMethods()
+{
+   return new ArrayList<>(known_methods);
+}
+
+
 public List<S6Request.FieldSignature> getFields()	{ return known_fields; }
+
+public List<CoseSignature.CoseFieldSignature> getCoseFields()
+{
+   return new ArrayList<>(known_fields);
+}
 
 public S6Request.MethodSignature getMethod(String name)
 {

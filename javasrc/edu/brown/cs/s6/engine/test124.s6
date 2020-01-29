@@ -1,0 +1,31 @@
+<SEARCH FORMAT='NONE' SEARCHCODE='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>ord</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>int</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String ord(int a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='CALLS'>
+    <CALL METHOD='ord' OP='EQL'>
+      <INPUT TYPE='LITERAL'>
+	<VALUE><![CDATA[17]]></VALUE>
+      </INPUT>
+      <OUTPUT TYPE='STRING'>
+	<VALUE><![CDATA[seventeenth]]></VALUE>
+      </OUTPUT>
+    </CALL>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS>
+<KEYWORD><![CDATA[ordinal]]></KEYWORD>
+<KEYWORD><![CDATA[number]]></KEYWORD>
+<KEYWORD><![CDATA[second]]></KEYWORD>
+<KEYWORD><![CDATA[first]]></KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='TRUE'>SRCCOD:https://searchcode.com/codesearch/raw/96995875/?96995875&amp;xmlgraphics-mavenized&amp;NumberConverter.java&amp;/fop/src/main/java/org/apache/fop/complexscripts/util</SOURCE>
+</SOURCES>
+
+</SEARCH>
+

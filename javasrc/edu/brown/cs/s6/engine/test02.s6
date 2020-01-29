@@ -1,5 +1,5 @@
 <S6:SEARCH xmlns:S6="http://www.cs.brown.edu/S6" xmlns="http://www.cs.brown.edu/S6"
-		WHAT='METHOD' GOOGLE='TRUE' LOCAL='TRUE' >
+		WHAT='METHOD' SEARCHCODE='TRUE' >
    <S6:KEYWORDS>
       <KEYWORD>robots.txt</KEYWORD>
    </S6:KEYWORDS>
@@ -33,7 +33,7 @@
 	       <CODE><![CDATA[
 			java.net.URL url = null;
 			try {
-			   url = new URL("http://www.cnn.com/topics/");
+			   url = new URL("https://www.cnn.com/business/");
 			 }
 			catch(MalformedURLException e) { }
 	       ]]></CODE>
@@ -47,7 +47,7 @@
 	       <CODE><![CDATA[
 			java.net.URL url = null;
 			try {
-			   url = new URL("http://www.nytimes.com/college/students");
+			   url = new URL("https://www.nytimes.com/search/");
 			 }
 			catch(MalformedURLException e) { }
 	       ]]></CODE>

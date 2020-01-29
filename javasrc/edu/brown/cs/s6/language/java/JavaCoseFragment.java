@@ -45,11 +45,12 @@ import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
 import edu.brown.cs.s6.common.S6TestResults;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -57,6 +58,8 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
+import org.eclipse.jdt.core.dom.Initializer;
+import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.QualifiedName;
@@ -140,7 +143,7 @@ protected JavaCoseFragment(S6Language lj,S6Request.Search rqst,CoseResult rslt)
 private void initialize() 
 {
    helper_fragments = new HashSet<>();
-   helper_order = new LinkedList<>();
+   helper_order = null;
    class_namer = null;
    use_constructor = false;
    import_set = null;
@@ -158,9 +161,13 @@ public String getText()
 {
    String s = null;
    
-   for (ASTNode hn : helper_order) {
-      if (s == null) s = hn.toString();
-      else s += "\n" + hn.toString();
+   if (helper_fragments.size() > 0 && helper_order == null) getHelpers();
+   
+   if (helper_order != null) {
+      for (ASTNode hn : helper_order) {
+         if (s == null) s = hn.toString();
+         else s += "\n" + hn.toString();
+       }
     }
    
    if (s == null) s = getAstNode().toString();
@@ -217,6 +224,9 @@ protected LanguageJava getJavaBase()
 
 @Override public String getLocalText()
 {
+   ASTNode cfn = (ASTNode) cose_result.checkStructure();
+   if (cfn != null) return cfn.toString();
+   
    ASTNode xn = getAstNode();
    String r = null;
    if (xn != null) r = xn.toString();
@@ -373,44 +383,153 @@ private static class ComplexityMeasure extends ASTVisitor {
 /*										*/
 /********************************************************************************/
 
-@Override public Iterable<ASTNode> getHelpers()	{ return helper_order; }
+@Override public Iterable<ASTNode> getHelpers()
+{
+   if (helper_order == null) orderHelpers();
+   
+   return helper_order;
+}
 
 boolean addHelper(ASTNode n)
 {
    if (helper_fragments.contains(n)) return false;
+   
    helper_fragments.add(n);
-   
-   int idx = 0;
-   if (n instanceof FieldDeclaration) {
-      FieldDeclaration fd = (FieldDeclaration) n;
-      FieldFinder ff = new FieldFinder();
-      for (Iterator<?> it = fd.fragments().iterator(); it.hasNext(); ) {
-	 VariableDeclarationFragment vdf = (VariableDeclarationFragment) it.next();
-	 Expression e = vdf.getInitializer();
-	 if (e != null) e.accept(ff);
-       }
-      Set<JcompSymbol> uf = ff.getUsedFields();
-      if (uf.size() > 0) {
-	 for (int i = 0; i < helper_order.size(); ++i) {
-	    ASTNode an = helper_order.get(i);
-	    if (an instanceof FieldDeclaration) {
-	       FieldDeclaration afd = (FieldDeclaration) an;
-	       for (Iterator<?> it = afd.fragments().iterator(); it.hasNext(); ) {
-		  VariableDeclarationFragment vdf = (VariableDeclarationFragment) it.next();
-		  JcompSymbol js = JavaAst.getDefinition(vdf);
-		  if (uf.contains(js)) idx = i+1;
-		}
-	     }
-	  }
-       }
-    }
-   helper_order.add(idx,n);
-   
+   helper_order = null;
    return true;
 }
 
 
 
+
+private void orderHelpers()
+{
+   Map<ASTNode,Set<ASTNode>> precedes = new HashMap<>();
+   
+   setupHelperPartialOrder(precedes);
+   
+   Set<ASTNode> todo = new HashSet<>();
+   Set<ASTNode> methods = new HashSet<>();
+   for (ASTNode an : helper_fragments) {
+      if (an instanceof MethodDeclaration) methods.add(an);
+      else todo.add(an);
+    }
+   
+   helper_order = helperSort(todo,precedes);
+   for (ASTNode an : methods) {
+      helper_order.add(an);
+    }
+}
+
+
+
+private void setupHelperPartialOrder(Map<ASTNode,Set<ASTNode>> precedes)
+{
+   Map<JcompSymbol,ASTNode> defmap = new HashMap<>();
+   Map<ASTNode,Set<JcompSymbol>> usesmap = new HashMap<>();
+   
+   for (ASTNode an : helper_fragments) {
+      if (an instanceof FieldDeclaration) {
+         FieldDeclaration fd = (FieldDeclaration) an;
+         for (Object o : fd.fragments()) {
+            VariableDeclarationFragment vdf = (VariableDeclarationFragment) o;
+            JcompSymbol js = JavaAst.getDefinition(vdf);
+            defmap.put(js,an);
+          }
+       }
+    }
+   for (ASTNode an : helper_fragments) {
+      if (an instanceof FieldDeclaration) {
+         FieldDeclaration afd = (FieldDeclaration) an;
+         FieldFinder ff = new FieldFinder();
+         for (Object o : afd.fragments()) {
+            VariableDeclarationFragment vdf = (VariableDeclarationFragment) o;
+            Expression e = vdf.getInitializer();
+            if (e != null) e.accept(ff);
+          }
+         usesmap.put(an,ff.getUsedFields());
+       }
+      else if (an instanceof Initializer) {
+         FieldFinder ff = new FieldFinder();
+         an.accept(ff);
+         usesmap.put(an,ff.getUsedFields());
+       }
+    }
+   
+   for (ASTNode an : helper_fragments) {
+      if (an instanceof MethodDeclaration) continue;
+      else if (an instanceof FieldDeclaration) {
+         for (JcompSymbol js : usesmap.get(an)) {
+            ASTNode refnode = defmap.get(js);
+            // if the initializer of a field refers to another field,
+            // then other field must be declared first
+            if (refnode != null) addPrecedes(refnode,an,precedes);
+          }
+       }
+      else if (an instanceof Initializer) {
+         Set<JcompSymbol> uses = usesmap.get(an);
+         for (JcompSymbol js : uses) {
+            ASTNode refnode = defmap.get(js);
+            // if the static initializer refers to a symbol, the def for that
+            // must precede the initializer
+            if (refnode != null) addPrecedes(refnode,an,precedes);
+          }
+         for (Map.Entry<ASTNode,Set<JcompSymbol>> ent : usesmap.entrySet()) {
+            ASTNode en = ent.getKey();
+            if (en == an) continue;
+            for (JcompSymbol js : ent.getValue()) {
+               // if static initializer refers to a symbol used in the initializer of en
+               // this means that an (static init) must precede en
+               if (uses.contains(js)) addPrecedes(an,en,precedes);
+             }
+          }
+       }
+    }
+}
+
+
+private void addPrecedes(ASTNode before,ASTNode after,Map<ASTNode,Set<ASTNode>> precedes) 
+{
+   if (before == null || after == null || before == after) return;
+   
+   Set<ASTNode> val = precedes.get(after);
+   if (val == null) {
+      val = new HashSet<>();
+      precedes.put(after,val);
+    }
+   val.add(before);
+}
+
+
+
+private List<ASTNode> helperSort(Set<ASTNode> todo,Map<ASTNode,Set<ASTNode>> precedes)
+{
+   List<ASTNode> rslt = new ArrayList<>();
+   
+   boolean chng = true;
+   while (chng) {
+      chng = false;
+      Set<ASTNode> added = new HashSet<>();
+      for (ASTNode an : todo) {
+         Set<ASTNode> prec = precedes.get(an);
+         if (prec == null || prec.isEmpty()) {
+            rslt.add(an);
+            for (Set<ASTNode> pset : precedes.values()) {
+               pset.remove(an);
+             }
+            added.add(an);
+          }
+       }
+      if (!added.isEmpty()) {
+         todo.removeAll(added);
+         chng = true;
+       }
+    }
+   
+   rslt.addAll(todo);
+   
+   return rslt;
+}
 private class FieldFinder extends ASTVisitor {
    
    private Set<JcompSymbol> use_fields;

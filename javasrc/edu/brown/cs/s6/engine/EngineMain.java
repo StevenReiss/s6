@@ -967,8 +967,12 @@ private class TransformSolution implements Callable<Boolean> {
        // }
    
       if (!checkViable(solution_set,for_solution,transform_type)) {
-         for_solution.clearResolve();
+         if (doDebug()) {
+            System.err.println("REMOVE SOLUTION " + for_solution + " " +
+                  transform_type);
+          }
          solution_set.remove(for_solution);
+         for_solution.clearResolve();
        }
    
       if (solution_set.checkClearResolve())

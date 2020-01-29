@@ -77,6 +77,7 @@ import java.util.List;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.w3c.dom.Element;
 
+import edu.brown.cs.cose.cosecommon.CoseSignature;
 import edu.brown.cs.ivy.file.IvyFormat;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Constants;
@@ -86,7 +87,7 @@ import edu.brown.cs.s6.common.S6Request;
 
 
 class RequestMethod extends RequestSignature implements S6Request.MethodSignature,
-		S6Constants, RequestConstants {
+		S6Constants, RequestConstants, CoseSignature.CoseMethodSignature { 
 
 
 /********************************************************************************/
@@ -205,6 +206,8 @@ public S6Request.MethodSignature getMethod(String name)
 {
    return this;
 }
+
+
 
 
 

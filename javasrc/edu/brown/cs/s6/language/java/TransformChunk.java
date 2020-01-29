@@ -150,6 +150,8 @@ public class TransformChunk extends TransformJava implements S6Constants, JavaCo
 
 private static int	chunk_counter = 0;
 
+private static final int MIN_CHUNK_SIZE = 4;
+
 
 
 
@@ -423,6 +425,7 @@ private void checkSoln(String base,Set<ChunkStmt> used,Set<ChunkVar> vars,List<J
    // check if we are using everything but a return of the solution variable
 
    if (vars.size() == done.size()) {
+      if (used.size() < MIN_CHUNK_SIZE) return;
       ChunkVar [] params = new ChunkVar[ptyps.size()];
       for (Map.Entry<ChunkVar,Integer> ent : done.entrySet()) {
 	 params[ent.getValue()] = ent.getKey();
@@ -790,12 +793,12 @@ private class ChunkSoln extends TreeMapper {
       used_vars = new HashSet<ChunkVar>();
       block_node = null;
       for (ChunkStmt cs : used) {
-	 Statement st = cs.getSource();
-	 use_statements.add(st);
-	 if (block_node == null) block_node = st.getParent();
-	 used_vars.addAll(cs.getReadVars());
-	 used_vars.addAll(cs.getWriteVars());
-	 used_vars.addAll(cs.getCallVars());
+         Statement st = cs.getSource();
+         use_statements.add(st);
+         if (block_node == null) block_node = st.getParent();
+         used_vars.addAll(cs.getReadVars());
+         used_vars.addAll(cs.getWriteVars());
+         used_vars.addAll(cs.getCallVars());
        }
       method_decl = (MethodDeclaration) block_node.getParent();
       return_var = rv;

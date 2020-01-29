@@ -13,11 +13,17 @@ SFILES= \
 	JavaAst.java \
 	JavaAstClassName.java \
 	JavaChecker.java \
+	JavaClassFragment.java \
 	JavaConstants.java \
 	JavaContext.java \
 	JavaContracts.java \
+	JavaCoseFragment.java \
 	JavaDepends.java \
+	JavaFileFragment.java \
 	JavaFormatter.java \
+	JavaFragment.java \
+	JavaMethodFragment.java \
+	JavaPackageFragment.java \
 	JavaTester.java \
 	LanguageJava.java \
 	TransformAddReturn.java \

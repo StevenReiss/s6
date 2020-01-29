@@ -235,27 +235,27 @@ private class TestFixupMapper extends TreeMapper {
    private double getScore(S6Solution sol) {
       S6Fragment frag = sol.getFragment();
       if (sol.getFragment() == null) {
-	 System.err.println("SOLUTION LACKS FRAGMENT: " + sol);
-	 return 0;
+         System.err.println("SOLUTION LACKS FRAGMENT: " + sol);
+         return 0;
        }
-
+   
       S6TestResults tr = frag.getTestResults();
       int nsucc = 0;
       int nfail = 0;
       for (String s : tr.getMessageResults()) {
-	 StringTokenizer tok = new StringTokenizer(s);
-	 try {
-	    int ns = Integer.parseInt(tok.nextToken());
-	    int nf = Integer.parseInt(tok.nextToken());
-	    nsucc += ns;
-	    nfail += nf;
-	  }
-	 catch (Throwable t) { }
+         StringTokenizer tok = new StringTokenizer(s);
+         try {
+            int ns = Integer.parseInt(tok.nextToken());
+            int nf = Integer.parseInt(tok.nextToken());
+            nsucc += ns;
+            nfail += nf;
+          }
+         catch (Throwable t) { }
        }
       int cm = frag.getCodeComplexity();
-
+   
       double score = nsucc * 1024 - nfail * 512 - cm / 64.0;
-
+   
       return score;
     }
 

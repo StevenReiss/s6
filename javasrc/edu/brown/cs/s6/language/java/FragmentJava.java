@@ -132,6 +132,7 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.IExtendedModifier;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
+import org.eclipse.jdt.core.dom.Initializer;
 import org.eclipse.jdt.core.dom.MarkerAnnotation;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -336,7 +337,7 @@ void saveAst()						{ }
 }
 
 
-@Override public boolean getUseConstructor()	        { return use_constructor; }
+@Override public boolean getUseConstructor()		{ return use_constructor; }
 
 @Override public Collection<JcompType> getImportTypes() { return import_set; }
 
@@ -363,7 +364,7 @@ void saveAst()						{ }
 /*										*/
 /********************************************************************************/
 
-@Override public Iterable<ASTNode> getHelpers()	{ return helper_order; }
+@Override public Iterable<ASTNode> getHelpers() { return helper_order; }
 
 boolean addHelper(ASTNode n)
 {
@@ -391,6 +392,14 @@ boolean addHelper(ASTNode n)
 		  if (uf.contains(js)) idx = i+1;
 		}
 	     }
+	  }
+       }
+    }
+   else if (n instanceof Initializer) {
+      for (int i = 0; i < helper_order.size(); ++i) {
+	 ASTNode an = helper_order.get(i);
+	 if (an instanceof FieldDeclaration) {
+	    idx = i+1;
 	  }
        }
     }
@@ -681,7 +690,7 @@ private static class FindVisitor extends ASTVisitor {
 /*										*/
 /********************************************************************************/
 
-protected void handleUserSource(S6SolutionSet ss)       // never used
+protected void handleUserSource(S6SolutionSet ss)	// never used
 {
    S6Request.Context ctx = ss.getRequest().getUserContext();
    if (ctx == null) return;
@@ -857,7 +866,7 @@ private static class PackageFragment extends FragmentJava {
       for (FileFragment ff : file_fragments) {
 	 CompilationUnit fn = (CompilationUnit) ff.getAstNode();
 	 if (root_node == null) {
-	    AST nast = AST.newAST(AST.JLS8);
+	    AST nast = AST.newAST(AST.JLS12,true);
 	    root_node = (CompilationUnit) ASTNode.copySubtree(nast,fn);
 	    // root_node = fn;
 	  }
@@ -872,7 +881,7 @@ private static class PackageFragment extends FragmentJava {
 	  }
        }
       source_text = root_node.toString();
-      ASTParser parser = ASTParser.newParser(AST.JLS8);
+      ASTParser parser = ASTParser.newParser(AST.JLS12);
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
       Map<String,String> options = JavaCore.getOptions();
       JavaCore.setComplianceOptions(JavaCore.VERSION_1_7,options);
@@ -1295,7 +1304,7 @@ private static class FileFragment extends FragmentJava {
    public CoseResultType getFragmentType()	{ return CoseResultType.FILE; }
 
    ASTNode checkAstNode()			{ return ast_node; }
-   @Override public ASTNode getAstNode() 	{ return ast_node; }
+   @Override public ASTNode getAstNode()	{ return ast_node; }
    @Override public String getOriginalText()	{ return orig_text; }
 
    public synchronized void resolveFragment() {
@@ -1328,7 +1337,7 @@ private static class ClassFragment extends FragmentJava {
    public CoseResultType getFragmentType()	{ return CoseResultType.CLASS; }
 
    ASTNode checkAstNode()			{ return ast_node; }
-   @Override public ASTNode getAstNode() 	{ return ast_node; }
+   @Override public ASTNode getAstNode()	{ return ast_node; }
 
    void saveAst()				{ }
 
@@ -1499,10 +1508,10 @@ private static class ClonedClassFragment extends ClassFragment {
 
    @Override public synchronized ASTNode getAstNode() {
       if (ast_node == null) {
-         ast_node = (AbstractTypeDeclaration) class_delta.getAstNode();
-         if (ast_node != null) {
-            JavaAst.setSearchRequest(ast_node.getRoot(),getSearchRequest());
-          }
+	 ast_node = (AbstractTypeDeclaration) class_delta.getAstNode();
+	 if (ast_node != null) {
+	    JavaAst.setSearchRequest(ast_node.getRoot(),getSearchRequest());
+	  }
        }
       return ast_node;
     }
@@ -1536,7 +1545,7 @@ private static class MethodFragment extends FragmentJava {
    public CoseResultType getFragmentType()	{ return CoseResultType.METHOD; }
 
    ASTNode checkAstNode()			{ return ast_node; }
-   @Override public ASTNode getAstNode() 	{ return ast_node; }
+   @Override public ASTNode getAstNode()	{ return ast_node; }
 
    public boolean checkSignature(S6Request.Signature rsg,S6SignatureType styp) {
       S6Request.MethodSignature ms = rsg.getMethodSignature();
@@ -1548,9 +1557,9 @@ private static class MethodFragment extends FragmentJava {
       JavaDepends jd = new JavaDepends(ss,sol,ast_node);
       jd.addDeclaration(ast_node);
       if (!jd.findDependencies()) return false;
-
+   
       for (BodyDeclaration bd : jd.getDeclarations()) {
-	 if (bd != ast_node) addHelper(bd);
+         if (bd != ast_node) addHelper(bd);
        }
       use_constructor = jd.getUseConstructor();
       import_set = jd.getImportTypes();
@@ -1683,87 +1692,87 @@ private static class FragmentDelta {
       text_delta = null;
       saved_text = null;
       if (use_deltas) {
-         String origtext = par.getOriginalText();
-         text_delta = TextDelta.getDelta(newtext,origtext);
-         String ntxt = text_delta.apply(origtext);
-         if (!ntxt.equals(newtext)) {
-            System.err.println("BAD DELTA");
-          }
+	 String origtext = par.getOriginalText();
+	 text_delta = TextDelta.getDelta(newtext,origtext);
+	 String ntxt = text_delta.apply(origtext);
+	 if (!ntxt.equals(newtext)) {
+	    System.err.println("BAD DELTA");
+	  }
        }
       else saved_text = newtext;
     }
 
    protected synchronized String getSourceText() {
       if (saved_text == null && text_delta == null) {
-         String origtext = from_fragment.getOriginalText();
-         Document d = new Document(origtext);
-   
-         if (text_edit == null) {
-            try {
-               text_edit = use_rewrite.rewriteAST(d,null);
-               node_start = node_position.getStartPosition();
-               node_length = node_position.getLength();
-               use_rewrite = null;		// these are no longer needed
-               // node_position = null;
-               if (!use_deltas) from_fragment = null;
-             }
-            catch (Throwable t) {
-               System.err.println("FRAGMENT TEXT PROBLEM: " + t);
-             }
-          }
-         if (text_edit == null) return origtext;
-         try {
-            // System.err.println("EDITS: " + text_edit);
-            text_edit.apply(d);
-            node_start = node_position.getStartPosition();
-            node_length = node_position.getLength();
-            node_position = null;
-            text_edit = null;			// if we save doc, this isn't needed either
-          }
-         catch (Throwable e) {
-            System.err.println("FRAGMENT EDIT PROBLEM: " + e);
-            e.printStackTrace();
-          }
-   
-         String newtext = d.get();
-   
-         if (use_deltas) {
-            text_delta = TextDelta.getDelta(newtext,origtext);
-            String ntxt = text_delta.apply(origtext);
-            if (!ntxt.trim().equals(newtext.trim())) {
-               text_delta = TextDelta.getDelta(newtext,origtext);
-               ntxt = text_delta.apply(origtext);
-               System.err.println("BAD DELTA");
-               File f1 = new File("Delta.orig");
-               File f2 = new File("Delta.new");
-               File f3 = new File("Delta.result");
-               try {
-        	  FileWriter fw = new FileWriter(f1);
-        	  fw.write(origtext);
-        	  fw.close();
-        	  fw = new FileWriter(f2);
-        	  fw.write(newtext);
-        	  fw.close();
-        	  fw = new FileWriter(f3);
-        	  fw.write(ntxt);
-        	  fw.close();
-        	  System.exit(1);
-        	}
-               catch (IOException e) { }
-   
-               System.err.println("DELTA1: " + ntxt);
-               System.err.println("DELTA2: " + newtext);
-             }
-          }
-         else saved_text = newtext;
-   
-         return newtext;
+	 String origtext = from_fragment.getOriginalText();
+	 Document d = new Document(origtext);
+
+	 if (text_edit == null) {
+	    try {
+	       text_edit = use_rewrite.rewriteAST(d,null);
+	       node_start = node_position.getStartPosition();
+	       node_length = node_position.getLength();
+	       use_rewrite = null;		// these are no longer needed
+	       // node_position = null;
+	       if (!use_deltas) from_fragment = null;
+	     }
+	    catch (Throwable t) {
+	       System.err.println("FRAGMENT TEXT PROBLEM: " + t);
+	     }
+	  }
+	 if (text_edit == null) return origtext;
+	 try {
+	    // System.err.println("EDITS: " + text_edit);
+	    text_edit.apply(d);
+	    node_start = node_position.getStartPosition();
+	    node_length = node_position.getLength();
+	    node_position = null;
+	    text_edit = null;			// if we save doc, this isn't needed either
+	  }
+	 catch (Throwable e) {
+	    System.err.println("FRAGMENT EDIT PROBLEM: " + e);
+	    e.printStackTrace();
+	  }
+
+	 String newtext = d.get();
+
+	 if (use_deltas) {
+	    text_delta = TextDelta.getDelta(newtext,origtext);
+	    String ntxt = text_delta.apply(origtext);
+	    if (!ntxt.trim().equals(newtext.trim())) {
+	       text_delta = TextDelta.getDelta(newtext,origtext);
+	       ntxt = text_delta.apply(origtext);
+	       System.err.println("BAD DELTA");
+	       File f1 = new File("Delta.orig");
+	       File f2 = new File("Delta.new");
+	       File f3 = new File("Delta.result");
+	       try {
+		  FileWriter fw = new FileWriter(f1);
+		  fw.write(origtext);
+		  fw.close();
+		  fw = new FileWriter(f2);
+		  fw.write(newtext);
+		  fw.close();
+		  fw = new FileWriter(f3);
+		  fw.write(ntxt);
+		  fw.close();
+		  System.exit(1);
+		}
+	       catch (IOException e) { }
+
+	       System.err.println("DELTA1: " + ntxt);
+	       System.err.println("DELTA2: " + newtext);
+	     }
+	  }
+	 else saved_text = newtext;
+
+	 return newtext;
        }
       if (saved_text == null && text_delta != null) {
-         String origtext = from_fragment.getOriginalText();
-         return text_delta.apply(origtext);
+	 String origtext = from_fragment.getOriginalText();
+	 return text_delta.apply(origtext);
        }
-   
+
       return saved_text;
     }
 
@@ -1771,7 +1780,7 @@ private static class FragmentDelta {
 
    ASTNode getAstNode() {
       String txt = getSourceText();
-      ASTParser parser = ASTParser.newParser(AST.JLS8);
+      ASTParser parser = ASTParser.newParser(AST.JLS12);
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
       Map<String,String> options = JavaCore.getOptions();
       JavaCore.setComplianceOptions(JavaCore.VERSION_1_7,options);

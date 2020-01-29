@@ -278,13 +278,13 @@ private Panel createTopRegion()
    // remote_type.addItem("Koders","D");
    // remote_type.addItem("GitHub","T");
    remote_type.addItem("SearchCode","C");
-   remote_type.addItem("GitHub","Z");
+   remote_type.addItem("GitHub","T");
    // remote_type.addItem("OpenHub","O");
    // remote_type.addItem("Sourcerer","S");
    // remote_type.addItem("Krugle","K");
-   remote_type.addItem("Hunter","H");
+   // remote_type.addItem("Hunter","H");
    remote_type.addItem("CodeExchange","X");
-   remote_type.addItem("GitZip","Z");
+   // remote_type.addItem("GitZip","Z");
    remote_type.setItemSelected(0,true);
    remote_type.setVisible(true);
    hp.add(remote_type);

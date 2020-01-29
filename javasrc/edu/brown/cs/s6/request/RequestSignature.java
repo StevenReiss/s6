@@ -54,12 +54,13 @@
 package edu.brown.cs.s6.request;
 
 
+import edu.brown.cs.cose.cosecommon.CoseSignature;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Request;
 
 
 
-abstract class RequestSignature implements S6Request.Signature, S6Constants, RequestConstants {
+abstract class RequestSignature implements S6Request.Signature, S6Constants, RequestConstants, CoseSignature {
 
 
 

@@ -1,0 +1,125 @@
+<SEARCH FORMAT='NONE' GITHUB='TRUE' REMOTE='TRUE' WHAT='METHOD'><SIGNATURE>
+  <METHOD MODS='0' STRING='true'>
+    <NAME>strip</NAME>
+    <RETURN>java.lang.String</RETURN>
+    <ARGS>java.lang.String</ARGS>
+    <ARGNAMES>a1</ARGNAMES>
+    <TEXT>java.lang.String strip(java.lang.String a1)</TEXT>
+  </METHOD>
+</SIGNATURE><TESTS>
+  <TESTCASE NAME='SVIWEB_1' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		 java.lang.String s = $(PREFIX).strip("xxx // yyy\n/* comment */\n");
+		 s = s.trim();
+		 assertEquals("Stripped",s.trim(),"xxx");
+	       }
+	  ]]></CODE>
+  </TESTCASE>
+</TESTS><SECURITY /><CONTRACTS /><CONTEXT /><KEYWORDS>
+<KEYWORD><![CDATA[remove]]></KEYWORD>
+<KEYWORD><![CDATA[comments]]></KEYWORD>
+<KEYWORD><![CDATA[single]]></KEYWORD>
+<KEYWORD><![CDATA[line]]></KEYWORD>
+<KEYWORD><![CDATA[block]]></KEYWORD>
+</KEYWORDS></SEARCH>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

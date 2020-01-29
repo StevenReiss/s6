@@ -79,8 +79,6 @@ abstract public S6Language createLanguage(S6Engine eng,String name);
 
 abstract public S6License createLicenseManager();
 
-abstract public boolean useCose();
-
 
 
 }	// end of interface S6Factory

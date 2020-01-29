@@ -233,7 +233,7 @@ jp:
 
 
 %.debug: %.s6
-	-time djava -Djava.io.tmpdir=/vol/tmp -Xmx40000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 $< > $(TESTDIR)/$@ 2>&1
+	-time djava -Djava.io.tmpdir=/vol/tmp -Xmx70000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 $< > $(TESTDIR)/$@ 2>&1
 
 %.debugy: %.s6
 	-time djava -Djava.io.tmpdir=/ws/volfred/tmp -Xmx32000m edu.brown.cs.s6.engine.EngineMain -D -thread 1 $< > $(TESTDIR)/$@ 2>&1
@@ -273,3 +273,4 @@ utests11: $(notdir $(addsuffix .debug,$(basename $(UTESTS11))))
 utests12: $(notdir $(addsuffix .debug,$(basename $(UTESTS12))))
 utests13: $(notdir $(addsuffix .debug,$(basename $(UTESTS13))))
 
+SAMPLETESTS=
