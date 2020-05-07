@@ -308,7 +308,7 @@ private void scanArgs(String [] args)
 	  }
 	 else if (args[i].startsWith("-D")) {                           // -DEBUG
 	    do_debug = true;
-            IvyLog.setLogLevel(IvyLog.LogLevel.DEBUG);
+	    IvyLog.setLogLevel(IvyLog.LogLevel.DEBUG);
 	  }
 	 else badArgs();
        }
@@ -358,13 +358,17 @@ void start()
 	  }
        }
       catch (IOException e) {
-         IvyLog.logE("ENGINE","I/O problem with request" + base_request + ": " + e);
+	 IvyLog.logE("ENGINE","I/O problem with request" + base_request + ": " + e);
        }
       catch (S6Exception e) {
 	IvyLog.logE("ENGINE","Problem with request " + base_request + ": " + e);
        }
       catch (Throwable t) {
-         IvyLog.logE("ENGINE","Internal problem with request " + base_request,t);
+	 IvyLog.logE("ENGINE","Internal problem with request " + base_request,t);
+       }
+      catch (Throwable t) {
+	 System.err.println("S6: ENGINE: Internal problem with request " + base_request);
+	 t.printStackTrace();
        }
       finally {
 	 try {
@@ -384,7 +388,7 @@ void start()
 /*										*/
 /********************************************************************************/
 
-@Override public boolean doDebug()              { return do_debug; }
+@Override public boolean doDebug()		{ return do_debug; }
 
 @Override public int getNumberOfSearchThreads()
 {
@@ -960,30 +964,30 @@ private class TransformSolution implements Callable<Boolean> {
 
    public Boolean call() {
       boolean chng = false;
-   
+
       for_solution.resolve();
-   
+
       chng = s6_language.applyTransforms(solution_set,for_solution,transform_type);
-   
+
       // for (S6Transform s6 : s6_language.getTransforms()) {
-         // if (s6.isUsedFor(transform_type)) {
-            // chng |= s6.findTransforms(solution_set,for_solution);
-          // }
+	 // if (s6.isUsedFor(transform_type)) {
+	    // chng |= s6.findTransforms(solution_set,for_solution);
+	  // }
        // }
-   
+
       if (!checkViable(solution_set,for_solution,transform_type)) {
-         if (IvyLog.isDebug()) {
-            IvyLog.logD("ENGINE","REMOVE SOLUTION " + for_solution + " " + transform_type);
-          }
-         solution_set.remove(for_solution);
-         for_solution.clearResolve();
+	 if (IvyLog.isDebug()) {
+	    IvyLog.logD("ENGINE","REMOVE SOLUTION " + for_solution + " " + transform_type);
+	  }
+	 solution_set.remove(for_solution);
+	 for_solution.clearResolve();
        }
-   
+
       if (solution_set.checkClearResolve())
-         for_solution.clearResolve();
-   
+	 for_solution.clearResolve();
+
       for_solution = null;
-   
+
       return chng;
     }
 
@@ -1057,23 +1061,23 @@ private class DependWorker implements Runnable {
       S6Fragment f = for_solution.getFragment();
       f.makeLocal(solution_set);		// does a resolve
       f.resolveFragment();
-   
+
       if (!f.checkSignature(solution_set.getRequest().getSignature(),S6SignatureType.FULL)) {
-         for_solution.clearResolve();
-         solution_set.remove(for_solution);
-         return;
+	 for_solution.clearResolve();
+	 solution_set.remove(for_solution);
+	 return;
        }
-   
+
       if (!f.fixDependencies(solution_set,for_solution)) {
-         for_solution.setFlag(S6SolutionFlag.DEPEND_FAIL);
-         for_solution.clearResolve();
+	 for_solution.setFlag(S6SolutionFlag.DEPEND_FAIL);
+	 for_solution.clearResolve();
        }
       else {
-         for_solution.setFlag(S6SolutionFlag.DEPEND_PASS);
+	 for_solution.setFlag(S6SolutionFlag.DEPEND_PASS);
        }
-   
+
       if (solution_set.checkClearResolve()) for_solution.clearResolve();
-   
+
       for_solution = null;
     }
 
@@ -1150,23 +1154,23 @@ private class TestWorker implements Runnable {
    public void run() {
       S6Fragment f = for_solution.getFragment();
       for_solution.resolve();
-   
+
       if (IvyLog.isDebug()) {
-         IvyLog.logD("ENGINE","TEST " + f.getText());
-         IvyLog.logD("ENGINE","SOURCE: " + for_solution.getSource().getName());
+	 IvyLog.logD("ENGINE","TEST " + f.getText());
+	 IvyLog.logD("ENGINE","SOURCE: " + for_solution.getSource().getName());
        }
-   
+
       S6SolutionFlag sf = f.checkTestCases(solution_set.getRequest(),for_solution.getSource());
       if (sf == S6SolutionFlag.PASS) IvyLog.logD("ENGINE","TEST PASSED");
       else IvyLog.logD("ENGINE","TEST FAILED");
-   
+
       for_solution.clearFlag(S6SolutionFlag.FAIL);
       for_solution.clearFlag(S6SolutionFlag.PASS);
       for_solution.clearFlag(S6SolutionFlag.USER);
       for_solution.setFlag(sf);
-   
+
       if (solution_set.checkClearResolve()) for_solution.clearResolve();
-   
+
       for_solution = null;
     }
 
@@ -1329,11 +1333,11 @@ private class EngineServer extends Thread {
       super("S6_ENGINE_ACCEPT");
       firewall_clients = new ArrayList<EngineClient>();
       try {
-         server_socket = new ServerSocket(0);
+	 server_socket = new ServerSocket(0);
        }
       catch (IOException e) {
-         IvyLog.logE("ENGINE","Problem creating server socket: " + e);
-         System.exit(1);
+	 IvyLog.logE("ENGINE","Problem creating server socket: " + e);
+	 System.exit(1);
        }
       Timer t = new Timer("UserResponseTimer");
       t.schedule(new ResponseChecker(),300*1000);
@@ -1341,81 +1345,81 @@ private class EngineServer extends Thread {
 
    public void run() {
       File f = new File(S6_ENGINE_SERVER_SOCKET);
-   
+
       try {
-         if (!force_run) {
-            while (!f.createNewFile()) {
-               try {
-        	  BufferedReader br = new BufferedReader(new FileReader(f));
-        	  String s = br.readLine();
-        	  br.close();
-        	  if (s != null) {
-        	     StringTokenizer tok = new StringTokenizer(s);
-        	     String host = tok.nextToken();
-        	     int port = Integer.parseInt(tok.nextToken());
-        	     Socket xs = new Socket(host,port);
-        	     xs.close();
-        	     IvyLog.logE("ENGINE","ENGINE: Server already Running");
-        	     return;
-        	   }
-        	}
-               catch (Throwable t) {
-                  IvyLog.logW("ENGINE","ENGINE: Server lock file seems bad: " + t);
-   
-                  f.delete();
-                }
-             }
-          }
-         FileWriter fw = new FileWriter(f);
-         PrintWriter pw = new PrintWriter(fw);
-         InetAddress iad = InetAddress.getLocalHost();
-         pw.println(iad.getHostName() + "\t" + server_socket.getLocalPort());
-         pw.close();
-         f.deleteOnExit();
-         IvyLog.logI("ENGINE","Engine running on port " + server_socket.getLocalPort());
+	 if (!force_run) {
+	    while (!f.createNewFile()) {
+	       try {
+		  BufferedReader br = new BufferedReader(new FileReader(f));
+		  String s = br.readLine();
+		  br.close();
+		  if (s != null) {
+		     StringTokenizer tok = new StringTokenizer(s);
+		     String host = tok.nextToken();
+		     int port = Integer.parseInt(tok.nextToken());
+		     Socket xs = new Socket(host,port);
+		     xs.close();
+		     IvyLog.logE("ENGINE","ENGINE: Server already Running");
+		     return;
+		   }
+		}
+	       catch (Throwable t) {
+		  IvyLog.logW("ENGINE","ENGINE: Server lock file seems bad: " + t);
+
+		  f.delete();
+		}
+	     }
+	  }
+	 FileWriter fw = new FileWriter(f);
+	 PrintWriter pw = new PrintWriter(fw);
+	 InetAddress iad = InetAddress.getLocalHost();
+	 pw.println(iad.getHostName() + "\t" + server_socket.getLocalPort());
+	 pw.close();
+	 f.deleteOnExit();
+	 IvyLog.logI("ENGINE","Engine running on port " + server_socket.getLocalPort());
        }
       catch (IOException e) {
-         IvyLog.logE("ENGINE","Problem creationg server socket file: " + e);
-         System.exit(1);
+	 IvyLog.logE("ENGINE","Problem creationg server socket file: " + e);
+	 System.exit(1);
        }
-   
+
       for (int i = 0; i < num_connect; ++i) {
-         setupFirewallClient();
+	 setupFirewallClient();
        }
-   
+
       try {
-         server_socket.setSoTimeout(1*60*1000);
-         for ( ; ; ) {
-            try {
-               Socket s = server_socket.accept();
-               createClient(s);
-               if (num_request > 0) {
-        	  --num_request;
-        	  if (num_request == 0) break;
-        	}
-             }
-            catch (SocketTimeoutException e) { }
-            checkFirewallClients();
-          }
+	 server_socket.setSoTimeout(1*60*1000);
+	 for ( ; ; ) {
+	    try {
+	       Socket s = server_socket.accept();
+	       createClient(s);
+	       if (num_request > 0) {
+		  --num_request;
+		  if (num_request == 0) break;
+		}
+	     }
+	    catch (SocketTimeoutException e) { }
+	    checkFirewallClients();
+	  }
        }
       catch (IOException e) {
-         IvyLog.logE("ENGINE","Problem with server socket accept: " + e);
+	 IvyLog.logE("ENGINE","Problem with server socket accept: " + e);
        }
-   
+
       IvyLog.logI("ENGINE","Exiting");
-   
+
       f.delete();
     }
 
    private void setupFirewallClient() {
       try {
-         Socket s = new Socket(S6_ENGINE_WEB_SERVER,S6_ENGINE_WEB_PORT);
-         s.setSoTimeout(2*60*1000);
-         EngineClient ec = createClient(s);
-         if (ec != null) firewall_clients.add(ec);
+	 Socket s = new Socket(S6_ENGINE_WEB_SERVER,S6_ENGINE_WEB_PORT);
+	 s.setSoTimeout(2*60*1000);
+	 EngineClient ec = createClient(s);
+	 if (ec != null) firewall_clients.add(ec);
        }
       catch (IOException e) {
-         IvyLog.logE("ENGINE","Firewall connection not running: " + e);
+	 IvyLog.logE("ENGINE","Firewall connection not running: " + e);
        }
     }
 

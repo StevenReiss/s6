@@ -123,13 +123,13 @@ public class SolutionSet implements S6SolutionSet, SolutionConstants, S6Constant
 private S6Request.Search	for_request;
 private Map<String,S6Solution>	solution_set;
 private Set<String>		used_sources;
-private Set<String>             file_sources;
+private Set<String>		file_sources;
 private Set<String>		all_solutions;
 private int			num_removed;
 private MessageDigest		md5_digest;
 private Map<String,Counter>	stat_values;
 private PriorityQueue<S6Solution>   excess_solutions;
-private boolean                 test_fixup;
+private boolean 		test_fixup;
 
 
 
@@ -178,7 +178,7 @@ public int getSourceCount()			{ return file_sources.size(); }
 
 public int getNumberRemoved()			{ return num_removed; }
 
-public synchronized boolean doTestFixup() 
+public synchronized boolean doTestFixup()
 {
    if (test_fixup == true) return false;
    test_fixup = true;
@@ -193,7 +193,7 @@ public boolean checkClearResolve()
       case FULLCLASS :
       case TESTCASES :
 	 if (ct > 500)
-            return true;
+	    return true;
 	 break;
       case METHOD :
 	 if (ct > 500) return true;
@@ -228,26 +228,26 @@ public boolean doDebug()			{ return for_request.doDebug(); }
 public S6Solution addInitialSolution(S6Fragment n,CoseSource src)
 {
    if (n == null) return null;
-   
+
    String s = n.getText();
    IvyLog.logI("SOLUTION","Initial solution " + src + " " + s.length());
-   
+
    if (s.length() > S6_MAX_SIZE) return null;
-   
+
    SolutionBase sb = new SolutionBase(n,src);
-   
+
    S6Solution rslt = null;
-   
+
    synchronized (this) {
       if (src != null) {
-         used_sources.add(src.getName());
-         CoseSource fsrc = src;
-         if (src.getBaseSource() != null) fsrc = src.getBaseSource();
-         file_sources.add(fsrc.getName());
+	 used_sources.add(src.getName());
+	 CoseSource fsrc = src;
+	 if (src.getBaseSource() != null) fsrc = src.getBaseSource();
+	 file_sources.add(fsrc.getName());
        }
       rslt = add(sb);
     }
-   
+
    return rslt;
 }
 
@@ -269,11 +269,11 @@ public synchronized boolean useSource(CoseSource src)
    if (used_sources.size() > S6_MAX_SOURCES) return false;
 
    if (!used_sources.add(name)) return false;
-   
+
    CoseSource fsrc = src;
    if (src.getBaseSource() != null) fsrc = src.getBaseSource();
    file_sources.add(fsrc.getName());
-   
+
    return true;
 }
 
@@ -324,7 +324,7 @@ public synchronized void pruneSolutions(int max)
    int idx = 0;
    for (S6Solution ss : sortedset) {
       if (ss.checkFlag(S6SolutionFlag.REMOVE)) {
-         doRemove(ss,false);
+	 doRemove(ss,false);
        }
       else if (idx++ >= max) {
 	 doRemove(ss,true);

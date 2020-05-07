@@ -1,34 +1,34 @@
 /********************************************************************************/
-/*                                                                              */
-/*              RequestCose.java                                                */
-/*                                                                              */
-/*      Search Request using COSE                                               */
-/*                                                                              */
+/*										*/
+/*		RequestCose.java						*/
+/*										*/
+/*	Search Request using COSE						*/
+/*										*/
 /********************************************************************************/
-/*      Copyright 2013 Brown University -- Steven P. Reiss                    */
+/*	Copyright 2013 Brown University -- Steven P. Reiss		      */
 /*********************************************************************************
- *  Copyright 2013, Brown University, Providence, RI.                            *
- *                                                                               *
- *                        All Rights Reserved                                    *
- *                                                                               *
- *  Permission to use, copy, modify, and distribute this software and its        *
- *  documentation for any purpose other than its incorporation into a            *
- *  commercial product is hereby granted without fee, provided that the          *
- *  above copyright notice appear in all copies and that both that               *
- *  copyright notice and this permission notice appear in supporting             *
- *  documentation, and that the name of Brown University not be used in          *
- *  advertising or publicity pertaining to distribution of the software          *
- *  without specific, written prior permission.                                  *
- *                                                                               *
- *  BROWN UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS                *
- *  SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND            *
- *  FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT SHALL BROWN UNIVERSITY      *
- *  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY          *
- *  DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,              *
- *  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS               *
- *  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE          *
- *  OF THIS SOFTWARE.                                                            *
- *                                                                               *
+ *  Copyright 2013, Brown University, Providence, RI.				 *
+ *										 *
+ *			  All Rights Reserved					 *
+ *										 *
+ *  Permission to use, copy, modify, and distribute this software and its	 *
+ *  documentation for any purpose other than its incorporation into a		 *
+ *  commercial product is hereby granted without fee, provided that the 	 *
+ *  above copyright notice appear in all copies and that both that		 *
+ *  copyright notice and this permission notice appear in supporting		 *
+ *  documentation, and that the name of Brown University not be used in 	 *
+ *  advertising or publicity pertaining to distribution of the software 	 *
+ *  without specific, written prior permission. 				 *
+ *										 *
+ *  BROWN UNIVERSITY DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS		 *
+ *  SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND		 *
+ *  FITNESS FOR ANY PARTICULAR PURPOSE.  IN NO EVENT SHALL BROWN UNIVERSITY	 *
+ *  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY 	 *
+ *  DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,		 *
+ *  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS		 *
+ *  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 	 *
+ *  OF THIS SOFTWARE.								 *
+ *										 *
  ********************************************************************************/
 
 
@@ -58,38 +58,37 @@ import edu.brown.cs.s6.common.S6Security;
 import edu.brown.cs.s6.common.S6SolutionSet;
 
 public class RequestCose extends RequestBase implements CoseRequest, S6Request.Search,
-        S6KeySearch 
+	S6KeySearch
 {
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Private Storage                                                         */
-/*                                                                              */
+/*										*/
+/*	Private Storage 							*/
+/*										*/
 /********************************************************************************/
 
-private int             target_results;
-private S6SearchType    search_type;
-private CoseSearchType  cose_type;
-private S6FormatType    format_type;
-private CoseScopeType   scope_type;
+private int		target_results;
+private S6SearchType	search_type;
+private CoseSearchType	cose_type;
+private S6FormatType	format_type;
+private CoseScopeType	scope_type;
 private List<RequestKeywordSet> keyword_sets;
-private RequestTests    test_data;
+private RequestTests	test_data;
 private EnumSet<CoseSearchEngine> engine_set;
-private RequestSources   source_set;
+private RequestSources	 source_set;
 private RequestSecurity security_holder;
 private RequestContracts contract_holder;
-private List<String>    required_keywords;
-
+private List<String>	required_keywords;
 
 private static final CoseSearchEngine DEFAULT_ENGINE = CoseSearchEngine.SEARCHCODE;
 
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Constructors                                                            */
-/*                                                                              */
+/*										*/
+/*	Constructors								*/
+/*										*/
 /********************************************************************************/
 
 public RequestCose(S6Engine eng,Element xml) throws S6Exception
@@ -100,12 +99,12 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Basic Access methods for COSE                                           */
-/*                                                                              */
+/*										*/
+/*	Basic Access methods for COSE						*/
+/*										*/
 /********************************************************************************/
 
-@Override public int getNumberOfResults()               { return target_results; }
+@Override public int getNumberOfResults()		{ return target_results; }
 
 @Override public int getNumberOfThreads()
 {
@@ -117,9 +116,9 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
    return getEngine().doDebug();
 }
 
-@Override public CoseSearchType getCoseSearchType()     { return cose_type; }
+@Override public CoseSearchType getCoseSearchType()	{ return cose_type; }
 
-@Override public CoseScopeType getCoseScopeType()       { return scope_type; }
+@Override public CoseScopeType getCoseScopeType()	{ return scope_type; }
 
 @Override public List<CoseKeywordSet> getCoseKeywordSets()
 {
@@ -132,15 +131,15 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
    switch (rws.getLanguage()) {
       default :
       case JAVA :
-         return CoseSearchLanguage.JAVA;
+	 return CoseSearchLanguage.JAVA;
       case XML :
-         return CoseSearchLanguage.XML;
+	 return CoseSearchLanguage.XML;
     }
 }
 
 @Override public Set<CoseSearchEngine> getEngines()
 {
-   return engine_set; 
+   return engine_set;
 }
 
 @Override public Set<String> getSpecificSources()
@@ -151,26 +150,26 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
 
 
 /********************************************************************************/
-/*                                                                              */
-/*     Access methods for S6                                                    */
-/*                                                                              */
+/*										*/
+/*     Access methods for S6							*/
+/*										*/
 /********************************************************************************/
 
-@Override public S6SearchType getSearchType()           { return search_type; }
+@Override public S6SearchType getSearchType()		{ return search_type; }
 
 @Override public CoseScopeType getScopeType()
 {
    return scope_type;
 }
 
-@Override public Collection<KeywordSet> getKeywordSets() 
+@Override public Collection<KeywordSet> getKeywordSets()
 {
    return new ArrayList<KeywordSet>(keyword_sets);
 }
 
-@Override public Tests getTests()                       { return test_data; }
+@Override public Tests getTests()			{ return test_data; }
 
-@Override public Set<S6Location> getLocations()         
+@Override public Set<S6Location> getLocations()
 {
    return EnumSet.allOf(S6Location.class);
 }
@@ -180,23 +179,22 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
    return source_set.useSource(source);
 }
 
-@Override public S6Security getSecurity()               { return security_holder; }
+@Override public S6Security getSecurity()		{ return security_holder; }
 
-@Override public S6Contracts getContracts()             { return contract_holder; }
+@Override public S6Contracts getContracts()		{ return contract_holder; }
 
-@Override public S6FormatType getFormatType()           { return format_type; }
+@Override public S6FormatType getFormatType()		{ return format_type; }
 
-@Override public List<String> getRequiredWords()        { return required_keywords; }
+@Override public List<String> getRequiredWords()	{ return required_keywords; }
 
-@Override public List<String> getKeyTerms()             { return required_keywords; }
-
+@Override public List<String> getKeyTerms()		{ return required_keywords; }
 
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Search method                                                           */
-/*                                                                              */
+/*										*/
+/*	Search method								*/
+/*										*/
 /********************************************************************************/
 
 @Override public void getInitialSolutions(S6SolutionSet ss)
@@ -209,15 +207,15 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Handle results                                                          */
-/*                                                                              */
+/*										*/
+/*	Handle results								*/
+/*										*/
 /********************************************************************************/
 
 private class ResultHandler implements CoseResultSet {
-   
+
    private S6SolutionSet solution_set;
-   
+
    ResultHandler(S6SolutionSet ss) {
       solution_set = ss;
     }
@@ -227,13 +225,13 @@ private class ResultHandler implements CoseResultSet {
       solution_set.addInitialSolution(frag,cr.getSource());
     }
 
-}       // end of inner class ResultHandler
+}	// end of inner class ResultHandler
 
 
 /********************************************************************************/
-/*                                                                              */
-/*      Load the search request from the XML                                    */
-/*                                                                              */
+/*										*/
+/*	Load the search request from the XML					*/
+/*										*/
 /********************************************************************************/
 
 private void loadRequest(Element xml) throws S6Exception
@@ -241,50 +239,50 @@ private void loadRequest(Element xml) throws S6Exception
    if (IvyXml.isElement(xml,"S6")) {
       xml = IvyXml.getElementByTag(xml,"SEARCH");
     }
-   
+
    if (!IvyXml.isElement(xml,"SEARCH"))
       throw new S6Exception("Attempt to do a search without SEARCH element");
-   
+
    search_type = IvyXml.getAttrEnum(xml,"WHAT",S6SearchType.METHOD);
    format_type = IvyXml.getAttrEnum(xml,"FORMAT",S6FormatType.NONE);
    target_results = IvyXml.getAttrInt(xml,"RESULTS",200);
-   
+
    switch (search_type) {
       case METHOD :
-         cose_type = CoseSearchType.METHOD;
-         scope_type = CoseScopeType.FILE;
-         break;
+	 cose_type = CoseSearchType.METHOD;
+	 scope_type = CoseScopeType.FILE;
+	 break;
       case CLASS :
-         cose_type = CoseSearchType.CLASS;
-         scope_type = CoseScopeType.FILE;
-         break;
+	 cose_type = CoseSearchType.CLASS;
+	 scope_type = CoseScopeType.FILE;
+	 break;
       case FULLCLASS :
-         cose_type = CoseSearchType.CLASS;
-         scope_type = CoseScopeType.FILE;
-         break;
+	 cose_type = CoseSearchType.CLASS;
+	 scope_type = CoseScopeType.FILE;
+	 break;
       case TESTCASES :
-         cose_type = CoseSearchType.TESTCLASS;
-         scope_type = CoseScopeType.FILE;
-         break;
+	 cose_type = CoseSearchType.TESTCLASS;
+	 scope_type = CoseScopeType.FILE;
+	 break;
       case UIFRAMEWORK :
-         cose_type = CoseSearchType.PACKAGE;
+	 cose_type = CoseSearchType.PACKAGE;
 	 scope_type = CoseScopeType.PACKAGE_UI;
 	 break;
       case ANDROIDUI :
-         cose_type = CoseSearchType.ANDROIDUI;
+	 cose_type = CoseSearchType.ANDROIDUI;
 	 scope_type = CoseScopeType.PACKAGE_UI;
 	 break;
       case PACKAGE :
-         cose_type = CoseSearchType.PACKAGE;
+	 cose_type = CoseSearchType.PACKAGE;
 	 scope_type = CoseScopeType.SYSTEM;
 	 break;
       case APPLICATION :
-         cose_type = CoseSearchType.PACKAGE;
-         scope_type = CoseScopeType.SYSTEM;
-	 break; 
+	 cose_type = CoseSearchType.PACKAGE;
+	 scope_type = CoseScopeType.SYSTEM;
+	 break;
     }
    scope_type = IvyXml.getAttrEnum(xml,"SCOPE",scope_type);
-   
+
    engine_set = EnumSet.noneOf(CoseSearchEngine.class);
    keyword_sets = new ArrayList<RequestKeywordSet>();
    required_keywords = new ArrayList<String>();
@@ -298,10 +296,10 @@ private void loadRequest(Element xml) throws S6Exception
       String txt = IvyXml.getText(kws);
       if (txt != null && txt.length() > 1) required_keywords.add(txt);
     }
-   
+
    Element tsts = IvyXml.getElementByTag(xml,"TESTS");
    test_data = new RequestTests(tsts);
-   
+
    switch (search_type) {
       case METHOD :
 	 if (getSignature() == null || !(getSignature() instanceof RequestMethod))
@@ -327,26 +325,26 @@ private void loadRequest(Element xml) throws S6Exception
 	    throw new S6Exception("UIFRAMEWORK request without signature");
 	 break;
       case TESTCASES :
-         if (getSignature() == null || !(getSignature() instanceof RequestTesting))
-	    throw new S6Exception("TESTING request without signature");     
-         break;
+	 if (getSignature() == null || !(getSignature() instanceof RequestTesting))
+	    throw new S6Exception("TESTING request without signature");
+	 break;
     }
-   
+
    Element srcs = IvyXml.getElementByTag(xml,"SOURCES");
    source_set = new RequestSources(srcs);
-   
+
    Element secy = IvyXml.getElementByTag(xml,"SECURITY");
    security_holder = new RequestSecurity(secy);
-   
+
    Element cntr = IvyXml.getElementByTag(xml,"CONTRACTS");
    contract_holder = new RequestContracts(getSignature(),cntr);
-   
+
    for (CoseSearchEngine loc : CoseSearchEngine.values()) {
       if (IvyXml.getAttrBool(xml,loc.toString())) {
 	 engine_set.add(loc);
        }
     }
-   
+
    if (source_set.getSpecificSources() != null) {
       for (String s : source_set.getSpecificSources()) {
 	 for (CoseSearchEngine loc : CoseSearchEngine.values()) {
@@ -357,7 +355,7 @@ private void loadRequest(Element xml) throws S6Exception
 	  }
        }
     }
-   
+
    if (engine_set.isEmpty() && IvyXml.getAttrBool(xml,"REMOTE")) {
       engine_set.add(DEFAULT_ENGINE);
     }
@@ -365,7 +363,7 @@ private void loadRequest(Element xml) throws S6Exception
 
 
 
-}       // end of class RequestCose
+}	// end of class RequestCose
 
 
 

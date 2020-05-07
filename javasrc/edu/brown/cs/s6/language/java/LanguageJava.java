@@ -240,7 +240,7 @@ public Set<String> getRelatedProjects(S6Fragment sfj)
        }
     }
 
-   
+
    IvyLog.logI("JAVA","Related projects for " + nm + ": ");
    for (String s : rslt) IvyLog.logI1(s);
 

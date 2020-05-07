@@ -465,7 +465,7 @@ public boolean waitForAll(Queue<Future<Boolean>> waitq)
    return false;
 }
 
-public int getNumberOfSearchThreads()           { return 4; }
+public int getNumberOfSearchThreads()		{ return 4; }
 
 public boolean doDebug()			{ return false; }
 
@@ -486,27 +486,27 @@ private class FinderServer extends Thread {
       super("S6_FINDER_ACCEPT");
       as_server = server;
       try {
-         server_socket = new ServerSocket(port_number);
+	 server_socket = new ServerSocket(port_number);
        }
       catch (IOException e) {
-         System.err.println("S6: FINDER: Problem creating server socket: " + e);
-         System.exit(1);
+	 System.err.println("S6: FINDER: Problem creating server socket: " + e);
+	 System.exit(1);
        }
     }
 
    public void run() {
       IvyLog.logI("ENGINE","FINDER: Engine running on port " + server_socket.getLocalPort() + " " + as_server);
-   
+
       for ( ; ; ) {
-         try {
-            Socket s = server_socket.accept();
-            createClient(s);
-          }
-         catch (IOException e) {
-            IvyLog.logE("ENGINE","Problem with finder server socket accept: " + e);
-            break;
-          }
-         if (!as_server) break;
+	 try {
+	    Socket s = server_socket.accept();
+	    createClient(s);
+	  }
+	 catch (IOException e) {
+	    IvyLog.logE("ENGINE","Problem with finder server socket accept: " + e);
+	    break;
+	  }
+	 if (!as_server) break;
        }
     }
 
@@ -609,23 +609,23 @@ private class FinderFile {
 
    S6Fragment getFragment() {
       if (file_fragment == null) {
-         StringBuilder buf = new StringBuilder();
-         try {
-            BufferedReader br = new BufferedReader(new FileReader(file_name));
-            for ( ; ; ) {
-               String ln = br.readLine();
-               if (ln == null) break;
-               buf.append(ln);
-               buf.append("\n");
-             }
-            br.close();
-          }
-         catch (IOException e) {
-            System.err.println("FINDER: Problem reading file " + file_name + ": " + e);
-            return null;
-          }
-         FinderSource src = new FinderSource(file_name.toString());
-         file_fragment = createFileFragment(buf.toString(),src,null);
+	 StringBuilder buf = new StringBuilder();
+	 try {
+	    BufferedReader br = new BufferedReader(new FileReader(file_name));
+	    for ( ; ; ) {
+	       String ln = br.readLine();
+	       if (ln == null) break;
+	       buf.append(ln);
+	       buf.append("\n");
+	     }
+	    br.close();
+	  }
+	 catch (IOException e) {
+	    System.err.println("FINDER: Problem reading file " + file_name + ": " + e);
+	    return null;
+	  }
+	 FinderSource src = new FinderSource(file_name.toString());
+	 file_fragment = createFileFragment(buf.toString(),src,null);
        }
       return file_fragment;
     }
@@ -649,15 +649,14 @@ private static class FinderSource implements CoseSource {
 
    public String getName()				{ return file_name; }
    public String getDisplayName()			{ return file_name; }
-   public String getPathName()                          { return file_name; }
+   public String getPathName()				{ return file_name; }
    public String getLicenseUid()			{ return null; }
    public double getScore()				{ return 1; }
-   public String getProjectId()                         { return null; }
-   public int getOffset()                               { return 0; }
-   public int getLength()                               { return 0; }
-   public CoseSource getBaseSource()                    { return null; }
-   
-   public boolean isSameRepository(CoseSource uri)      { return true; }
+   public String getProjectId() 			{ return null; }
+   public int getOffset()				{ return 0; }
+   public int getLength()				{ return 0; }
+   public CoseSource getBaseSource()			{ return null; }
+   public boolean isSameRepository(CoseSource uri)	{ return true; }
 
 }	// end of subclass FinderSource
 

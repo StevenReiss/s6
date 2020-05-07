@@ -9,6 +9,7 @@
    <PACKAGE NAME='javax.swing.text' />
    <PACKAGE NAME='javax.swing.text' />
    <PACKAGE NAME='org.eclipse.jface' />
+<<<<<<< HEAD
    <PACKAGE NAME='org.eclipse.core' />
    <PACKAGE NAME='jsyntaxpane' />
    <PACKAGE NAME='org.jsoup' />
@@ -60,5 +61,10 @@
    <LOAD CLASS='edu.brown.cs.s6.language.java.TransformSwingModels' />
    <LOAD CLASS='edu.brown.cs.s6.language.java.TransformThrow' />
 
+=======
+   <PACKAGE NAME='org.eclipse.jdt' />
+   <PACKAGE NAME='org.eclipse.core' />
+   <PACKAGE NAME='jsyntaxpane' />
+>>>>>>> 9ed3840fca98d6a5d5ca288027dbf837313da7e2
 </FAIT>
 

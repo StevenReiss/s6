@@ -694,19 +694,19 @@ private static class UsageVisitor extends ASTVisitor {
    @Override public void postVisit(ASTNode n) {
       JcompSymbol js = getReference(n);
       if (js != null) {
-         JcompType jt = js.getType();
-         if (jt != null && jt.isClassType() && !jt.isBinaryType() && jt != current_type) {
-            String cnm = jt.getName();
-            if (package_name != null) {
-               if (cnm.startsWith(package_name)) {
-        	  int idx = cnm.lastIndexOf(".");
-        	  cnm = cnm.substring(idx+1);
-        	}
-             }
-            int idx1 = cnm.indexOf("$");
-            if (idx1 >= 0) cnm = cnm.substring(0,idx1);
-            items_used.add(cnm);
-          }
+	 JcompType jt = js.getType();
+	 if (jt != null && jt.isClassType() && !jt.isBinaryType() && jt != current_type) {
+	    String cnm = jt.getName();
+	    if (package_name != null) {
+	       if (cnm.startsWith(package_name)) {
+		  int idx = cnm.lastIndexOf(".");
+		  cnm = cnm.substring(idx+1);
+		}
+	     }
+	    int idx1 = cnm.indexOf("$");
+	    if (idx1 >= 0) cnm = cnm.substring(0,idx1);
+	    items_used.add(cnm);
+	  }
        }
       if (n == current_class) current_class = null;
     }
@@ -786,12 +786,12 @@ private static boolean checkUITypes(S6Request.UIComponent c,Set<String> types)
 	 if (!SIMPLE_TYPES.contains(s)) crit = true;
        }
       if (!fg && crit) {
-         StringBuffer buf = new StringBuffer();
+	 StringBuffer buf = new StringBuffer();
 	 for (String s : c.getTypes()) {
-            buf.append(" ");
-            buf.append(s);
-          }
-         IvyLog.logE("JAVA","UICHECK FAILED: " + buf.toString());
+	    buf.append(" ");
+	    buf.append(s);
+	  }
+	 IvyLog.logE("JAVA","UICHECK FAILED: " + buf.toString());
 	 return false;
        }
     }
@@ -871,8 +871,8 @@ private static class UIUsageVisitor extends ASTVisitor {
       items_used.add(nm);
       addType(jt.getSuperType());
       if (jt.getInterfaces() != null) {
-         for (JcompType jt1 : jt.getInterfaces()) addType(jt1);
-         for (JcompType jt1 : jt.getInterfaces()) addType(jt1);
+	 for (JcompType jt1 : jt.getInterfaces()) addType(jt1);
+	 for (JcompType jt1 : jt.getInterfaces()) addType(jt1);
        }
     }
 

@@ -228,7 +228,7 @@ boolean findDependencies()
 	 System.err.println();
        }
       System.err.println("SOURCE: " + base_solution.getSource().getName() + " " +
-			    base_solution.getScore()); 
+			    base_solution.getScore());
 
       if (use_class) System.err.println("WORK ON CLASS " + base_type);
       else if (use_package) System.err.println("WORK ON PACKAGE " + package_unit);
@@ -316,8 +316,8 @@ private class CheckTypes extends ASTVisitor {
       ASTNode tn = n;
       while (tn != null && !(tn instanceof TypeDeclaration)) tn = tn.getParent();
       if (tn != null) {
-         JcompType jt = JavaAst.getJavaType(tn);
-         defined_types.add(jt);
+	 JcompType jt = JavaAst.getJavaType(tn);
+	 defined_types.add(jt);
        }
     }
 
@@ -357,13 +357,13 @@ private class CheckTypes extends ASTVisitor {
 
    private void addType(JcompType jt) {
       if (!jt.isTypeVariable()) {
-         refd_types.add(jt);
-         int idx = jt.getName().indexOf(".");
-         if (idx >= 0) {
-            while (jt.isParameterizedType())
-               jt = jt.getBaseType();
-            import_types.add(jt);
-          }
+	 refd_types.add(jt);
+	 int idx = jt.getName().indexOf(".");
+	 if (idx >= 0) {
+	    while (jt.isParameterizedType())
+	       jt = jt.getBaseType();
+	    import_types.add(jt);
+	  }
        }
    }
 
@@ -393,41 +393,41 @@ private class CheckTypes extends ASTVisitor {
       String pkg = null;
       PackageDeclaration pd = ast_root.getPackage();
       if (pd != null) pkg = pd.getName().getFullyQualifiedName() + ".";
-   
+
       for (JcompType jt : refd_types) {
-         JcompType pjt = jt;
-         while (pjt.isParameterizedType()) 
-            pjt = pjt.getBaseType();
-         if (jt.getName().contains("Anon@")) {
-            import_types.remove(jt);
-            continue;
-          }
-         Matcher match = ANON_PATTERN.matcher(jt.getName());
-         if (match.matches()) {
-            import_types.remove(jt);
-            import_types.remove(pjt);
-            continue;
-          }
-         if (defined_types.contains(jt)) {
-            import_types.remove(jt);
-            import_types.remove(pjt);
-          }
-         else if (pkg != null && jt.getName().startsWith(pkg)) {
-            if (jt.isBinaryType()) {
-               import_types.remove(jt);
-               import_types.remove(pjt);
-             }
-            else {
-               if (solution_set.doDebug()) System.err.println("DEPEND: Missing Package Type " + jt.getName());
-               allok = false;
-             }
-          }
-         else if (!import_types.contains(jt) && !import_types.contains(pjt)) {
-            if (solution_set.doDebug()) System.err.println("DEPEND: Missing Type " + jt.getName());
-            allok = false;
-         }
+	 JcompType pjt = jt;
+	 while (pjt.isParameterizedType())
+	    pjt = pjt.getBaseType();
+	 if (jt.getName().contains("Anon@")) {
+	    import_types.remove(jt);
+	    continue;
+	  }
+	 Matcher match = ANON_PATTERN.matcher(jt.getName());
+	 if (match.matches()) {
+	    import_types.remove(jt);
+	    import_types.remove(pjt);
+	    continue;
+	  }
+	 if (defined_types.contains(jt)) {
+	    import_types.remove(jt);
+	    import_types.remove(pjt);
+	  }
+	 else if (pkg != null && jt.getName().startsWith(pkg)) {
+	    if (jt.isBinaryType()) {
+	       import_types.remove(jt);
+	       import_types.remove(pjt);
+	     }
+	    else {
+	       if (solution_set.doDebug()) System.err.println("DEPEND: Missing Package Type " + jt.getName());
+	       allok = false;
+	     }
+	  }
+	 else if (!import_types.contains(jt) && !import_types.contains(pjt)) {
+	    if (solution_set.doDebug()) System.err.println("DEPEND: Missing Type " + jt.getName());
+	    allok = false;
+	 }
        }
-   
+
       return allok;
     }
 
@@ -482,152 +482,152 @@ private class CheckDefs extends ASTVisitor {
       boolean goon = true;
       JcompSymbol js = JavaAst.getDefinition(n);
       if (js != null) {
-         // System.err.println("DEF " + js.getName() + " " + n);
-         defined_names.add(js);
-         if (js.isFinal() && js.isStatic() && js.isFieldSymbol()) {
-            if (n instanceof VariableDeclarationFragment) {
-               VariableDeclarationFragment vdf = (VariableDeclarationFragment) n;
-               if (vdf.getInitializer() == null) need_staticinit = true;
-             }
-          }
+	 // System.err.println("DEF " + js.getName() + " " + n);
+	 defined_names.add(js);
+	 if (js.isFinal() && js.isStatic() && js.isFieldSymbol()) {
+	    if (n instanceof VariableDeclarationFragment) {
+	       VariableDeclarationFragment vdf = (VariableDeclarationFragment) n;
+	       if (vdf.getInitializer() == null) need_staticinit = true;
+	     }
+	  }
        }
       js = JavaAst.getReference(n);
       if (js != null) {
-         ref_names.add(js);
-         // System.err.println("REF " + js.getName());
+	 ref_names.add(js);
+	 // System.err.println("REF " + js.getName());
        }
       JcompType jt = JavaAst.getExprType(n);
       if (jt != null && jt.isErrorType()) {
-         boolean err = true;
-         if (solution_set.getSearchType() == S6SearchType.ANDROIDUI) {
-            if (n instanceof QualifiedName) {
-               String qn = ((QualifiedName) n).getFullyQualifiedName();
-               if (qn.startsWith("R.") || qn.contains(".R.")) {
-        	  err = false;
-        	  goon = false;
-        	}
-             }
-            else if (n instanceof SimpleName) {
-               if (((SimpleName) n).getIdentifier().equals("R")) err = false;
-               if (((SimpleName) n).getIdentifier().equals("edit_contact"))
-        	  System.err.println("CHECK EDIT_CONTACT");
-             }
-            else if (n instanceof MethodInvocation) {
-               MethodInvocation mi = (MethodInvocation) n;
-               boolean argerr = false;
-               for (Object o : mi.arguments()) {
-        	  ASTNode n1 = (ASTNode) o;
-        	  JcompType argtyp = JavaAst.getExprType(n1);
-        	  if (argtyp != null && argtyp.isErrorType()) argerr = true;
-        	}
-               if (argerr)
-        	  err = false;
-             }
-            else if (n instanceof ConditionalExpression) {
-               ConditionalExpression cexp = (ConditionalExpression) n;
-               boolean argerr = false;
-               JcompType t1 = JavaAst.getExprType(cexp.getThenExpression());
-               if (t1 != null && t1.isErrorType()) argerr = true;
-               t1 = JavaAst.getExprType(cexp.getElseExpression());
-               if (t1 != null && t1.isErrorType()) argerr = true;
-               if (argerr) err = false;
-             }
-            else {
-               System.err.println("ANDROID ERROR: " + n);
-             }
-          }
-         if (err) {
-            error_nodes.add(n);
-            have_error = true;
-          }
+	 boolean err = true;
+	 if (solution_set.getSearchType() == S6SearchType.ANDROIDUI) {
+	    if (n instanceof QualifiedName) {
+	       String qn = ((QualifiedName) n).getFullyQualifiedName();
+	       if (qn.startsWith("R.") || qn.contains(".R.")) {
+		  err = false;
+		  goon = false;
+		}
+	     }
+	    else if (n instanceof SimpleName) {
+	       if (((SimpleName) n).getIdentifier().equals("R")) err = false;
+	       if (((SimpleName) n).getIdentifier().equals("edit_contact"))
+		  System.err.println("CHECK EDIT_CONTACT");
+	     }
+	    else if (n instanceof MethodInvocation) {
+	       MethodInvocation mi = (MethodInvocation) n;
+	       boolean argerr = false;
+	       for (Object o : mi.arguments()) {
+		  ASTNode n1 = (ASTNode) o;
+		  JcompType argtyp = JavaAst.getExprType(n1);
+		  if (argtyp != null && argtyp.isErrorType()) argerr = true;
+		}
+	       if (argerr)
+		  err = false;
+	     }
+	    else if (n instanceof ConditionalExpression) {
+	       ConditionalExpression cexp = (ConditionalExpression) n;
+	       boolean argerr = false;
+	       JcompType t1 = JavaAst.getExprType(cexp.getThenExpression());
+	       if (t1 != null && t1.isErrorType()) argerr = true;
+	       t1 = JavaAst.getExprType(cexp.getElseExpression());
+	       if (t1 != null && t1.isErrorType()) argerr = true;
+	       if (argerr) err = false;
+	     }
+	    else {
+	       System.err.println("ANDROID ERROR: " + n);
+	     }
+	  }
+	 if (err) {
+	    error_nodes.add(n);
+	    have_error = true;
+	  }
        }
-   
+
       return goon;
     }
 
    Collection<BodyDeclaration> fixup() {
       Set<BodyDeclaration> newnodes = new HashSet<BodyDeclaration>();
       for (JcompSymbol ds : defined_names) {
-         ASTNode dn = ds.getDefinitionNode();
-         while (dn != null && !(dn instanceof BodyDeclaration)) dn = dn.getParent();
-         if (dn != null) {
-            BodyDeclaration bd = (BodyDeclaration) dn;
-            if (!Modifier.isStatic(bd.getModifiers())) {
-               ASTNode par = bd.getParent();
-               if (par == base_node || (par.getParent() instanceof CompilationUnit && par.getParent() == base_node))
-        	  need_constructor = true;
-             }
-          }
+	 ASTNode dn = ds.getDefinitionNode();
+	 while (dn != null && !(dn instanceof BodyDeclaration)) dn = dn.getParent();
+	 if (dn != null) {
+	    BodyDeclaration bd = (BodyDeclaration) dn;
+	    if (!Modifier.isStatic(bd.getModifiers())) {
+	       ASTNode par = bd.getParent();
+	       if (par == base_node || (par.getParent() instanceof CompilationUnit && par.getParent() == base_node))
+		  need_constructor = true;
+	     }
+	  }
        }
-   
+
       for (JcompSymbol rs : ref_names) {
-         if (defined_names.contains(rs)) continue;
-         ASTNode dn = rs.getDefinitionNode();
-         while (dn != null && !(dn instanceof BodyDeclaration)) dn = dn.getParent();
-         if (dn != null) {
-            BodyDeclaration bd = (BodyDeclaration) dn;
-            if (Modifier.isAbstract(bd.getModifiers())) {
-               if (solution_set.doDebug()) {
-        	  System.err.println("ATTEMPT TO USE ABSTRACT DEF " + dn);
-        	}
-             }
-            else {
-               newnodes.add(bd);
-               if (solution_set.doDebug()) System.err.println("ADD DEF " + dn);
-             }
-          }
-         else if (!rs.isBinarySymbol()) {
-            if (solution_set.doDebug()) System.err.println("DEF NOT FOUND " + rs.getName());
-          }
+	 if (defined_names.contains(rs)) continue;
+	 ASTNode dn = rs.getDefinitionNode();
+	 while (dn != null && !(dn instanceof BodyDeclaration)) dn = dn.getParent();
+	 if (dn != null) {
+	    BodyDeclaration bd = (BodyDeclaration) dn;
+	    if (Modifier.isAbstract(bd.getModifiers())) {
+	       if (solution_set.doDebug()) {
+		  System.err.println("ATTEMPT TO USE ABSTRACT DEF " + dn);
+		}
+	     }
+	    else {
+	       newnodes.add(bd);
+	       if (solution_set.doDebug()) System.err.println("ADD DEF " + dn);
+	     }
+	  }
+	 else if (!rs.isBinarySymbol()) {
+	    if (solution_set.doDebug()) System.err.println("DEF NOT FOUND " + rs.getName());
+	  }
        }
-   
+
       for (Iterator<BodyDeclaration> it = newnodes.iterator(); it.hasNext(); ) {
-         BodyDeclaration bd = it.next();
-         if (bd.getParent() == base_node) continue;
-         if (base_node instanceof CompilationUnit && bd.getParent().getParent() == base_node) continue;
-         it.remove();
+	 BodyDeclaration bd = it.next();
+	 if (bd.getParent() == base_node) continue;
+	 if (base_node instanceof CompilationUnit && bd.getParent().getParent() == base_node) continue;
+	 it.remove();
        }
-   
+
       if (need_constructor && !have_constructor && search_type == S6SearchType.METHOD) {
-         boolean cnstfnd = false;
-         have_constructor = true;
-         ASTNode cn = base_node;
-         while (cn != null && !(cn instanceof TypeDeclaration)) cn = cn.getParent();
-         TypeDeclaration td = (TypeDeclaration) cn;
-         int ncnst = 0;
-         if (td != null && !td.isInterface()) {
-            for (MethodDeclaration md : td.getMethods()) {
-               if (md.isConstructor() && md.parameters().size() == 0) {
-        	  cnstfnd = true;
-        	  JcompSymbol js = JavaAst.getDefinition(md);
-        	  if (!defined_names.contains(js)) {
-        	     newnodes.add(md);
-        	     if (solution_set.doDebug()) System.err.println("ADD CONSTRUCTOR " + md);
-        	   }
-        	}
-               else if (md.isConstructor()) ++ncnst;
-             }
-   
-          }
-         if (!cnstfnd && ncnst > 0) {
-            have_error = true;
-          }
+	 boolean cnstfnd = false;
+	 have_constructor = true;
+	 ASTNode cn = base_node;
+	 while (cn != null && !(cn instanceof TypeDeclaration)) cn = cn.getParent();
+	 TypeDeclaration td = (TypeDeclaration) cn;
+	 int ncnst = 0;
+	 if (td != null && !td.isInterface()) {
+	    for (MethodDeclaration md : td.getMethods()) {
+	       if (md.isConstructor() && md.parameters().size() == 0) {
+		  cnstfnd = true;
+		  JcompSymbol js = JavaAst.getDefinition(md);
+		  if (!defined_names.contains(js)) {
+		     newnodes.add(md);
+		     if (solution_set.doDebug()) System.err.println("ADD CONSTRUCTOR " + md);
+		   }
+		}
+	       else if (md.isConstructor()) ++ncnst;
+	     }
+
+	  }
+	 if (!cnstfnd && ncnst > 0) {
+	    have_error = true;
+	  }
        }
-   
+
       if (need_staticinit && !have_staticinit && search_type == S6SearchType.METHOD) {
-         have_staticinit = true;
-         ASTNode cn = base_node;
-         while (cn != null && !(cn instanceof TypeDeclaration)) cn = cn.getParent();
-         TypeDeclaration td = (TypeDeclaration) cn;
-         if (td != null && !td.isInterface()) {
-            for (Object o : td.bodyDeclarations()) {
-               BodyDeclaration bd = (BodyDeclaration) o;
-               if (bd instanceof Initializer) {
-                  // might want to be selective here
-                  newnodes.add(bd);
-                }
-             }
-          }
+	 have_staticinit = true;
+	 ASTNode cn = base_node;
+	 while (cn != null && !(cn instanceof TypeDeclaration)) cn = cn.getParent();
+	 TypeDeclaration td = (TypeDeclaration) cn;
+	 if (td != null && !td.isInterface()) {
+	    for (Object o : td.bodyDeclarations()) {
+	       BodyDeclaration bd = (BodyDeclaration) o;
+	       if (bd instanceof Initializer) {
+		  // might want to be selective here
+		  newnodes.add(bd);
+		}
+	     }
+	  }
        }
       return newnodes;
     }

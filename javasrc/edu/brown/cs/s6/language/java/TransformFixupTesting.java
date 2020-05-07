@@ -155,108 +155,108 @@ private class TestFixupMapper extends TreeMapper {
 
    @Override void rewriteTree(ASTNode orig,ASTRewrite rw) {
        if (orig == first_type) {
-          CompilationUnit cu = (CompilationUnit) orig.getRoot();
-          ListRewrite outers = null;
-          for (Object o : cu.types()) {
-             if (o == first_type) continue;
-             AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
-             if (outers == null) {
-        	outers = rw.getListRewrite(cu,CompilationUnit.TYPES_PROPERTY);
-              }
-             outers.remove(atd,null);
-           }
-          TestTypeBuilder ttd = new TestTypeBuilder(rw.getAST());
-          ttd.setup(first_type);
-          Set<S6Solution> use = new HashSet<S6Solution>(use_sources.values());
-          Set<JcompType> imports = new HashSet<JcompType>();
-          for (S6Solution sol : solution_set.getSolutions()) {
-             if (use.contains(sol)) {
-        	JavaFragment f = (JavaFragment) sol.getFragment();
-        	f.resolveFragment();
-        	Collection<JcompType> imp = f.getImportTypes();
-        	imports.addAll(imp);
-        	TypeDeclaration std = (TypeDeclaration) f.getAstNode();
-        	ttd.addItems(std);
-              }
-             sol.setFlag(S6SolutionFlag.REMOVE);
-           }
-   
-          TypeDeclaration ntd = ttd.getTypeDeclaration();
-          TypeDeclaration otd = (TypeDeclaration) orig;
-          for (Object o : otd.modifiers()) {
-             if (o instanceof Modifier) {
-        	Modifier md = (Modifier) o;
-        	if (md.isStatic()) {
-        	   ListRewrite mlrw = rw.getListRewrite(otd,TypeDeclaration.MODIFIERS2_PROPERTY);
-        	   mlrw.remove(md,null);
-        	   break;
-        	 }
-              }
-           }
-          if (otd.getSuperclassType() != null) {
-             JcompType jt = JavaAst.getJavaType(otd.getSuperclassType());
-             if (jt != null && jt.getName().equals("org.junit.Assert")) {
-        	rw.remove(otd.getSuperclassType(),null);
-              }
-           }
-          ListRewrite blrw = rw.getListRewrite(otd,TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-          for (Object o : otd.bodyDeclarations()) {
-             BodyDeclaration bd = (BodyDeclaration) o;
-             // System.err.println("REMOVE: " + bd.hashCode() + " " + bd);
-             blrw.remove(bd,null);
-           }
-          for (Object o : ntd.bodyDeclarations()) {
-             BodyDeclaration bd = (BodyDeclaration) o;
-             blrw.insertLast(bd,null);
-             // System.err.println("INSERT: " + bd.hashCode() + " " + bd);
-           }
-          // rw.replace(orig,ntd,null);
-   
-          ListRewrite lrw = rw.getListRewrite(cu,CompilationUnit.IMPORTS_PROPERTY);
-          for (Object o : cu.imports()) {
-             lrw.remove((ASTNode) o,null);
-           }
-          for (JcompType jt : imports) {
-             String tnm = jt.getName();
-             int idx = tnm.lastIndexOf(".");
-             if (idx < 0) continue;
-             String pkg = tnm.substring(0,idx);
-             if (pkg.equals("java.lang")) continue;
-             if (tnm.equals("org.junit.Assert")) continue;
-             ImportDeclaration id = rw.getAST().newImportDeclaration();
-             Name nm = JavaAst.getQualifiedName(rw.getAST(),tnm);
-             id.setName(nm);
-             lrw.insertLast(id,null);
-           }
-   
-          // System.err.println("TRANSFORM: " + rw);
-        }
+	  CompilationUnit cu = (CompilationUnit) orig.getRoot();
+	  ListRewrite outers = null;
+	  for (Object o : cu.types()) {
+	     if (o == first_type) continue;
+	     AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
+	     if (outers == null) {
+		outers = rw.getListRewrite(cu,CompilationUnit.TYPES_PROPERTY);
+	      }
+	     outers.remove(atd,null);
+	   }
+	  TestTypeBuilder ttd = new TestTypeBuilder(rw.getAST());
+	  ttd.setup(first_type);
+	  Set<S6Solution> use = new HashSet<S6Solution>(use_sources.values());
+	  Set<JcompType> imports = new HashSet<JcompType>();
+	  for (S6Solution sol : solution_set.getSolutions()) {
+	     if (use.contains(sol)) {
+		JavaFragment f = (JavaFragment) sol.getFragment();
+		f.resolveFragment();
+		Collection<JcompType> imp = f.getImportTypes();
+		imports.addAll(imp);
+		TypeDeclaration std = (TypeDeclaration) f.getAstNode();
+		ttd.addItems(std);
+	      }
+	     sol.setFlag(S6SolutionFlag.REMOVE);
+	   }
+
+	  TypeDeclaration ntd = ttd.getTypeDeclaration();
+	  TypeDeclaration otd = (TypeDeclaration) orig;
+	  for (Object o : otd.modifiers()) {
+	     if (o instanceof Modifier) {
+		Modifier md = (Modifier) o;
+		if (md.isStatic()) {
+		   ListRewrite mlrw = rw.getListRewrite(otd,TypeDeclaration.MODIFIERS2_PROPERTY);
+		   mlrw.remove(md,null);
+		   break;
+		 }
+	      }
+	   }
+	  if (otd.getSuperclassType() != null) {
+	     JcompType jt = JavaAst.getJavaType(otd.getSuperclassType());
+	     if (jt != null && jt.getName().equals("org.junit.Assert")) {
+		rw.remove(otd.getSuperclassType(),null);
+	      }
+	   }
+	  ListRewrite blrw = rw.getListRewrite(otd,TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
+	  for (Object o : otd.bodyDeclarations()) {
+	     BodyDeclaration bd = (BodyDeclaration) o;
+	     // System.err.println("REMOVE: " + bd.hashCode() + " " + bd);
+	     blrw.remove(bd,null);
+	   }
+	  for (Object o : ntd.bodyDeclarations()) {
+	     BodyDeclaration bd = (BodyDeclaration) o;
+	     blrw.insertLast(bd,null);
+	     // System.err.println("INSERT: " + bd.hashCode() + " " + bd);
+	   }
+	  // rw.replace(orig,ntd,null);
+
+	  ListRewrite lrw = rw.getListRewrite(cu,CompilationUnit.IMPORTS_PROPERTY);
+	  for (Object o : cu.imports()) {
+	     lrw.remove((ASTNode) o,null);
+	   }
+	  for (JcompType jt : imports) {
+	     String tnm = jt.getName();
+	     int idx = tnm.lastIndexOf(".");
+	     if (idx < 0) continue;
+	     String pkg = tnm.substring(0,idx);
+	     if (pkg.equals("java.lang")) continue;
+	     if (tnm.equals("org.junit.Assert")) continue;
+	     ImportDeclaration id = rw.getAST().newImportDeclaration();
+	     Name nm = JavaAst.getQualifiedName(rw.getAST(),tnm);
+	     id.setName(nm);
+	     lrw.insertLast(id,null);
+	   }
+
+	  // System.err.println("TRANSFORM: " + rw);
+	}
     }
 
    private double getScore(S6Solution sol) {
       S6Fragment frag = sol.getFragment();
       if (sol.getFragment() == null) {
-         System.err.println("SOLUTION LACKS FRAGMENT: " + sol);
-         return 0;
+	 System.err.println("SOLUTION LACKS FRAGMENT: " + sol);
+	 return 0;
        }
-   
+
       S6TestResults tr = frag.getTestResults();
       int nsucc = 0;
       int nfail = 0;
       for (String s : tr.getMessageResults()) {
-         StringTokenizer tok = new StringTokenizer(s);
-         try {
-            int ns = Integer.parseInt(tok.nextToken());
-            int nf = Integer.parseInt(tok.nextToken());
-            nsucc += ns;
-            nfail += nf;
-          }
-         catch (Throwable t) { }
+	 StringTokenizer tok = new StringTokenizer(s);
+	 try {
+	    int ns = Integer.parseInt(tok.nextToken());
+	    int nf = Integer.parseInt(tok.nextToken());
+	    nsucc += ns;
+	    nfail += nf;
+	  }
+	 catch (Throwable t) { }
        }
       int cm = frag.getCodeComplexity();
-   
+
       double score = nsucc * 1024 - nfail * 512 - cm / 64.0;
-   
+
       return score;
     }
 
@@ -297,27 +297,27 @@ private class TestTypeBuilder {
       result_type = use_ast.newTypeDeclaration();
       result_type.setName((SimpleName) ASTNode.copySubtree(use_ast,td.getName()));
       for (Object o : td.modifiers()) {
-         ASTNode iem = (ASTNode) o;
-         IExtendedModifier iem1 = (IExtendedModifier) ASTNode.copySubtree(use_ast,iem);
-         if (iem1.isModifier()) {
-            Modifier md = (Modifier) iem1;
-            if (md.isStatic()) continue;
-          }
-         else continue;
-         result_type.modifiers().add(iem1);
-   
+	 ASTNode iem = (ASTNode) o;
+	 IExtendedModifier iem1 = (IExtendedModifier) ASTNode.copySubtree(use_ast,iem);
+	 if (iem1.isModifier()) {
+	    Modifier md = (Modifier) iem1;
+	    if (md.isStatic()) continue;
+	  }
+	 else continue;
+	 result_type.modifiers().add(iem1);
+
        }
       if (td.getSuperclassType() != null) {
-         JcompType jt = JavaAst.getJavaType(td.getSuperclassType());
-         if (jt != null && jt.getName().equals("org.junit.Assert")) ;
-         else {
-            result_type.setSuperclassType((Type) ASTNode.copySubtree(use_ast,td.getSuperclassType()));
-          }
+	 JcompType jt = JavaAst.getJavaType(td.getSuperclassType());
+	 if (jt != null && jt.getName().equals("org.junit.Assert")) ;
+	 else {
+	    result_type.setSuperclassType((Type) ASTNode.copySubtree(use_ast,td.getSuperclassType()));
+	  }
        }
       for (Object o : td.superInterfaceTypes()) {
-         Type t = (Type) o;
-         Type t1 = (Type) ASTNode.copySubtree(use_ast,t);
-         result_type.superInterfaceTypes().add(t1);
+	 Type t = (Type) o;
+	 Type t1 = (Type) ASTNode.copySubtree(use_ast,t);
+	 result_type.superInterfaceTypes().add(t1);
        }
       IvyLog.logI("JAVA","Set test result: " + result_type);
     }
