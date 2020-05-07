@@ -418,67 +418,67 @@ private class SwingFixup extends TreeMapper {
    private void fixArguments(ASTNode orig,ListRewrite lrw,JcompType jt) {
       AST ast = lrw.getASTRewrite().getAST();
       int act = 0;
-
+   
       List<?> args = lrw.getOriginalList();
       for (JcompType aty : jt.getComponents()) {
-	 Expression ex = null;
-	 String tnm = aty.getName();
-	 if (aty.isPrimitiveType()) {
-	    ex = aty.createDefaultValue(ast);
-	  }
-	 else if (tnm.equals("java.lang.String")) {
-	    String lbl = JavaAst.getUniqueString("S6_Label_");
-	    StringLiteral sl = ast.newStringLiteral();
-	    sl.setLiteralValue(lbl);
-	    ex = sl;
-	  }
-	 else if (tnm.equals("java.awt.Color")) {
-	    ex = JavaAst.getQualifiedName(ast,"java.awt.Color.RED");
-	  }
-	 else if (tnm.equals("javax.swing.Icon")) {
-	    ClassInstanceCreation cic = ast.newClassInstanceCreation();
-	    Name nm = JavaAst.getQualifiedName(ast,"javax.swing.ImageIcon");
-	    Type nty = ast.newSimpleType(nm);
-	    cic.setType(nty);
-	    StringLiteral sl = ast.newStringLiteral();
-	    sl.setLiteralValue("/research/s6/lib/sample.png");
-	    @SuppressWarnings("unchecked") List<Expression> cargs = cic.arguments();
-	    cargs.add(sl);
-	    ex = cic;
-	  }
-	 else if (tnm.equals("java.awt.Image")) {
-	    ClassInstanceCreation cic = ast.newClassInstanceCreation();
-	    Name nm = JavaAst.getQualifiedName(ast,"javax.swing.ImageIcon");
-	    Type nty = ast.newSimpleType(nm);
-	    cic.setType(nty);
-	    StringLiteral sl = ast.newStringLiteral();
-	    sl.setLiteralValue("/research/s6/lib/sample.png");
-	    @SuppressWarnings("unchecked") List<Expression> cargs = cic.arguments();
-	    cargs.add(sl);
-	    MethodInvocation mi = ast.newMethodInvocation();
-	    mi.setExpression(cic);
-	    mi.setName(JavaAst.getSimpleName(ast,"getImage"));
-	    ex = mi;
-	  }
-	 else if (aty.isCompatibleWith(component_type)) {
-	    ClassInstanceCreation cic = ast.newClassInstanceCreation();
-	    Name nm = JavaAst.getQualifiedName(ast,"javax.swing.JLabel");
-	    Type nty = ast.newSimpleType(nm);
-	    cic.setType(nty);
-	    StringLiteral sl = ast.newStringLiteral();
-	    sl.setLiteralValue("S6:Dummy");
-	    @SuppressWarnings("unchecked") List<Expression> cargs = cic.arguments();
-	    cargs.add(sl);
-	    ex = cic;
-	    // ex = aty.createNonNullValue(ast);
-	    // if (ex == null) ex = aty.createDefaultValue(ast);
-	  }
-	 else {
-	    ex = aty.createDefaultValue(ast);
-	  }
-	 ASTNode oex = (ASTNode) args.get(act++);
-	 if (ex == null) lrw.remove(oex,null);
-	 else lrw.replace(oex,ex,null);
+         Expression ex = null;
+         String tnm = aty.getName();
+         if (aty.isPrimitiveType()) {
+            ex = aty.createDefaultValue(ast);
+          }
+         else if (tnm.equals("java.lang.String")) {
+            String lbl = JavaAst.getUniqueString("S6_Label_");
+            StringLiteral sl = ast.newStringLiteral();
+            sl.setLiteralValue(lbl);
+            ex = sl;
+          }
+         else if (tnm.equals("java.awt.Color")) {
+            ex = JavaAst.getQualifiedName(ast,"java.awt.Color.RED");
+          }
+         else if (tnm.equals("javax.swing.Icon")) {
+            ClassInstanceCreation cic = ast.newClassInstanceCreation();
+            Name nm = JavaAst.getQualifiedName(ast,"javax.swing.ImageIcon");
+            Type nty = ast.newSimpleType(nm);
+            cic.setType(nty);
+            StringLiteral sl = ast.newStringLiteral();
+            sl.setLiteralValue("/research/s6/lib/sample.png");
+            @SuppressWarnings("unchecked") List<Expression> cargs = cic.arguments();
+            cargs.add(sl);
+            ex = cic;
+          }
+         else if (tnm.equals("java.awt.Image")) {
+            ClassInstanceCreation cic = ast.newClassInstanceCreation();
+            Name nm = JavaAst.getQualifiedName(ast,"javax.swing.ImageIcon");
+            Type nty = ast.newSimpleType(nm);
+            cic.setType(nty);
+            StringLiteral sl = ast.newStringLiteral();
+            sl.setLiteralValue("/research/s6/lib/sample.png");
+            @SuppressWarnings("unchecked") List<Expression> cargs = cic.arguments();
+            cargs.add(sl);
+            MethodInvocation mi = ast.newMethodInvocation();
+            mi.setExpression(cic);
+            mi.setName(JavaAst.getSimpleName(ast,"getImage"));
+            ex = mi;
+          }
+         else if (aty.isCompatibleWith(component_type)) {
+            ClassInstanceCreation cic = ast.newClassInstanceCreation();
+            Name nm = JavaAst.getQualifiedName(ast,"javax.swing.JLabel");
+            Type nty = ast.newSimpleType(nm);
+            cic.setType(nty);
+            StringLiteral sl = ast.newStringLiteral();
+            sl.setLiteralValue("S6:Dummy");
+            @SuppressWarnings("unchecked") List<Expression> cargs = cic.arguments();
+            cargs.add(sl);
+            ex = cic;
+            // ex = aty.createNonNullValue(ast);
+            // if (ex == null) ex = aty.createDefaultValue(ast);
+          }
+         else {
+            ex = aty.createDefaultValue(ast);
+          }
+         ASTNode oex = (ASTNode) args.get(act++);
+         if (ex == null) lrw.remove(oex,null);
+         else lrw.replace(oex,ex,null);
        }
     }
 

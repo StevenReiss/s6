@@ -75,6 +75,7 @@ import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.s6.common.S6Constants;
 
 
@@ -116,7 +117,7 @@ static {
       br.close();
     }
    catch (IOException e) {
-      System.err.println("S6: SEARCH: Problem reading keyword file: " + e);
+      IvyLog.logE("SEARCH","Problem reading keyword file: " + e);
     }
 }
 
@@ -146,7 +147,7 @@ static {
       br.close();
     }
    catch (IOException _e) {
-      System.err.println("S6: SEARCH: Unable to read word file " + file);
+      IvyLog.logE("SEARCH","Unable to read word file " + file);
     }
 
    abbrev_map = new HashMap<String,String>();

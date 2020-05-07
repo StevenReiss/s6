@@ -45,6 +45,7 @@ import java.net.URL;
 
 import org.w3c.dom.Element;
 
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.xml.IvyXml;
 
 
@@ -193,7 +194,7 @@ static Element sendMessageToS6(String cnts)
       ins.close();
     }
    catch (IOException e) {
-      System.err.printf("SUISE: Error sending to S6: " + e);
+      IvyLog.logE("SUISE","Error sending to S6: " + e);
       return null;
     }
 

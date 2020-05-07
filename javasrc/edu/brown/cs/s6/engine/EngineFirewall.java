@@ -341,11 +341,11 @@ private class ClientServer extends Thread {
    ClientServer() {
       super("S6_FIREWALL_CLIENT_ACCEPT");
       try {
-	 server_socket = new ServerSocket(client_port);
+         server_socket = new ServerSocket(client_port);
        }
       catch (IOException e) {
-	 System.err.println("S6: FIREWALL: Problem creating client server socket: " + e);
-	 System.exit(1);
+         System.err.println("S6: FIREWALL: Problem creating client server socket: " + e);
+         System.exit(1);
        }
     }
 
@@ -394,7 +394,7 @@ private class FirewallClient extends IvyXmlReaderThread {
 
    FirewallClient(Socket s) throws IOException {
       super("FirewallClient_" + s.getRemoteSocketAddress(),
-	       new InputStreamReader(s.getInputStream()));
+               new InputStreamReader(s.getInputStream()));
       System.err.println("S6: Starting engine client " + getName());
       engine_client = null;
       client_socket = s;
@@ -405,20 +405,20 @@ private class FirewallClient extends IvyXmlReaderThread {
       System.err.println("S6: FIREWALL: Sending: " + msg);
       String rslt = null;
       for (int i = 0; i < 3; ++i) {
-	 if (engine_client == null) engine_client = getActiveClient();
-	 try {
-	    if (engine_client != null) rslt = engine_client.send(msg);
-	    break;
-	  }
-	 catch (IOException e) {
-	    removeActive(engine_client);
-	    engine_client.close();
-	    engine_client = null;
-	  }
+         if (engine_client == null) engine_client = getActiveClient();
+         try {
+            if (engine_client != null) rslt = engine_client.send(msg);
+            break;
+          }
+         catch (IOException e) {
+            removeActive(engine_client);
+            engine_client.close();
+            engine_client = null;
+          }
        }
       if (rslt != null) {
-	 rslt = rslt.trim();
-	 print_writer.println(rslt);
+         rslt = rslt.trim();
+         print_writer.println(rslt);
        }
       print_writer.println("***EOM***");
       print_writer.flush();
@@ -429,9 +429,9 @@ private class FirewallClient extends IvyXmlReaderThread {
       System.err.println("S6: FIREWALL: Done");
       if (client_socket == null) return;
       try {
-	 client_socket.close();
-	 client_socket = null;
-	 if (engine_client != null) makeActive(engine_client);
+         client_socket.close();
+         client_socket = null;
+         if (engine_client != null) makeActive(engine_client);
        }
       catch (IOException e) { }
     }

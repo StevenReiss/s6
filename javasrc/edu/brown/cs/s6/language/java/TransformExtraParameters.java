@@ -489,12 +489,16 @@ private class ValueFinder extends ASTVisitor {
             Statement s = (Statement) it.next();
             if (s instanceof SwitchCase) {
                SwitchCase sc = (SwitchCase) s;
-               for (Object o : sc.expressions()) {
-                  Expression ex = (Expression) o;
+               try {
+                  for (Object o : sc.expressions()) {
+                     Expression ex = (Expression) o;
+                     if (ex != null) value_exprs.add(ex);
+                   }
+                }
+               catch (UnsupportedOperationException e) {
+                  @SuppressWarnings("deprecation") Expression ex = sc.getExpression();
                   if (ex != null) value_exprs.add(ex);
                 }
-               // Expression ex = sc.getExpression();
-               // if (ex != null) value_exprs.add(ex);
              }
           }
        }

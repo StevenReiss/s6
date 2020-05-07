@@ -99,6 +99,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import edu.brown.cs.cose.cosecommon.CoseSource;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Engine;
@@ -229,7 +230,7 @@ public S6Solution addInitialSolution(S6Fragment n,CoseSource src)
    if (n == null) return null;
    
    String s = n.getText();
-   System.err.println("S6: Initial solution " + src + " " + s.length());
+   IvyLog.logI("SOLUTION","Initial solution " + src + " " + s.length());
    
    if (s.length() > S6_MAX_SIZE) return null;
    
@@ -395,7 +396,7 @@ private void doRemove(S6Solution sol,boolean save)
 	  }
        }
       if (ss != sol) {
-	 System.err.println("S6: PROBLEM: Attempting to delete: " + sol);
+	 IvyLog.logE("SOLUTION","PROBLEM: Attempting to delete: " + sol);
        }
       if (ss != null) {
 	 ss.clearResolve();

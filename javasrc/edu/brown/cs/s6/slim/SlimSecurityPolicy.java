@@ -71,6 +71,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import edu.brown.cs.ivy.file.IvyFile;
+import edu.brown.cs.ivy.file.IvyLog;
 
 
 final public class SlimSecurityPolicy extends SecurityManager implements SlimConstants
@@ -108,7 +109,7 @@ public SlimSecurityPolicy(String src)
       code_source = new CodeSource(new URL("file:/pro/s6/java"),(Certificate []) null);
     }
    catch (MalformedURLException e) {
-      System.err.println("S6: SLIM: Bad source directory");
+      IvyLog.logE("SLIM","Bad source directory");
     }
 
    // These could be generated directly
@@ -132,7 +133,7 @@ public SlimSecurityPolicy(String src)
       System.setSecurityManager(this);
     }
    catch (SecurityException e) {
-      System.err.println("S6: SLIM: can't set our own security manager: " + e.getMessage());
+      IvyLog.logE("SLIM","Can't set our own security manager: " + e.getMessage());
       System.exit(1);
     }
 }
@@ -201,7 +202,7 @@ private AccessControlContext buildContext(SlimPermission [] p)
        }
     }
    catch (Throwable t) {
-      System.err.println("S6: SLIM: Problem setting up security context: " + t);
+      IvyLog.logE("SLIM","Problem setting up security context: " + t);
     }
 
    return acc;

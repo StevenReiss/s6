@@ -129,6 +129,7 @@ import edu.brown.cs.ivy.jcomp.JcompSource;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
 import edu.brown.cs.ivy.jcomp.JcompTyper;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Exception;
@@ -239,8 +240,9 @@ public Set<String> getRelatedProjects(S6Fragment sfj)
        }
     }
 
-   System.err.println("S6: Related projects for " + nm + ": ");
-   for (String s : rslt) System.err.println("S6:\t" + s);
+   
+   IvyLog.logI("JAVA","Related projects for " + nm + ": ");
+   for (String s : rslt) IvyLog.logI1(s);
 
    return rslt;
 }
@@ -329,7 +331,7 @@ JavaContext getContext(S6Request sreq)
 
 void resolveFragment(JavaFragment frag)
 {
-   List<JcompSource> srcs = new ArrayList<JcompSource>();
+   List<JcompSource> srcs = new ArrayList<>();
    Iterable<S6Fragment> frags = frag.getFileFragments();
    if (frag.getAstNode() == null && frags != null) {
        for (S6Fragment s6f : frags) {
@@ -370,11 +372,10 @@ void resolveFragment(JavaFragment frag)
    catch (Throwable t) {
       ASTNode node = frag.getAstNode();
       ASTNode root = (node == null ? null : node.getRoot());
-      System.err.println("S6: PROBLEM with resolve: " + System.identityHashCode(node) +
+      IvyLog.logE("JAVA","PROBLEM with resolve: " + System.identityHashCode(node) +
 			    " " + System.identityHashCode(root) + " " +
-			    Thread.currentThread() + " " + t);
-      t.printStackTrace();
-      System.err.println("FRAGMENT: " + frag);
+			    Thread.currentThread(),t);
+      IvyLog.logE("JAVA","FRAGMENT: " + frag);
       if (proj != null) jcomp_main.freeProject(proj);
     }
 }
@@ -431,8 +432,7 @@ public void resolveAll(Iterable<S6Fragment> files)
       jcomp_main.freeProject(proj);
     }
    catch (Throwable t) {
-      System.err.println("S6: PROBLEM with resolve: " + t);
-      t.printStackTrace();
+      IvyLog.logE("JAVA","PROBLEM with resolve",t);
     }
 }
 

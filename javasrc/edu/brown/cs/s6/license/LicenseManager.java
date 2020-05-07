@@ -79,6 +79,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import edu.brown.cs.ivy.file.IvyDatabase;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6License;
 
@@ -186,7 +187,7 @@ private void checkDatabase()
    catch (SQLException e) {
       skip_count = 20;
       have_database = false;
-      System.err.println("S6:LICENSE: Can't connect to any database for licensing: " + e);
+      IvyLog.logE("LICENSE","Can't connect to any database for licensing: " + e);
       return;
     }
 
@@ -204,7 +205,7 @@ private void checkDatabase()
       dconn.close();
     }
    catch (SQLException e) {
-      System.err.println("S6:LICENSE: Can't create new database for licensing: " + e);
+      IvyLog.logE("LICENSE","Can't create new database for licensing: " + e);
       skip_count = 100;
       have_database = false;
       return;
@@ -214,7 +215,7 @@ private void checkDatabase()
       sql_conn = IvyDatabase.openDatabase(LICENSE_DATABASE);
     }
    catch (SQLException e) {
-      System.err.println("S6:LICENSE: Can't open database for licensing: " + e);
+      IvyLog.logE("LICENSE","Can't open database for licensing: " + e);
       skip_count = 10;
       have_database = false;
       return;
@@ -228,14 +229,14 @@ private void checkDatabase()
       st.close();
     }
    catch (SQLException e) {
-      System.err.println("S6:LICENSE: Can't set up database for licensing: " + e);
+      IvyLog.logE("LICENSE","Can't set up database for licensing: " + e);
       sql_conn = null;
       have_database = false;
       skip_count = 10;
       return;
    }
 
-   System.err.println("S6:LICENSE: Database successfully created");
+   IvyLog.logI("LICENSE","Database successfully created");
    have_database = true;
    skip_count = 0;
 }
@@ -256,7 +257,7 @@ public String getLicenseUidFromSource(String source)
       return getLicenseUid(lic);
     }
    catch (IOException e) {
-      System.err.println("S6:LICENSE: Problem reading source: " + e);
+      IvyLog.logE("LICENSE","Problem reading source: " + e);
     }
 
    return null;
@@ -301,7 +302,7 @@ public String getLicenseUid(String lic)
       rs.close();
     }
    catch (SQLException e) {
-      System.err.println("S6:LICENSE: Problem accessing sql result: " + e);
+      IvyLog.logE("LICENSE","Problem accessing sql result: " + e);
     }
 
    openDatabase();
@@ -322,7 +323,7 @@ public String getLicenseUid(String lic)
 	    st.executeUpdate("COMMIT");
 	  }
 	 catch (SQLException e) {
-	    System.err.println("S6:LICENSE: Problem setting next license id: " + e);
+            IvyLog.logE("LICENSE","Problem setting next license id: " + e);
 	  }
        }
     }
@@ -351,7 +352,7 @@ public String getLicense(String uid)
       rs.close();
     }
    catch (SQLException e) {
-      System.err.println("S6:LICENSE: Problem accessing license result: " + e);
+      IvyLog.logE("LICENSE","Problem accessing license result: " + e);
     }
 
    return lic;
@@ -379,7 +380,7 @@ private synchronized ResultSet queryDatabase(String q)
       rs = stmt.executeQuery(q);
     }
    catch (SQLException e) {
-      System.err.println("S6:LICENSE: Problem with SQL query: " + e);
+      IvyLog.logE("LICENSE","Problem with SQL query: " + e);
       sql_conn = null;
     }
 

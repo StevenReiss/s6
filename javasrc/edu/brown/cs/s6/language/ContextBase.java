@@ -76,6 +76,7 @@ import java.util.zip.ZipException;
 import org.w3c.dom.Element;
 
 import edu.brown.cs.ivy.file.IvyFile;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Context;
@@ -156,7 +157,7 @@ public String getSourceFile()
       br.close();
     }
    catch (IOException e) {
-      System.err.println("S6: CONTEXT: Problem reading source file: " + e);
+      IvyLog.logE("LANGUAGE","Problem reading source file: " + e);
     }
 
    return rslt.toString();
@@ -214,10 +215,10 @@ private InputStream getJarInputStream(String name)
 	    return jar_file.getInputStream(ent);
 	  }
 	 catch (ZipException e) {
-	    System.err.println("S6:CONTEXT: Problem with zip file " + file_name + ": " + e);
+	    IvyLog.logE("LANGUAGE","Problem with context zip file " + file_name + ": " + e);
 	  }
 	 catch (IOException e) {
-	    System.err.println("S6:CONTEXT: Problem opening jar entry: " + e);
+	   IvyLog.logE("LANGUAGE","Problem opening context jar entry: " + e);
 	  }
        }
     }
@@ -281,7 +282,7 @@ protected synchronized void checkOpen()
       jar_file = new JarFile(file_name);
     }
    catch (IOException e) {
-      System.err.println("S6: CONTEXT: can't open file " + file_name + ": " + e);
+      IvyLog.logE("CONTEXT","Can't open file " + file_name + ": " + e);
       jar_file = null;
       file_name = null;
       return;

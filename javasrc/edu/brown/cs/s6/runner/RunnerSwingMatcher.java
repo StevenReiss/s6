@@ -62,6 +62,8 @@ import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.text.JTextComponent;
 
+import edu.brown.cs.ivy.file.IvyLog;
+
 
 class RunnerSwingMatcher
 {
@@ -79,8 +81,6 @@ private CompSoln	root_candidates;
 private double		best_score;
 private int		num_soln;
 private int		num_dummy;
-
-private static boolean		do_debug = false;
 
 private static final int	NUM_DUMMY = 2;
 
@@ -139,7 +139,7 @@ double computeMatch()
       root_candidates.addDummy(dc);
     }
 
-   if (do_debug) System.err.println("S6: COMPUTE " + best_score + " " + num_soln);
+  IvyLog.logD("RUNNER","COMPUTE " + best_score + " " + num_soln);
 
    if (best_score < 0) {
       // org.junit.Assert.fail("S6UIMatch: HIERARCHY");
@@ -280,7 +280,7 @@ private boolean quickCheck(int ndummy)
       for (Component c : allcomp) {
 	 if (hd.classCompatible(c)) ++cct;
        }
-      if (do_debug) System.err.println("QUICK " + what + " " + ct + " " + cct);
+      if (IvyLog.isDebug()) IvyLog.logD("RUNNER","QUICK " + what + " " + ct + " " + cct);
       if (cct+ndummy < ct) return false;
     }
 
@@ -316,7 +316,7 @@ private void setupCompList(Component c,List<Component> rslt)
 
 private void match(HierSoln start,CompSoln soln,int idx)
 {
-    if (do_debug) System.err.println("S6: MATCH " + soln + " " + idx);
+    IvyLog.logD("RUNNER","MATCH " + soln + " " + idx);
 
    if (soln == null) {
       double v = start.getValue(root_component);
@@ -324,7 +324,7 @@ private void match(HierSoln start,CompSoln soln,int idx)
 	 best_score = v;
        }
       ++num_soln;
-      if (do_debug) System.err.println("S6: HIERARCHY SOLUTION " + start + " VALUE = " + v);
+      IvyLog.logD("RUNNER","HIERARCHY SOLUTION " + start + " VALUE = " + v);
       return;
     }
    if (num_soln >= MAX_SOLNS) return;
@@ -401,13 +401,13 @@ private static class HierSoln {
     }
 
    void addToSolution(HierData hd,Component c) {
-      if (do_debug) System.err.println("S6: ADD TO SOLUTION " + hd + " " + c);
+      IvyLog.logD("RUNNER","ADD TO SOLUTION " + hd + " " + c);
       solution_map.put(hd,c);
       components_used.add(c);
     }
 
    void removeFromSolution(HierData hd,Component c) {
-      if (do_debug) System.err.println("S6: REMOVE FROM SOLUTION " + hd + " " + c);
+      IvyLog.logD("RUNNER","REMOVE FROM SOLUTION " + hd + " " + c);
       solution_map.remove(hd);
       components_used.remove(c);
     }
@@ -494,14 +494,13 @@ private static class CompSoln {
    void addMatch(HierData hd,Component c,CompSoln sub) {
       List<CompSet> ls = cand_space.get(hd);
       if (ls == null) {
-	 ls = new ArrayList<CompSet>();
-	 cand_space.put(hd,ls);
-	 element_list = null;
+         ls = new ArrayList<CompSet>();
+         cand_space.put(hd,ls);
+         element_list = null;
        }
       ls.add(new CompSet(c,sub));
-      if (do_debug) {
-	 System.err.println("S6: ADD MATCH " + hd + " " + ls.size() + " " + hashCode() + " " + c);
-	 System.err.flush();
+      if (IvyLog.isDebug()) {
+         IvyLog.logD("RUNNER","ADD MATCH " + hd + " " + ls.size() + " " + hashCode() + " " + c);
        }
     }
 
@@ -542,8 +541,8 @@ private static class CompSoln {
     }
 
    void addDummy(DummyComponent dc) {
-      if (do_debug)
-	 System.err.println("S6: ADD DUMMY " + for_hier + " " + hashCode() + " " + parent_soln);
+      if (IvyLog.isDebug())
+	 IvyLog.logD("RUNNER","ADD DUMMY " + for_hier + " " + hashCode() + " " + parent_soln);
 
       if (for_hier.hasChildren()) {
 	 if (parent_soln != null) {

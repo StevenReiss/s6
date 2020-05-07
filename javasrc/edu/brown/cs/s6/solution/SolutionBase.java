@@ -87,8 +87,6 @@ a*  SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND		 *
 package edu.brown.cs.s6.solution;
 
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -97,6 +95,7 @@ import java.util.StringTokenizer;
 import java.util.concurrent.atomic.AtomicLong;
 
 import edu.brown.cs.cose.cosecommon.CoseSource;
+import edu.brown.cs.ivy.file.IvyFile;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 import edu.brown.cs.s6.common.S6Constants;
 import edu.brown.cs.s6.common.S6Fragment;
@@ -215,11 +214,7 @@ public double	getScore()				{ return solution_score; }
 
 public void resolve()
 {
-   // System.err.println("START RESOLVE " + this);
-
    getFragment().resolveFragment();
-
-   // System.err.println("END RESOLVE");
 }
 
 
@@ -228,7 +223,6 @@ public void clearResolve()
 {
    if (current_node == null) return;
 
-   // System.err.println("CLEAR RESOLVE");
    getFragment().clearResolve();
 }
 
@@ -368,24 +362,7 @@ private int getCodeLines(String code)
 
 private void computeEncoding()
 {
-   source_encoding = current_node.getKeyText();
-
-   try {
-      MessageDigest md5 = MessageDigest.getInstance("MD5");
-      byte [] dig = md5.digest(source_encoding.getBytes());
-      StringBuffer buf = new StringBuffer();
-      for (int i = 0; i < dig.length; ++i) {
-	 int v = dig[i] & 0xff;
-	 String s0 = Integer.toString(v,16);
-	 if (s0.length() == 1) buf.append("0");
-	 buf.append(s0);
-       }
-      // System.err.println("S6: ENCODE " + buf.toString());
-      // System.err.println(source_encoding);
-      // System.err.println("S6:-----------------------");
-      source_encoding = buf.toString();
-    }
-   catch (NoSuchAlgorithmException e) { }
+   source_encoding = IvyFile.digestString(current_node.getKeyText());
 }
 
 

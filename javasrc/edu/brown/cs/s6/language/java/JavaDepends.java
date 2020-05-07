@@ -113,6 +113,7 @@ import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.*;
 
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
 import edu.brown.cs.s6.common.S6Constants;
@@ -242,7 +243,7 @@ boolean findDependencies()
 
    if (rslt && check_defs.hasError()) {
       if (solution_set.doDebug()) {
-	 System.err.println("S6: ERRORS found during successful dependency check");
+	 IvyLog.logI("JAVA","ERRORS found during successful dependency check");
 	 check_defs.printErrors();
        }
       rslt = false;

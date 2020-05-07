@@ -133,6 +133,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
 import edu.brown.cs.s6.common.S6Constants;
@@ -717,8 +718,8 @@ private static class UsageMappings extends ASTVisitor {
    private void addToMap(Map<JcompType,Set<JcompType>> m,JcompType s,JcompType t) {
       Set<JcompType> sjt = m.get(s);
       if (sjt == null) {
-	 sjt = new HashSet<JcompType>();
-	 m.put(s,sjt);
+         sjt = new HashSet<JcompType>();
+         m.put(s,sjt);
        }
       sjt.add(t);
     }
@@ -744,9 +745,9 @@ private class NameMapper extends TreeMapper {
    NameMapper(String nm,boolean rmc) {
       map_name = nm;
       remove_classes = rmc;
-      sym_mapping = new HashMap<JcompSymbol,String>();
+      sym_mapping = new HashMap<>();
       dependent_types = null;
-      if (rmc) dependent_types = new HashSet<JcompType>();
+      if (rmc) dependent_types = new HashSet<>();
     }
 
    @Override protected String getSpecificsName()	{ return map_name; }
@@ -764,40 +765,40 @@ private class NameMapper extends TreeMapper {
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       JcompSymbol js = JavaAst.getDefinition(orig);
       if (js != null) {
-	 String newname = sym_mapping.get(js);
-	 if (newname == null && js.getName().equals("<init>")) {
-	    for (ASTNode p = orig; p != null; p = p.getParent()) {
-	       if (p instanceof TypeDeclaration) {
-		  JcompSymbol tjs = JavaAst.getDefinition(p);
-		  newname = sym_mapping.get(tjs);
-		  break;
-		}
-	     }
-
-	  }
-	 if (newname != null) {
-	    rewriteName(orig,rw,newname);
-	  }
+         String newname = sym_mapping.get(js);
+         if (newname == null && js.getName().equals("<init>")) {
+            for (ASTNode p = orig; p != null; p = p.getParent()) {
+               if (p instanceof TypeDeclaration) {
+        	  JcompSymbol tjs = JavaAst.getDefinition(p);
+        	  newname = sym_mapping.get(tjs);
+        	  break;
+        	}
+             }
+   
+          }
+         if (newname != null) {
+            rewriteName(orig,rw,newname);
+          }
        }
       js = JavaAst.getReference(orig);
       if (js != null) {
-	 String newname = sym_mapping.get(js);
-	 if (newname != null) {
-	    rewriteName(orig,rw,newname);
-	  }
+         String newname = sym_mapping.get(js);
+         if (newname != null) {
+            rewriteName(orig,rw,newname);
+          }
        }
       if (orig.getNodeType() == ASTNode.COMPILATION_UNIT && remove_classes) {
-	 CompilationUnit cu = (CompilationUnit) orig;
-	 ListRewrite lrw = rw.getListRewrite(orig,CompilationUnit.TYPES_PROPERTY);
-	 for (Object o : cu.types()) {
-	    AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
-	    if (keepType(atd)) continue;
-	    js = JavaAst.getDefinition(atd);
-	    if (js != null) {
-	       String newname = sym_mapping.get(js);
-	       if (newname == null) lrw.remove(atd,null);
-	     }
-	  }
+         CompilationUnit cu = (CompilationUnit) orig;
+         ListRewrite lrw = rw.getListRewrite(orig,CompilationUnit.TYPES_PROPERTY);
+         for (Object o : cu.types()) {
+            AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
+            if (keepType(atd)) continue;
+            js = JavaAst.getDefinition(atd);
+            if (js != null) {
+               String newname = sym_mapping.get(js);
+               if (newname == null) lrw.remove(atd,null);
+             }
+          }
        }
     }
 
@@ -830,12 +831,12 @@ private class NameMapper extends TreeMapper {
 
    private void rewriteName(ASTNode nd,ASTRewrite rw,String name) {
       if (nd instanceof SimpleName) {
-	 try {
-	    rw.set(nd,SimpleName.IDENTIFIER_PROPERTY,name,null);
-	  }
-	 catch (IllegalArgumentException e) {
-	    System.err.println("S6: TRANSFORM NAME: Problem with new name " + name + ": " + e);
-	  }
+         try {
+            rw.set(nd,SimpleName.IDENTIFIER_PROPERTY,name,null);
+          }
+         catch (IllegalArgumentException e) {
+            IvyLog.logE("JAVA","Problem with new transform name " + name + ": " + e);
+          }
        }
     }
 

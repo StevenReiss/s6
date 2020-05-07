@@ -83,6 +83,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
+import edu.brown.cs.ivy.file.IvyLog;
+
 import edu.brown.cs.s6.common.S6Constants;
 
 
@@ -144,7 +146,7 @@ EnginePool(EngineMain em,int maxthread)
    thread_count = 0;
    ready_count = 0;
 
-   System.err.println("S6: ENGINE: Starting pool with " + num_compute + " " + num_exec + " " + num_io);
+   IvyLog.logI("ENGINE","Starting pool with " + num_compute + " " + num_exec + " " + num_io);
 }
 
 
@@ -206,7 +208,7 @@ boolean waitForAll(Queue<Future<Boolean>> waitq)
 	  }
 	 catch (InterruptedException e) { }
 	 catch (ExecutionException e) {
-	    System.err.println("S6: ENGINE: Problem with runnable: " + fb + ": " + e);
+	    IvyLog.logE("ENGINE","Problem with runnable: " + fb + ": " + e);
 	    e.printStackTrace();
 	    break;
 	  }
@@ -351,7 +353,7 @@ private class Task extends FutureTask<Boolean> implements Comparable<Task> {
 /*										*/
 /********************************************************************************/
 
-private class Worker extends Thread {
+private class Worker extends Thread implements IvyLog.LoggerThread {
 
    private int worker_index;
 
@@ -361,7 +363,9 @@ private class Worker extends Thread {
       worker_index = idx;
     }
 
-   public void run() {
+   @Override public int getLogId()                      { return worker_index; }
+   
+   @Override public void run() {
       for ( ; ; ) {
 	 Task t = null;
 	 while (t == null) {
@@ -387,8 +391,7 @@ private class Worker extends Thread {
 	    t.run();
 	  }
 	 catch (Throwable e) {
-	    System.err.println("S6Engine: Problem running task: " + e);
-	    e.printStackTrace();
+	    IvyLog.logE("ENGINE","Problem running task: " + e,e);
 	  }
        }
     }

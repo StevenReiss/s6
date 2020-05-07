@@ -81,6 +81,7 @@ private RequestSecurity security_holder;
 private RequestContracts contract_holder;
 private List<String>    required_keywords;
 
+
 private static final CoseSearchEngine DEFAULT_ENGINE = CoseSearchEngine.SEARCHCODE;
 
 
@@ -187,6 +188,8 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
 
 @Override public List<String> getRequiredWords()        { return required_keywords; }
 
+@Override public List<String> getKeyTerms()             { return required_keywords; }
+
 
 
 
@@ -290,6 +293,10 @@ private void loadRequest(Element xml) throws S6Exception
       keyword_sets.add(rks);
       List<String> rq = rks.getRequiredWords();
       if (rq != null) required_keywords.addAll(rq);
+    }
+   for (Element kws : IvyXml.elementsByTag(xml,"KEY")) {
+      String txt = IvyXml.getText(kws);
+      if (txt != null && txt.length() > 1) required_keywords.add(txt);
     }
    
    Element tsts = IvyXml.getElementByTag(xml,"TESTS");

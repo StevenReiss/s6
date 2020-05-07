@@ -94,6 +94,7 @@ import org.w3c.dom.Element;
 
 import edu.brown.cs.cose.cosecommon.CoseResult;
 import edu.brown.cs.cose.cosecommon.CoseSource;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.ivy.xml.IvyXmlReaderThread;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
@@ -401,7 +402,7 @@ private void compileAll()
 
 public Future<Boolean> executeTask(S6TaskType tt,Callable<Boolean> c)
 {
-   System.err.println("S6: FINDER: attempt to start task in finder");
+   IvyLog.logE("ENGINE","FINDER: attempt to start task in finder");
 
    return null;
 }
@@ -409,7 +410,7 @@ public Future<Boolean> executeTask(S6TaskType tt,Callable<Boolean> c)
 
 public Future<Boolean> executeTask(S6TaskType tt,Runnable r)
 {
-   System.err.println("S6: FINDER: attempt to start task in finder");
+   IvyLog.logE("S6","Attempt to start task in finder " + r.getClass());
 
    return null;
 }
@@ -485,27 +486,27 @@ private class FinderServer extends Thread {
       super("S6_FINDER_ACCEPT");
       as_server = server;
       try {
-	 server_socket = new ServerSocket(port_number);
+         server_socket = new ServerSocket(port_number);
        }
       catch (IOException e) {
-	 System.err.println("S6: FINDER: Problem creating server socket: " + e);
-	 System.exit(1);
+         System.err.println("S6: FINDER: Problem creating server socket: " + e);
+         System.exit(1);
        }
     }
 
    public void run() {
-      System.err.println("S6: FINDER: Engine running on port " + server_socket.getLocalPort() + " " + as_server);
-
+      IvyLog.logI("ENGINE","FINDER: Engine running on port " + server_socket.getLocalPort() + " " + as_server);
+   
       for ( ; ; ) {
-	 try {
-	    Socket s = server_socket.accept();
-	    createClient(s);
-	  }
-	 catch (IOException e) {
-	    System.err.println("S6: FINDER: Problem with server socket accept: " + e);
-	    break;
-	  }
-	 if (!as_server) break;
+         try {
+            Socket s = server_socket.accept();
+            createClient(s);
+          }
+         catch (IOException e) {
+            IvyLog.logE("ENGINE","Problem with finder server socket accept: " + e);
+            break;
+          }
+         if (!as_server) break;
        }
     }
 
@@ -655,6 +656,8 @@ private static class FinderSource implements CoseSource {
    public int getOffset()                               { return 0; }
    public int getLength()                               { return 0; }
    public CoseSource getBaseSource()                    { return null; }
+   
+   public boolean isSameRepository(CoseSource uri)      { return true; }
 
 }	// end of subclass FinderSource
 

@@ -55,6 +55,8 @@ package edu.brown.cs.s6.language;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.brown.cs.ivy.file.IvyLog;
+
 class TextDelta1 extends TextDelta {
 
 
@@ -206,7 +208,7 @@ private List<String> findLCS(List<String> a,List<String> b) {
 	bend--;
     }
 
-    System.err.println("S6: DELTA LCS " + start + " " + aend + " " + bend);
+    IvyLog.logD("LANGUAGE","DELTA LCS " + start + " " + aend + " " + bend);
 
     int[][] LCSMat = new int[aend-start+2][bend-start+2];
     for(int i = 0; i < LCSMat.length; i++) {

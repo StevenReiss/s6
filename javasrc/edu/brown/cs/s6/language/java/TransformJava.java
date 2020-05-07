@@ -403,7 +403,7 @@ protected boolean applyMethodTransform(S6SolutionSet solset,S6Solution sol)
 
 private boolean applyClassTransform(S6SolutionSet sols,S6Solution sol)
 {
-   FragmentJava f = (FragmentJava) sol.getFragment();
+   JavaFragment f = (JavaFragment) sol.getFragment();
    S6Request.Search sr = sols.getRequest();
    S6Request.ClassSignature csg = sr.getSignature().getClassSignature();
    TypeDeclaration td = (TypeDeclaration) f.getAstNode();
@@ -820,7 +820,7 @@ protected abstract class TreeMapper {
     }
    protected String getSpecificsName()		{ return null; }
 
-   void preVisit(ASTNode n)					{ }
+   void preVisit(ASTNode n)			{ }
 
    S6SolutionFlag getSolutionFlag()		{ return null; }
 
@@ -828,18 +828,18 @@ protected abstract class TreeMapper {
 
    JavaMemo getMapMemo(JavaFragment fj,String nm) {
       if (saved_memo == null) {
-	 ASTNode base = fj.getAstNode();
-	 try {
-	    TreeRewrite tr = new TreeRewrite(base,this);
-	    base.getRoot().accept(tr);
-	    saved_memo = tr.createMemo(nm);
-	  }
-	 catch (IllegalArgumentException e) {
-	    // try again
-	    TreeRewrite tr = new TreeRewrite(base,this);
-	    base.getRoot().accept(tr);
-	    saved_memo = tr.createMemo(nm);
-	  }
+         ASTNode base = fj.getAstNode();
+         try {
+            TreeRewrite tr = new TreeRewrite(base,this);
+            base.getRoot().accept(tr);
+            saved_memo = tr.createMemo(nm);
+          }
+         catch (IllegalArgumentException e) {
+            // try again
+            TreeRewrite tr = new TreeRewrite(base,this);
+            base.getRoot().accept(tr);
+            saved_memo = tr.createMemo(nm);
+          }
        }
       return saved_memo;
     }

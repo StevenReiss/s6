@@ -83,6 +83,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
 import edu.brown.cs.s6.common.S6Constants;
@@ -119,7 +120,7 @@ public TransformExtractClass(String name)
 @Override protected Collection<TreeMapper> findPackageMappings(S6SolutionSet sols,S6Solution sol,
       CompilationUnit cu,S6Request.PackageSignature psg)
 {
-   FragmentJava fj = (FragmentJava) sol.getFragment();
+   JavaFragment fj = (JavaFragment) sol.getFragment();
    List<TreeMapper> rslt = new ArrayList<TreeMapper>();
    PackageDeclaration pd = cu.getPackage();
    if (pd == null) return null;
@@ -137,7 +138,7 @@ public TransformExtractClass(String name)
 	       stds.add(itd);
 	       ClassExtracter tm = extractClass(td,stds);
 	       if (tm != null) {
-		  tm.createTextMemo(fj);
+                  tm.createTextMemo(fj);
 		  rslt.add(tm);
 		}
 	     }
@@ -145,7 +146,7 @@ public TransformExtractClass(String name)
 	 if (itds.size() > 1) {
 	    ClassExtracter tm = extractClass(td,itds);
 	    if (tm != null) {
-	       tm.createTextMemo(fj);
+               tm.createTextMemo(fj);
 	       rslt.add(tm);
 	     }
 	  }
@@ -295,9 +296,9 @@ private class ClassExtracter extends TreeMapper {
    ClassExtracter(TypeDeclaration otd,Set<TypeDeclaration> itds) {
       outer_type = otd;
       extract_types = itds;
-      sym_mapping = new HashMap<Object,String>();
+      sym_mapping = new HashMap<>();
       ignore_tree = false;
-      init_types = new HashMap<JcompType,Boolean>();
+      init_types = new HashMap<>();
       for (TypeDeclaration td : itds) {
 	 JcompSymbol js = JavaAst.getDefinition(td);
 	 JcompType jt = JavaAst.getJavaType(td);
@@ -311,7 +312,7 @@ private class ClassExtracter extends TreeMapper {
        }
     }
 
-   void createTextMemo(FragmentJava f) {
+   void createTextMemo(JavaFragment f) {
       super.createTextMemo(f,getName());
       outer_type = null;
       extract_types = null;
@@ -375,12 +376,12 @@ private class ClassExtracter extends TreeMapper {
 
    private void rewriteName(ASTNode nd,ASTRewrite rw,String name) {
       if (nd instanceof SimpleName) {
-	 try {
-	    rw.set(nd,SimpleName.IDENTIFIER_PROPERTY,name,null);
-	  }
-	 catch (IllegalArgumentException e) {
-	    System.err.println("S6: TRANSFORM NAME: Problem with new name " + name + ": " + e);
-	  }
+         try {
+            rw.set(nd,SimpleName.IDENTIFIER_PROPERTY,name,null);
+          }
+         catch (IllegalArgumentException e) {
+            IvyLog.logE("JAVA","Transform name problem with new name " + name + ": " + e);
+          }
        }
     }
 

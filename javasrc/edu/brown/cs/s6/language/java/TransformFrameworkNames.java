@@ -75,6 +75,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.jcomp.JcompAst;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
@@ -1001,12 +1002,12 @@ private class NameMapper extends TreeMapper {
 
    private void rewriteName(ASTNode nd,ASTRewrite rw,String name) {
       if (nd instanceof SimpleName) {
-	 try {
-	    rw.set(nd,SimpleName.IDENTIFIER_PROPERTY,name,null);
-	  }
-	 catch (IllegalArgumentException e) {
-	    System.err.println("S6: TRANSFORM NAME: Problem with new name " + name + ": " + e);
-	  }
+         try {
+            rw.set(nd,SimpleName.IDENTIFIER_PROPERTY,name,null);
+          }
+         catch (IllegalArgumentException e) {
+            IvyLog.logE("JAVA","Problem with new transform framework name " + name + ": " + e);
+          }
        }
     }
    

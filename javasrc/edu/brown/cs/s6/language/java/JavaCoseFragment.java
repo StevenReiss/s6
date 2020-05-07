@@ -38,10 +38,8 @@ package edu.brown.cs.s6.language.java;
 import edu.brown.cs.s6.language.LanguageBase;
 import edu.brown.cs.s6.language.LanguageCoseFragment;
 import edu.brown.cs.s6.common.S6Constants;
-import edu.brown.cs.s6.common.S6Fragment;
 import edu.brown.cs.s6.common.S6Language;
 import edu.brown.cs.s6.common.S6Request;
-import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
 import edu.brown.cs.s6.common.S6TestResults;
 
@@ -275,30 +273,6 @@ private void isolate(S6SolutionSet ss)
 {
    if (isIsolated()) return;
    
-   if (getAstNode() == null) {
-      setIsolated(true);
-      return;
-    }
-   
-   ASTNode rn = getAstNode().getRoot();
-   
-   boolean dup = false;
-   for (S6Solution sol : ss) {
-      S6Fragment f = sol.getFragment();
-      if (f == this) continue;
-      if (!(f instanceof FragmentJava)) continue;
-      FragmentJava fj = (FragmentJava) f;
-      ASTNode an = fj.getAstNode();
-      if (an == null) continue;
-      if (an.getRoot() == rn) dup = true;
-    }
-   
-   if (!dup) {
-      setIsolated(true);
-      return;
-    }
-   
-   localIsolate();
    setIsolated(true);
 }
 

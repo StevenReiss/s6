@@ -135,6 +135,7 @@ import org.w3c.dom.Element;
 import edu.brown.cs.ivy.xml.*;
 import edu.brown.cs.cose.cosecommon.CoseResource;
 import edu.brown.cs.cose.cosecommon.CoseSource;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.jcomp.JcompAst;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
@@ -752,10 +753,10 @@ static boolean checkUITypes(CompilationUnit cu,S6Request.UISignature us,S6Fragme
    boolean fg = checkUITypes(us.getHierarchy(),uuv.getTypesUsed());
 
    if (fg) {
-      // System.err.println("S6: UICHECK PASSED: " + cu);
+      // IvyLog.logI("JAVA","UICHECK PASSED: " + cu);
     }
    else {
-      System.err.println("S6: UICHECK FAILED: " + cu);
+      IvyLog.logI("JAVA","UICHECK FAILED: " + cu);
     }
 
 
@@ -785,9 +786,12 @@ private static boolean checkUITypes(S6Request.UIComponent c,Set<String> types)
 	 if (!SIMPLE_TYPES.contains(s)) crit = true;
        }
       if (!fg && crit) {
-	 System.err.print("S6: UICHECK FAILED:");
-	 for (String s : c.getTypes()) System.err.print(" " + s);
-	 System.err.println();
+         StringBuffer buf = new StringBuffer();
+	 for (String s : c.getTypes()) {
+            buf.append(" ");
+            buf.append(s);
+          }
+         IvyLog.logE("JAVA","UICHECK FAILED: " + buf.toString());
 	 return false;
        }
     }

@@ -15,6 +15,7 @@ POSTALL= gwt install
 
 GWTDIR= $(BROWN_S6_S6)/public/gwt
 GWTDIR= $(BROWN_S6_S6)/public/gwt-2.4.0
+GWTDIR= $(BROWN_S6_S6)/public/gwt-2.8.2
 
 WEBDIR= /pro/s6/sviweb/src/www
 WEBCP= $(GWTDIR)/gwt-user.jar:$(GWTDIR)/gwt-dev-linux.jar:$(GWTDIR)/gwt-servlet-deps.jar:$(BROWN_S6_S6)/javasrc:$(BROWN_S6_S6)/java
@@ -96,5 +97,7 @@ gwtinstall:
 	cp $(BASEDIR)/web.xml.remote $(WARDIR)/WEB-INF/web.xml
 	-ssh conifer.cs.brown.edu rm -rf /vol/s6/S6Search/*
 	scp -r $(WARDIR)/* conifer.cs.brown.edu:/vol/s6/S6Search
+	-ssh conifer2.cs.brown.edu rm -rf /vol/s6/S6Search/*
+	scp -r $(WARDIR)/* conifer2.cs.brown.edu:/vol/s6/S6Search
 	cp $(BASEDIR)/web.xml $(WARDIR)/WEB-INF
 

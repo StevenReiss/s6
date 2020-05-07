@@ -163,6 +163,8 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.junit.Assert;
 
+import edu.brown.cs.ivy.file.IvyLog;
+
 
 
 public class RunnerSwingShow
@@ -372,8 +374,7 @@ private void registerComponent(Component c)
        }
       catch (IllegalAccessException e) { }
       catch (IllegalArgumentException e) {
-	 System.err.println("Illegal argument for " + cls + " " + nm);
-	 System.err.println(e);
+         IvyLog.logE("RUNNER","Illegal argument for " + cls + " " + nm + ": " + e);
        }
       catch (InvocationTargetException e) { }
       catch (Throwable t) { }
@@ -434,7 +435,7 @@ private void setupDisplay()
 
    Dimension sz = root_component.getPreferredSize();
    user_window.pack();
-   System.err.println("COMP SIZE = " + sz);
+   IvyLog.logD("RUNNER","COMP SIZE = " + sz);
    user_window.setSize(sz);
    user_window.setPreferredSize(sz);
    user_window.setVisible(true);
@@ -678,7 +679,7 @@ private class SetTextAction extends AbstractAction {
 	 m.invoke(for_component,v);
        }
       catch (Throwable t) {
-	 System.err.println("Problem setting text");
+	 IvyLog.logE("RUNNER","Problem setting text",t);
        }
     }
 

@@ -9,8 +9,56 @@
    <PACKAGE NAME='javax.swing.text' />
    <PACKAGE NAME='javax.swing.text' />
    <PACKAGE NAME='org.eclipse.jface' />
-   <PACKAGE NAME='org.eclipse.jdt' />
    <PACKAGE NAME='org.eclipse.core' />
    <PACKAGE NAME='jsyntaxpane' />
+   <PACKAGE NAME='org.jsoup' />
+   <PACKAGE NAME='org.eclipse.jdt.core.dom.rewrite' />
+
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformAddReturn' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformAddSucceed' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformChunk' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformCleanupTests' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformCollapse' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformContext' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformException' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformExtraParameters' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformExtractClass' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixEnum' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixOldJunit' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixReturn' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixStaticImport' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixSwing' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixTryCatch' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixUndef' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixUndefStatics' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixVariables' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFixupTesting' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFlatten' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformFrameworkNames' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformGeneralize' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformImplement' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformIntParams' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformJunitAssert' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformMapNames' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformName' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformPackage' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformParameterOrder' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformParameterTypes' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformPrivate' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformRemoveExcessTests' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformRemoveOverrides' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformRemoveSpecials' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformRemoveStatic' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformRemoveUndef' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformRequired' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformReturn' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformSetupTesting' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformSetupUI' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformSplitClass' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformStatic' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformStaticClass' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformSwingModels' />
+   <LOAD CLASS='edu.brown.cs.s6.language.java.TransformThrow' />
+
 </FAIT>
 

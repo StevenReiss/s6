@@ -110,8 +110,8 @@ extern "C" {
    int creat64(const char *,mode_t);
    int stat(const char *,struct stat *) THROW;
    int __xstat(int,const char *,struct stat *) THROW;
-   int stat64(const char *,struct stat64 *);
-   int __xstat64(int v,const char *,struct stat64 *);
+   int stat64(const char *,struct stat64 *) THROW;
+   int __xstat64(int v,const char *,struct stat64 *) THROW;
    int lstat(const char *,struct stat *) THROW;
    int __lxstat(int,const char *,struct stat *) THROW;
 

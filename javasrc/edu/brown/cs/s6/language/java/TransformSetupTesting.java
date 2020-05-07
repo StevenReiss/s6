@@ -62,6 +62,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
 import edu.brown.cs.ivy.jcomp.JcompTyper;
@@ -114,7 +115,7 @@ public TransformSetupTesting(String name)
 
    sol.setFlag(S6SolutionFlag.REMOVE);
 
-   if (solset.doDebug()) System.err.println("S6: Setup TESTING size " + cands.size());
+   IvyLog.logD("JAVA","Setup TESTING size " + cands.size());
 
    if (cands.size() > 64) return null;
 
@@ -122,7 +123,7 @@ public TransformSetupTesting(String name)
    Set<MapCandidate> done = new HashSet<MapCandidate>();
    addCandidates(cands,done,rslt,ts,td);
 
-   if (solset.doDebug()) System.err.println("S6: Setup TESTING size1 " + rslt.size());
+   IvyLog.logD("JAVA","Setup TESTING size1 " + rslt.size());
 
    if (rslt.size() < 512) {
       filterCandiates(cands,rslt);

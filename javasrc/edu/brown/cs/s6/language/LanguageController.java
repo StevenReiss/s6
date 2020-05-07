@@ -48,6 +48,7 @@ import java.util.Set;
 import org.w3c.dom.Element;
 
 import edu.brown.cs.cose.cosecommon.CoseConstants;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.s6.common.S6Solution;
 import edu.brown.cs.s6.common.S6SolutionSet;
@@ -81,8 +82,7 @@ static {
          transform_data.put(td.getName(),td);
        }
       catch (Throwable t) {
-         System.err.println("S6: Problem creating transform: " + IvyXml.convertXmlToString(txml));
-         t.printStackTrace();
+         IvyLog.logE("LANGUAGE","Problem creating transform: " + IvyXml.convertXmlToString(txml),t);
        }
     }
    toposort();
@@ -183,7 +183,7 @@ private static class TransformData {
          use_transform = (S6Transform) cnst.newInstance(transform_name); 
        }
       catch (Exception e) {
-         System.err.println("S6: Problem creating transform " + class_name);
+         IvyLog.logE("LANGUAGE","Problem creating transform " + class_name);
          use_transform = null;
        }
     }
@@ -337,7 +337,7 @@ private static void toposort()
          for (String s : before) {
             TransformData btd = transform_data.get(s);
             if (btd == null) {
-               System.err.println("TRANSFORM " + s + " not found");
+               IvyLog.logE("LANGUAGE","TRANSFORM " + s + " not found");
              }
             else depends.get(btd).add(td);
           }
@@ -347,7 +347,7 @@ private static void toposort()
          for (String s : after) {
             TransformData atd = transform_data.get(s);
             if (atd == null) {
-               System.err.println("TRANSFORM " + s + " not found");
+               IvyLog.logE("LANGUAGE","TRANSFORM " + s + " not found");
              }
             else depends.get(td).add(atd); 
           }
@@ -380,7 +380,7 @@ private static void toposort()
          delrem = delother;
        }
       else {
-         System.err.println("S6: Transformation TOPO SORT FAILED");
+         IvyLog.logE("LANGUAGE","Transformation TOPO SORT FAILED");
          delrem.add(any);
          transform_order.add(any);
        }

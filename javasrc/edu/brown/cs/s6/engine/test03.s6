@@ -1,5 +1,5 @@
 <S6:SEARCH xmlns:S6="http://www.cs.brown.edu/S6" xmlns="http://www.cs.brown.edu/S6"
-		WHAT='CLASS' REM`TE='TRUE' KRUGLE='TRUE' LOCAL='FALSE' >
+		WHAT='CLASS' REMOTE='TRUE' KRUGLE='TRUE' LOCAL='FALSE' >
    <S6:KEYWORDS>
       <KEYWORD>robots.txt</KEYWORD>
    </S6:KEYWORDS>

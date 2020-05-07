@@ -92,7 +92,7 @@ private final static String	OHLOH_PROJECT_QUERY = "pid=";
 TgenOhloh()
 {
    project_id_map = new HashMap<String,String>();
-   tgen_cache = new KeySearchCache();
+   tgen_cache = KeySearchCache.getCache();
    current_page = 0;
 }
 

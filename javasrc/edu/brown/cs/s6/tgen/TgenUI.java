@@ -92,6 +92,7 @@ import org.w3c.dom.Element;
 
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.file.IvyFormat;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.swing.SwingComboBox;
 import edu.brown.cs.ivy.swing.SwingGridPanel;
 import edu.brown.cs.ivy.swing.SwingListPanel;
@@ -823,7 +824,7 @@ static Element sendMessageToS6(String cnts)
       ins.close();
     }
    catch (IOException e) {
-      System.err.printf("TGENUI: Error sending to S6: " + e);
+      IvyLog.logE("TGENUI","Error sending to S6: " + e);
       return null;
     }
 

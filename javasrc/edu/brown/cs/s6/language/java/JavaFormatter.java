@@ -81,6 +81,7 @@ import org.w3c.dom.Element;
 
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.file.IvyFile;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.ivy.xml.IvyXmlReader;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
@@ -256,7 +257,7 @@ boolean handleServer() throws IOException
    use_server = null;
 
    if (IvyXml.isElement(elt,"ERROR")) {
-      System.err.println("S6: FORMATING ERROR: " + msg);
+      IvyLog.logE("JAVA","FORMATING ERROR: " + msg);
       return false;
     }
 
@@ -295,7 +296,7 @@ String getText(String id) throws S6Exception
       f1.delete();
     }
    catch (IOException e ) {
-      throw new S6Exception("S6: FORMAT: Problem reading result: " + e);
+      IvyLog.logE("JAVA","FORMAT: Problem reading result: " + e);
     }
 
    String rslt = null;

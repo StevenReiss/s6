@@ -99,6 +99,8 @@ import javax.swing.JTextField;
 
 import org.junit.Assert;
 
+import edu.brown.cs.ivy.file.IvyLog;
+
 
 
 public class RunnerTestCase extends Assert {
@@ -642,7 +644,7 @@ public static void assertInteract(Component w,double score)
       ProcessBuilder pb = new ProcessBuilder("ant","jar");
       Process p = pb.start();
       int sts = p.waitFor();
-      System.err.println("S6: ANT JAR STATUS = " + sts);
+      IvyLog.logI("RUNNER","ANT JAR STATUS = " + sts);
     }
    catch (Throwable e) {
       fail("Problem building jar");

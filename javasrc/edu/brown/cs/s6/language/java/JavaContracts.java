@@ -93,6 +93,7 @@ import org.eclipse.jdt.core.dom.TextElement;
 import org.w3c.dom.Element;
 
 import edu.brown.cs.ivy.exec.IvyExec;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.xml.IvyXml;
 import edu.brown.cs.ivy.xml.IvyXmlWriter;
 import edu.brown.cs.s6.common.S6Constants;
@@ -169,7 +170,7 @@ void checkContracts(S6Request.Check creq,IvyXmlWriter xw) throws S6Exception
 
    try {
       String cmd = JML_CHECK_COMMAND + otf;
-      System.err.println("S6: RUN " + cmd);
+      IvyLog.logI("JAVA","RUN " + cmd);
       IvyExec ex = new IvyExec(cmd,IvyExec.READ_ERROR);
       InputStream ins = ex.getErrorStream();
       BufferedReader br = new BufferedReader(new InputStreamReader(ins));
@@ -452,7 +453,7 @@ private String replaceArguments(S6Contracts.Contract c,MethodDeclaration md)
        }
     }
    catch (IOException e) {
-      System.err.println("S6: Unexpected I/O Error: " + e);
+      IvyLog.logE("JAVA","Unexpected I/O Error in contracts: " + e);
       return c.getCode();
     }
 

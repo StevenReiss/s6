@@ -73,6 +73,7 @@ import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 
 import edu.brown.cs.cose.cosecommon.CoseSource;
+import edu.brown.cs.ivy.file.IvyLog;
 import edu.brown.cs.ivy.jcomp.JcompSymbol;
 import edu.brown.cs.ivy.jcomp.JcompType;
 import edu.brown.cs.s6.common.S6Constants;
@@ -293,35 +294,32 @@ private class TestTypeBuilder {
 
    @SuppressWarnings("unchecked")
    void setup(TypeDeclaration td) {
-      // System.err.println("S6: SETUP test result using " + td);
-      // System.err.println("S6: Setup parent: " + td.getParent());
-
       result_type = use_ast.newTypeDeclaration();
       result_type.setName((SimpleName) ASTNode.copySubtree(use_ast,td.getName()));
       for (Object o : td.modifiers()) {
-	 ASTNode iem = (ASTNode) o;
-	 IExtendedModifier iem1 = (IExtendedModifier) ASTNode.copySubtree(use_ast,iem);
-	 if (iem1.isModifier()) {
-	    Modifier md = (Modifier) iem1;
-	    if (md.isStatic()) continue;
-	  }
-	 else continue;
-	 result_type.modifiers().add(iem1);
-
+         ASTNode iem = (ASTNode) o;
+         IExtendedModifier iem1 = (IExtendedModifier) ASTNode.copySubtree(use_ast,iem);
+         if (iem1.isModifier()) {
+            Modifier md = (Modifier) iem1;
+            if (md.isStatic()) continue;
+          }
+         else continue;
+         result_type.modifiers().add(iem1);
+   
        }
       if (td.getSuperclassType() != null) {
-	 JcompType jt = JavaAst.getJavaType(td.getSuperclassType());
-	 if (jt != null && jt.getName().equals("org.junit.Assert")) ;
-	 else {
-	    result_type.setSuperclassType((Type) ASTNode.copySubtree(use_ast,td.getSuperclassType()));
-	  }
+         JcompType jt = JavaAst.getJavaType(td.getSuperclassType());
+         if (jt != null && jt.getName().equals("org.junit.Assert")) ;
+         else {
+            result_type.setSuperclassType((Type) ASTNode.copySubtree(use_ast,td.getSuperclassType()));
+          }
        }
       for (Object o : td.superInterfaceTypes()) {
-	 Type t = (Type) o;
-	 Type t1 = (Type) ASTNode.copySubtree(use_ast,t);
-	 result_type.superInterfaceTypes().add(t1);
+         Type t = (Type) o;
+         Type t1 = (Type) ASTNode.copySubtree(use_ast,t);
+         result_type.superInterfaceTypes().add(t1);
        }
-      System.err.println("S6: Set test result: " + result_type);
+      IvyLog.logI("JAVA","Set test result: " + result_type);
     }
 
    @SuppressWarnings("unchecked")

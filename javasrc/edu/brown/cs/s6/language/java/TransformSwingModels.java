@@ -190,26 +190,26 @@ private class ModelFixup extends TreeMapper {
       mi.setName(sn);
       String snm = null;
       switch (typ) {
-	 case "List" :
-	    snm = "javax.swing.ListModel";
-	    break;
-	 case "Table" :
-	    snm = "javax.swing.table.TableModel";
-	    break;
-	 case "Tree" :
-	    snm = "javax.swing.tree.TreeModel";
-	    break;
+         case "List" :
+            snm = "javax.swing.ListModel";
+            break;
+         case "Table" :
+            snm = "javax.swing.table.TableModel";
+            break;
+         case "Tree" :
+            snm = "javax.swing.tree.TreeModel";
+            break;
        }
       if (snm != null) {
-	 CastExpression ce = ast.newCastExpression();
-	 Name sn1 = JavaAst.getQualifiedName(ast,snm);
-	 Type st1 = ast.newSimpleType(sn1);
-	 ce.setType(st1);
-	 ce.setExpression(mi);
-	 rw.replace(orig,ce,null);
+         CastExpression ce = ast.newCastExpression();
+         Name sn1 = JavaAst.getQualifiedName(ast,snm);
+         Type st1 = ast.newSimpleType(sn1);
+         ce.setType(st1);
+         ce.setExpression(mi);
+         rw.replace(orig,ce,null);
        }
       else {
-	 rw.replace(orig,mi,null);
+         rw.replace(orig,mi,null);
        }
     }
 }	// end of inner class ModelFixup
