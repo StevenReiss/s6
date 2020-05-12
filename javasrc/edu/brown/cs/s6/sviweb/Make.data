@@ -93,11 +93,22 @@ gwtsetup:
 	cp $(APPDIR)/* $(WARDIR)
 
 
-gwtinstall:
+gwtinstallconifer:
 	cp $(BASEDIR)/web.xml.remote $(WARDIR)/WEB-INF/web.xml
 	-ssh conifer.cs.brown.edu rm -rf /vol/s6/S6Search/*
 	scp -r $(WARDIR)/* conifer.cs.brown.edu:/vol/s6/S6Search
+	cp $(BASEDIR)/web.xml $(WARDIR)/WEB-INF
+
+gwtinstallconifer2:
+	cp $(BASEDIR)/web.xml.remote $(WARDIR)/WEB-INF/web.xml
 	-ssh conifer2.cs.brown.edu rm -rf /vol/s6/S6Search/*
 	scp -r $(WARDIR)/* conifer2.cs.brown.edu:/vol/s6/S6Search
 	cp $(BASEDIR)/web.xml $(WARDIR)/WEB-INF
 
+gwtinstallbubbles:
+	cp $(BASEDIR)/web.xml.remote $(WARDIR)/WEB-INF/web.xml
+	-ssh bubbles.cs.brown.edu rm -rf /vol/s6/S6Search/*
+	scp -r $(WARDIR)/* bubbles.cs.brown.edu:/vol/s6/S6Search
+	cp $(BASEDIR)/web.xml $(WARDIR)/WEB-INF
+
+gwtinstall: gwtinstallconifer2 gwtinstallbubbles

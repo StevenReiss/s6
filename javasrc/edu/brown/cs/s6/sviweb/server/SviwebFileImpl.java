@@ -125,7 +125,7 @@ protected void doPost(HttpServletRequest req,HttpServletResponse rsp) throws IOE
    ServletInputStream ins = req.getInputStream();
    byte [] buf = new byte[8192];
 
-   Socket s = new Socket("conifer.cs.brown.edu",17241);
+   Socket s = new Socket("localhost",17241);
    s.setSoTimeout(1200*1000);
    OutputStreamWriter os = new OutputStreamWriter(s.getOutputStream());
    os.write("<FILE EMBED='TRUE'>\n");

@@ -21,7 +21,10 @@ FILES=\
 	s6common.php \
 	search.php \
 	showlicense.php \
-	
+
 update:
 	scp $(FILES) conifer:/vol/web/html/s6web
+	scp s6index.html conifer:/vol/web/html/s6/index.html
+	scp $(FILES) conifer2:/vol/web/html/s6web
+	scp s6index.html conifer2:/vol/web/html/s6/index.html
 

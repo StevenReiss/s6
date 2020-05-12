@@ -796,7 +796,7 @@ static Element sendMessageToS6(String cnts)
    Element rslt = null;
 
    try {
-      URL u = new URL("http://conifer.cs.brown.edu/s6web/dosearch1.php");
+      URL u = new URL("http://bubbles.cs.brown.edu/s6web/dosearch1.php");
       HttpURLConnection huc = (HttpURLConnection) u.openConnection();
       huc.setDoInput(true);
       huc.setDoOutput(true);

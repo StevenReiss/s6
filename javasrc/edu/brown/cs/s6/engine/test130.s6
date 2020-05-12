@@ -1,0 +1,37 @@
+<SEARCH FORMAT='NONE' REMOTE='TRUE' SEARCHCODE='TRUE' WHAT='PACKAGE'>
+<SIGNATURE>
+   <PACKAGE NAME='edu.brown.cs.spr.crawl'>
+      <CLASS NAME='CrawlMain' MODS='1' MAIN='true' >
+      </CLASS>
+      <CLASS NAME='CrawlThread'>
+	 <SUPERCLASS>java.lang.Runnable</SUPERCLASS>
+      </CLASS>
+      <CLASS NAME='CrawlParser'>
+	 <KEY>parser</KEY>
+	 <KEY>HTML</KEY>
+      </CLASS>
+      <CLASS NAME='CrawlPage'>
+	 <FIELD MODS='2' TYPE='java.lang.String' />
+	 <KEY>URL</KEY>
+      </CLASS>
+   </PACKAGE>
+</SIGNATURE>
+<TESTS>
+      <TESTCASE NAME='testRunMain' TYPE='USERCODE'>
+	 <CODE><![CDATA[
+	      {
+		 String [] args = new String [0];
+		 // CrawlMain.main(args);
+	       }
+	  ]]></CODE>
+      </TESTCASE>
+</TESTS>
+<KEYWORDS><KEYWORD><![CDATA[web]]></KEYWORD>
+<KEYWORD><![CDATA[server]]></KEYWORD>
+<KEYWORD><![CDATA[embedded]]></KEYWORD>
+</KEYWORDS>
+<SOURCES>
+   <SOURCE USE='true'>SRCCOD:https://searchcode.com/codesearch/raw/140248294/?140248294&amp;dwr&amp;JettyLauncherBase.java&amp;/core/impl/demo/java/org/directwebremoting/server/jetty</SOURCE>
+</SOURCES>
+</SEARCH>
+

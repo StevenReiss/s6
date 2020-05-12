@@ -128,8 +128,10 @@ public interface S6Constants {
 
 String S6_ENGINE_SERVER_SOCKET = IvyFile.expandName("$(S6)/tmp/s6_engine_socket");
 String S6_ENGINE_SERVER_SOCKET_WEB = "scp " + S6_ENGINE_SERVER_SOCKET +
-	" conifer:/vol/web/html/s6/data/.s6_engine_socket";
-String S6_ENGINE_WEB_SERVER = "conifer.cs.brown.edu";
+	" bubbles:/vol/web/html/s6/data/.s6_engine_socket";
+String S6_ENGINE_WEB_SERVER = "conifer2.cs.brown.edu";
+String S6_ENGINE_WEB_SERVER1 = "bubbles.cs.brown.edu";
+String S6_ENGINE_WEB_SERVER2 = "conifer.cs.brown.edu";
 int S6_ENGINE_WEB_PORT = 17240;
 int S6_ENGINE_WEB_CLIENT_PORT = 17241;
 
@@ -197,8 +199,8 @@ enum S6TestType {
 
 
 enum S6SearchLanguage {
-   JAVA,                // java files
-   XML                  // xml (resource, manifest) files
+   JAVA,		// java files
+   XML			// xml (resource, manifest) files
 }
 
 
@@ -257,33 +259,33 @@ class S6SignatureType {
    static private final int TYPE_FG = 512;
    static private final int UITYPES_FG = 1024;
    static private final int DOES_TEST_FG = 2048;
-   
+
    static public final S6SignatureType FULL = new S6SignatureType(
-         NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG|MODS_FG|TYPE_FG);
+	 NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG|MODS_FG|TYPE_FG);
    static public final S6SignatureType ALL = new S6SignatureType(
-         NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG);
+	 NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG);
    static public final S6SignatureType NAME = new S6SignatureType(NAME_FG);
    static public final S6SignatureType RETURN = new S6SignatureType(RETURN_FG);
    static public final S6SignatureType PARAMETERS = new S6SignatureType(PARAMETERS_FG);
    static public final S6SignatureType EXCEPTIONS = new S6SignatureType(EXCEPTIONS_FG);
    static public final S6SignatureType MODS = new S6SignatureType(MODS_FG);
    static public final S6SignatureType RETURN_EXCEPTIONS_PARAMETERS = new S6SignatureType(
-         RETURN_FG|EXCEPTIONS_FG|PARAMETERS_FG);
+	 RETURN_FG|EXCEPTIONS_FG|PARAMETERS_FG);
    static public final S6SignatureType RETURN_EXCEPTIONS = new S6SignatureType(
-         RETURN_FG|EXCEPTIONS_FG);
+	 RETURN_FG|EXCEPTIONS_FG);
    static public final S6SignatureType RETURN_MODS = new S6SignatureType(
-         RETURN_FG|MODS_FG);
+	 RETURN_FG|MODS_FG);
    static public final S6SignatureType NO_CLASSES = new S6SignatureType(NO_CLASSES_FG);
    static public final S6SignatureType NO_METHODS = new S6SignatureType(NO_METHODS_FG);
    static public final S6SignatureType EXTRACTABLE = new S6SignatureType(EXTRACTABLE_FG);
    static public final S6SignatureType PACKAGE_FULL = new S6SignatureType(
-         NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG|MODS_FG|TYPE_FG|USAGE_FG);
+	 NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG|MODS_FG|TYPE_FG|USAGE_FG);
    static public final S6SignatureType UIFRAMEWORK_FULL = new S6SignatureType(
-         NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG|MODS_FG|TYPE_FG|UITYPES_FG);
+	 NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG|MODS_FG|TYPE_FG|UITYPES_FG);
    static public final S6SignatureType TESTING_FULL = new S6SignatureType(
-         NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG|MODS_FG|TYPE_FG|DOES_TEST_FG);
+	 NAME_FG|PARAMETERS_FG|EXCEPTIONS_FG|RETURN_FG|MODS_FG|TYPE_FG|DOES_TEST_FG);
    static public final S6SignatureType DOES_TEST = new S6SignatureType(DOES_TEST_FG);
-   
+
    private int signature_flags;
 
    private S6SignatureType(int fgs) {
@@ -337,7 +339,7 @@ enum S6SolutionFlag {
    PASS,		// the solution passed tests
    COMPILES,		// no undefined symbols
    REMOVE,		// force removal of the solution
-   NONE                 // dummy flag
+   NONE 		// dummy flag
 };
 
 

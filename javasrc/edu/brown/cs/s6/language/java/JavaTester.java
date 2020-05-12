@@ -945,7 +945,7 @@ private void clear(Map<String,String> idmap)
 /********************************************************************************/
 
 private void setupCode(Map<String,String> idmap)
-{
+{	
    JavaContracts jc = new JavaContracts(for_request.getContracts(),java_fragment);
    if (jc.insertContracts()) idmap.put("ANTRUN","jmltest");
 
@@ -976,7 +976,7 @@ private void setupCode(Map<String,String> idmap)
    jc.removeContracts();
 }
 
-
+		
 
 
 /********************************************************************************/
@@ -1350,12 +1350,12 @@ private String codeString(S6TestCase.CallArg ca)
 	 buf.append("\"");
 	 for (int i = 0; i < s.length(); ++i) {
 	    char c = s.charAt(i);
-            if (c == '\n') buf.append("\\n");
-            else if (c == '\t') buf.append("\\t");
-            else {
-               if (c == '"') buf.append("\\");
-               buf.append(c);
-             }
+	    if (c == '\n') buf.append("\\n");
+	    else if (c == '\t') buf.append("\\t");
+	    else {
+	       if (c == '"') buf.append("\\");
+	       buf.append(c);
+	     }
 	  }
 	 buf.append("\"");
 	 r = buf.toString();

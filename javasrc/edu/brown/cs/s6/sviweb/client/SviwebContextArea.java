@@ -124,7 +124,7 @@ Widget getWidget()				{ return context_panel; }
 
 public void onClick(ClickEvent evt)
 {
-   Window.open("http://conifer.cs.brown.edu/s6/Context/context.jnlp","Create Context",null);
+   Window.open("http://bubbles.cs.brown.edu/s6/Context/context.jnlp","Create Context",null);
 }
 
 

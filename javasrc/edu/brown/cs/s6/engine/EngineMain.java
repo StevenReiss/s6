@@ -366,10 +366,6 @@ void start()
       catch (Throwable t) {
 	 IvyLog.logE("ENGINE","Internal problem with request " + base_request,t);
        }
-      catch (Throwable t) {
-	 System.err.println("S6: ENGINE: Internal problem with request " + base_request);
-	 t.printStackTrace();
-       }
       finally {
 	 try {
 	    if (xr != null) xr.close();
@@ -1327,11 +1323,11 @@ private EngineClient createClient(Socket s)
 private class EngineServer extends Thread {
 
    private ServerSocket server_socket;
-   private Collection<EngineClient> firewall_clients;
+   private Map<String,Collection<EngineClient>> firewall_clients;
 
    EngineServer() {
       super("S6_ENGINE_ACCEPT");
-      firewall_clients = new ArrayList<EngineClient>();
+      firewall_clients = new HashMap<>();
       try {
 	 server_socket = new ServerSocket(0);
        }
@@ -1384,7 +1380,9 @@ private class EngineServer extends Thread {
        }
 
       for (int i = 0; i < num_connect; ++i) {
-	 setupFirewallClient();
+	 setupFirewallClient(S6_ENGINE_WEB_SERVER);
+	 setupFirewallClient(S6_ENGINE_WEB_SERVER1);
+	 setupFirewallClient(S6_ENGINE_WEB_SERVER2);
        }
 
       try {
@@ -1411,12 +1409,21 @@ private class EngineServer extends Thread {
       f.delete();
     }
 
-   private void setupFirewallClient() {
+   private void setupFirewallClient(String host) {
       try {
-	 Socket s = new Socket(S6_ENGINE_WEB_SERVER,S6_ENGINE_WEB_PORT);
+	 Socket s = new Socket(host,S6_ENGINE_WEB_PORT);
 	 s.setSoTimeout(2*60*1000);
 	 EngineClient ec = createClient(s);
-	 if (ec != null) firewall_clients.add(ec);
+	 if (ec != null) {
+	    synchronized (firewall_clients) {
+	       Collection<EngineClient> clnts = firewall_clients.get(host);
+	       if (clnts == null) {
+		  clnts = new ArrayList<>();
+		  firewall_clients.put(host,clnts);
+		}
+	       clnts.add(ec);
+	     }
+	  }
        }
       catch (IOException e) {
 	 IvyLog.logE("ENGINE","Firewall connection not running: " + e);
@@ -1424,16 +1431,18 @@ private class EngineServer extends Thread {
     }
 
    private void checkFirewallClients() {
-      int ct = 0;
-      for (Iterator<EngineClient> it = firewall_clients.iterator(); it.hasNext(); ) {
-	 EngineClient ec = it.next();
-	 if (ec.isAlive() && ec.isActive()) ++ct;
-	 else it.remove();
-       }
-      if (ct < num_connect) {
-	 IvyLog.logI("ENGINE","Reconnecting to firewall " + (num_connect-ct));
-	 for (int i = ct; i < num_connect; ++i) {
-	    setupFirewallClient();
+      for (String host : firewall_clients.keySet()) {
+	 int ct = 0;
+	 for (Iterator<EngineClient> it = firewall_clients.get(host).iterator(); it.hasNext(); ) {
+	    EngineClient ec = it.next();
+	    if (ec.isAlive() && ec.isActive()) ++ct;
+	    else it.remove();
+	  }
+	 if (ct < num_connect) {
+	    IvyLog.logI("ENGINE","Reconnecting to firewall " + (num_connect-ct));
+	    for (int i = ct; i < num_connect; ++i) {
+	       setupFirewallClient(host);
+	     }
 	  }
        }
     }

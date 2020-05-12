@@ -71,6 +71,8 @@ synsat: all
 
 FIRCP= /pro/s6/java:/pro/ivy/java
 FIRWEB= conifer:/vol/s6
+FIRWEB1= conifer2:/vol/s6
+FIRWEB2= bubbles:/vol/s6
 FIRJAR= /pro/s6/lib/firewall.jar
 FIRFLAGS= -source 1.6 -target 1.6 -bootclasspath /pro/java/linux/jdk1.6/jre/lib/rt.jar
 
@@ -79,6 +81,8 @@ firewall: all
 	javac -d /pro/s6/java $(FIRFLAGS) /pro/s6/engine/src/EngineFirewall.java
 	taigabuildimpljar -cp $(FIRCP) -j $(FIRJAR) -x edu.brown.cs.s6.engine.EngineFirewall
 	scp $(FIRJAR) $(FIRWEB)
+	scp $(FIRJAR) $(FIRWEB1)
+	scp $(FIRJAR) $(FIRWEB2)
 
 stest: all
 	java -Xmx1500m edu.brown.cs.s6.engine.EngineTester
