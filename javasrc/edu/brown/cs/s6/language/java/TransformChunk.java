@@ -317,7 +317,7 @@ private List<ChunkStart> findStartingPoints(List<ChunkStmt> stmts,JcompType rt,V
    // then add case if return can be used
 
    ChunkVar rv = vf.getReturnVariable();
-   if (rv != null && rv.getType().isCompatibleWith(rt)) {
+   if (rv != null && rv.getType() != null && rv.getType().isCompatibleWith(rt)) {
       ChunkStart soln = new ChunkStart(null,rv,blk);
       solnlist.add(soln);
     }

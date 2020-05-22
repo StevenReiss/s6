@@ -189,6 +189,8 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
 
 @Override public List<String> getKeyTerms()		{ return required_keywords; }
 
+@Override public String editSource(String orig)         { return orig; } 
+
 
 
 /********************************************************************************/

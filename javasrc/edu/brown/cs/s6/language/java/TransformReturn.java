@@ -282,41 +282,42 @@ private class ReturnTypeMapper extends TreeMapper {
    @SuppressWarnings("unchecked")
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (fix_returns != null && fix_returns.contains(orig)) {
-	 ReturnStatement rst = (ReturnStatement) orig;
-	 if (convert_method != null) {
-	    if (rst.getExpression().getNodeType() == ASTNode.NULL_LITERAL) return;
-	    if (convert_method.getName().equals("<init>")) {
-	       Expression old = (Expression) ASTNode.copySubtree(rw.getAST(),rst.getExpression());
-	       ClassInstanceCreation cic = rw.getAST().newClassInstanceCreation();
-	       JcompType jt = convert_method.getClassType();
-	       SimpleType sty = rw.getAST().newSimpleType(JavaAst.getQualifiedName(rw.getAST(),jt.getName()));
-	       cic.setType(sty);
-	       cic.arguments().add(old);
-	       rw.set(rst,ReturnStatement.EXPRESSION_PROPERTY,cic,null);
-	     }
-	    else {
-	       Expression old = (Expression) ASTNode.copySubtree(rw.getAST(),rst.getExpression());
-	       MethodInvocation mi = rw.getAST().newMethodInvocation();
-	       mi.setExpression(old);
-	       mi.setName(JavaAst.getSimpleName(rw.getAST(),convert_method.getName()));
-	       rw.set(rst,ReturnStatement.EXPRESSION_PROPERTY,mi,null);
-	     }
-	  }
-	 else if (new_type.isNumericType()) {
-	    Expression old = (Expression) rw.createCopyTarget(rst.getExpression());
-	    CastExpression cst = rst.getAST().newCastExpression();
-	    cst.setExpression(old);
-	    Type st = new_type.createAstNode(rst.getAST());
-	    cst.setType(st);
-	    rw.set(rst,ReturnStatement.EXPRESSION_PROPERTY,cst,null);
-	  }
-	 else { 		// handle void return type
-	    rw.set(orig,ReturnStatement.EXPRESSION_PROPERTY,null,null);
-	  }
+         ReturnStatement rst = (ReturnStatement) orig;
+         if (convert_method != null) {
+            if (rst.getExpression() != null && 
+                  rst.getExpression().getNodeType() == ASTNode.NULL_LITERAL) return;
+            if (convert_method.getName().equals("<init>")) {
+               Expression old = (Expression) ASTNode.copySubtree(rw.getAST(),rst.getExpression());
+               ClassInstanceCreation cic = rw.getAST().newClassInstanceCreation();
+               JcompType jt = convert_method.getClassType();
+               SimpleType sty = rw.getAST().newSimpleType(JavaAst.getQualifiedName(rw.getAST(),jt.getName()));
+               cic.setType(sty);
+               cic.arguments().add(old);
+               rw.set(rst,ReturnStatement.EXPRESSION_PROPERTY,cic,null);
+             }
+            else {
+               Expression old = (Expression) ASTNode.copySubtree(rw.getAST(),rst.getExpression());
+               MethodInvocation mi = rw.getAST().newMethodInvocation();
+               mi.setExpression(old);
+               mi.setName(JavaAst.getSimpleName(rw.getAST(),convert_method.getName()));
+               rw.set(rst,ReturnStatement.EXPRESSION_PROPERTY,mi,null);
+             }
+          }
+         else if (new_type.isNumericType()) {
+            Expression old = (Expression) rw.createCopyTarget(rst.getExpression());
+            CastExpression cst = rst.getAST().newCastExpression();
+            cst.setExpression(old);
+            Type st = new_type.createAstNode(rst.getAST());
+            cst.setType(st);
+            rw.set(rst,ReturnStatement.EXPRESSION_PROPERTY,cst,null);
+          }
+         else { 		// handle void return type
+            rw.set(orig,ReturnStatement.EXPRESSION_PROPERTY,null,null);
+          }
        }
       else if (orig == change_method) {
-	 Type tnode = new_type.createAstNode(orig.getAST());
-	 rw.set(orig,MethodDeclaration.RETURN_TYPE2_PROPERTY,tnode,null);
+         Type tnode = new_type.createAstNode(orig.getAST());
+         rw.set(orig,MethodDeclaration.RETURN_TYPE2_PROPERTY,tnode,null);
        }
     }
 

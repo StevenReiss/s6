@@ -201,8 +201,8 @@ private class EnumNameMapper extends TreeMapper {
 
    void rewriteTree(ASTNode orig,ASTRewrite rw) {
       if (fix_names.contains(orig)) {
-	 SimpleName sn = JavaAst.getSimpleName(rw.getAST(),"s6enum");
-	 rw.replace(orig,sn,null);
+         SimpleName sn = JavaAst.getSimpleName(rw.getAST(),"s6enum");
+         rw.replace(orig,sn,null);
        }
     }
 

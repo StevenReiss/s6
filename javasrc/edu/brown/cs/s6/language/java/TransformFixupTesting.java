@@ -155,82 +155,82 @@ private class TestFixupMapper extends TreeMapper {
 
    @Override void rewriteTree(ASTNode orig,ASTRewrite rw) {
        if (orig == first_type) {
-	  CompilationUnit cu = (CompilationUnit) orig.getRoot();
-	  ListRewrite outers = null;
-	  for (Object o : cu.types()) {
-	     if (o == first_type) continue;
-	     AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
-	     if (outers == null) {
-		outers = rw.getListRewrite(cu,CompilationUnit.TYPES_PROPERTY);
-	      }
-	     outers.remove(atd,null);
-	   }
-	  TestTypeBuilder ttd = new TestTypeBuilder(rw.getAST());
-	  ttd.setup(first_type);
-	  Set<S6Solution> use = new HashSet<S6Solution>(use_sources.values());
-	  Set<JcompType> imports = new HashSet<JcompType>();
-	  for (S6Solution sol : solution_set.getSolutions()) {
-	     if (use.contains(sol)) {
-		JavaFragment f = (JavaFragment) sol.getFragment();
-		f.resolveFragment();
-		Collection<JcompType> imp = f.getImportTypes();
-		imports.addAll(imp);
-		TypeDeclaration std = (TypeDeclaration) f.getAstNode();
-		ttd.addItems(std);
-	      }
-	     sol.setFlag(S6SolutionFlag.REMOVE);
-	   }
-
-	  TypeDeclaration ntd = ttd.getTypeDeclaration();
-	  TypeDeclaration otd = (TypeDeclaration) orig;
-	  for (Object o : otd.modifiers()) {
-	     if (o instanceof Modifier) {
-		Modifier md = (Modifier) o;
-		if (md.isStatic()) {
-		   ListRewrite mlrw = rw.getListRewrite(otd,TypeDeclaration.MODIFIERS2_PROPERTY);
-		   mlrw.remove(md,null);
-		   break;
-		 }
-	      }
-	   }
-	  if (otd.getSuperclassType() != null) {
-	     JcompType jt = JavaAst.getJavaType(otd.getSuperclassType());
-	     if (jt != null && jt.getName().equals("org.junit.Assert")) {
-		rw.remove(otd.getSuperclassType(),null);
-	      }
-	   }
-	  ListRewrite blrw = rw.getListRewrite(otd,TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
-	  for (Object o : otd.bodyDeclarations()) {
-	     BodyDeclaration bd = (BodyDeclaration) o;
-	     // System.err.println("REMOVE: " + bd.hashCode() + " " + bd);
-	     blrw.remove(bd,null);
-	   }
-	  for (Object o : ntd.bodyDeclarations()) {
-	     BodyDeclaration bd = (BodyDeclaration) o;
-	     blrw.insertLast(bd,null);
-	     // System.err.println("INSERT: " + bd.hashCode() + " " + bd);
-	   }
-	  // rw.replace(orig,ntd,null);
-
-	  ListRewrite lrw = rw.getListRewrite(cu,CompilationUnit.IMPORTS_PROPERTY);
-	  for (Object o : cu.imports()) {
-	     lrw.remove((ASTNode) o,null);
-	   }
-	  for (JcompType jt : imports) {
-	     String tnm = jt.getName();
-	     int idx = tnm.lastIndexOf(".");
-	     if (idx < 0) continue;
-	     String pkg = tnm.substring(0,idx);
-	     if (pkg.equals("java.lang")) continue;
-	     if (tnm.equals("org.junit.Assert")) continue;
-	     ImportDeclaration id = rw.getAST().newImportDeclaration();
-	     Name nm = JavaAst.getQualifiedName(rw.getAST(),tnm);
-	     id.setName(nm);
-	     lrw.insertLast(id,null);
-	   }
-
-	  // System.err.println("TRANSFORM: " + rw);
-	}
+          CompilationUnit cu = (CompilationUnit) orig.getRoot();
+          ListRewrite outers = null;
+          for (Object o : cu.types()) {
+             if (o == first_type) continue;
+             AbstractTypeDeclaration atd = (AbstractTypeDeclaration) o;
+             if (outers == null) {
+        	outers = rw.getListRewrite(cu,CompilationUnit.TYPES_PROPERTY);
+              }
+             outers.remove(atd,null);
+           }
+          TestTypeBuilder ttd = new TestTypeBuilder(rw.getAST());
+          ttd.setup(first_type);
+          Set<S6Solution> use = new HashSet<S6Solution>(use_sources.values());
+          Set<JcompType> imports = new HashSet<JcompType>();
+          for (S6Solution sol : solution_set.getSolutions()) {
+             if (use.contains(sol)) {
+        	JavaFragment f = (JavaFragment) sol.getFragment();
+        	f.resolveFragment();
+        	Collection<JcompType> imp = f.getImportTypes();
+        	imports.addAll(imp);
+        	TypeDeclaration std = (TypeDeclaration) f.getAstNode();
+        	ttd.addItems(std);
+              }
+             sol.setFlag(S6SolutionFlag.REMOVE);
+           }
+   
+          TypeDeclaration ntd = ttd.getTypeDeclaration();
+          TypeDeclaration otd = (TypeDeclaration) orig;
+          for (Object o : otd.modifiers()) {
+             if (o instanceof Modifier) {
+        	Modifier md = (Modifier) o;
+        	if (md.isStatic()) {
+        	   ListRewrite mlrw = rw.getListRewrite(otd,TypeDeclaration.MODIFIERS2_PROPERTY);
+        	   mlrw.remove(md,null);
+        	   break;
+        	 }
+              }
+           }
+          if (otd.getSuperclassType() != null) {
+             JcompType jt = JavaAst.getJavaType(otd.getSuperclassType());
+             if (jt != null && jt.getName().equals("org.junit.Assert")) {
+        	rw.remove(otd.getSuperclassType(),null);
+              }
+           }
+          ListRewrite blrw = rw.getListRewrite(otd,TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
+          for (Object o : otd.bodyDeclarations()) {
+             BodyDeclaration bd = (BodyDeclaration) o;
+             // System.err.println("REMOVE: " + bd.hashCode() + " " + bd);
+             blrw.remove(bd,null);
+           }
+          for (Object o : ntd.bodyDeclarations()) {
+             BodyDeclaration bd = (BodyDeclaration) o;
+             blrw.insertLast(bd,null);
+             // System.err.println("INSERT: " + bd.hashCode() + " " + bd);
+           }
+          // rw.replace(orig,ntd,null);
+   
+          ListRewrite lrw = rw.getListRewrite(cu,CompilationUnit.IMPORTS_PROPERTY);
+          for (Object o : cu.imports()) {
+             lrw.remove((ASTNode) o,null);
+           }
+          for (JcompType jt : imports) {
+             String tnm = jt.getName();
+             int idx = tnm.lastIndexOf(".");
+             if (idx < 0) continue;
+             String pkg = tnm.substring(0,idx);
+             if (pkg.equals("java.lang")) continue;
+             if (tnm.equals("org.junit.Assert")) continue;
+             ImportDeclaration id = rw.getAST().newImportDeclaration();
+             Name nm = JavaAst.getQualifiedName(rw.getAST(),tnm);
+             id.setName(nm);
+             lrw.insertLast(id,null);
+           }
+   
+          // System.err.println("TRANSFORM: " + rw);
+        }
     }
 
    private double getScore(S6Solution sol) {

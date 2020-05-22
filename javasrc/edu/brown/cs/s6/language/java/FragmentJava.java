@@ -663,8 +663,8 @@ private static class FindVisitor extends ASTVisitor {
    @Override public void endVisit(MethodInvocation mi) {
       String nid = mi.getName().getFullyQualifiedName();
       if (nid.contains("assert") || nid.contains("assume") ||
-	    nid.contains("Assert") || nid.contains("Assume")) {
-	 is_test = true;
+            nid.contains("Assert") || nid.contains("Assume")) {
+         is_test = true;
        }
     }
 
