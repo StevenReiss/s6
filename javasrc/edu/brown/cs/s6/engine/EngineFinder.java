@@ -656,7 +656,7 @@ private static class FinderSource implements CoseSource {
    public int getOffset()				{ return 0; }
    public int getLength()				{ return 0; }
    public CoseSource getBaseSource()			{ return null; }
-   public boolean isSameRepository(CoseSource uri)	{ return true; }
+   public boolean isRelatedRepository(CoseSource uri,boolean exact)        { return true; }
 
 }	// end of subclass FinderSource
 
