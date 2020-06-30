@@ -179,7 +179,7 @@ server:
 	java -Djava.io.tmpdir=/ws/volfred/tmp -server -Xmx64000m edu.brown.cs.s6.engine.EngineMain -server -t 10
 
 kserver:
-	k5start -f /u/spr/spr.keytab -U --sh -c 'java -Djava.io.tmpdir=/ws/volfred/tmp -server -Xmx64000m edu.brown.cs.s6.engine.EngineMain -server -t 10'
+	env -i k5start -f /u/spr/spr.keytab -U -- sh -c 'java -Djava.io.tmpdir=/ws/volfred/tmp -server -Xmx64000m edu.brown.cs.s6.engine.EngineMain -server -t 10'
 
 server7:
 	DISPLAY=; /pro/java/linux/jdk1.7_x64/bin/java -Xmx32000m edu.brown.cs.s6.engine.EngineMain -server -t 10

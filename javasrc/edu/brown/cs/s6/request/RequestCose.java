@@ -111,6 +111,9 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
    return getEngine().getNumberOfSearchThreads();
 }
 
+
+@Override public int getMaxPackageFiles()               { return 50; }
+
 @Override public boolean doDebug()
 {
    return getEngine().doDebug();
@@ -225,6 +228,10 @@ private class ResultHandler implements CoseResultSet {
    @Override public void addResult(CoseResult cr) {
       S6Fragment frag = getEngine().createFragment(cr,solution_set.getRequest());
       solution_set.addInitialSolution(frag,cr.getSource());
+    }
+   
+   @Override public void removeResult(CoseResult cr) {
+      // shouldn't be used here
     }
 
 }	// end of inner class ResultHandler
