@@ -859,26 +859,26 @@ private static class PackageFragment extends FragmentJava {
    private void buildRoot() {
       if (root_node != null) return;
       if (file_fragments.size() == 0) return;
-
+   
       FileSorter fs = new FileSorter(file_fragments);
       file_fragments = fs.sort();
-
+   
       for (FileFragment ff : file_fragments) {
-	 CompilationUnit fn = (CompilationUnit) ff.getAstNode();
-	 if (root_node == null) {
-	    AST nast = AST.newAST(AST.JLS12,true);
-	    root_node = (CompilationUnit) ASTNode.copySubtree(nast,fn);
-	    // root_node = fn;
-	  }
-	 else root_node = mergeIntoAst(root_node,fn,used_packages);
+         CompilationUnit fn = (CompilationUnit) ff.getAstNode();
+         if (root_node == null) {
+            AST nast = AST.newAST(AST.JLS12,true);
+            root_node = (CompilationUnit) ASTNode.copySubtree(nast,fn);
+            // root_node = fn;
+          }
+         else root_node = mergeIntoAst(root_node,fn,used_packages);
        }
       if (used_packages.size() == 0) {
-	 PackageDeclaration pd = root_node.getPackage();
-	 if (pd != null) {
-	    String pnm = pd.getName().getFullyQualifiedName();
-	    base_package = pnm;
-	    used_packages.add(pnm);
-	  }
+         PackageDeclaration pd = root_node.getPackage();
+         if (pd != null) {
+            String pnm = pd.getName().getFullyQualifiedName();
+            base_package = pnm;
+            used_packages.add(pnm);
+          }
        }
       source_text = root_node.toString();
       ASTParser parser = ASTParser.newParser(AST.JLS12);

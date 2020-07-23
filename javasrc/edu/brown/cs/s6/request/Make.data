@@ -13,6 +13,7 @@ SFILES=\
 	RequestConstants.java \
 	RequestContext.java \
 	RequestContracts.java \
+	RequestCose.java \
 	RequestBase.java \
 	RequestCheck.java \
 	RequestClass.java \
