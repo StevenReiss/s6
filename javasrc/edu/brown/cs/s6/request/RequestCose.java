@@ -194,6 +194,8 @@ public RequestCose(S6Engine eng,Element xml) throws S6Exception
 
 @Override public String editSource(String orig)         { return orig; } 
 
+@Override public String getProjectId()                  { return null; }
+
 
 
 /********************************************************************************/
