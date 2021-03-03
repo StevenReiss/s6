@@ -31,10 +31,10 @@ ftest:	 all
 ftest1:   all
 	java -Xmx1500m edu.brown.cs.s6.engine.EngineFinderTester 1091
 
-SYNCP= /pro/s6/java:/pro/ivy/java:$(ECLIPSEPATH):/pro/ivy/lib/jikesbt.jar:/pro/s6/lib/json.jar:/pro/s6/lib/asm-3.1.jar
+SYNCP= /pro/s6/java:/pro/ivy/java:$(ECLIPSEPATH):/pro/ivy/lib/jikesbt.jar:/pro/s6/lib/json.jar:/pro/ivy/lib/asm.jar
 RES= /pro/s6/engine/src/resources
 
-ECLCP= /u/spr/Eclipse/workspace2/s6/bin:/u/spr/Eclipse/workspace2/ivy/bin:$(CLASSPATH):/pro/s6/lib/asm-3.1.jar
+ECLCP= /u/spr/Eclipse/workspace2/s6/bin:/u/spr/Eclipse/workspace2/ivy/bin:$(CLASSPATH):/pro/ivy/lib/asm.jar
 
 synsat: all
 	taigabuildimpljar -cp $(SYNCP) -j /pro/s6/lib/synsat.jar \

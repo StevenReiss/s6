@@ -110,9 +110,9 @@ if ( "X$xxx" == X ) then
    setenv CLASSPATH "${CLASSPATH}:$gwt/gwt-user.jar:$gwt/gwt-dev-linux.jar"
 endif
 
-set xxx = `echo $CLASSPATH | fgrep asm.\\.jar`
+set xxx = `echo $CLASSPATH | fgrep asm.jar`
 if ( "X$xxx" == X ) then
-   set asm = $BROWN_S6_IVY/lib/asm6.jar
+   set asm = $BROWN_S6_IVY/lib/asm.jar
    setenv CLASSPATH "${CLASSPATH}:$asm"
 endif
 

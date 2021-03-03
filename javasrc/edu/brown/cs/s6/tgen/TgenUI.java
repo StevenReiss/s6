@@ -93,6 +93,7 @@ import org.w3c.dom.Element;
 import edu.brown.cs.ivy.exec.IvyExec;
 import edu.brown.cs.ivy.file.IvyFormat;
 import edu.brown.cs.ivy.file.IvyLog;
+import edu.brown.cs.ivy.jcode.JcodeConstants;
 import edu.brown.cs.ivy.swing.SwingComboBox;
 import edu.brown.cs.ivy.swing.SwingGridPanel;
 import edu.brown.cs.ivy.swing.SwingListPanel;
@@ -736,7 +737,7 @@ private class KnownClassVisitor extends ClassVisitor {
    private ClassData cur_class;
 
    KnownClassVisitor() {
-      super(Opcodes.ASM4);
+      super(JcodeConstants.ASM_API);
       cur_class = null;
     }
 

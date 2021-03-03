@@ -240,17 +240,17 @@ private class ContextChecker {
       // check if parameter type (typ) can match context type (context_type)
       if (!typ.isClassType()) return;
       if (typ.isBinaryType()) return;
-   
+
       MemberData md = getItemsUsed(typ,for_method,java_typer);
-   
+
       context_type.defineAll(java_typer);
       Map<MemberInstance,List<JcompSymbol>> cands = new HashMap<MemberInstance,List<JcompSymbol>>();
       for (MemberInstance mi : md.getMembersUsed()) {
-         List<JcompSymbol> pots = findCandidates(mi);
-         if (pots == null || pots.isEmpty()) return;
-         cands.put(mi,pots);
+	 List<JcompSymbol> pots = findCandidates(mi);
+	 if (pots == null || pots.isEmpty()) return;
+	 cands.put(mi,pots);
        }
-   
+
       all_maps = new ArrayList<MemberSet>();
       Map<MemberInstance,JcompSymbol> mmap = new HashMap<MemberInstance,JcompSymbol>();
       Set<JcompSymbol> used = new HashSet<JcompSymbol>();
@@ -555,8 +555,7 @@ private static class MemberInstance {
 	 Expression e = (Expression) it.next();
 	 atys.add(JavaAst.getExprType(e));
        }
-      member_type = JcompType.createMethodType(null,atys,false,null);
-      member_type = typer.fixJavaType(member_type);
+      member_type = typer.createMethodType(null,atys,false,null);
       member_name = id;
     }
 
