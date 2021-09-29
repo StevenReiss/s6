@@ -87,7 +87,6 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
 import org.w3c.dom.Element;
 
 import edu.brown.cs.ivy.exec.IvyExec;
