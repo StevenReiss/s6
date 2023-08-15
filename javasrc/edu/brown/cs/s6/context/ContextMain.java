@@ -579,13 +579,13 @@ private void addSimpleFile(File f,String pfx) throws IOException
       return;
     }
 
-   BufferedInputStream ins = new BufferedInputStream(new FileInputStream(f));
-   for ( ; ; ) {
-      int ln = ins.read(buf);
-      if (ln <= 0) break;
-      output_jar.write(buf,0,ln);
+   try (BufferedInputStream ins = new BufferedInputStream(new FileInputStream(f))) {
+       for ( ; ; ) {
+           int ln = ins.read(buf);
+           if (ln <= 0) break;
+           output_jar.write(buf,0,ln);
+        }
     }
-   ins.close();
    output_jar.closeEntry();
 }
 
@@ -644,28 +644,27 @@ private void addSourceFile() throws IOException
 
 private void addToJarFile(File f,String jnm) throws IOException
 {
-   byte [] buf = new byte[16384];
-
-   if (f.canRead()) {
-      ZipEntry ze = new ZipEntry(jnm);
-      try {
-	 output_jar.putNextEntry(ze);
-       }
-      catch (ZipException ex) {
-	 System.err.println("DUPLICATE: " + ze.getName());
-	 return;
-       }
-
-      BufferedInputStream ins = new BufferedInputStream(new FileInputStream(f));
-      for ( ; ; ) {
-	 int ln = ins.read(buf);
-	 if (ln <= 0) break;
-	 output_jar.write(buf,0,ln);
-       }
-      ins.close();
-      output_jar.closeEntry();
-    }
-
+    byte [] buf = new byte[16384];
+    
+    if (f.canRead()) {
+        ZipEntry ze = new ZipEntry(jnm);
+        try {
+            output_jar.putNextEntry(ze);
+         }
+        catch (ZipException ex) {
+            System.err.println("DUPLICATE: " + ze.getName());
+            return;
+         }
+        
+       try (BufferedInputStream ins = new BufferedInputStream(new FileInputStream(f))) {
+           for ( ; ; ) {
+               int ln = ins.read(buf);
+               if (ln <= 0) break;
+               output_jar.write(buf,0,ln);
+            }
+           output_jar.closeEntry();
+        }
+     }
 }
 
 

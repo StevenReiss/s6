@@ -212,7 +212,7 @@ void checkMethodSignature(S6Request.Check creq,IvyXmlWriter xw) throws S6Excepti
 
    StreamTokenizer stok = getTokenizer(txt);
 
-   AST ast = AST.newAST(AST.JLS12,true);
+   AST ast = AST.newAST(AST.JLS17,true);
    MethodDeclaration md = ast.newMethodDeclaration();
 
    parseModifiers(stok,md);
@@ -693,7 +693,7 @@ void checkClassNames(S6Request.Check creq,boolean mult,IvyXmlWriter xw)
 {
    String txt = creq.getUserInput("NAME");
 
-   AST ast = AST.newAST(AST.JLS12,true);
+   AST ast = AST.newAST(AST.JLS17,true);
    StreamTokenizer tok = getTokenizer(txt);
    StringBuffer buf = new StringBuffer();
 

@@ -89,7 +89,7 @@ class ContextPanel extends SwingGridPanel implements ContextConstants,
 /*										*/
 /********************************************************************************/
 
-private ContextMain	the_context;
+private transient ContextMain	the_context;
 
 private JDialog 	active_dialog;
 
@@ -110,7 +110,7 @@ private JTextField	package_field;
 private JTextField	class_field;
 private JTextField	source_field;
 
-private ContextEclipse	eclipse_iface;
+private transient ContextEclipse eclipse_iface;
 private JTextField	eclipse_workspace;
 private JComboBox<String> eclipse_project;
 private String		cur_project;

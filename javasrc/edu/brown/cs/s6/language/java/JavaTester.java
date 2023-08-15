@@ -470,17 +470,15 @@ private void produceTestFile(Map<String,String> idmap) throws S6Exception
    String dir = idmap.get("SRCDIR");
    File f = new File(dir + File.separator + S6_TEST_CLASS + ".java");
 
-   try {
-      BufferedReader fr = new BufferedReader(new FileReader(JAVA_TEST_PROTO));
-      PrintWriter pw = new PrintWriter(new FileWriter(f));
-      for ( ; ; ) {
-	 String ln = fr.readLine();
-	 if (ln == null) break;
-	 ln = IvyFile.expandName(ln,idmap);
-	 pw.println(ln);
+   try (BufferedReader fr = new BufferedReader(new FileReader(JAVA_TEST_PROTO))) {
+      try (PrintWriter pw = new PrintWriter(new FileWriter(f))) {
+         for ( ; ; ) {
+            String ln = fr.readLine();
+            if (ln == null) break;
+            ln = IvyFile.expandName(ln,idmap);
+            pw.println(ln);
+          }
        }
-      pw.close();
-      fr.close();
     }
    catch (IOException e) {
       throw new S6Exception("Problem creating test file: " + e);
@@ -583,20 +581,17 @@ private void produceAntFile(Map<String,String> idmap) throws S6Exception
 {
    String dir = idmap.get("DIRECTORY");
    File f = new File(dir + File.separator + ANT_FILE);
-
-   try {
-      String proto = JAVA_ANT_PROTO;
-      if (for_request.getSearchType() == S6SearchType.ANDROIDUI) proto = JAVA_ANDROID_ANT_PROTO;
-      BufferedReader fr = new BufferedReader(new FileReader(proto));
-      PrintWriter pw = new PrintWriter(new FileWriter(f));
+   String proto = JAVA_ANT_PROTO;
+   if (for_request.getSearchType() == S6SearchType.ANDROIDUI) proto = JAVA_ANDROID_ANT_PROTO;
+   
+   try (BufferedReader fr = new BufferedReader(new FileReader(proto));
+      PrintWriter pw = new PrintWriter(new FileWriter(f))) {
       for ( ; ; ) {
 	 String ln = fr.readLine();
 	 if (ln == null) break;
 	 ln = IvyFile.expandName(ln,idmap);
 	 pw.println(ln);
        }
-      pw.close();
-      fr.close();
     }
    catch (IOException e) {
       throw new S6Exception("Problem creating ant file: " + e);

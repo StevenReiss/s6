@@ -56,7 +56,8 @@ package edu.brown.cs.s6.slim;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.AccessControlContext;
 import java.security.AccessController;
 import java.security.CodeSource;
@@ -74,6 +75,7 @@ import edu.brown.cs.ivy.file.IvyFile;
 import edu.brown.cs.ivy.file.IvyLog;
 
 
+@SuppressWarnings({"removal"})
 final public class SlimSecurityPolicy extends SecurityManager implements SlimConstants
 {
 
@@ -106,9 +108,9 @@ public SlimSecurityPolicy(String src)
    parent_manager = System.getSecurityManager();
 
    try {
-      code_source = new CodeSource(new URL("file:/pro/s6/java"),(Certificate []) null);
+      code_source = new CodeSource(new URI("file:/pro/s6/java").toURL(),(Certificate []) null);
     }
-   catch (MalformedURLException e) {
+   catch (MalformedURLException | URISyntaxException e) {
       IvyLog.logE("SLIM","Bad source directory");
     }
 

@@ -103,6 +103,7 @@ public SviwebServiceImpl() {
 /*										*/
 /********************************************************************************/
 
+@SuppressWarnings("resource")
 public String sendToServer(String cmd)
 {
    String host = "localhost";

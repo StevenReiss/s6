@@ -41,7 +41,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.w3c.dom.Element;
 
@@ -166,8 +167,8 @@ static Element sendMessageToS6(String cnts)
    Element rslt = null;
 
    try {
-      URL u = new URL("http://bubbles.cs.brown.edu/s6web/dosearch1.php");
-      HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+      URI u = new URI("http://bubbles.cs.brown.edu/s6web/dosearch1.php");
+      HttpURLConnection huc = (HttpURLConnection) u.toURL().openConnection();
       huc.setDoInput(true);
       huc.setDoOutput(true);
       huc.setUseCaches(false);
@@ -193,7 +194,7 @@ static Element sendMessageToS6(String cnts)
       rslt = IvyXml.convertStringToXml(buf.toString());
       ins.close();
     }
-   catch (IOException e) {
+   catch (IOException | URISyntaxException e) {
       IvyLog.logE("SUISE","Error sending to S6: " + e);
       return null;
     }

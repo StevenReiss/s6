@@ -359,8 +359,7 @@ private static String readFile(String fn)
 {
    StringBuffer buf = new StringBuffer();
 
-   try {
-      FileReader fr = new FileReader(fn);
+   try (FileReader fr = new FileReader(fn)) {
       BufferedReader br = new BufferedReader(fr);
       for ( ; ; ) {
 	 String ln = br.readLine();
@@ -368,7 +367,6 @@ private static String readFile(String fn)
 	 buf.append(ln);
 	 buf.append("\n");
        }
-      br.close();
     }
    catch (IOException e) { }
 

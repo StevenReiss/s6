@@ -366,14 +366,14 @@ private synchronized void extractFiles() throws S6Exception
 	 InputStream ins = getJarInputStream(nm);
 	 if (ins == null) continue;
 	 File f = new File(context_dir,nm);
-	 FileOutputStream ots = new FileOutputStream(f);
-	 for ( ; ; ) {
-	    int ln = ins.read(buf);
-	    if (ln < 0) break;
-	    ots.write(buf,0,ln);
-	  }
+	 try (FileOutputStream ots = new FileOutputStream(f)) {
+            for ( ; ; ) {
+               int ln = ins.read(buf);
+               if (ln < 0) break;
+               ots.write(buf,0,ln);
+             }
+          }
 	 ins.close();
-	 ots.close();
        }
       catch (IOException e) {
 	 throw new S6Exception("S6: Problem copying context files",e);

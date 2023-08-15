@@ -104,8 +104,7 @@ static {
    for (String s : StandardAnalyzer.STOP_WORDS) {
       stop_words.add(s);
     }
-   try {
-      BufferedReader br = new BufferedReader(new FileReader(KEYWORD_FILE));
+   try (BufferedReader br = new BufferedReader(new FileReader(KEYWORD_FILE))) {
       for ( ; ; ) {
 	 String ln = br.readLine();
 	 if (ln == null) break;
@@ -114,7 +113,6 @@ static {
 	    stop_words.add(tok.nextToken());
 	  }
        }
-      br.close();
     }
    catch (IOException e) {
       IvyLog.logE("SEARCH","Problem reading keyword file: " + e);
@@ -127,8 +125,7 @@ static {
    word_set = new HashSet<String>();
    String file = "/usr/share/dict/words";
 
-   try {
-      BufferedReader br = new BufferedReader(new FileReader(file));
+   try (BufferedReader br = new BufferedReader(new FileReader(file))) {
       for ( ; ; ) {
 	 String s = br.readLine();
 	 if (s == null) break;
@@ -144,7 +141,6 @@ static {
 	  }
 	 if (fg) word_set.add(s);
        }
-      br.close();
     }
    catch (IOException _e) {
       IvyLog.logE("SEARCH","Unable to read word file " + file);

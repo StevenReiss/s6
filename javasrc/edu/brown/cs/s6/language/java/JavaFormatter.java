@@ -284,15 +284,13 @@ String getText(String id) throws S6Exception
 
    StringBuilder buf = new StringBuilder();
 
-   try {
-      BufferedReader br = new BufferedReader(new FileReader(f1));
+   try (BufferedReader br = new BufferedReader(new FileReader(f1))) {
       for ( ; ; ) {
 	 String ln = br.readLine();
 	 if (ln == null) break;
 	 buf.append(ln);
 	 buf.append("\n");
        }
-      br.close();
       f1.delete();
     }
    catch (IOException e ) {

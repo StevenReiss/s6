@@ -245,8 +245,7 @@ private File generateCheckFile(S6Request.Check creq,Map<Integer,Integer> errmap)
     }
    if (otf == null) throw new S6Exception("Problem creating contract file");
 
-   try {
-      PrintWriter pw = new PrintWriter(otf);
+   try (PrintWriter pw = new PrintWriter(otf)) {
       int lno = 1;
       pw.println("public abstract class " + fnm + " {");
       ++lno;
@@ -297,7 +296,6 @@ private File generateCheckFile(S6Request.Check creq,Map<Integer,Integer> errmap)
        }
       pw.println("}");
       ++lno;
-      pw.close();
     }
    catch (IOException e) {
       throw new S6Exception("Problem setting upt contract file: " + e);

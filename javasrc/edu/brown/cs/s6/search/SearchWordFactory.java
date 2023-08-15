@@ -438,8 +438,7 @@ private static void setupWordSets()
    File f2 = IvyFile.expandFile("$(S6)/lib");
    File f = new File(f2,WORD_LIST_FILE);
 
-   try {
-      BufferedReader br = new BufferedReader(new FileReader(f));
+   try (BufferedReader br = new BufferedReader(new FileReader(f))) {
       for ( ; ; ) {
 	 String wd = br.readLine();
 	 if (wd == null) break;
@@ -458,7 +457,6 @@ private static void setupWordSets()
 	     }
 	  }
        }
-      br.close();
     }
    catch (IOException e) {
       System.err.println("S6WORD: Problem reading word file:" + e);

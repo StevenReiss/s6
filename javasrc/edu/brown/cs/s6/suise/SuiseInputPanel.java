@@ -83,7 +83,7 @@ class SuiseInputPanel extends JFrame implements SuiseConstants, CoseConstants
 /*                                                                              */
 /********************************************************************************/
 
-private SuiseMain       suise_main;
+private transient SuiseMain       suise_main;
 private JTextField      keyword_field;
 private JComboBox<CoseScopeType> scope_field;
 private JComboBox<S6Location> source_field;
@@ -92,9 +92,9 @@ private JButton         search_button;
 private JSVGCanvas      svg_canvas;
 private File            base_file;
 private JTextField      file_field;
-private WatchService    watch_service;
+private transient WatchService    watch_service;
 private long            last_modified;
-private SuiseRawComponent file_root;
+private transient SuiseRawComponent file_root;
 
 private static final long serialVersionUID = 1;
 

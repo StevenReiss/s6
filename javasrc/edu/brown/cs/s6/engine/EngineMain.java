@@ -611,17 +611,14 @@ public String handleFileRequest(Element xml) throws S6Exception
 
    try {
       File tmp = File.createTempFile("s6data",ext,tdir);
-      BufferedOutputStream ots = new BufferedOutputStream(new FileOutputStream(tmp));
-
-      for ( ; pos < len; ++pos) {
-	 int c0 = Character.digit(cnts.charAt(2*pos),16);
-	 int c1 = Character.digit(cnts.charAt(2*pos+1),16);
-	 byte b = (byte)(((c0 & 0xf) << 4) + (c1 & 0xf));
-	 ots.write(b);
+      try (BufferedOutputStream ots = new BufferedOutputStream(new FileOutputStream(tmp))) {
+         for ( ; pos < len; ++pos) {
+            int c0 = Character.digit(cnts.charAt(2*pos),16);
+            int c1 = Character.digit(cnts.charAt(2*pos+1),16);
+            byte b = (byte)(((c0 & 0xf) << 4) + (c1 & 0xf));
+            ots.write(b);
+          }
        }
-
-      ots.close();
-
       return tmp.getPath();
     }
    catch (IOException e) {

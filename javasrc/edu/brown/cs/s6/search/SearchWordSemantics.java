@@ -131,7 +131,7 @@ SearchWordSemantics(String text)
 {
    ast_root = null;
    if (text != null) {
-      ASTParser parser = ASTParser.newParser(AST.JLS12);
+      ASTParser parser = ASTParser.newParser(AST.JLS17);
       Map<String,String> options = JavaCore.getOptions();
       JavaCore.setComplianceOptions(JavaCore.VERSION_1_8,options);
       parser.setCompilerOptions(options);

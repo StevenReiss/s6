@@ -72,7 +72,7 @@ class SuiseCodePanel extends JFrame implements SuiseConstants
 /*                                                                              */
 /********************************************************************************/
 
-private List<CodeSolution>      code_solutions;
+private transient List<CodeSolution>      code_solutions;
 private JPanel                  solution_panel;
 
 private static final long serialVersionUID = 1;

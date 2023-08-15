@@ -701,7 +701,7 @@ private static class TreeCopy {
    private ASTNode new_base;
 
    TreeCopy(ASTNode base) {
-      new_ast = AST.newAST(AST.JLS12,true);
+      new_ast = AST.newAST(AST.JLS17,true);
       old_base = base;
       new_base = null;
     }

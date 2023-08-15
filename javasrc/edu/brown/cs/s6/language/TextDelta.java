@@ -89,6 +89,11 @@ public abstract String apply(String orig);
 
 
 
+
+
+
+
+
 }	// end of abstract class TextDelta
 
 

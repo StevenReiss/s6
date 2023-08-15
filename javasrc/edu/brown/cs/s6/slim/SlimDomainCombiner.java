@@ -55,6 +55,7 @@ import java.security.DomainCombiner;
 import java.security.ProtectionDomain;
 
 
+@SuppressWarnings("removal")
 class SlimDomainCombiner implements DomainCombiner, SlimConstants {
 
 

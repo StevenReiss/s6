@@ -866,7 +866,7 @@ private static class PackageFragment extends FragmentJava {
       for (FileFragment ff : file_fragments) {
          CompilationUnit fn = (CompilationUnit) ff.getAstNode();
          if (root_node == null) {
-            AST nast = AST.newAST(AST.JLS12,true);
+            AST nast = AST.newAST(AST.JLS17,true);
             root_node = (CompilationUnit) ASTNode.copySubtree(nast,fn);
             // root_node = fn;
           }
@@ -881,7 +881,7 @@ private static class PackageFragment extends FragmentJava {
           }
        }
       source_text = root_node.toString();
-      ASTParser parser = ASTParser.newParser(AST.JLS12);
+      ASTParser parser = ASTParser.newParser(AST.JLS17);
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
       Map<String,String> options = JavaCore.getOptions();
       JavaCore.setComplianceOptions(JavaCore.VERSION_1_7,options);
@@ -1780,7 +1780,7 @@ private static class FragmentDelta {
 
    ASTNode getAstNode() {
       String txt = getSourceText();
-      ASTParser parser = ASTParser.newParser(AST.JLS12);
+      ASTParser parser = ASTParser.newParser(AST.JLS17);
       parser.setKind(ASTParser.K_COMPILATION_UNIT);
       Map<String,String> options = JavaCore.getOptions();
       JavaCore.setComplianceOptions(JavaCore.VERSION_1_7,options);
@@ -1791,10 +1791,10 @@ private static class FragmentDelta {
       PositionFinder pf = new PositionFinder(fragment_type,node_start,node_length);
       cu.accept(pf);
       if (pf.getAstNode() == null) {
-	 System.err.println("FRAGMENT: COULDN'T FIND AST NODE: " + node_start + " " + node_length + " " + txt);
-	 cu.accept(pf);
+         System.err.println("FRAGMENT: COULDN'T FIND AST NODE: " + node_start + " " + node_length + " " + txt);
+         cu.accept(pf);
        }
-
+   
       return pf.getAstNode();
     }
 

@@ -265,8 +265,7 @@ private void extractS6Test()
    File output = new File(test_directory,"S6Test" + original_file.getName());
    PrintWriter fw = null;
    String lastln = null;
-   try {
-      BufferedReader fr = new BufferedReader(new FileReader(rslt));
+   try (BufferedReader fr = new BufferedReader(new FileReader(rslt))) {
       for ( ; ; ) {
 	 String ln = fr.readLine();
 	 if (ln == null) break;
@@ -303,7 +302,6 @@ private void extractS6Test()
 	       break;
 	  }
        }
-      fr.close();
     }
    catch (IOException e) {
       System.err.println("TGENRUNNER: Problem extracting solution: " + e);

@@ -84,14 +84,14 @@ class SuiseResultPanel extends JFrame implements SuiseConstants
 private String          result_uid;
 private String          testcase_uid;
 
-private List<SearchResult> result_list;
+private transient List<SearchResult> result_list;
 
 private JPanel          display_panel;
 private JPanel          result_panel;
 private JScrollPane     result_pane;
 private JLabel          status_area;
 private JButton         finish_button;
-private Finisher        finish_handler;
+private transient Finisher        finish_handler;
 
 private static int      IMAGE_WIDTH = 300;
 private static int      IMAGE_HEIGHT = 300;

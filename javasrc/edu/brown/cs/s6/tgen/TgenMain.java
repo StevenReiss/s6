@@ -943,8 +943,7 @@ private static class Counter extends ASTVisitor {
 
 private void readKeywords()
 {
-   try {
-      BufferedReader br = new BufferedReader(new FileReader(TGEN_KEYWORDS));
+   try (BufferedReader br = new BufferedReader(new FileReader(TGEN_KEYWORDS))) {
       List<String> rslt = new ArrayList<String>();
       String key = null;
       for ( ; ; ) {
@@ -969,7 +968,6 @@ private void readKeywords()
 	 arr = rslt.toArray(arr);
 	 keyword_map.put(key,arr);
        }
-      br.close();
     }
    catch (IOException e) {
       System.err.println("TGEN: Problem reading keyword file: " + e);

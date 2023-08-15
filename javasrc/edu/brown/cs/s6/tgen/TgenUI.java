@@ -52,6 +52,8 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -796,7 +798,7 @@ static Element sendMessageToS6(String cnts)
    Element rslt = null;
 
    try {
-      URL u = new URL("http://bubbles.cs.brown.edu/s6web/dosearch1.php");
+      URL u = new URI("http://bubbles.cs.brown.edu/s6web/dosearch1.php").toURL();
       HttpURLConnection huc = (HttpURLConnection) u.openConnection();
       huc.setDoInput(true);
       huc.setDoOutput(true);
@@ -823,7 +825,7 @@ static Element sendMessageToS6(String cnts)
       rslt = IvyXml.convertStringToXml(buf.toString());
       ins.close();
     }
-   catch (IOException e) {
+   catch (IOException | URISyntaxException e) {
       IvyLog.logE("TGENUI","Error sending to S6: " + e);
       return null;
     }
@@ -879,20 +881,20 @@ private class SearchHandler extends Thread {
 
    private String encodeFile(File f) throws IOException {
       StringBuffer rslt = new StringBuffer();
-      FileInputStream ins = new FileInputStream(f);
-      byte [] buf = new byte[8192];
-      for ( ; ; ) {
-	 int rln = ins.read(buf);
-	 if (rln < 0) break;
-	 for (int i = 0; i < rln; ++i) {
-	    int v = buf[i] & 0xff;
-	    if (i % 32 == 0 && i != 0) rslt.append("\n");
-	    String s1 = Integer.toHexString(v);
-	    if (s1.length() == 1) rslt.append("0");
-	    rslt.append(s1);
-	  }
+      try (FileInputStream ins = new FileInputStream(f)) {
+         byte [] buf = new byte[8192];
+         for ( ; ; ) {
+            int rln = ins.read(buf);
+            if (rln < 0) break;
+            for (int i = 0; i < rln; ++i) {
+               int v = buf[i] & 0xff;
+               if (i % 32 == 0 && i != 0) rslt.append("\n");
+               String s1 = Integer.toHexString(v);
+               if (s1.length() == 1) rslt.append("0");
+               rslt.append(s1);
+             }
+          }
        }
-      ins.close();
       return rslt.toString();
     }
 
@@ -904,7 +906,7 @@ private class SearchHandler extends Thread {
 private class ResultPanel extends JFrame {
 
    private JPanel display_panel;
-   private Finisher finish_handler;
+   private transient Finisher finish_handler;
    private JLabel status_area;
 
    private static final long serialVersionUID = 1;

@@ -120,6 +120,7 @@ protected void doGet(HttpServletRequest req,HttpServletResponse rsp) throws IOEx
 
 
 
+@SuppressWarnings("resource")
 protected void doPost(HttpServletRequest req,HttpServletResponse rsp) throws IOException
 {
    ServletInputStream ins = req.getInputStream();

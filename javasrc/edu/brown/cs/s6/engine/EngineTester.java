@@ -315,15 +315,13 @@ private static void allTests()
 
    char [] buf = new char[8192];
    for (File t : tests) {
-      try {
-	 FileReader fr = new FileReader(t);
+      try (FileReader fr = new FileReader(t)) {
 	 for ( ; ; ) {
 	    int len = fr.read(buf);
 	    if (len < 0) break;
 	    w.write(buf,0,len);
 	  }
 	 w.flush();
-	 fr.close();
 	 String rslt = xr.readXml();
 	 System.err.println("TEST " + t + ": " + rslt);
        }

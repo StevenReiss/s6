@@ -608,27 +608,25 @@ private class FinderFile {
     }
 
    S6Fragment getFragment() {
-      if (file_fragment == null) {
-	 StringBuilder buf = new StringBuilder();
-	 try {
-	    BufferedReader br = new BufferedReader(new FileReader(file_name));
-	    for ( ; ; ) {
-	       String ln = br.readLine();
-	       if (ln == null) break;
-	       buf.append(ln);
-	       buf.append("\n");
-	     }
-	    br.close();
-	  }
-	 catch (IOException e) {
-	    System.err.println("FINDER: Problem reading file " + file_name + ": " + e);
-	    return null;
-	  }
-	 FinderSource src = new FinderSource(file_name.toString());
-	 file_fragment = createFileFragment(buf.toString(),src,null);
-       }
-      return file_fragment;
-    }
+       if (file_fragment == null) {
+           StringBuilder buf = new StringBuilder();
+           try (BufferedReader br = new BufferedReader(new FileReader(file_name))) {
+               for ( ; ; ) {
+                   String ln = br.readLine();
+                   if (ln == null) break;
+                   buf.append(ln);
+                   buf.append("\n");
+                }
+            }
+           catch (IOException e) {
+               System.err.println("FINDER: Problem reading file " + file_name + ": " + e);
+               return null;
+            }
+           FinderSource src = new FinderSource(file_name.toString());
+           file_fragment = createFileFragment(buf.toString(),src,null);
+        }
+       return file_fragment;
+   }
 
 }	// end of subclass FinderFile
 

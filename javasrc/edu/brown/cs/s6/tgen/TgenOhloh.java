@@ -37,7 +37,6 @@ package edu.brown.cs.s6.tgen;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -144,11 +143,10 @@ private List<TgenSource> getSourceSetPaged(String keys,TgenSource orig,TgenProje
 
    for (URI uri : uris) {
       try {
-	 URL url = uri.toURL();
-	 String text = loadURL(url,true);
+	 String text = loadURL(uri.toURL(),true);
 	 if (text == null) break;
-	 Element doc = Jsoup.parse(text,url.toString());
-	 if (!addSources(url,doc,orig,proj,rslt)) break;
+	 Element doc = Jsoup.parse(text,uri.toString());
+	 if (!addSources(uri,doc,orig,proj,rslt)) break;
        }
       catch (IOException e) {
 	 System.err.println("TGEN: Problem converting url " + uri + ": " + e);
@@ -163,7 +161,7 @@ private List<TgenSource> getSourceSetPaged(String keys,TgenSource orig,TgenProje
 
 
 
-private boolean addSources(URL base,Element doc,TgenSource orig,
+private boolean addSources(URI base,Element doc,TgenSource orig,
       TgenProject proj,List<TgenSource> rslts)
 {
    Elements pmap = doc.select("#fp div.facetList");
@@ -198,19 +196,16 @@ private boolean addSources(URL base,Element doc,TgenSource orig,
       url = felt.attr("href");
       String key = felt.attr("title");
       String src = null;
-      URL href = null;
-      try {
-	 String fid = getParam(url,"fid");
-	 String cid = getParam(url,"cid");
-	 if (fid != null && cid != null) {
-	    src = "OHLOH:/file?fid=" + fid + "&cid=" + cid;
-	    int idx2 = url.indexOf("?");
-	    String nurl = url.substring(0,idx2+1);
-	    nurl += "fid=" + fid + "&cid=" + cid + "&dl=undefined";
-	    href = new URL(base,nurl);
-	  }
+      URI href = null;
+      String fid = getParam(url,"fid");
+      String cid = getParam(url,"cid");
+      if (fid != null && cid != null) {
+         src = "OHLOH:/file?fid=" + fid + "&cid=" + cid;
+         int idx2 = url.indexOf("?");
+         String nurl = url.substring(0,idx2+1);
+         nurl += "fid=" + fid + "&cid=" + cid + "&dl=undefined";
+         href = base.resolve(nurl);
        }
-      catch (MalformedURLException e) { }
 
       TgenSource fs = new TgenSource(this,pnam,pid,key,src,href,orig);
       if (fs.isValid()) rslts.add(fs);

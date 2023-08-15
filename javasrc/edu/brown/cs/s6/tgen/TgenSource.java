@@ -35,7 +35,7 @@
 
 package edu.brown.cs.s6.tgen;
 
-import java.net.URL;
+import java.net.URI;
 
 import edu.brown.cs.ivy.jcomp.JcompSource;
 
@@ -53,7 +53,7 @@ private TgenOhloh search_access;
 
 private String project_id;
 private String project_name;
-private URL file_href;
+private URI file_href;
 private String s6_source;
 private String source_text;
 private String file_name;
@@ -66,7 +66,7 @@ private String file_name;
 /*                                                                              */
 /********************************************************************************/
 
-TgenSource(TgenOhloh toh,String pname,String pid,String fnm,String src,URL href,
+TgenSource(TgenOhloh toh,String pname,String pid,String fnm,String src,URI href,
       TgenSource orig)
 {
    search_access = toh;
@@ -106,7 +106,7 @@ String getClassFileName()
 synchronized String getText() {
    if (source_text == null) {
       try {
-         source_text = search_access.loadURL(file_href,true);
+         source_text = search_access.loadURL(file_href.toURL(),true);
        }
       catch (Exception e) {
          System.err.println("TGEN: Problem loading file " + file_href + ": " + e);
