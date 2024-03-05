@@ -1,0 +1,133 @@
+<project name='s6' default='all'>
+
+   <property file='build.properties' />
+
+   <available file="./build.properties" type='file' property='setup.done' />
+   <path id='setuppath'>
+      <pathelement location='..' />
+   </path>
+   <path id='s6path'>
+      <pathelement location='.' />
+   </path>
+   <property name='setupfile' refid='setuppath' />
+   <property name='s6file' refid='s6path' />
+   <property name='PRO' value='${setupfile}' />
+   <property name='S6' value='${s6file}' />
+
+   <target name='setup' unless='setup.done'>
+      <echo file='./build.properties' message="PRO=${setupfile}${line.separator}" />
+      <echo file='./build.properties' message='S6=${s6file}${line.separator}' append='true' />
+      <mkdir dir='./java/edu/brown/cs/s6' />
+      <property name='PRO' value='${setupfile}' />
+      <property name='S6' value='${s6file}' />
+   </target>
+
+
+   <available file='${PRO}/ivy' type="dir" property="ivy.present" />
+   <property name='IVYLIB' value='${PRO}/ivy/lib' />
+   <property name='GWT' value='${S6}/public/gwt' />
+
+   <property name='S6LIB' value='${S6}/lib' />
+   <path id='spr.classpath'>
+     <pathelement location='${S6}/java' />
+     <pathelement location='${S6}/javasrc' />
+     <fileset dir='${IVYLIB}' includes='ivy.jar' />
+     <fileset dir='${S6LIB}' includes='lucene230.jar' />
+     <fileset dir='${GWT}' includes='gwt-user.jar' />
+     <fileset dir='${GWT}' includes='gwt-dev-linux.jar' />
+     <fileset dir='${IVYLIB}' includes='asm.jar' />
+     <fileset dir='${IVYLIB}' includes='json.jar' />
+     <fileset dir='${IVYLIB}' includes='junit.jar' />
+     <fileset dir='${IVYLIB}' includes='jsoup.jar' />
+     <fileset dir='${S6LIB}' includes='batik.jar' />
+     <fileset dir='${S6LIB}' includes='xml-apis-ext.jar' />
+     <fileset dir='${S6LIB}' includes='jsyntaxpane.jar' />
+     <fileset dir='${S6LIB}' includes='androidcommon.jar' />
+     <fileset dir='${S6LIB}' includes='ddmlib.jar' />
+     <fileset dir='${S6LIB}' includes='jtar-1-1.jar' />
+     <fileset dir='${S6LIB}' includes='cose.jar' />
+     <fileset dir='${IVYLIB}/eclipsejar' includes='*.jar' />
+  </path>
+
+  <target name='all' depends='setup,compile' />
+
+  <target name='compile' depends='setup'>
+     <javac srcdir='javasrc' destdir='${S6}/java' debug='on' deprecation='on' includeantruntime='false'>
+	<classpath refid='spr.classpath' />
+     </javac>
+  </target>
+
+  <target name='jar' depends='compile'>
+     <jar destfile='s6.jar'>
+	<manifest>
+	   <attribute name='Main-Class' value='edu.brown.cs.s6.catmain.CatmainMain' />
+	</manifest>
+	<fileset dir='${S6}/java' includes='**/*.class' />
+	<zipfileset src='${S6LIB}/ivy.jar' excludes='META-INF/*' />
+	<zipfileset src='${S6LIB}/json.jar' excludes='META-INF/*' />
+	<zipfileset src='${S6LIB}/junit.jar' excludes='META-INF/*' />
+	<zipfileset src='${S6LIB}/googleapi.jar' excludes='META-INF/*' />
+	<zipfileset src='${S6LIB}/mongojava.jar' excludes='META-INF/*' />
+	<zipfileset src='${S6LIB}/nanohttpd.jar' excludes='META-INF/*' />
+	<zipfileset src='${S6LIB}/karma.jar' excludes='META-INF/*' />
+	<zipfileset src='${S6LIB}/jsoup.jar' excludes='META-INF/*' />
+     </jar>
+     <copy file='s6.jar' tofile='${S6}/../bin/s6.jar' />
+   </target>
+
+   <target name='test-setup' depends='compile'>
+      <java classname='edu.brown.cs.s6.cattest.CattestSetup' fork='true'>
+	 <classpath refid='spr.classpath' />
+      </java>
+   </target>
+
+</project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
