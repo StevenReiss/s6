@@ -602,6 +602,11 @@ ifdef SUBDIRS
 	   done
 endif
 
+testjp: 
+	echo $(JAVAPATH)
+	echo $(JBINDIR)
+	echo $(BROWN_S6_ROOT)
+
 -include javadep
 
 
